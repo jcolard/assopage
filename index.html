@@ -50,7 +50,7 @@
         .qbutton {
             display: inline-block; font-family: var(--font-title); text-transform: uppercase;
             font-size: 18px; letter-spacing: 1px; font-weight: 500; text-decoration: none;
-            padding: 15px 35px; transition: all 0.3s ease; text-align: center; border: 2px solid transparent;
+            padding: 15px 35px; transition: all 0.3s ease; text-align: center; border: 2px solid transparent; cursor: pointer;
         }
         .qbutton.yellow { background-color: var(--yellow); color: var(--black); }
         .qbutton.yellow:hover { background-color: var(--black); color: var(--white); }
@@ -71,7 +71,8 @@
             color: var(--black); margin-left: 30px; font-size: 1rem; transition: color 0.2s;
         }
         .nav-links a:hover { color: #888; }
-        @media (max-width: 768px) { .nav-links { display: none; } }
+        .nav-links a.client-portal { color: #d69e00; }
+        @media (max-width: 900px) { .nav-links { display: none; } }
 
         /* ─── LAYOUT GLOBALE ─── */
         .section { padding: 100px 20px; }
@@ -82,25 +83,27 @@
         /* ─── HERO SECTION ─── */
         .hero {
             height: 100vh; min-height: 600px;
-            background-image: url('le fond.png'); /* TON IMAGE ICI */
+            background-image: url('le fond.png');
             background-size: cover; background-position: center;
-            display: flex; align-items: center; justify-content: center;
-            position: relative; text-align: center; padding: 0 20px;
-            background-color: #111; /* Fallback */
+            display: flex; align-items: center; 
+            justify-content: flex-start; /* Aligné à gauche pour éviter la tête à droite */
+            position: relative; text-align: left; padding: 0 8%;
+            background-color: #111; 
         }
-        /* Overlay sombre pour garantir la lisibilité sur ton fond */
-        .hero::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 1; }
-        .hero-content { position: relative; z-index: 2; max-width: 800px; margin-top: 50px;}
+        .hero::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1; }
+        .hero-content { position: relative; z-index: 2; max-width: 650px; margin-top: 50px;}
         .hero h1 {
             color: var(--white); font-size: clamp(2.5rem, 5vw, 4.5rem);
             letter-spacing: 4px; line-height: 1.2; margin-bottom: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-align: left;
         }
+        .hero .separator-small { margin: 0 0 30px 0; }
         .hero p {
             color: var(--white); font-family: var(--font-title); font-size: clamp(1.2rem, 2vw, 1.8rem);
             font-weight: 300; margin-bottom: 40px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
 
-        /* ─── LOGOS (CLOUDINARY) - MISE EN AVANT ─── */
+        /* ─── LOGOS ─── */
         .logos-section { background-color: var(--yellow); padding: 60px 0; overflow: hidden; border-bottom: 3px solid var(--black);}
         .logos-section h3 { text-align: center; font-size: 1.2rem; margin-bottom: 30px; letter-spacing: 2px; }
         .marquee { display: flex; gap: 60px; width: max-content; animation: marquee 20s linear infinite; align-items: center;}
@@ -108,19 +111,20 @@
         .marquee img { height: 60px; width: auto; filter: grayscale(100%) contrast(120%); opacity: 0.8; transition: all 0.3s; }
         .marquee img:hover { filter: grayscale(0%); opacity: 1; }
 
-        /* ─── ABOUT (C'EST QUI LUI ?) ─── */
+        /* ─── ABOUT ─── */
         .about-section { background-color: var(--white); }
         .about-text h2 { text-align: left; }
         .about-text .separator-small { margin: 0 0 30px 0; }
         .about-image img { width: 100%; box-shadow: -15px 15px 0px var(--yellow); border: 2px solid var(--black);}
         @media (max-width: 768px) { .about-text h2 { text-align: center; } .about-text .separator-small { margin: 0 auto 30px auto; } }
 
-        /* ─── OFFRES (ASSOPAGE) ─── */
+        /* ─── OFFRES (STRIPE) ─── */
         .offers-section { background-color: var(--grey-light); }
         .offers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 50px; }
         .offer-card {
             background: var(--white); padding: 40px 30px; text-align: center;
             border: 1px solid #ddd; transition: transform 0.3s;
+            display: flex; flex-direction: column;
         }
         .offer-card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-color: var(--yellow);}
         .offer-card.featured { background-color: var(--yellow); border-color: var(--black); box-shadow: 8px 8px 0px var(--black); }
@@ -128,7 +132,7 @@
         .offer-price { font-family: var(--font-title); font-size: 3rem; color: var(--black); margin-bottom: 20px; line-height: 1;}
         .offer-price span { font-size: 1rem; color: var(--text-grey); }
         .offer-card p { font-size: 0.95rem; margin-bottom: 30px; min-height: 60px;}
-        .offer-card ul { list-style: none; margin-bottom: 30px; text-align: left; }
+        .offer-card ul { list-style: none; margin-bottom: 30px; text-align: left; flex-grow: 1; }
         .offer-card ul li { margin-bottom: 10px; font-size: 0.95rem; padding-left: 25px; position: relative; color: var(--text-grey);}
         .offer-card ul li::before { content: '✓'; position: absolute; left: 0; color: var(--black); font-weight: bold; }
 
@@ -140,6 +144,10 @@
         .testi-author { font-family: var(--font-title); text-transform: uppercase; font-weight: 700; color: var(--black); }
         .testi-role { font-size: 0.85rem; color: #666; }
 
+        /* ─── PORTFOLIO / SUR-MESURE ─── */
+        .portfolio-section { background-color: var(--black); color: var(--white); text-align: center; }
+        .portfolio-section h2 { color: var(--white); }
+
         /* ─── CONTACT ─── */
         .contact-section { background-color: var(--white); text-align: center; }
         .contact-wrapper { max-width: 600px; margin: 0 auto; }
@@ -150,6 +158,8 @@
         footer .logo { color: var(--white); margin-bottom: 30px; display: inline-block; }
         .social-icons a { color: var(--white); font-size: 24px; margin: 0 15px; text-decoration: none; transition: color 0.2s; }
         .social-icons a:hover { color: var(--yellow); }
+        .footer-links a { color: #aaa; text-decoration: none; font-size: 0.9rem; margin: 0 10px; }
+        .footer-links a:hover { color: var(--yellow); }
     </style>
 </head>
 <body>
@@ -158,22 +168,23 @@
         <a href="#" class="logo">Jérémy Colard <span>| Assopage</span></a>
         <div class="nav-links">
             <a href="#vision">La Vision</a>
-            <a href="#clients">Ils agissent</a>
             <a href="#offres">Systèmes</a>
+            <a href="#portfolio">Sur-mesure</a>
             <a href="#contact">Contact</a>
+            <a href="https://billing.stripe.com/p/login/28E28q4Th9lS5Rf11PdAk00" target="_blank" class="client-portal"><i class="fa-solid fa-user"></i> Espace Client</a>
         </div>
     </nav>
 
     <header class="hero">
         <div class="hero-content">
             <h1>Le Web Associatif<br><span style="color: var(--yellow);">D'Action</span></h1>
-            <div class="separator-small" style="margin: 0 auto 30px auto;"></div>
+            <div class="separator-small"></div>
             <p>Fini les sites vitrines qui prennent la poussière 😓<br>👇 Je construis des outils pour les assos qui bougent sur le terrain.</p>
             <a href="#contact" class="qbutton yellow">Passer à l'action 🔥</a>
         </div>
     </header>
 
-    <div class="logos-section" id="clients">
+    <div class="logos-section">
         <h3>ILS FONT TOURNER LEUR ASSO AVEC MOI</h3>
         <div class="marquee">
             <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/zenith2_huztz0.png" alt="Zénith" />
@@ -214,7 +225,7 @@
         <div class="container">
             <h2>Les Systèmes Assopage</h2>
             <div class="separator-small separator-dark"></div>
-            <p style="text-align: center; max-width: 600px; margin: 0 auto;">Hébergement, maintenance, évolutions... Je gère tout de A à Z. Zéro engagement, vous restez parce que l'outil fait grandir votre asso.</p>
+            <p style="text-align: center; max-width: 600px; margin: 0 auto;">Une fois que nous avons validé ensemble que l'outil correspond à vos besoins, démarrez votre abonnement en toute sécurité via Stripe. Sans engagement.</p>
 
             <div class="offers-grid">
                 <div class="offer-card">
@@ -226,7 +237,7 @@
                         <li>Nom de domaine inclus</li>
                         <li>1 évolution par mois</li>
                     </ul>
-                    <a href="#contact" class="qbutton dark" style="width: 100%;">Démarrer</a>
+                    <a href="https://buy.stripe.com/28E28q4Th9lS5Rf11PdAk00" class="qbutton dark" style="width: 100%;">Souscrire</a>
                 </div>
 
                 <div class="offer-card featured">
@@ -239,7 +250,7 @@
                         <li>Photos en direct </li>
                         <li>Billetterie intégrée</li>
                     </ul>
-                    <a href="#contact" class="qbutton dark" style="width: 100%;">Le plus populaire</a>
+                    <a href="https://buy.stripe.com/fZu8wO0D1cy40wV7qddAk01" class="qbutton dark" style="width: 100%;">Souscrire</a>
                 </div>
 
                 <div class="offer-card">
@@ -252,7 +263,7 @@
                         <li>Rappels auto de paiement</li>
                         <li>Jusqu'à 9 admins</li>
                     </ul>
-                    <a href="#contact" class="qbutton dark" style="width: 100%;">Démarrer</a>
+                    <a href="https://buy.stripe.com/bJe14madBapW93reSFdAk02" class="qbutton dark" style="width: 100%;">Souscrire</a>
                 </div>
 
                 <div class="offer-card">
@@ -265,7 +276,7 @@
                         <li>Campagnes mails</li>
                         <li>Google Workspace</li>
                     </ul>
-                    <a href="#contact" class="qbutton dark" style="width: 100%;">Démarrer</a>
+                    <a href="https://buy.stripe.com/5kQfZgfxV69G93reSFdAk03" class="qbutton dark" style="width: 100%;">Souscrire</a>
                 </div>
             </div>
         </div>
@@ -298,6 +309,16 @@
         </div>
     </section>
 
+    <section class="section portfolio-section" id="portfolio">
+        <div class="container">
+            <h2>Besoin d'aller plus loin ?</h2>
+            <div class="separator-small" style="margin: 0 auto 30px auto;"></div>
+            <p style="color: #ccc; max-width: 700px; margin: 0 auto 20px auto;">Les systèmes Assopage couvrent 95% des besoins standards des associations. Mais parfois, vous avez besoin d'une application métier ultra-spécifique ou d'un développement complexe sur-mesure.</p>
+            <p style="color: #ccc; max-width: 700px; margin: 0 auto 40px auto;">Si vous avez un projet d'envergure (sur devis) ou si vous souhaitez simplement voir une preuve technique de ce que je suis capable de coder, jetez un œil à mon portfolio de développeur.</p>
+            <a href="https://www.je-co.fr" target="_blank" class="qbutton yellow">Découvrir mes réalisations (je-co.fr)</a>
+        </div>
+    </section>
+
     <section class="section contact-section" id="contact">
         <div class="container contact-wrapper">
             <i class="fa-solid fa-bolt contact-icon"></i>
@@ -314,10 +335,17 @@
     <footer>
         <a href="#" class="logo">Jérémy Colard</a>
         <div class="separator-small" style="margin: 20px auto;"></div>
+        
         <div class="social-icons">
-            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/in/j%C3%A9r%C3%A9my-colard-26a7a1287/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://www.je-co.fr" target="_blank" aria-label="Portfolio Je-co"><i class="fa-solid fa-globe"></i></a>
         </div>
+        
+        <div class="footer-links" style="margin-top: 25px;">
+            <a href="https://billing.stripe.com/p/login/28E28q4Th9lS5Rf11PdAk00" target="_blank">Gérer mon abonnement</a> | 
+            <a href="https://www.je-co.fr" target="_blank">Portfolio Sur-mesure</a>
+        </div>
+        
         <p style="margin-top: 30px; font-size: 0.9rem; color: #666;">© 2026 Assopage par Jérémy Colard. Tous droits réservés.</p>
     </footer>
 
