@@ -107,7 +107,6 @@
             position: relative; text-align: left; padding: 0 8%;
             background-color: #111; 
         }
-        /* Légèrement décalé à droite sur mobile pour ne pas couper le visage */
         @media (max-width: 768px) {
             .hero {
                 background-position: 62% center;
@@ -137,7 +136,7 @@
         .about-section { background-color: var(--white); }
         .about-text h2 { text-align: left; }
         .about-text .separator-small { margin: 0 0 30px 0; }
-        .about-image img { width: 100%; box-shadow: -15px 15px 0px var(--yellow); border: 2px solid var(--black);}
+        .about-image img { width: 100%; max-width: 320px; display: block; margin: 0 auto; }
         @media (max-width: 768px) { .about-text h2 { text-align: center; } .about-text .separator-small { margin: 0 auto 30px auto; } }
 
         /* ─── ABOUT : liste à puces ─── */
@@ -219,7 +218,6 @@
             padding-top: 10px;
         }
 
-        /* Bouton portfolio sous offres */
         .offers-cta { text-align: center; margin-top: 50px; }
 
         /* ─── TEMOIGNAGES ─── */
@@ -313,7 +311,7 @@
                 <a href="#contact" class="qbutton dark">Échangeons sur votre projet</a>
             </div>
             <div class="about-image">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800" alt="Jérémy Colard en action">
+                <img src="demo-appli.gif" alt="Démonstration de l'application AssoPage">
             </div>
         </div>
     </section>
@@ -326,7 +324,6 @@
 
             <div class="offers-grid">
 
-                <!-- OFFRE 1 : VITRINE -->
                 <div class="offer-card">
                     <h3>Vitrine</h3>
                     <div class="offer-price">15€<span>/mois</span></div>
@@ -346,7 +343,6 @@
                     <a href="https://buy.stripe.com/28E28q4Th9lS5Rf11PdAk00" class="qbutton dark" style="width: 100%;">Souscrire</a>
                 </div>
 
-                <!-- OFFRE 2 : SITE + APP -->
                 <div class="offer-card featured">
                     <h3>Site + App</h3>
                     <div class="offer-price">25€<span>/mois</span></div>
@@ -363,7 +359,6 @@
                     <a href="https://buy.stripe.com/fZu8wO0D1cy40wV7qddAk01" class="qbutton dark" style="width: 100%;">Souscrire</a>
                 </div>
 
-                <!-- OFFRE 3 : GESTION (anciennement "App+") -->
                 <div class="offer-card">
                     <h3>Gestion</h3>
                     <div class="offer-price">35€<span>/mois</span></div>
@@ -380,7 +375,6 @@
                     <a href="https://buy.stripe.com/bJe14madBapW93reSFdAk02" class="qbutton dark" style="width: 100%;">Souscrire</a>
                 </div>
 
-                <!-- OFFRE 4 : PRO -->
                 <div class="offer-card">
                     <h3>Pro</h3>
                     <div class="offer-price">45€<span>/mois</span></div>
@@ -400,7 +394,6 @@
 
             </div>
 
-            <!-- CTA portfolio après les offres -->
             <div class="offers-cta">
                 <a href="https://www.je-co.fr" target="_blank" class="qbutton dark">🔍 Voir des exemples de réalisations</a>
             </div>
