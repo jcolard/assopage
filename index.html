@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jérémy Colard - Propulseur d'Associations (Assopage)</title>
-    <meta name="description" content="Je m’appelle Jérémy Colard. J'aide les associations à transformer leur gestion invisible en une force de frappe numérique immédiate." />
+    <meta name="description" content="Je m'appelle Jérémy Colard. J'aide les associations à transformer leur gestion invisible en une force de frappe numérique immédiate." />
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,14 +59,13 @@
 
         /* ─── NAV ─── */
         nav {
-            position: absolute; /* Fixe en haut de page, mais ne flotte plus au scroll */
+            position: absolute;
             top: 0; width: 100%; z-index: 1000;
-            background: transparent; /* Bande transparente */
+            background: transparent;
             padding: 20px 40px;
             display: flex; justify-content: space-between; align-items: center;
         }
         
-        /* Nouveau Logo Montserrat */
         .logo { 
             font-family: 'Montserrat', sans-serif; 
             font-size: 2.2rem; 
@@ -88,7 +87,7 @@
         
         @media (max-width: 900px) { 
             .nav-links { display: none; } 
-            nav { padding: 20px; } /* Ajustement du padding sur mobile */
+            nav { padding: 20px; }
         }
 
         /* ─── LAYOUT GLOBALE ─── */
@@ -101,11 +100,18 @@
         .hero {
             height: 100vh; min-height: 600px;
             background-image: url('le fond.png');
-            background-size: cover; background-position: center;
+            background-size: cover;
+            background-position: center;
             display: flex; align-items: center; 
             justify-content: flex-start;
             position: relative; text-align: left; padding: 0 8%;
             background-color: #111; 
+        }
+        /* Légèrement décalé à droite sur mobile pour ne pas couper le visage */
+        @media (max-width: 768px) {
+            .hero {
+                background-position: 62% center;
+            }
         }
         .hero-content { position: relative; z-index: 2; max-width: 650px; margin-top: 50px;}
         .hero h1 {
@@ -134,6 +140,33 @@
         .about-image img { width: 100%; box-shadow: -15px 15px 0px var(--yellow); border: 2px solid var(--black);}
         @media (max-width: 768px) { .about-text h2 { text-align: center; } .about-text .separator-small { margin: 0 auto 30px auto; } }
 
+        /* ─── ABOUT : liste à puces ─── */
+        .about-list {
+            list-style: none;
+            margin: 0 0 25px 0;
+            padding: 0;
+        }
+        .about-list li {
+            padding: 10px 0 10px 30px;
+            position: relative;
+            color: var(--text-grey);
+            font-size: 1rem;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 0;
+        }
+        .about-list li:last-child { border-bottom: none; }
+        .about-list li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: var(--black);
+            font-size: 0.7rem;
+            top: 13px;
+        }
+        .about-list li strong { color: var(--black); }
+        .about-intro-text { font-size: 1.05rem; font-style: italic; color: var(--text-grey); margin-bottom: 20px; }
+        .about-conclusion { font-size: 1rem; color: var(--text-grey); margin-top: 10px; }
+
         /* ─── OFFRES (STRIPE) ─── */
         .offers-section { background-color: var(--grey-light); }
         .offers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 50px; }
@@ -147,10 +180,47 @@
         .offer-card h3 { font-size: 2rem; margin-bottom: 10px; }
         .offer-price { font-family: var(--font-title); font-size: 3rem; color: var(--black); margin-bottom: 20px; line-height: 1;}
         .offer-price span { font-size: 1rem; color: var(--text-grey); }
-        .offer-card p { font-size: 0.95rem; margin-bottom: 30px; min-height: 60px;}
-        .offer-card ul { list-style: none; margin-bottom: 30px; text-align: left; flex-grow: 1; }
-        .offer-card ul li { margin-bottom: 10px; font-size: 0.95rem; padding-left: 25px; position: relative; color: var(--text-grey);}
+        .offer-card > p { font-size: 0.95rem; margin-bottom: 20px; min-height: 60px;}
+        .offer-card ul { list-style: none; margin-bottom: 20px; text-align: left; flex-grow: 1; }
+        .offer-card ul li { margin-bottom: 10px; font-size: 0.9rem; padding-left: 25px; position: relative; color: var(--text-grey);}
         .offer-card ul li::before { content: '✓'; position: absolute; left: 0; color: var(--black); font-weight: bold; }
+        .offer-card ul li.highlight-tip {
+            background: rgba(253,249,135,0.5);
+            border-left: 3px solid var(--black);
+            padding: 8px 10px 8px 15px;
+            font-size: 0.82rem;
+            font-style: italic;
+            margin-top: 10px;
+            color: var(--black);
+            border-radius: 2px;
+        }
+        .offer-card ul li.highlight-tip::before { content: none; }
+        .offer-card ul li.highlight-tip.dark-tip {
+            background: rgba(10,10,10,0.08);
+        }
+        .offer-example-link {
+            display: block;
+            text-align: center;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: #888;
+            text-decoration: underline;
+            margin-bottom: 15px;
+            transition: color 0.2s;
+        }
+        .offer-example-link:hover { color: var(--black); }
+        .offer-card .note-small {
+            font-size: 0.78rem;
+            color: #888;
+            font-style: italic;
+            margin-bottom: 15px;
+            text-align: left;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+        }
+
+        /* Bouton portfolio sous offres */
+        .offers-cta { text-align: center; margin-top: 50px; }
 
         /* ─── TEMOIGNAGES ─── */
         .testimonials-section { background-color: var(--yellow); }
@@ -229,13 +299,18 @@
     <section class="section about-section" id="vision">
         <div class="container grid-2">
             <div class="about-text">
-                <h2>C'est qui lui ?</h2>
+                <h2>Libérez votre association</h2>
                 <div class="separator-small"></div>
-                <p>Je m'appelle Jérémy Colard. Consultant et développeur web depuis 3 ans, j'ai vu trop d'associations extraordinaires s'épuiser sur de la gestion administrative ou subir des sites internet impossibles à mettre à jour.</p>
-                <p>J'ai donc créé le système <strong>Assopage</strong>. Mon but ? Supprimer la barrière entre le terrain et le web. Avec moi, votre site devient un média en direct. Vous prenez une photo depuis votre téléphone, elle est en ligne. Vous gérez vos membres d'un clic.</p>
-                <p><strong>Vous avez l'humain. J'ai la technique. On avance.</strong></p>
+                <p class="about-intro-text">Site internet délaissé, réseaux sociaux vides, gestion manuelle épuisante... L'administratif freine votre impact et décourage vos bénévoles.</p>
+                <p>Après 3 ans d'immersion associative, j'ai créé <strong>AssoPage</strong> : une solution tout-en-un pour enfin passer à la vitesse supérieure.</p>
+                <ul class="about-list">
+                    <li><strong>Un site pro &amp; optimisé :</strong> Pour le prix d'un simple abonnement, gagnez en visibilité et transformez vos visiteurs en adhérents.</li>
+                    <li><strong>Une gestion simplifiée :</strong> Pilotez membres, cotisations, mailings et événements directement depuis votre téléphone.</li>
+                    <li><strong>Accessible à tous :</strong> Notre outil est si intuitif que Karine, présidente non-voyante d'Aix en Vue, y gère seule ses 150 adhérents et 350 événements annuels.</li>
+                </ul>
+                <p class="about-conclusion">Prêt à automatiser vos tâches pour vous concentrer sur l'essentiel ?</p>
                 <br>
-                <a href="#contact" class="qbutton dark">Me contacter</a>
+                <a href="#contact" class="qbutton dark">Échangeons sur votre projet</a>
             </div>
             <div class="about-image">
                 <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800" alt="Jérémy Colard en action">
@@ -250,57 +325,86 @@
             <p style="text-align: center; max-width: 600px; margin: 0 auto;">Une fois que nous avons validé ensemble que l'outil correspond à vos besoins, démarrez votre abonnement en toute sécurité via Stripe. Sans engagement.</p>
 
             <div class="offers-grid">
+
+                <!-- OFFRE 1 : VITRINE -->
                 <div class="offer-card">
                     <h3>Vitrine</h3>
                     <div class="offer-price">15€<span>/mois</span></div>
-                    <p>La présence numérique propre et pro. Bouton "Don" optimisé pour booster la trésorerie.</p>
+                    <p>La présence numérique propre et pro. Conçu pour booster vos dons, adhésions et actions de terrain.</p>
                     <ul>
-                        <li>Site moderne 100% géré</li>
-                        <li>Nom de domaine inclus</li>
-                        <li>1 évolution par mois</li>
+                        <li>Site moderne 100% géré (création, hébergement, maintenance)</li>
+                        <li>Nom de domaine inclus <em>ou</em> sous-domaine <strong>lenomdusite.assopage.fr</strong></li>
+                        <li>1 évolution par mois sur demande</li>
+                        <li>Installable comme application sur Android</li>
+                        <li>Identité visuelle sur-mesure (pas de template générique)</li>
+                        <li>Référencement &amp; bouton « Faire un don » flottant inclus</li>
+                        <li>🔓 Zéro engagement – transfert de site et données sur simple demande</li>
+                        <li class="highlight-tip">💡 Boostez votre trésorerie grâce au bouton don flottant optimisé.</li>
                     </ul>
+                    <a href="https://www.aixenvue.fr/" target="_blank" class="offer-example-link">→ Voir un exemple de site</a>
+                    <p class="note-small">* Besoin d'un nom de domaine, d'une boîte mail et d'un espace de stockage ? Option +5€/mois avec notre partenaire Infomaniak.</p>
                     <a href="https://buy.stripe.com/28E28q4Th9lS5Rf11PdAk00" class="qbutton dark" style="width: 100%;">Souscrire</a>
                 </div>
 
+                <!-- OFFRE 2 : SITE + APP -->
                 <div class="offer-card featured">
                     <h3>Site + App</h3>
                     <div class="offer-price">25€<span>/mois</span></div>
-                    <p>Votre asso dans la poche. Idéal pour publier depuis le terrain et gérer les événements.</p>
+                    <p>Votre asso dans la poche. Publiez depuis le terrain, gérez vos événements en temps réel.</p>
                     <ul>
                         <li><strong>Tout le plan Vitrine</strong></li>
-                        <li>Appli mobile dédiée</li>
-                        <li>Photos en direct </li>
-                        <li>Billetterie intégrée</li>
+                        <li>Application mobile dédiée avec votre logo</li>
+                        <li>Publiez articles, photos et vidéos en 2 clics depuis l'appli</li>
+                        <li>Photos prises depuis le téléphone → en ligne instantanément</li>
+                        <li>Billetterie intégrée : gestion des places, présences &amp; paiements</li>
+                        <li>Les adhérents s'inscrivent depuis le site, vous gérez tout depuis l'appli</li>
+                        <li class="highlight-tip dark-tip">💡 « Un site qui est vu, c'est un site qui bouge. » Vos adhérents ne manquent plus aucun événement.</li>
                     </ul>
                     <a href="https://buy.stripe.com/fZu8wO0D1cy40wV7qddAk01" class="qbutton dark" style="width: 100%;">Souscrire</a>
                 </div>
 
+                <!-- OFFRE 3 : GESTION (anciennement "App+") -->
                 <div class="offer-card">
                     <h3>Gestion</h3>
                     <div class="offer-price">35€<span>/mois</span></div>
                     <p>Le cerveau de votre bureau. Finis les oublis de cotisations et les fichiers éparpillés.</p>
                     <ul>
-                        <li><strong>Tout le plan App</strong></li>
-                        <li>CRM Contacts</li>
-                        <li>Rappels auto de paiement</li>
-                        <li>Jusqu'à 9 admins</li>
+                        <li><strong>Tout le plan Site + App</strong></li>
+                        <li>CRM Contacts : gérez membres &amp; cotisations depuis votre téléphone</li>
+                        <li>Gestion des notes de frais, trésorerie &amp; location de matériel</li>
+                        <li>Rappels automatiques par mail pour les cotisations impayées</li>
+                        <li>Rapports statistiques : participation, évolution de trésorerie</li>
+                        <li>Jusqu'à 9 administrateurs de l'application</li>
+                        <li class="highlight-tip">💡 20% des adhérents n'ont pas renouvelé par simple oubli — le rappel auto règle ce problème.</li>
                     </ul>
                     <a href="https://buy.stripe.com/bJe14madBapW93reSFdAk02" class="qbutton dark" style="width: 100%;">Souscrire</a>
                 </div>
 
+                <!-- OFFRE 4 : PRO -->
                 <div class="offer-card">
                     <h3>Pro</h3>
                     <div class="offer-price">45€<span>/mois</span></div>
-                    <p>L'artillerie lourde pour structurer les gros volumes de bénévoles et les dons.</p>
+                    <p>L'artillerie lourde pour structurer les gros volumes de bénévoles et maximiser vos dons.</p>
                     <ul>
                         <li><strong>Tout le plan Gestion</strong></li>
-                        <li>Reçus fiscaux auto</li>
-                        <li>Campagnes mails</li>
-                        <li>Google Workspace</li>
+                        <li>Génération automatique de reçus fiscaux</li>
+                        <li>Campagnes mails groupées ultra-simples (par groupe de contacts, avec modèles)</li>
+                        <li>Accès à l'app jusqu'à 200 bénévoles, droits par pôle</li>
+                        <li>Partage de documents intégré</li>
+                        <li>Accompagnement &amp; configuration Google Workspace (Gmail, Drive, Meet, Chat…)</li>
+                        <li>1 formation annuelle incluse pour les nouveaux bénévoles</li>
+                        <li class="highlight-tip">💡 La génération de reçus fiscaux est un levier puissant pour augmenter vos dons.</li>
                     </ul>
                     <a href="https://buy.stripe.com/5kQfZgfxV69G93reSFdAk03" class="qbutton dark" style="width: 100%;">Souscrire</a>
                 </div>
+
             </div>
+
+            <!-- CTA portfolio après les offres -->
+            <div class="offers-cta">
+                <a href="https://www.je-co.fr" target="_blank" class="qbutton dark">🔍 Voir des exemples de réalisations</a>
+            </div>
+
         </div>
     </section>
 
