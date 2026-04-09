@@ -8,7 +8,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Roboto+Condensed:wght@300;400;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
     <style>
@@ -59,20 +59,37 @@
 
         /* ─── NAV ─── */
         nav {
-            position: fixed; top: 0; width: 100%; z-index: 1000;
-            background: rgba(255, 255, 255, 0.95); padding: 15px 40px;
+            position: absolute; /* Fixe en haut de page, mais ne flotte plus au scroll */
+            top: 0; width: 100%; z-index: 1000;
+            background: transparent; /* Bande transparente */
+            padding: 20px 40px;
             display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid #eee;
         }
-        .logo { font-family: var(--font-title); font-size: 1.5rem; font-weight: 700; text-decoration: none; color: var(--black); text-transform: uppercase; letter-spacing: 2px;}
-        .logo span { color: #aaa; font-weight: 300; }
+        
+        /* Nouveau Logo Montserrat */
+        .logo { 
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 2.2rem; 
+            font-weight: 900; 
+            text-decoration: none; 
+            text-transform: uppercase; 
+            letter-spacing: -2px; 
+            line-height: 1;
+        }
+        .logo .asso { color: var(--black); }
+        .logo .page { color: var(--yellow); }
+
         .nav-links a {
             font-family: var(--font-title); text-transform: uppercase; text-decoration: none;
-            color: var(--black); margin-left: 30px; font-size: 1rem; transition: color 0.2s;
+            color: var(--black); margin-left: 30px; font-size: 1.1rem; transition: color 0.2s;
         }
         .nav-links a:hover { color: #888; }
         .nav-links a.client-portal { color: #d69e00; }
-        @media (max-width: 900px) { .nav-links { display: none; } }
+        
+        @media (max-width: 900px) { 
+            .nav-links { display: none; } 
+            nav { padding: 20px; } /* Ajustement du padding sur mobile */
+        }
 
         /* ─── LAYOUT GLOBALE ─── */
         .section { padding: 100px 20px; }
@@ -86,7 +103,7 @@
             background-image: url('le fond.png');
             background-size: cover; background-position: center;
             display: flex; align-items: center; 
-            justify-content: flex-start; /* Aligné à gauche pour éviter la tête à droite */
+            justify-content: flex-start;
             position: relative; text-align: left; padding: 0 8%;
             background-color: #111; 
         }
@@ -141,7 +158,6 @@
         .testi-card { background: var(--white); padding: 40px; border: 2px solid var(--black); box-shadow: 6px 6px 0px var(--black); display: flex; flex-direction: column; justify-content: space-between;}
         .testi-quote { font-size: 1.1rem; font-style: italic; margin-bottom: 20px; color: var(--black); }
         
-        /* Styles ajoutés pour les petites photos/logos */
         .testi-author-block { display: flex; align-items: center; gap: 15px; margin-top: 15px; }
         .testi-profile-img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--black); background-color: var(--white); }
         .testi-author-info { display: flex; flex-direction: column; }
@@ -170,7 +186,8 @@
 <body>
 
     <nav>
-        <a href="#" class="logo">Jérémy Colard <span>| Assopage</span></a>
+        <a href="#" class="logo"><span class="asso">ASSO</span><span class="page">PAGE</span></a>
+        
         <div class="nav-links">
             <a href="#vision">La Vision</a>
             <a href="#offres">Systèmes</a>
@@ -366,7 +383,7 @@
     </section>
 
     <footer>
-        <a href="#" class="logo">Jérémy Colard</a>
+        <a href="#" class="logo"><span class="asso" style="color:var(--white);">ASSO</span><span class="page">PAGE</span></a>
         <div class="separator-small" style="margin: 20px auto;"></div>
         
         <div class="social-icons">
