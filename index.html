@@ -138,9 +138,15 @@
         /* ─── TEMOIGNAGES ─── */
         .testimonials-section { background-color: var(--yellow); }
         .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 50px; }
-        .testi-card { background: var(--white); padding: 40px; border: 2px solid var(--black); box-shadow: 6px 6px 0px var(--black); }
+        .testi-card { background: var(--white); padding: 40px; border: 2px solid var(--black); box-shadow: 6px 6px 0px var(--black); display: flex; flex-direction: column; justify-content: space-between;}
         .testi-quote { font-size: 1.1rem; font-style: italic; margin-bottom: 20px; color: var(--black); }
-        .testi-author { font-family: var(--font-title); text-transform: uppercase; font-weight: 700; color: var(--black); }
+        
+        /* Styles ajoutés pour les petites photos/logos */
+        .testi-author-block { display: flex; align-items: center; gap: 15px; margin-top: 15px; }
+        .testi-profile-img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--black); background-color: var(--white); }
+        .testi-author-info { display: flex; flex-direction: column; }
+        
+        .testi-author { font-family: var(--font-title); text-transform: uppercase; font-weight: 700; color: var(--black); line-height: 1.2; }
         .testi-role { font-size: 0.85rem; color: #666; }
 
         /* ─── PORTFOLIO / SUR-MESURE ─── */
@@ -287,23 +293,51 @@
             <div class="separator-small separator-dark"></div>
             
             <div class="testi-grid">
+                
                 <div class="testi-card">
                     <p class="testi-quote">"Son efficacité a transformé notre communication. Un partenaire exceptionnel qui a fait croître notre asso pour nos adhérents déficients visuels."</p>
-                    <div class="testi-author">Karine Centeno</div>
-                    <div class="testi-role">Présidente, Aix en Vue</div>
+                    <div class="testi-author-block">
+                        <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775736530/karine_bdvv7c.png" alt="Karine Centeno" class="testi-profile-img">
+                        <div class="testi-author-info">
+                            <div class="testi-author">Karine Centeno</div>
+                            <div class="testi-role">Présidente, Aix en Vue</div>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="testi-card" style="background-color: var(--black); color: var(--white);">
                     <p class="testi-quote" style="color: var(--white);">"Gérer 240 bénévoles c'était un grand sujet. Jérémy a répondu au-delà de nos attentes. Rapide, efficace : un gain de temps considérable."</p>
-                    <div class="testi-author" style="color: var(--yellow);">Benoit Vitrand</div>
-                    <div class="testi-role" style="color: #ccc;">Président, La Mekanik Du Rire</div>
+                    <div class="testi-author-block">
+                        <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775736577/benoit_bat5g8.png" alt="Benoit Vitrand" class="testi-profile-img" style="border-color: var(--yellow);">
+                        <div class="testi-author-info">
+                            <div class="testi-author" style="color: var(--yellow);">Benoit Vitrand</div>
+                            <div class="testi-role" style="color: #ccc;">Président, La Mekanik Du Rire</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="testi-card">
                     <p class="testi-quote">"Jérémy nous a permis de construire un intranet pour partager un agenda. Son accompagnement dans la mise en ligne nous a permis de monter en compétence et concrétiser ce projet."</p>
-                    <div class="testi-author">Yves Cailloce</div>
-                    <div class="testi-role">Secours populaire</div>
+                    <div class="testi-author-block">
+                        <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/secpop2_q9k820.png" alt="Yves Cailloce" class="testi-profile-img" style="object-fit: contain; padding: 5px;">
+                        <div class="testi-author-info">
+                            <div class="testi-author">Yves Cailloce</div>
+                            <div class="testi-role">Secours populaire</div>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="testi-card">
+                    <p class="testi-quote">"Il nous a fait des tutos explicatifs. Il est adaptable aux novices et aux diverses demandes pratiques. Nous conseillons très vivement Jérémy en qui nous avons une totale confiance."</p>
+                    <div class="testi-author-block">
+                        <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/hopesphere2_lfqhyq.png" alt="Nathalie" class="testi-profile-img" style="object-fit: contain; padding: 5px;">
+                        <div class="testi-author-info">
+                            <div class="testi-author">Nathalie</div>
+                            <div class="testi-role">Hopesphere</div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
