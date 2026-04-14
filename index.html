@@ -270,10 +270,55 @@
         .portfolio-section { background-color: var(--black); color: var(--white); text-align: center; }
         .portfolio-section h2 { color: var(--white); }
 
-        /* ─── CONTACT ─── */
+        /* ─── CONTACT FORM STYLE ─── */
         .contact-section { background-color: var(--white); text-align: center; }
-        .contact-wrapper { max-width: 600px; margin: 0 auto; }
-        .contact-icon { font-size: 60px; color: var(--black); margin-bottom: 20px; }
+        .contact-wrapper { max-width: 600px; margin: 0 auto; text-align: left; }
+        .contact-header { text-align: center; margin-bottom: 40px; }
+        
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; font-family: var(--font-title); font-weight: 500; font-size: 1.1rem; margin-bottom: 8px; color: var(--black); }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            background-color: var(--grey-light);
+            transition: border-color 0.3s;
+        }
+        .form-control:focus { border-color: var(--black); outline: none; background-color: var(--white); }
+        
+        .radio-group { display: flex; flex-direction: column; gap: 10px; }
+        .radio-item { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .radio-item input { width: 18px; height: 18px; cursor: pointer; accent-color: var(--black); }
+        .radio-item span { font-size: 1rem; color: var(--text-grey); }
+
+        .checkbox-group { display: flex; align-items: flex-start; gap: 10px; margin-top: 30px; margin-bottom: 30px;}
+        .checkbox-group input { width: 18px; height: 18px; margin-top: 4px; cursor: pointer; accent-color: var(--black); }
+        .checkbox-group span { font-size: 0.85rem; color: #666; line-height: 1.4; }
+        .checkbox-group a { color: var(--black); text-decoration: underline; font-weight: bold; }
+
+        .form-submit-btn {
+            width: 100%;
+            border: none;
+            font-size: 1.2rem;
+            padding: 18px;
+        }
+        .form-secure-text { text-align: center; font-size: 0.85rem; color: #888; margin-top: 15px; font-style: italic; }
+
+        .success-message {
+            display: none;
+            background-color: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+            text-align: center;
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+        }
 
         /* ─── FOOTER ─── */
         footer { background-color: var(--black); color: var(--white); padding: 60px 20px; text-align: center; }
@@ -330,7 +375,6 @@
         </div>
     </div>
 
-    <!-- ─── CONCEPT ─── -->
     <section class="section concept-section" id="concept">
         <div class="container grid-2">
             <div class="concept-text">
@@ -351,7 +395,6 @@
         </div>
     </section>
 
-    <!-- ─── OFFRES ─── -->
     <section class="section offers-section" id="offres">
         <div class="container">
             <h2>Les Systèmes Assopage</h2>
@@ -363,7 +406,6 @@
                 <button class="toggle-btn" id="btn-outils" onclick="showPanel('outils')">⚙️ Outils de gestion</button>
             </div>
 
-            <!-- PANEL SITES -->
             <div class="offers-panel active" id="offres-sites">
                 <div class="offers-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); max-width: 800px; margin: 0 auto;">
 
@@ -402,14 +444,12 @@
 
                 </div>
 
-                <!-- GIF app mobile -->
                 <div class="app-preview" style="max-width: 800px; margin: 40px auto 0;">
                     <p>Gérez votre association directement depuis votre téléphone 📱</p>
                     <img src="demo-appli.gif" alt="Application mobile AssoPage en action">
                 </div>
             </div>
 
-            <!-- PANEL OUTILS -->
             <div class="offers-panel" id="offres-outils">
                 <div class="offers-grid">
 
@@ -467,7 +507,6 @@
         </div>
     </section>
 
-    <!-- ─── TEMOIGNAGES ─── -->
     <section class="section testimonials-section">
         <div class="container">
             <h2 style="color: var(--black);">Le Terrain Parle</h2>
@@ -536,7 +575,6 @@
         </div>
     </section>
 
-    <!-- ─── SUR-MESURE ─── -->
     <section class="section portfolio-section" id="portfolio">
         <div class="container">
             <h2>Besoin d'aller plus loin ?</h2>
@@ -547,17 +585,69 @@
         </div>
     </section>
 
-    <!-- ─── CONTACT ─── -->
     <section class="section contact-section" id="contact">
         <div class="container contact-wrapper">
-            <i class="fa-solid fa-bolt contact-icon"></i>
-            <h2>Prêt à donner un coup de boost ?</h2>
-            <div class="separator-small"></div>
-            <p>On s'appelle 15 minutes. Je vous écoute, on regarde où ça bloque dans votre gestion, et je vous dis si mon système peut vous aider.</p>
-            <br>
-            <a href="mailto:contact@assopage.fr" class="qbutton yellow">Envoyer un email</a>
-            <br><br>
-            <p style="font-family: var(--font-title); font-size: 1.5rem; color: var(--black);">📞 06 50 30 25 47</p>
+            <div class="contact-header">
+                <h2>On fait le point en 10 minutes ?</h2>
+                <div class="separator-small"></div>
+                <p>Pas de pression, pas de vente forcée. On discute de votre asso et je vous dis honnêtement si mes outils peuvent vous faire gagner du temps. C'est tout.</p>
+            </div>
+
+            <form id="contact-form" class="contact-form">
+                
+                <div class="form-group">
+                    <label for="nom_asso">Nom de votre association</label>
+                    <input type="text" id="nom_asso" name="nom_asso" class="form-control" required placeholder="Ex: AS Toulouse, La Croix Rouge...">
+                </div>
+
+                <div class="form-group">
+                    <label for="prenom">Votre prénom</label>
+                    <input type="text" id="prenom" name="prenom" class="form-control" required placeholder="Ex: Marie, Julien...">
+                </div>
+
+                <div class="form-group">
+                    <label for="telephone">Numéro de téléphone</label>
+                    <input type="tel" id="telephone" name="telephone" class="form-control" required placeholder="06 12 34 56 78">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Adresse e-mail</label>
+                    <input type="email" id="email" name="email" class="form-control" required placeholder="contact@asso.fr">
+                </div>
+
+                <div class="form-group" style="margin-top: 35px;">
+                    <label>Quand souhaitez-vous être rappelé(e) ?</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="creneau" value="Le matin (9h-12h)" required>
+                            <span>Le matin (9h-12h)</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="creneau" value="L'après-midi (14h-18h)">
+                            <span>L'après-midi (14h-18h)</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="creneau" value="Le plus vite possible !">
+                            <span>Le plus vite possible !</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="rgpd" name="rgpd" required>
+                    <label for="rgpd">
+                        <span>J'accepte que ces données soient utilisées pour être recontacté, conformément à la <a href="https://drive.google.com/file/d/18hyh86EaF0ukg7aKnT8hTBRToUd5tjS7/view?usp=sharing" target="_blank">politique de confidentialité</a>. Vos données restent à Toulouse, 0 revente.</span>
+                    </label>
+                </div>
+
+                <button type="submit" id="submit-btn" class="qbutton yellow form-submit-btn">Réserver mon diagnostic gratuit</button>
+                <p class="form-secure-text">🔒 Connexion sécurisée - Jérémy - 06 50 30 25 47</p>
+            </form>
+
+            <div id="success-msg" class="success-message">
+                ✅ <strong>Super !</strong> J'ai bien reçu votre demande.<br>Je vous rappelle très vite sur le créneau demandé.
+            </div>
+
         </div>
     </section>
 
@@ -598,6 +688,51 @@
         document.addEventListener('DOMContentLoaded', () => {
             const hash = window.location.hash;
             if (hash === '#offres-outils') showPanel('outils');
+        });
+
+        /* ─── SCRIPT DU FORMULAIRE DE CONTACT ─── */
+        // IMPORTANT : REMPLACE L'URL CI-DESSOUS PAR CELLE DE TON DEPLOIEMENT APPS SCRIPT
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxnBeHhvvNqNf1VnSuTCBoCRJ5eSmwJgysnzfUR1Y0fBspAp3SWwLpbQtq636Czlr11sw/exec";
+
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.innerText = "Envoi en cours...";
+            submitBtn.disabled = true;
+
+            // Récupération des données du formulaire
+            const data = {
+                nom_asso: document.getElementById('nom_asso').value,
+                prenom: document.getElementById('prenom').value,
+                telephone: document.getElementById('telephone').value,
+                email: document.getElementById('email').value,
+                creneau: document.querySelector('input[name="creneau"]:checked').value
+            };
+
+            // Envoi via fetch
+            fetch(WEB_APP_URL, {
+                method: 'POST',
+                // Envoi en text/plain pour éviter les blocages CORS sur Google Apps Script
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if(result.status === "success") {
+                    document.getElementById('contact-form').style.display = 'none';
+                    document.getElementById('success-msg').style.display = 'block';
+                } else {
+                    alert("Une erreur est survenue lors de l'envoi. Vous pouvez me joindre au 06 50 30 25 47.");
+                    submitBtn.innerText = "Réserver mon diagnostic gratuit";
+                    submitBtn.disabled = false;
+                }
+            })
+            .catch(error => {
+                alert("Erreur de connexion. Veuillez me joindre directement au 06 50 30 25 47.");
+                submitBtn.innerText = "Réserver mon diagnostic gratuit";
+                submitBtn.disabled = false;
+            });
         });
     </script>
 
