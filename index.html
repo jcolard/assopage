@@ -143,24 +143,51 @@
         /* ─── LOGOS ─── */
         .logos-section { background-color: var(--yellow); padding: 30px 0; overflow: hidden; border-bottom: 3px solid var(--black);}
         .logos-section h3 { text-align: center; font-size: 1rem; margin-bottom: 20px; letter-spacing: 2px; }
-        .marquee { display: flex; gap: 50px; width: max-content; animation: marquee 20s linear infinite; align-items: center;}
+        .marquee { display: flex; gap: 50px; width: max-content; animation: marquee 35s linear infinite; align-items: center;}
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         .marquee img { height: 40px; width: auto; filter: grayscale(100%) contrast(120%); opacity: 0.8; transition: all 0.3s; }
         .marquee img:hover { filter: grayscale(0%); opacity: 1; }
 
         /* ─── CONCEPT SECTION ─── */
-        .concept-section { background-color: var(--white); text-align: center; }
-        .concept-text { max-width: 800px; margin: 0 auto; }
+        .concept-section { background-color: var(--white); }
+        .concept-layout {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+        }
+        .concept-text { flex: 1; text-align: left; }
+        .concept-text h2 { text-align: left; margin-bottom: 20px; }
         .concept-highlight {
             background: var(--yellow);
             border-left: 4px solid var(--black);
             padding: 18px 20px;
-            margin: 30px auto;
+            margin: 30px 0;
             font-family: var(--font-title);
             font-size: 1.1rem;
             color: var(--black);
             font-style: italic;
             text-align: left;
+        }
+        .concept-media { flex: 0 0 320px; text-align: center; }
+        .concept-media p {
+            color: var(--text-grey);
+            font-style: italic;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .concept-media img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 850px) {
+            .concept-layout { flex-direction: column; gap: 40px; text-align: center; }
+            .concept-text { text-align: center; }
+            .concept-text h2 { text-align: center; }
+            .concept-text .separator-small { margin: 0 auto 30px auto !important; }
+            .concept-highlight { text-align: left; margin: 30px auto; max-width: 600px; }
         }
 
         /* ─── OFFRES ─── */
@@ -197,7 +224,7 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
             gap: 30px; 
             margin-top: 20px; 
-            max-width: 1100px; /* Augmenté pour afficher les 3 offres sur PC */
+            max-width: 1100px; 
             margin-left: auto; 
             margin-right: auto;
         }
@@ -209,15 +236,17 @@
                 flex-wrap: nowrap;
                 overflow-x: auto;
                 scroll-snap-type: x mandatory;
-                padding-bottom: 20px; /* Espace pour la barre de scroll */
+                padding-bottom: 20px;
                 gap: 20px;
+                padding-left: 10px; /* Marges pour l'esthétique du scroll */
+                padding-right: 10px;
             }
             .offer-card {
-                min-width: 100%; /* Prend 100% de la largeur sur mobile pour corriger le débordement */
-                scroll-snap-align: center; /* Aimante parfaitement la carte au centre lors du défilement */
+                min-width: 85vw; /* S'adapte à l'écran tout en laissant voir un bout de la suivante */
+                max-width: 350px; /* Empêche d'être trop large sur des écrans intermédiaires */
+                scroll-snap-align: center; 
                 flex: 0 0 auto;
             }
-            /* Masquer la scrollbar inélégante mais garder la fonction (Chrome/Safari) */
             .offers-grid::-webkit-scrollbar { height: 6px; }
             .offers-grid::-webkit-scrollbar-track { background: var(--grey-light); }
             .offers-grid::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
@@ -251,26 +280,6 @@
         .offer-card ul li.highlight-tip.dark-tip { background: rgba(10,10,10,0.08); }
         .offer-card ul li.no-engagement { font-size: 0.88rem; color: var(--text-grey); font-style: italic; }
         .offer-card ul li.no-engagement::before { content: '🔓'; font-size: 0.8rem; top: 11px; }
-
-        /* ─── APP MOBILE PREVIEW (Nouvelle section) ─── */
-        .app-demo-section {
-            background-color: var(--white);
-            text-align: center;
-            padding: 60px 20px;
-        }
-        .app-preview p {
-            color: var(--text-grey);
-            font-style: italic;
-            margin-bottom: 25px;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-        .app-preview img {
-            max-width: 280px;
-            width: 100%;
-            display: block;
-            margin: 0 auto;
-        }
 
         /* ─── TEMOIGNAGES ─── */
         .testimonials-section { background-color: var(--yellow); }
@@ -351,7 +360,6 @@
             gap: 20px; 
             flex-wrap: wrap;
         }
-        /* Assure une symétrie et un centrage parfait des boutons */
         .direct-contact-btns .qbutton {
             min-width: 220px;
             flex: 1 1 auto;
@@ -409,20 +417,46 @@
             <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/hopesphere2_lfqhyq.png" alt="Hope-Sphère" />
             <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/vrai_logo_atao_cu8uzr.png" alt="ATAO" />
             <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/secpop2_q9k820.png" alt="Secours Populaire" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/aev_logo_asso_hv4ewr.jpg" alt="Aix en Vue" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/arche_chachou_syokwr.jpg" alt="Arche Chachou" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/Classolidr_qcgw3u.png" alt="Classolidr" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/lameka_r3tnbf.png" alt="La Meka" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/zenith2_huztz0.png" alt="Zénith" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/efsf2_pkzklq.png" alt="EFSF" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/hopesphere2_lfqhyq.png" alt="Hope-Sphère" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/vrai_logo_atao_cu8uzr.png" alt="ATAO" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/secpop2_q9k820.png" alt="Secours Populaire" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/aev_logo_asso_hv4ewr.jpg" alt="Aix en Vue" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/arche_chachou_syokwr.jpg" alt="Arche Chachou" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/Classolidr_qcgw3u.png" alt="Classolidr" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/lameka_r3tnbf.png" alt="La Meka" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/zenith2_huztz0.png" alt="Zénith" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/efsf2_pkzklq.png" alt="EFSF" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/hopesphere2_lfqhyq.png" alt="Hope-Sphère" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/vrai_logo_atao_cu8uzr.png" alt="ATAO" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/secpop2_q9k820.png" alt="Secours Populaire" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/aev_logo_asso_hv4ewr.jpg" alt="Aix en Vue" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/arche_chachou_syokwr.jpg" alt="Arche Chachou" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/Classolidr_qcgw3u.png" alt="Classolidr" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/lameka_r3tnbf.png" alt="La Meka" />
         </div>
     </div>
 
     <section class="section concept-section" id="concept">
-        <div class="container concept-text">
-            <h2>Le Concept</h2>
-            <div class="separator-small" style="margin: 0 auto 30px auto;"></div>
-            <p>Moi c'est Jérémy, développeur web pour associations depuis 3 ans. J'ai créé <strong>Assopage</strong> en partant d'un constat simple : les petites et moyennes associations n'ont ni le temps, ni les moyens, ni les compétences pour développer et gérer un site visible. Et une grande partie du travail administratif se fait encore à la main.</p>
-            <p>Résultat : du temps perdu pour le président et le secrétaire, un manque à gagner en visibilité et en crédibilité.</p>
-            <div class="concept-highlight">
-                Assopage, c'est la solution pour avoir votre site web et vos outils pro — gérés de A à Z — sans avance d'argent et sans engagement.
+        <div class="container concept-layout">
+            <div class="concept-text">
+                <h2>Le Concept</h2>
+                <div class="separator-small" style="margin-left: 0;"></div>
+                <p>Moi c'est Jérémy, développeur web pour associations depuis 3 ans. J'ai créé <strong>Assopage</strong> en partant d'un constat simple : les petites et moyennes associations n'ont ni le temps, ni les moyens, ni les compétences pour développer et gérer un site visible. Et une grande partie du travail administratif se fait encore à la main.</p>
+                <p>Résultat : du temps perdu pour le président et le secrétaire, un manque à gagner en visibilité et en crédibilité.</p>
+                <div class="concept-highlight">
+                    Assopage, c'est la solution pour avoir votre site web et vos outils pro — gérés de A à Z — sans avance d'argent et sans engagement.
+                </div>
             </div>
-            <br>
-            <a href="#contact" class="qbutton dark">Échangeons sur votre projet</a>
+            <div class="concept-media">
+                <p>Gérez votre association directement depuis votre téléphone 📱</p>
+                <img src="demo-appli.gif" alt="Application mobile AssoPage en action">
+            </div>
         </div>
     </section>
 
@@ -469,7 +503,7 @@
                             <li>Billetterie sur demande : l'adhérent s'inscrit depuis le site, vous gérez tout depuis l'appli</li>
                             <li class="highlight-tip dark-tip">💡 « Un site qui est vu, c'est un site qui bouge. » Vos adhérents ne manquent plus aucun événement.</li>
                         </ul>
-                        <a href="https://www.appsheet.com/start/732b3c01-876f-4658-a597-2f0d193288fc?platform=desktop#appName=AEVb%C3%A9n%C3%A9ficiaire-399346635&vss=H4sIAAAAAAAAA6XOQQ7CIBQE0LvMmhOwNS6M0Zho3IgLLL-GSKEpVG0Id_dXbVyrS4a8-ZNxtXTbJl1dIA_581rSAImssBtaUpAKs-BTF5yCUFjr5hVunPbe-rNCQTmKySeKkPk7Lv-7LmAN-WRrS93YNUrueDv-HhUHk0ERaPqkT46eg9mUwlkdqj6S2fOUHybEhZ_fW-3NKhiurLWLVB4r1cv6ZQEAAA==&view=Planning" target="_blank" class="qbutton yellow pulse" style="width: 100%; margin-bottom: 15px; font-size: 16px;"><i class="fa-solid fa-mobile-screen"></i> Voir l'appli test</a>
+                        <a href="https://www.appsheet.com/start/732b3c01-876f-4658-a597-2f0d193288fc?platform=desktop#appName=AEVb%C3%A9n%C3%A9ficiaire-399346635&vss=H4sIAAAAAAAAA6XOQQ7CIBQE0LvMmhOwNS6M0Zho3IgLLL-GSKEpVG0Id_dXbVyrS4a8-ZNxtXTbJl1dIA_581rSAImssBtaUpAKs-BTF5yCUFjr5hVunPbe-rNCQTmKySeKkPk7Lv-7LmAN-WRrS93YNUrueDv-HhUHk0ERaPqkT46eg9mUwlkdqj6S2fOUHybEhZ_fW-3NKhiurLWLVB4r1cv6ZQEAAA==&view=Planning" target="_blank" class="qbutton yellow pulse" style="width: 100%; margin-bottom: 15px; font-size: 16px;"><i class="fa-solid fa-eye"></i> Voir un exemple</a>
                         <a href="#contact" class="qbutton dark" style="width: 100%;">Me contacter</a>
                     </div>
 
@@ -480,11 +514,10 @@
                 <div class="offers-grid">
 
                     <div class="offer-card">
-                        <h3>Sérénité</h3>
+                        <h3>Appli</h3>
                         <div class="offer-price">25€<span>/mois</span></div>
                         <p>Le cerveau de votre bureau. Finis les oublis de cotisations et les fichiers éparpillés.</p>
                         <ul>
-                            <li><strong>Tout le plan Site + App</strong></li>
                             <li>CRM Contacts : gérez membres &amp; cotisations depuis votre téléphone</li>
                             <li>Gestion des notes de frais, trésorerie &amp; location de matériel</li>
                             <li>Rappels automatiques par mail pour les cotisations impayées</li>
@@ -500,7 +533,7 @@
                         <div class="offer-price">35€<span>/mois</span></div>
                         <p>L'artillerie lourde pour structurer les gros volumes de bénévoles et maximiser vos dons.</p>
                         <ul>
-                            <li><strong>Tout le plan Sérénité</strong></li>
+                            <li><strong>Tout le plan Appli</strong></li>
                             <li>Génération automatique de reçus fiscaux</li>
                             <li>Campagnes mails groupées ultra-simples (par groupe, avec modèles)</li>
                             <li>Accès à l'app jusqu'à 200 bénévoles, droits par pôle</li>
@@ -530,13 +563,6 @@
                 </div>
             </div>
 
-        </div>
-    </section>
-
-    <section class="section app-demo-section">
-        <div class="container app-preview">
-            <p>Gérez votre association directement depuis votre téléphone 📱</p>
-            <img src="demo-appli.gif" alt="Application mobile AssoPage en action">
         </div>
     </section>
 
