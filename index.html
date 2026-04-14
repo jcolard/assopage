@@ -1,355 +1,747 @@
 <!DOCTYPE html>
 <html lang="fr-FR">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jérémy Colard - Propulseur d'Associations (Assopage)</title>
-    <meta name="description" content="Je m'appelle Jérémy Colard. J'aide les associations à transformer leur gestion invisible en une force de frappe numérique immédiate." />
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Roboto+Condensed:wght@300;400;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="favicon.png">
-    
-    <style>
-        :root {
-            --yellow: #fdf987;
-            --black: #0a0a0a;
-            --white: #ffffff;
-            --grey-light: #f5f5f5;
-            --text-grey: #4a4a4a;
-            --font-title: 'Oswald', sans-serif;
-            --font-body: 'Roboto Condensed', sans-serif;
-        }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jérémy Colard - Propulseur d'Associations (Assopage)</title>
+    <meta name="description" content="Je m'appelle Jérémy Colard. J'aide les associations à transformer leur gestion invisible en une force de frappe numérique immédiate." />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Roboto+Condensed:wght@300;400;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <style>
+        :root {
+            --yellow: #fdf987;
+            --black: #0a0a0a;
+            --white: #ffffff;
+            --grey-light: #f5f5f5;
+            --text-grey: #4a4a4a;
+            
+            --font-title: 'Oswald', sans-serif;
+            --font-body: 'Roboto Condensed', sans-serif;
+        }
 
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body { font-family: var(--font-body); color: var(--black); background: var(--white); line-height: 1.6; font-size: 18px; overflow-x: hidden; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
 
-        h1, h2, h3, h4 { font-family: var(--font-title); text-transform: uppercase; font-weight: 500; color: var(--black); }
-        h2 { font-size: 2.5rem; letter-spacing: 2px; margin-bottom: 20px; text-align: center; }
-        p { margin-bottom: 20px; color: var(--text-grey); }
-        
-        .separator-small { width: 80px; height: 4px; background-color: var(--yellow); margin: 0 auto 40px auto; }
+        body {
+            font-family: var(--font-body);
+            color: var(--black);
+            background: var(--white);
+            line-height: 1.6;
+            font-size: 18px;
+            overflow-x: hidden;
+        }
 
-        /* BOUTONS */
-        .qbutton {
-            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-            font-family: var(--font-title); text-transform: uppercase;
-            font-size: 18px; letter-spacing: 1px; font-weight: 500; text-decoration: none;
-            padding: 15px 35px; transition: all 0.3s ease; text-align: center; border: 2px solid transparent; cursor: pointer;
-        }
-        .qbutton.yellow { background-color: var(--yellow); color: var(--black); }
-        .qbutton.yellow:hover { background-color: var(--black); color: var(--white); transform: scale(1.02); }
-        .qbutton.dark { background-color: var(--black); color: var(--white); border-color: var(--black); }
-        .qbutton.dark:hover { background-color: var(--yellow); color: var(--black); border-color: var(--yellow); }
-        .qbutton.outline { background-color: transparent; color: var(--black); border-color: var(--black); }
-        
-        /* Bouton "Voir Exemple" spécial */
-        .btn-example { background: #fff; border: 2px solid var(--black); color: var(--black); font-size: 14px; padding: 10px 20px; margin-bottom: 15px; width: 100%; }
-        .btn-example:hover { background: var(--black); color: var(--white); }
-        .btn-example i { color: #e67e22; animation: blink 1.5s infinite; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+        /* ─── TYPOGRAPHIE ─── */
+        h1, h2, h3, h4 { font-family: var(--font-title); text-transform: uppercase; font-weight: 500; color: var(--black); }
+        h2 { font-size: 2.5rem; letter-spacing: 2px; margin-bottom: 20px; text-align: center; }
+        p { margin-bottom: 20px; color: var(--text-grey); }
+        
+        .separator-small {
+            width: 80px; height: 4px; background-color: var(--yellow);
+            margin: 0 auto 40px auto;
+        }
+        .separator-dark { background-color: var(--black); }
 
-        /* NAV */
-        nav { position: absolute; top: 0; width: 100%; z-index: 1000; background: transparent; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Montserrat', sans-serif; font-size: 2.2rem; font-weight: 900; text-decoration: none; text-transform: uppercase; letter-spacing: -2px; line-height: 1; }
-        .logo .asso { color: var(--black); }
-        .logo .page { color: var(--yellow); }
-        .nav-links a { font-family: var(--font-title); text-transform: uppercase; text-decoration: none; color: var(--black); margin-left: 30px; font-size: 1.1rem; }
-        
-        @media (max-width: 900px) { .nav-links { display: none; } nav { padding: 20px; } }
+        /* ─── BOUTONS ─── */
+        .qbutton {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            font-family: var(--font-title); text-transform: uppercase;
+            font-size: 18px; letter-spacing: 1px; font-weight: 500; text-decoration: none;
+            padding: 15px 35px; transition: all 0.3s ease; text-align: center; border: 2px solid transparent; cursor: pointer;
+        }
+        .qbutton.yellow { background-color: var(--yellow); color: var(--black); }
+        .qbutton.yellow:hover { background-color: var(--black); color: var(--white); }
+        .qbutton.dark { background-color: var(--black); color: var(--white); border-color: var(--black); }
+        .qbutton.dark:hover { background-color: var(--yellow); color: var(--black); border-color: var(--yellow); }
+        .qbutton.outline { background-color: transparent; color: var(--black); border-color: var(--black); }
+        .qbutton.outline:hover { background-color: var(--black); color: var(--white); }
 
-        /* HERO */
-        .hero {
-            height: 100vh; min-height: 600px;
-            background-image: url('le fond.png');
-            background-size: cover; background-position: center;
-            display: flex; align-items: center; justify-content: flex-start; padding: 0 8%; background-color: #111; 
-        }
-        .hero-content { position: relative; z-index: 2; max-width: 650px; margin-top: 50px;}
-        .hero h1 { color: var(--white); font-size: clamp(2.5rem, 5vw, 4.5rem); letter-spacing: 4px; line-height: 1.2; margin-bottom: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-        .hero p { color: var(--white); font-family: var(--font-title); font-size: clamp(1.2rem, 2vw, 1.8rem); font-weight: 300; margin-bottom: 40px; }
+        /* ─── NAV ─── */
+        nav {
+            position: absolute;
+            top: 0; width: 100%; z-index: 1000;
+            background: transparent;
+            padding: 20px 40px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        
+        .logo { 
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 2.2rem; 
+            font-weight: 900; 
+            text-decoration: none; 
+            text-transform: uppercase; 
+            letter-spacing: -2px; 
+            line-height: 1;
+        }
+        .logo .asso { color: var(--black); }
+        .logo .page { color: var(--yellow); }
 
-        /* LOGOS */
-        .logos-section { background-color: var(--yellow); padding: 20px 0; overflow: hidden; border-bottom: 3px solid var(--black);}
-        .logos-section h3 { text-align: center; font-size: 0.9rem; margin-bottom: 15px; letter-spacing: 2px; }
-        .marquee { display: flex; gap: 50px; width: max-content; animation: marquee 25s linear infinite; align-items: center;}
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .marquee img { height: 35px; width: auto; filter: grayscale(100%); opacity: 0.7; }
+        .nav-links a {
+            font-family: var(--font-title); text-transform: uppercase; text-decoration: none;
+            color: var(--black); margin-left: 30px; font-size: 1.1rem; transition: color 0.2s;
+        }
+        .nav-links a:hover { color: #888; }
+        .nav-links a.client-portal { color: #d69e00; }
+        
+        @media (max-width: 900px) { 
+            .nav-links { display: none; } 
+            nav { padding: 20px; }
+        }
 
-        /* OFFRES */
-        .offers-section { background-color: var(--grey-light); padding: 80px 0; }
-        .offers-toggle { display: flex; justify-content: center; margin: 40px auto 50px; border: 2px solid var(--black); width: fit-content; }
-        .toggle-btn { font-family: var(--font-title); text-transform: uppercase; padding: 14px 30px; background: transparent; border: none; cursor: pointer; }
-        .toggle-btn.active { background: var(--black); color: var(--white); }
+        /* ─── LAYOUT GLOBALE ─── */
+        .section { padding: 80px 20px; }
+        .container { max-width: 1100px; margin: 0 auto; }
 
-        .offers-panel { display: none; }
-        .offers-panel.active { display: block; }
+        /* ─── HERO SECTION ─── */
+        .hero {
+            height: 100vh; min-height: 600px;
+            background-image: url('le fond.png');
+            background-size: cover;
+            background-position: center;
+            display: flex; align-items: center; 
+            justify-content: flex-start;
+            position: relative; text-align: left; padding: 0 8%;
+            background-color: #111; 
+        }
+        @media (max-width: 768px) {
+            .hero { background-position: 55% center; }
+        }
+        .hero-content { position: relative; z-index: 2; max-width: 650px; margin-top: 50px;}
+        .hero h1 {
+            color: var(--white); font-size: clamp(2.5rem, 5vw, 4.5rem);
+            letter-spacing: 4px; line-height: 1.2; margin-bottom: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-align: left;
+        }
+        .hero .separator-small { margin: 0 0 30px 0; }
+        .hero p {
+            color: var(--white); font-family: var(--font-title); font-size: clamp(1.2rem, 2vw, 1.8rem);
+            font-weight: 300; margin-bottom: 40px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
 
-        /* GRILLE ET SCROLL MOBILE */
-        .offers-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 25px; 
-            max-width: 1100px; /* Élargi pour PC */
-            margin: 0 auto;
-        }
+        /* ─── LOGOS ─── */
+        .logos-section { background-color: var(--yellow); padding: 30px 0; overflow: hidden; border-bottom: 3px solid var(--black);}
+        .logos-section h3 { text-align: center; font-size: 1rem; margin-bottom: 20px; letter-spacing: 2px; }
+        .marquee { display: flex; gap: 50px; width: max-content; animation: marquee 20s linear infinite; align-items: center;}
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .marquee img { height: 40px; width: auto; filter: grayscale(100%) contrast(120%); opacity: 0.8; transition: all 0.3s; }
+        .marquee img:hover { filter: grayscale(0%); opacity: 1; }
 
-        @media (max-width: 768px) {
-            .offers-grid {
-                display: flex;
-                overflow-x: scroll;
-                scroll-snap-type: x mandatory; /* Force l'aimantage */
-                -webkit-overflow-scrolling: touch;
-                padding: 20px 5%;
-                gap: 20px;
-            }
-            .offer-card {
-                flex: 0 0 85%; /* 85% de la largeur pour voir la suivante */
-                scroll-snap-align: center; /* Centre la carte au scroll */
-            }
-        }
+        /* ─── CONCEPT SECTION ─── */
+        .concept-section { background-color: var(--white); text-align: center; }
+        .concept-text { max-width: 800px; margin: 0 auto; }
+        .concept-highlight {
+            background: var(--yellow);
+            border-left: 4px solid var(--black);
+            padding: 18px 20px;
+            margin: 30px auto;
+            font-family: var(--font-title);
+            font-size: 1.1rem;
+            color: var(--black);
+            font-style: italic;
+            text-align: left;
+        }
 
-        .offer-card {
-            background: var(--white); padding: 40px 25px; text-align: center;
-            border: 1px solid #ddd; display: flex; flex-direction: column;
-        }
-        .offer-card.featured { background-color: var(--yellow); border: 2px solid var(--black); box-shadow: 8px 8px 0px var(--black); }
-        .offer-price { font-family: var(--font-title); font-size: 3rem; margin-bottom: 20px; }
-        .offer-price span { font-size: 1rem; color: var(--text-grey); }
-        .offer-card ul { list-style: none; margin-bottom: 25px; text-align: left; flex-grow: 1; }
-        .offer-card ul li { margin-bottom: 10px; font-size: 0.9rem; padding-left: 25px; position: relative; }
-        .offer-card ul li::before { content: '✓'; position: absolute; left: 0; font-weight: bold; }
+        /* ─── OFFRES ─── */
+        .offers-section { background-color: var(--grey-light); }
+        .offers-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            margin: 40px auto 50px;
+            border: 2px solid var(--black);
+            width: fit-content;
+        }
+        .toggle-btn {
+            font-family: var(--font-title);
+            text-transform: uppercase;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            padding: 14px 35px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            color: var(--black);
+        }
+        .toggle-btn.active { background: var(--black); color: var(--white); }
+        .toggle-btn:not(.active):hover { background: var(--yellow); }
 
-        /* SECTION GIF DÉDIÉE */
-        .gif-section { background: var(--white); padding: 80px 20px; text-align: center; border-top: 1px solid #eee; }
-        .gif-container { max-width: 800px; margin: 0 auto; }
-        .gif-container img { width: 100%; max-width: 300px; border-radius: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .gif-container p { margin-top: 30px; font-weight: 700; font-style: italic; color: var(--black); }
+        .offers-panel { display: none; }
+        .offers-panel.active { display: block; }
 
-        /* FORMULAIRE ET CONTACT */
-        .contact-section { background-color: var(--white); padding: 80px 20px; }
-        .contact-wrapper { max-width: 600px; margin: 0 auto; }
-        .form-control { width: 100%; padding: 12px; margin-bottom: 15px; border: 2px solid #ddd; border-radius: 4px; }
-        .success-message { display: none; background: #d4edda; color: #155724; padding: 20px; margin-bottom: 20px; text-align: center; }
+        /* Grille Desktop */
+        .offers-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 30px; 
+            margin-top: 20px; 
+            max-width: 800px; 
+            margin-left: auto; 
+            margin-right: auto;
+        }
+        
+        /* Grille Mobile Scrollable (Swipe) */
+        @media (max-width: 768px) {
+            .offers-grid {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                padding-bottom: 20px; /* Espace pour la barre de scroll */
+                gap: 15px;
+            }
+            .offer-card {
+                min-width: 85vw;
+                scroll-snap-align: center;
+                flex: 0 0 auto;
+            }
+            /* Masquer la scrollbar inélégante mais garder la fonction (Chrome/Safari) */
+            .offers-grid::-webkit-scrollbar { height: 6px; }
+            .offers-grid::-webkit-scrollbar-track { background: var(--grey-light); }
+            .offers-grid::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+        }
 
-        footer { background-color: var(--black); color: var(--white); padding: 60px 20px; text-align: center; }
-    </style>
+        .offer-card {
+            background: var(--white); padding: 40px 30px; text-align: center;
+            border: 1px solid #ddd; transition: transform 0.3s;
+            display: flex; flex-direction: column;
+        }
+        .offer-card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-color: var(--yellow);}
+        .offer-card.featured { background-color: var(--yellow); border-color: var(--black); box-shadow: 8px 8px 0px var(--black); }
+        .offer-card h3 { font-size: 2rem; margin-bottom: 10px; }
+        .offer-price { font-family: var(--font-title); font-size: 3rem; color: var(--black); margin-bottom: 20px; line-height: 1;}
+        .offer-price span { font-size: 1rem; color: var(--text-grey); }
+        .offer-card > p { font-size: 0.95rem; margin-bottom: 20px; min-height: 60px;}
+        .offer-card ul { list-style: none; margin-bottom: 20px; text-align: left; flex-grow: 1; }
+        .offer-card ul li { margin-bottom: 10px; font-size: 0.9rem; padding-left: 25px; position: relative; color: var(--text-grey);}
+        .offer-card ul li::before { content: '✓'; position: absolute; left: 0; color: var(--black); font-weight: bold; }
+        .offer-card ul li.highlight-tip {
+            background: rgba(253,249,135,0.5);
+            border-left: 3px solid var(--black);
+            padding: 8px 10px 8px 15px;
+            font-size: 0.82rem;
+            font-style: italic;
+            margin-top: 10px;
+            color: var(--black);
+            border-radius: 2px;
+        }
+        .offer-card ul li.highlight-tip::before { content: none; }
+        .offer-card ul li.highlight-tip.dark-tip { background: rgba(10,10,10,0.08); }
+        .offer-card ul li.no-engagement { font-size: 0.88rem; color: var(--text-grey); font-style: italic; }
+        .offer-card ul li.no-engagement::before { content: '🔓'; font-size: 0.8rem; top: 11px; }
+
+        /* ─── APP MOBILE PREVIEW ─── */
+        .app-preview {
+            margin-top: 40px;
+            text-align: center;
+            background: var(--white);
+            padding: 40px 20px;
+            border-top: 1px solid #ddd;
+        }
+        .app-preview p {
+            color: var(--text-grey);
+            font-style: italic;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+        .app-preview img {
+            max-width: 280px;
+            width: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* ─── TEMOIGNAGES ─── */
+        .testimonials-section { background-color: var(--yellow); }
+        .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 50px; }
+        .testi-card { background: var(--white); padding: 40px; border: 2px solid var(--black); box-shadow: 6px 6px 0px var(--black); display: flex; flex-direction: column; justify-content: space-between;}
+        .testi-quote { font-size: 1.1rem; font-style: italic; margin-bottom: 20px; color: var(--black); }
+        
+        .testi-author-block { display: flex; align-items: center; gap: 15px; margin-top: 15px; }
+        .testi-profile-img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--black); background-color: var(--white); }
+        .testi-author-info { display: flex; flex-direction: column; }
+        
+        .testi-author { font-family: var(--font-title); text-transform: uppercase; font-weight: 700; color: var(--black); line-height: 1.2; }
+        .testi-role { font-size: 0.85rem; color: #666; }
+
+        /* ─── CONTACT FORM STYLE ─── */
+        .contact-section { background-color: var(--white); text-align: center; }
+        .contact-wrapper { max-width: 600px; margin: 0 auto; text-align: left; }
+        .contact-header { text-align: center; margin-bottom: 40px; }
+        
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; font-family: var(--font-title); font-weight: 500; font-size: 1.1rem; margin-bottom: 8px; color: var(--black); }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            background-color: var(--grey-light);
+            transition: border-color 0.3s;
+        }
+        .form-control:focus { border-color: var(--black); outline: none; background-color: var(--white); }
+        
+        .radio-group { display: flex; flex-direction: column; gap: 10px; }
+        .radio-item { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .radio-item input { width: 18px; height: 18px; cursor: pointer; accent-color: var(--black); }
+        .radio-item span { font-size: 1rem; color: var(--text-grey); }
+
+        .checkbox-group { display: flex; align-items: flex-start; gap: 10px; margin-top: 30px; margin-bottom: 30px;}
+        .checkbox-group input { width: 18px; height: 18px; margin-top: 4px; cursor: pointer; accent-color: var(--black); }
+        .checkbox-group span { font-size: 0.85rem; color: #666; line-height: 1.4; }
+        .checkbox-group a { color: var(--black); text-decoration: underline; font-weight: bold; }
+
+        .form-submit-btn {
+            width: 100%;
+            border: none;
+            font-size: 1.2rem;
+            padding: 18px;
+        }
+        .form-secure-text { text-align: center; font-size: 0.85rem; color: #888; margin-top: 15px; font-style: italic; }
+
+        .success-message {
+            display: none;
+            background-color: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+            text-align: center;
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        /* ─── CONTACT ALTERNATIF ─── */
+        .direct-contact {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 40px;
+            border-top: 1px solid #ddd;
+        }
+        .direct-contact p { font-weight: bold; margin-bottom: 20px; }
+        .direct-contact-btns { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;}
+
+        /* ─── FOOTER ─── */
+        footer { background-color: var(--black); color: var(--white); padding: 60px 20px; text-align: center; }
+        footer .logo { color: var(--white); margin-bottom: 30px; display: inline-block; }
+        .social-icons a { color: var(--white); font-size: 24px; margin: 0 15px; text-decoration: none; transition: color 0.2s; }
+        .social-icons a:hover { color: var(--yellow); }
+        .footer-links a { color: #aaa; text-decoration: none; font-size: 0.9rem; margin: 0 10px; }
+        .footer-links a:hover { color: var(--yellow); }
+    </style>
 </head>
 <body>
 
-    <nav>
-        <a href="#" class="logo"><span class="asso">ASSO</span><span class="page">PAGE</span></a>
-        <div class="nav-links">
-            <a href="#concept">Le Concept</a>
-            <a href="#offres">Systèmes</a>
-            <a href="#contact">Contact</a>
-        </div>
-    </nav>
+    <nav>
+        <a href="#" class="logo"><span class="asso">ASSO</span><span class="page">PAGE</span></a>
+        
+        <div class="nav-links">
+            <a href="#concept">Le Concept</a>
+            <a href="#offres">Systèmes</a>
+            <a href="#contact">Contact</a>
+            <a href="https://billing.stripe.com/p/login/28E28q4Th9lS5Rf11PdAk00" target="_blank" class="client-portal"><i class="fa-solid fa-user"></i> Espace Client</a>
+        </div>
+    </nav>
 
-    <header class="hero">
-        <div class="hero-content">
-            <h1>Sites &amp; Appli<br><span style="color: var(--yellow);">pour les assos</span></h1>
-            <div class="separator-small" style="margin: 0 0 30px 0;"></div>
-            <p>Je vous donne les moyens de briller et de gagner du temps.</p>
-            <div class="hero-buttons">
-                <a href="#offres" class="qbutton yellow" onclick="showPanel('sites')">🌐 J'ai besoin d'un site</a>
-                <a href="#offres" class="qbutton dark" onclick="showPanel('outils')">⚙️ J'ai besoin d'outils</a>
-            </div>
-        </div>
-    </header>
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Sites &amp; Appli<br><span style="color: var(--yellow);">pour les assos</span></h1>
+            <div class="separator-small"></div>
+            <p>Je vous donne les moyens de briller et de gagner du temps.</p>
+            <div class="hero-buttons">
+                <a href="#offres-sites" class="qbutton yellow" onclick="showPanel('sites')">🌐 J'ai besoin d'un site</a>
+                <a href="#offres-outils" class="qbutton dark" onclick="showPanel('outils')">⚙️ J'ai besoin d'outils</a>
+            </div>
+        </div>
+    </header>
 
-    <div class="logos-section">
-        <h3>ILS FONT TOURNER LEUR ASSO AVEC MOI</h3>
-        <div class="marquee">
-            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/zenith2_huztz0.png" alt="Zénith" />
-            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/efsf2_pkzklq.png" alt="EFSF" />
-            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/aev_logo_asso_hv4ewr.jpg" alt="Aix en Vue" />
-            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/secpop2_q9k820.png" alt="Secours Populaire" />
-            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/lameka_r3tnbf.png" alt="La Meka" />
-            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/hopesphere2_lfqhyq.png" alt="Hope" />
-            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/zenith2_huztz0.png" alt="Zénith" />
-            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/efsf2_pkzklq.png" alt="EFSF" />
-            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/aev_logo_asso_hv4ewr.jpg" alt="Aix en Vue" />
-        </div>
-    </div>
+    <div class="logos-section">
+        <h3>ILS FONT TOURNER LEUR ASSO AVEC MOI</h3>
+        <div class="marquee">
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/zenith2_huztz0.png" alt="Zénith" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/efsf2_pkzklq.png" alt="EFSF" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/hopesphere2_lfqhyq.png" alt="Hope-Sphère" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/vrai_logo_atao_cu8uzr.png" alt="ATAO" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/secpop2_q9k820.png" alt="Secours Populaire" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/aev_logo_asso_hv4ewr.jpg" alt="Aix en Vue" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/arche_chachou_syokwr.jpg" alt="Arche Chachou" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/Classolidr_qcgw3u.png" alt="Classolidr" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/lameka_r3tnbf.png" alt="La Meka" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/zenith2_huztz0.png" alt="Zénith" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/efsf2_pkzklq.png" alt="EFSF" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/hopesphere2_lfqhyq.png" alt="Hope-Sphère" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/vrai_logo_atao_cu8uzr.png" alt="ATAO" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/secpop2_q9k820.png" alt="Secours Populaire" />
+        </div>
+    </div>
 
-    <section class="section offers-section" id="offres">
-        <div class="container">
-            <h2>Les Systèmes Assopage</h2>
-            <div class="separator-small separator-dark"></div>
+    <section class="section concept-section" id="concept">
+        <div class="container concept-text">
+            <h2>Le Concept</h2>
+            <div class="separator-small" style="margin: 0 auto 30px auto;"></div>
+            <p>Moi c'est Jérémy, développeur web pour associations depuis 3 ans. J'ai créé <strong>Assopage</strong> en partant d'un constat simple : les petites et moyennes associations n'ont ni le temps, ni les moyens, ni les compétences pour développer et gérer un site visible. Et une grande partie du travail administratif se fait encore à la main.</p>
+            <p>Résultat : du temps perdu pour le président et le secrétaire, un manque à gagner en visibilité et en crédibilité.</p>
+            <div class="concept-highlight">
+                Assopage, c'est la solution pour avoir votre site web et vos outils pro — gérés de A à Z — sans avance d'argent et sans engagement.
+            </div>
+            <br>
+            <a href="#contact" class="qbutton dark">Échangeons sur votre projet</a>
+        </div>
+    </section>
 
-            <div class="offers-toggle">
-                <button class="toggle-btn active" id="btn-sites" onclick="showPanel('sites')">🌐 Sites web</button>
-                <button class="toggle-btn" id="btn-outils" onclick="showPanel('outils')">⚙️ Outils de gestion</button>
-            </div>
+    <section class="section offers-section" id="offres">
+        <div class="container">
+            <h2>Les Systèmes Assopage</h2>
+            <div class="separator-small separator-dark"></div>
+            <p style="text-align: center; max-width: 600px; margin: 0 auto 10px;">La simplicité, c'est le plus important pour une asso. Tous les outils Assopage sont accessibles depuis votre téléphone. Choisissez ce dont vous avez besoin.</p>
 
-            <div class="offers-panel active" id="offres-sites">
-                <div class="offers-grid">
-                    <div class="offer-card">
-                        <h3>Vitrine</h3>
-                        <div class="offer-price">20€<span>/mois</span></div>
-                        <p>La présence numérique propre et pro. Fini les sites WordPress ou Wix bricolés et jamais à jour.</p>
-                        <ul>
-                            <li>Site moderne 100% géré</li>
-                            <li>Nom de domaine inclus</li>
-                            <li>Identité visuelle sur-mesure</li>
-                            <li>Optimisé pour le référencement</li>
-                            <li style="font-style: italic;">🔓 Zéro engagement</li>
-                        </ul>
-                        <a href="https://www.aixenvue.fr/" target="_blank" class="qbutton btn-example">
-                            <i class="fa-solid fa-circle-play"></i> Découvrir le rendu réel
-                        </a>
-                        <a href="#contact" class="qbutton dark">Me contacter</a>
-                    </div>
+            <div class="offers-toggle" id="offres-toggle">
+                <button class="toggle-btn active" id="btn-sites" onclick="showPanel('sites')">🌐 Sites web</button>
+                <button class="toggle-btn" id="btn-outils" onclick="showPanel('outils')">⚙️ Outils de gestion</button>
+            </div>
 
-                    <div class="offer-card featured">
-                        <h3>Site + App</h3>
-                        <div class="offer-price">30€<span>/mois</span></div>
-                        <p>Votre asso dans la poche. Publiez depuis le terrain, gérez vos événements en temps réel.</p>
-                        <ul>
-                            <li><strong>Tout le plan Vitrine</strong></li>
-                            <li>Appli mobile dédiée avec votre logo</li>
-                            <li>Publication instantanée (photos/vidéos)</li>
-                            <li>Billetterie sur demande (gestion via l'appli)</li>
-                        </ul>
-                        <a href="https://www.appsheet.com/start/732b3c01-876f-4658-a597-2f0d193288fc?platform=desktop#appName=AEVb%C3%A9n%C3%A9ficiaire-399346635&vss=H4sIAAAAAAAAA6XOQQ7CIBQE0LvMmhOwNS6M0Zho3IgLLL-GSKEpVG0Id_dXbVyrS4a8-ZNxtXTbJl1dIA_581rSAImssBtaUpAKs-BTF5yCUFjr5hVunPbe-rNCQTmKySeKkPk7Lv-7LmAN-WRrS93YNUrueDv-HhUHk0ERaPqkT46eg9mUwlkdqj6S2fOUHybEhZ_fW-3NKhiurLWLVB4r1cv6ZQEAAA==&view=Planning" target="_blank" class="qbutton btn-example">
-                            <i class="fa-solid fa-mobile-screen-button"></i> Tester l'interface appli
-                        </a>
-                        <a href="#contact" class="qbutton dark">Me contacter</a>
-                    </div>
-                </div>
-            </div>
+            <div class="offers-panel active" id="offres-sites">
+                <div class="offers-grid">
 
-            <div class="offers-panel" id="offres-outils">
-                <div class="offers-grid">
-                    <div class="offer-card">
-                        <h3>Sérénité</h3>
-                        <div class="offer-price">25€<span>/mois</span></div>
-                        <p>Le cerveau de votre bureau. Finis les oublis de cotisations.</p>
-                        <ul>
-                            <li><strong>Tout le plan Site + App</strong></li>
-                            <li>CRM Contacts & Cotisations</li>
-                            <li>Rappels automatiques par mail</li>
-                        </ul>
-                        <a href="#contact" class="qbutton dark">Me contacter</a>
-                    </div>
+                    <div class="offer-card">
+                        <h3>Vitrine</h3>
+                        <div class="offer-price">20€<span>/mois</span></div>
+                        <p>Fini les sites WordPress ou Wix bricolés et jamais à jour.</p>
+                        <ul>
+                            <li>Site moderne 100% géré (création, hébergement, maintenance)</li>
+                            <li>Nom de domaine inclus <em>ou</em> sous-domaine <strong>lenomdusite.assopage.fr</strong></li>
+                            <li>1 évolution par mois sur demande</li>
+                            <li>Identité visuelle sur-mesure (pas de template générique)</li>
+                            <li>Optimisé pour le référencement (Google)</li>
+                            <li class="no-engagement">Zéro engagement – transfert de site et données sur simple demande</li>
+                            <li class="highlight-tip">💡 Boostez votre trésorerie grâce au bouton don flottant optimisé.</li>
+                        </ul>
+                        <a href="https://www.aixenvue.fr/" target="_blank" class="qbutton yellow" style="width: 100%; margin-bottom: 15px; font-size: 16px;"><i class="fa-solid fa-eye"></i> Voir un exemple</a>
+                        <a href="#contact" class="qbutton dark" style="width: 100%;">Me contacter</a>
+                    </div>
 
-                    <div class="offer-card featured">
-                        <h3>Gestion</h3>
-                        <div class="offer-price">35€<span>/mois</span></div>
-                        <p>L'artillerie lourde pour structurer vos bénévoles.</p>
-                        <ul>
-                            <li><strong>Tout le plan Sérénité</strong></li>
-                            <li>Génération de reçus fiscaux</li>
-                            <li>Campagnes mails groupées</li>
-                        </ul>
-                        <a href="#contact" class="qbutton dark">Me contacter</a>
-                    </div>
+                    <div class="offer-card featured">
+                        <h3>Site + App</h3>
+                        <div class="offer-price">30€<span>/mois</span></div>
+                        <p>Votre asso dans la poche. Publiez depuis le terrain, gérez vos événements en temps réel.</p>
+                        <ul>
+                            <li><strong>Tout le plan Vitrine</strong></li>
+                            <li>Application mobile dédiée avec votre logo</li>
+                            <li>Publiez articles, photos et vidéos en 2 clics depuis l'appli</li>
+                            <li>Photos prises depuis le téléphone → en ligne instantanément</li>
+                            <li>Billetterie sur demande : l'adhérent s'inscrit depuis le site, vous gérez tout depuis l'appli</li>
+                            <li class="highlight-tip dark-tip">💡 « Un site qui est vu, c'est un site qui bouge. » Vos adhérents ne manquent plus aucun événement.</li>
+                        </ul>
+                        <a href="#contact" class="qbutton dark" style="width: 100%;">Me contacter</a>
+                    </div>
 
-                    <div class="offer-card">
-                        <h3>Sur-mesure</h3>
-                        <div class="offer-price" style="font-size: 2rem;">DEVIS</div>
-                        <p>Un besoin spécifique ? Je construis la solution adaptée.</p>
-                        <ul>
-                            <li>Appli métier spécifique</li>
-                            <li>Développement complexe</li>
-                        </ul>
-                        <a href="https://www.je-co.fr/" target="_blank" class="qbutton btn-example">
-                            <i class="fa-solid fa-code"></i> Voir mes autres codes
-                        </a>
-                        <a href="#contact" class="qbutton dark">Me contacter</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                </div>
 
-    <section class="gif-section">
-        <div class="gif-container">
-            <img src="demo-appli.gif" alt="Démo Appli">
-            <p>Gérez votre association directement depuis votre téléphone 📱</p>
-        </div>
-    </section>
+                <div class="app-preview" style="max-width: 800px; margin: 40px auto 0;">
+                    <p>Gérez votre association directement depuis votre téléphone 📱</p>
+                    <img src="demo-appli.gif" alt="Application mobile AssoPage en action">
+                </div>
+            </div>
 
-    <section class="section contact-section" id="contact">
-        <div class="container contact-wrapper">
-            <div class="contact-header">
-                <h2>On fait le point ?</h2>
-                <div class="separator-small"></div>
-                <p>Discutons 10 min de votre asso, sans engagement.</p>
-            </div>
+            <div class="offers-panel" id="offres-outils">
+                <div class="offers-grid">
 
-            <div id="success-msg" class="success-message">✅ Demande reçue ! Je vous rappelle très vite.</div>
+                    <div class="offer-card">
+                        <h3>Sérénité</h3>
+                        <div class="offer-price">25€<span>/mois</span></div>
+                        <p>Le cerveau de votre bureau. Finis les oublis de cotisations et les fichiers éparpillés.</p>
+                        <ul>
+                            <li><strong>Tout le plan Site + App</strong></li>
+                            <li>CRM Contacts : gérez membres &amp; cotisations depuis votre téléphone</li>
+                            <li>Gestion des notes de frais, trésorerie &amp; location de matériel</li>
+                            <li>Rappels automatiques par mail pour les cotisations impayées</li>
+                            <li>Rapports statistiques : participation, évolution de trésorerie</li>
+                            <li>Jusqu'à 9 administrateurs de l'application</li>
+                            <li class="highlight-tip">💡 20% des adhérents n'ont pas renouvelé par simple oubli — le rappel auto règle ce problème.</li>
+                        </ul>
+                        <a href="#contact" class="qbutton dark" style="width: 100%;">Me contacter</a>
+                    </div>
 
-            <form id="contact-form">
-                <input type="text" id="nom_asso" class="form-control" required placeholder="Nom de l'association">
-                <input type="text" id="prenom" class="form-control" required placeholder="Votre prénom">
-                <input type="tel" id="telephone" class="form-control" required placeholder="Téléphone">
-                <input type="email" id="email" class="form-control" required placeholder="Email">
-                
-                <div style="margin: 20px 0;">
-                    <label style="font-weight: bold; display: block; margin-bottom: 10px;">Rappel souhaité :</label>
-                    <label><input type="radio" name="creneau" value="Matin" required> Matin</label><br>
-                    <label><input type="radio" name="creneau" value="Après-midi"> Après-midi</label><br>
-                    <label><input type="radio" name="creneau" value="ASAP"> Le plus vite possible</label>
-                </div>
+                    <div class="offer-card featured">
+                        <h3>Gestion</h3>
+                        <div class="offer-price">35€<span>/mois</span></div>
+                        <p>L'artillerie lourde pour structurer les gros volumes de bénévoles et maximiser vos dons.</p>
+                        <ul>
+                            <li><strong>Tout le plan Sérénité</strong></li>
+                            <li>Génération automatique de reçus fiscaux</li>
+                            <li>Campagnes mails groupées ultra-simples (par groupe, avec modèles)</li>
+                            <li>Accès à l'app jusqu'à 200 bénévoles, droits par pôle</li>
+                            <li>Partage de documents intégré</li>
+                            <li>Accompagnement &amp; configuration Google Workspace</li>
+                            <li>1 formation annuelle incluse pour les nouveaux bénévoles</li>
+                            <li class="highlight-tip dark-tip">💡 La génération de reçus fiscaux est un levier puissant pour augmenter vos dons.</li>
+                        </ul>
+                        <a href="#contact" class="qbutton dark" style="width: 100%;">Me contacter</a>
+                    </div>
 
-                <button type="submit" id="submit-btn" class="qbutton yellow" style="width:100%">Réserver mon diagnostic</button>
-            </form>
+                    <div class="offer-card">
+                        <h3>Sur-mesure</h3>
+                        <div class="offer-price" style="font-size: 2rem;">Devis<span style="display:block; font-size: 0.9rem;">&nbsp;</span></div>
+                        <p>Un besoin spécifique ? Une demande hors-cadre ? Je construis la solution adaptée à votre situation.</p>
+                        <ul>
+                            <li>Application métier ultra-spécifique</li>
+                            <li>Développement complexe sur-mesure</li>
+                            <li>Abonnement adapté à vos contraintes budgétaires</li>
+                            <li>Accompagnement de A à Z</li>
+                            <li class="highlight-tip">💡 Voir toutes les possibilités sur je-co.fr</li>
+                        </ul>
+                        <a href="https://www.je-co.fr/" target="_blank" class="qbutton yellow" style="width: 100%; margin-bottom: 15px; font-size: 16px;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Voir les réalisations</a>
+                        <a href="#contact" class="qbutton dark" style="width: 100%;">Me contacter</a>
+                    </div>
 
-            <div class="direct-contact">
-                <p>Besoin de me parler directement ?</p>
-                <div class="direct-contact-btns">
-                    <a href="tel:0650302547" class="qbutton outline">📞 06 50 30 25 47</a>
-                    <a href="mailto:contact@assopage.fr" class="qbutton outline">✉️ Par Email</a>
-                </div>
-            </div>
-        </div>
-    </section>
+                </div>
+            </div>
 
-    <footer>
-        <p>© 2026 Assopage par Jérémy Colard.</p>
-    </footer>
+        </div>
+    </section>
 
-    <script>
-        function showPanel(panel) {
-            document.getElementById('btn-sites').classList.toggle('active', panel === 'sites');
-            document.getElementById('btn-outils').classList.toggle('active', panel === 'outils');
-            document.getElementById('offres-sites').classList.toggle('active', panel === 'sites');
-            document.getElementById('offres-outils').classList.toggle('active', panel === 'outils');
-        }
+    <section class="section testimonials-section">
+        <div class="container">
+            <h2 style="color: var(--black);">Le Terrain Parle</h2>
+            <div class="separator-small separator-dark"></div>
+            
+            <div class="testi-grid">
+                
+                <div class="testi-card">
+                    <p class="testi-quote">"Son efficacité a transformé notre communication. Un partenaire exceptionnel qui a fait croître notre asso pour nos adhérents déficients visuels."</p>
+                    <div class="testi-author-block">
+                        <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775736530/karine_bdvv7c.png" alt="Karine Centeno" class="testi-profile-img">
+                        <div class="testi-author-info">
+                            <div class="testi-author">Karine Centeno</div>
+                            <div class="testi-role">Présidente, Aix en Vue</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testi-card" style="background-color: var(--black); color: var(--white);">
+                    <p class="testi-quote" style="color: var(--white);">"Gérer 240 bénévoles c'était un grand sujet. Jérémy a répondu au-delà de nos attentes. Rapide, efficace : un gain de temps considérable."</p>
+                    <div class="testi-author-block">
+                        <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775736577/benoit_bat5g8.png" alt="Benoit Vitrand" class="testi-profile-img" style="border-color: var(--yellow);">
+                        <div class="testi-author-info">
+                            <div class="testi-author" style="color: var(--yellow);">Benoit Vitrand</div>
+                            <div class="testi-role" style="color: #ccc;">Président, La Mekanik Du Rire</div>
+                        </div>
+                    </div>
+                </div>
 
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxnBeHhvvNqNf1VnSuTCBoCRJ5eSmwJgysnzfUR1Y0fBspAp3SWwLpbQtq636Czlr11sw/exec";
+                <div class="testi-card">
+                    <p class="testi-quote">"Jérémy nous a permis de construire un intranet pour partager un agenda. Son accompagnement dans la mise en ligne nous a permis de monter en compétence et concrétiser ce projet."</p>
+                    <div class="testi-author-block">
+                        <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/secpop2_q9k820.png" alt="Yves Cailloce" class="testi-profile-img" style="object-fit: contain; padding: 5px;">
+                        <div class="testi-author-info">
+                            <div class="testi-author">Yves Cailloce</div>
+                            <div class="testi-role">Secours Populaire</div>
+                        </div>
+                    </div>
+                </div>
 
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const btn = document.getElementById('submit-btn');
-            btn.innerText = "Envoi...";
-            btn.disabled = true;
+                <div class="testi-card">
+                    <p class="testi-quote">"Il nous a fait des tutos explicatifs. Il est adaptable aux novices et aux diverses demandes pratiques. Nous conseillons très vivement Jérémy en qui nous avons une totale confiance."</p>
+                    <div class="testi-author-block">
+                        <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/hopesphere2_lfqhyq.png" alt="Nathalie" class="testi-profile-img" style="object-fit: contain; padding: 5px;">
+                        <div class="testi-author-info">
+                            <div class="testi-author">Nathalie</div>
+                            <div class="testi-role">Hopesphere</div>
+                        </div>
+                    </div>
+                </div>
 
-            const data = {
-                nom_asso: document.getElementById('nom_asso').value,
-                prenom: document.getElementById('prenom').value,
-                telephone: document.getElementById('telephone').value,
-                email: document.getElementById('email').value,
-                creneau: document.querySelector('input[name="creneau"]:checked').value
-            };
+                <div class="testi-card">
+                    <p class="testi-quote">"Nous le recommandons sans hésitation à toute structure ou professionnel souhaitant un partenaire fiable, à l'écoute et pleinement investi dans la réussite de leurs projets."</p>
+                    <div class="testi-author-block">
+                        <div class="testi-profile-img" style="background: var(--black); display: flex; align-items: center; justify-content: center;">
+                            <span style="color: var(--yellow); font-family: var(--font-title); font-size: 1.2rem; font-weight: 700;">ESF</span>
+                        </div>
+                        <div class="testi-author-info">
+                            <div class="testi-author">Armand</div>
+                            <div class="testi-role">Enfants Sans Fil</div>
+                        </div>
+                    </div>
+                </div>
 
-            fetch(WEB_APP_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                body: JSON.stringify(data)
-            })
-            .then(res => res.json())
-            .then(res => {
-                document.getElementById('contact-form').style.display = 'none';
-                document.getElementById('success-msg').style.display = 'block';
-            })
-            .catch(err => alert("Erreur. Appelez-moi au 06 50 30 25 47"));
-        });
-    </script>
+            </div>
+        </div>
+    </section>
+
+    <section class="section contact-section" id="contact">
+        <div class="container contact-wrapper">
+            <div class="contact-header">
+                <h2>On fait le point en 10 minutes ?</h2>
+                <div class="separator-small"></div>
+                <p>Pas de pression, pas de vente forcée. On discute de votre asso et je vous dis honnêtement si mes outils peuvent vous faire gagner du temps. C'est tout.</p>
+            </div>
+
+            <div id="success-msg" class="success-message">
+                ✅ <strong>Super !</strong> J'ai bien reçu votre demande.<br>Je vous rappelle très vite sur le créneau demandé.
+            </div>
+
+            <form id="contact-form" class="contact-form">
+                
+                <div class="form-group">
+                    <label for="nom_asso">Nom de votre association</label>
+                    <input type="text" id="nom_asso" name="nom_asso" class="form-control" required placeholder="Ex: AS Toulouse, La Croix Rouge...">
+                </div>
+
+                <div class="form-group">
+                    <label for="prenom">Votre prénom</label>
+                    <input type="text" id="prenom" name="prenom" class="form-control" required placeholder="Ex: Marie, Julien...">
+                </div>
+
+                <div class="form-group">
+                    <label for="telephone">Numéro de téléphone</label>
+                    <input type="tel" id="telephone" name="telephone" class="form-control" required placeholder="06 12 34 56 78">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Adresse e-mail</label>
+                    <input type="email" id="email" name="email" class="form-control" required placeholder="contact@asso.fr">
+                </div>
+
+                <div class="form-group" style="margin-top: 35px;">
+                    <label>Quand souhaitez-vous être rappelé(e) ?</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="creneau" value="Le matin (9h-12h)" required>
+                            <span>Le matin (9h-12h)</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="creneau" value="L'après-midi (14h-18h)">
+                            <span>L'après-midi (14h-18h)</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="creneau" value="Le plus vite possible !">
+                            <span>Le plus vite possible !</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="rgpd" name="rgpd" required>
+                    <label for="rgpd">
+                        <span>J'accepte que ces données soient utilisées pour être recontacté, conformément à la <a href="https://drive.google.com/file/d/18hyh86EaF0ukg7aKnT8hTBRToUd5tjS7/view?usp=sharing" target="_blank">politique de confidentialité</a>. Vos données restent à Toulouse, 0 revente.</span>
+                    </label>
+                </div>
+
+                <button type="submit" id="submit-btn" class="qbutton yellow form-submit-btn">Réserver mon diagnostic gratuit</button>
+                <p class="form-secure-text">🔒 Connexion sécurisée - Jérémy - 06 50 30 25 47</p>
+            </form>
+
+            <div class="direct-contact">
+                <p>Vous préférez le contact direct ?</p>
+                <div class="direct-contact-btns">
+                    <a href="tel:0650302547" class="qbutton outline"><i class="fa-solid fa-phone"></i> 06 50 30 25 47</a>
+                    <a href="mailto:contact@assopage.fr" class="qbutton outline"><i class="fa-solid fa-envelope"></i> Par Email</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <a href="#" class="logo"><span class="asso" style="color:var(--white);">ASSO</span><span class="page">PAGE</span></a>
+        <div class="separator-small" style="margin: 20px auto;"></div>
+        
+        <div class="social-icons">
+            <a href="https://www.linkedin.com/in/j%C3%A9r%C3%A9my-colard-26a7a1287/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://www.je-co.fr" target="_blank" aria-label="Portfolio Je-co"><i class="fa-solid fa-globe"></i></a>
+        </div>
+        
+        <div class="footer-links" style="margin-top: 25px;">
+            <a href="https://billing.stripe.com/p/login/28E28q4Th9lS5Rf11PdAk00" target="_blank">Gérer mon abonnement</a> | 
+            <a href="https://www.je-co.fr" target="_blank">Portfolio Sur-mesure</a>
+        </div>
+        
+        <p style="margin-top: 30px; font-size: 0.9rem; color: #666;">© 2026 Assopage par Jérémy Colard. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        function showPanel(panel) {
+            // Toggle buttons
+            document.getElementById('btn-sites').classList.toggle('active', panel === 'sites');
+            document.getElementById('btn-outils').classList.toggle('active', panel === 'outils');
+
+            // Toggle panels
+            document.getElementById('offres-sites').classList.toggle('active', panel === 'sites');
+            document.getElementById('offres-outils').classList.toggle('active', panel === 'outils');
+
+            // Scroll to section
+            setTimeout(() => {
+                document.getElementById('offres').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 50);
+        }
+
+        // Handle hash links from hero buttons
+        document.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash;
+            if (hash === '#offres-outils') showPanel('outils');
+        });
+
+        /* ─── SCRIPT DU FORMULAIRE DE CONTACT ─── */
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxnBeHhvvNqNf1VnSuTCBoCRJ5eSmwJgysnzfUR1Y0fBspAp3SWwLpbQtq636Czlr11sw/exec";
+
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.innerText = "Envoi en cours...";
+            submitBtn.disabled = true;
+
+            // Récupération des données du formulaire
+            const data = {
+                nom_asso: document.getElementById('nom_asso').value,
+                prenom: document.getElementById('prenom').value,
+                telephone: document.getElementById('telephone').value,
+                email: document.getElementById('email').value,
+                creneau: document.querySelector('input[name="creneau"]:checked').value
+            };
+
+            // Envoi via fetch
+            fetch(WEB_APP_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if(result.status === "success") {
+                    document.getElementById('contact-form').style.display = 'none';
+                    document.getElementById('success-msg').style.display = 'block';
+                    
+                    // Remonter un peu l'écran pour voir le message
+                    document.getElementById('contact').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    alert("Une erreur est survenue lors de l'envoi. Vous pouvez me joindre au 06 50 30 25 47.");
+                    submitBtn.innerText = "Réserver mon diagnostic gratuit";
+                    submitBtn.disabled = false;
+                }
+            })
+            .catch(error => {
+                alert("Erreur de connexion. Veuillez me joindre directement au 06 50 30 25 47.");
+                submitBtn.innerText = "Réserver mon diagnostic gratuit";
+                submitBtn.disabled = false;
+            });
+        });
+    </script>
+
 </body>
 </html>
