@@ -48,7 +48,8 @@
 
         /* ─── BOUTONS ─── */
         .qbutton {
-            display: inline-block; font-family: var(--font-title); text-transform: uppercase;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            font-family: var(--font-title); text-transform: uppercase;
             font-size: 18px; letter-spacing: 1px; font-weight: 500; text-decoration: none;
             padding: 15px 35px; transition: all 0.3s ease; text-align: center; border: 2px solid transparent; cursor: pointer;
         }
@@ -56,6 +57,8 @@
         .qbutton.yellow:hover { background-color: var(--black); color: var(--white); }
         .qbutton.dark { background-color: var(--black); color: var(--white); border-color: var(--black); }
         .qbutton.dark:hover { background-color: var(--yellow); color: var(--black); border-color: var(--yellow); }
+        .qbutton.outline { background-color: transparent; color: var(--black); border-color: var(--black); }
+        .qbutton.outline:hover { background-color: var(--black); color: var(--white); }
 
         /* ─── NAV ─── */
         nav {
@@ -91,10 +94,8 @@
         }
 
         /* ─── LAYOUT GLOBALE ─── */
-        .section { padding: 100px 20px; }
+        .section { padding: 80px 20px; }
         .container { max-width: 1100px; margin: 0 auto; }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; text-align: center; } }
 
         /* ─── HERO SECTION ─── */
         .hero {
@@ -128,33 +129,27 @@
         }
 
         /* ─── LOGOS ─── */
-        .logos-section { background-color: var(--yellow); padding: 60px 0; overflow: hidden; border-bottom: 3px solid var(--black);}
-        .logos-section h3 { text-align: center; font-size: 1.2rem; margin-bottom: 30px; letter-spacing: 2px; }
-        .marquee { display: flex; gap: 60px; width: max-content; animation: marquee 20s linear infinite; align-items: center;}
+        .logos-section { background-color: var(--yellow); padding: 30px 0; overflow: hidden; border-bottom: 3px solid var(--black);}
+        .logos-section h3 { text-align: center; font-size: 1rem; margin-bottom: 20px; letter-spacing: 2px; }
+        .marquee { display: flex; gap: 50px; width: max-content; animation: marquee 20s linear infinite; align-items: center;}
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .marquee img { height: 60px; width: auto; filter: grayscale(100%) contrast(120%); opacity: 0.8; transition: all 0.3s; }
+        .marquee img { height: 40px; width: auto; filter: grayscale(100%) contrast(120%); opacity: 0.8; transition: all 0.3s; }
         .marquee img:hover { filter: grayscale(0%); opacity: 1; }
 
         /* ─── CONCEPT SECTION ─── */
-        .concept-section { background-color: var(--white); }
-        .concept-section .grid-2 { align-items: start; }
-        .concept-text h2 { text-align: left; }
-        .concept-text .separator-small { margin: 0 0 30px 0; }
-        @media (max-width: 768px) { 
-            .concept-text h2 { text-align: center; } 
-            .concept-text .separator-small { margin: 0 auto 30px auto; } 
-        }
+        .concept-section { background-color: var(--white); text-align: center; }
+        .concept-text { max-width: 800px; margin: 0 auto; }
         .concept-highlight {
             background: var(--yellow);
             border-left: 4px solid var(--black);
             padding: 18px 20px;
-            margin: 20px 0 25px;
+            margin: 30px auto;
             font-family: var(--font-title);
             font-size: 1.1rem;
             color: var(--black);
             font-style: italic;
+            text-align: left;
         }
-        .concept-image img { width: 100%; max-width: 320px; display: block; margin: 0 auto; }
 
         /* ─── OFFRES ─── */
         .offers-section { background-color: var(--grey-light); }
@@ -184,7 +179,38 @@
         .offers-panel { display: none; }
         .offers-panel.active { display: block; }
 
-        .offers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 20px; }
+        /* Grille Desktop */
+        .offers-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 30px; 
+            margin-top: 20px; 
+            max-width: 800px; 
+            margin-left: auto; 
+            margin-right: auto;
+        }
+        
+        /* Grille Mobile Scrollable (Swipe) */
+        @media (max-width: 768px) {
+            .offers-grid {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                padding-bottom: 20px; /* Espace pour la barre de scroll */
+                gap: 15px;
+            }
+            .offer-card {
+                min-width: 85vw;
+                scroll-snap-align: center;
+                flex: 0 0 auto;
+            }
+            /* Masquer la scrollbar inélégante mais garder la fonction (Chrome/Safari) */
+            .offers-grid::-webkit-scrollbar { height: 6px; }
+            .offers-grid::-webkit-scrollbar-track { background: var(--grey-light); }
+            .offers-grid::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+        }
+
         .offer-card {
             background: var(--white); padding: 40px 30px; text-align: center;
             border: 1px solid #ddd; transition: transform 0.3s;
@@ -214,43 +240,25 @@
         .offer-card ul li.no-engagement { font-size: 0.88rem; color: var(--text-grey); font-style: italic; }
         .offer-card ul li.no-engagement::before { content: '🔓'; font-size: 0.8rem; top: 11px; }
 
-        .offers-cta { text-align: center; margin-top: 50px; }
-
         /* ─── APP MOBILE PREVIEW ─── */
         .app-preview {
             margin-top: 40px;
             text-align: center;
-            background: var(--black);
+            background: var(--white);
             padding: 40px 20px;
-            position: relative;
-            overflow: hidden;
-        }
-        .app-preview::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: repeating-linear-gradient(
-                -45deg,
-                transparent,
-                transparent 10px,
-                rgba(253,249,135,0.03) 10px,
-                rgba(253,249,135,0.03) 20px
-            );
+            border-top: 1px solid #ddd;
         }
         .app-preview p {
-            color: #ccc;
+            color: var(--text-grey);
             font-style: italic;
-            position: relative;
-            z-index: 1;
             margin-bottom: 25px;
+            font-weight: bold;
         }
         .app-preview img {
             max-width: 280px;
             width: 100%;
             display: block;
             margin: 0 auto;
-            position: relative;
-            z-index: 1;
         }
 
         /* ─── TEMOIGNAGES ─── */
@@ -265,10 +273,6 @@
         
         .testi-author { font-family: var(--font-title); text-transform: uppercase; font-weight: 700; color: var(--black); line-height: 1.2; }
         .testi-role { font-size: 0.85rem; color: #666; }
-
-        /* ─── PORTFOLIO / SUR-MESURE ─── */
-        .portfolio-section { background-color: var(--black); color: var(--white); text-align: center; }
-        .portfolio-section h2 { color: var(--white); }
 
         /* ─── CONTACT FORM STYLE ─── */
         .contact-section { background-color: var(--white); text-align: center; }
@@ -318,7 +322,18 @@
             text-align: center;
             font-family: var(--font-title);
             font-size: 1.2rem;
+            margin-bottom: 30px;
         }
+
+        /* ─── CONTACT ALTERNATIF ─── */
+        .direct-contact {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 40px;
+            border-top: 1px solid #ddd;
+        }
+        .direct-contact p { font-weight: bold; margin-bottom: 20px; }
+        .direct-contact-btns { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;}
 
         /* ─── FOOTER ─── */
         footer { background-color: var(--black); color: var(--white); padding: 60px 20px; text-align: center; }
@@ -337,7 +352,6 @@
         <div class="nav-links">
             <a href="#concept">Le Concept</a>
             <a href="#offres">Systèmes</a>
-            <a href="#portfolio">Sur-mesure</a>
             <a href="#contact">Contact</a>
             <a href="https://billing.stripe.com/p/login/28E28q4Th9lS5Rf11PdAk00" target="_blank" class="client-portal"><i class="fa-solid fa-user"></i> Espace Client</a>
         </div>
@@ -345,7 +359,7 @@
 
     <header class="hero">
         <div class="hero-content">
-            <h1>Sites &amp; Applications<br><span style="color: var(--yellow);">pour les assos</span></h1>
+            <h1>Sites &amp; Appli<br><span style="color: var(--yellow);">pour les assos</span></h1>
             <div class="separator-small"></div>
             <p>Je vous donne les moyens de briller et de gagner du temps.</p>
             <div class="hero-buttons">
@@ -376,22 +390,16 @@
     </div>
 
     <section class="section concept-section" id="concept">
-        <div class="container grid-2">
-            <div class="concept-text">
-                <h2>Le Concept</h2>
-                <div class="separator-small"></div>
-                <p>Moi c'est Jérémy, développeur web pour associations depuis 3 ans. J'ai créé <strong>Assopage</strong> en partant d'un constat simple : les petites et moyennes associations n'ont ni le temps, ni les moyens, ni les compétences pour développer et gérer un site visible. Et une grande partie du travail administratif se fait encore à la main.</p>
-                <p>Résultat : du temps perdu pour le président et le secrétaire, un manque à gagner en visibilité et en crédibilité.</p>
-                <div class="concept-highlight">
-                    Assopage, c'est la solution pour avoir votre site web et vos outils pro — gérés de A à Z — sans avance d'argent et sans engagement.
-                </div>
-                <p>Wix ou WordPress, c'est souvent le réflexe. Et je constate toujours les mêmes regrets : site bricolé, problèmes de sécurité, trop dur à maintenir donc jamais mis à jour, rarement plus de 10 visites par jour… <strong>Pour le même prix, vous méritez mieux.</strong></p>
-                <br>
-                <a href="#contact" class="qbutton dark">Échangeons sur votre projet</a>
+        <div class="container concept-text">
+            <h2>Le Concept</h2>
+            <div class="separator-small" style="margin: 0 auto 30px auto;"></div>
+            <p>Moi c'est Jérémy, développeur web pour associations depuis 3 ans. J'ai créé <strong>Assopage</strong> en partant d'un constat simple : les petites et moyennes associations n'ont ni le temps, ni les moyens, ni les compétences pour développer et gérer un site visible. Et une grande partie du travail administratif se fait encore à la main.</p>
+            <p>Résultat : du temps perdu pour le président et le secrétaire, un manque à gagner en visibilité et en crédibilité.</p>
+            <div class="concept-highlight">
+                Assopage, c'est la solution pour avoir votre site web et vos outils pro — gérés de A à Z — sans avance d'argent et sans engagement.
             </div>
-            <div class="concept-image">
-                <img src="demo-appli.gif" alt="Démonstration de l'application AssoPage">
-            </div>
+            <br>
+            <a href="#contact" class="qbutton dark">Échangeons sur votre projet</a>
         </div>
     </section>
 
@@ -407,18 +415,18 @@
             </div>
 
             <div class="offers-panel active" id="offres-sites">
-                <div class="offers-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); max-width: 800px; margin: 0 auto;">
+                <div class="offers-grid">
 
                     <div class="offer-card">
                         <h3>Vitrine</h3>
                         <div class="offer-price">20€<span>/mois</span></div>
-                        <p>La présence numérique propre et pro. Conçu pour booster vos dons, adhésions et actions de terrain.</p>
+                        <p>Fini les sites WordPress ou Wix bricolés et jamais à jour.</p>
                         <ul>
                             <li>Site moderne 100% géré (création, hébergement, maintenance)</li>
                             <li>Nom de domaine inclus <em>ou</em> sous-domaine <strong>lenomdusite.assopage.fr</strong></li>
                             <li>1 évolution par mois sur demande</li>
                             <li>Identité visuelle sur-mesure (pas de template générique)</li>
-                            <li>Référencement &amp; bouton « Faire un don » flottant inclus</li>
+                            <li>Optimisé pour le référencement (Google)</li>
                             <li class="no-engagement">Zéro engagement – transfert de site et données sur simple demande</li>
                             <li class="highlight-tip">💡 Boostez votre trésorerie grâce au bouton don flottant optimisé.</li>
                         </ul>
@@ -435,8 +443,7 @@
                             <li>Application mobile dédiée avec votre logo</li>
                             <li>Publiez articles, photos et vidéos en 2 clics depuis l'appli</li>
                             <li>Photos prises depuis le téléphone → en ligne instantanément</li>
-                            <li>Billetterie intégrée : gestion des places, présences &amp; paiements</li>
-                            <li>Les adhérents s'inscrivent depuis le site, vous gérez tout depuis l'appli</li>
+                            <li>Billetterie sur demande : l'adhérent s'inscrit depuis le site, vous gérez tout depuis l'appli</li>
                             <li class="highlight-tip dark-tip">💡 « Un site qui est vu, c'est un site qui bouge. » Vos adhérents ne manquent plus aucun événement.</li>
                         </ul>
                         <a href="#contact" class="qbutton dark" style="width: 100%;">Me contacter</a>
@@ -479,7 +486,7 @@
                             <li>Campagnes mails groupées ultra-simples (par groupe, avec modèles)</li>
                             <li>Accès à l'app jusqu'à 200 bénévoles, droits par pôle</li>
                             <li>Partage de documents intégré</li>
-                            <li>Accompagnement &amp; configuration Google Workspace (Gmail, Drive, Meet, Chat…)</li>
+                            <li>Accompagnement &amp; configuration Google Workspace</li>
                             <li>1 formation annuelle incluse pour les nouveaux bénévoles</li>
                             <li class="highlight-tip dark-tip">💡 La génération de reçus fiscaux est un levier puissant pour augmenter vos dons.</li>
                         </ul>
@@ -575,22 +582,16 @@
         </div>
     </section>
 
-    <section class="section portfolio-section" id="portfolio">
-        <div class="container">
-            <h2>Besoin d'aller plus loin ?</h2>
-            <div class="separator-small" style="margin: 0 auto 30px auto;"></div>
-            <p style="color: #ccc; max-width: 700px; margin: 0 auto 20px auto;">Les systèmes Assopage couvrent 95% des besoins standards des associations. Mais parfois, vous avez besoin d'une application métier ultra-spécifique ou d'un développement complexe sur-mesure.</p>
-            <p style="color: #ccc; max-width: 700px; margin: 0 auto 40px auto;">Si vous avez un projet d'envergure ou souhaitez simplement voir une preuve de ce que je suis capable de coder, jetez un œil à mon portfolio de développeur.</p>
-            <a href="https://www.je-co.fr" target="_blank" class="qbutton yellow">Découvrir mes réalisations (je-co.fr)</a>
-        </div>
-    </section>
-
     <section class="section contact-section" id="contact">
         <div class="container contact-wrapper">
             <div class="contact-header">
                 <h2>On fait le point en 10 minutes ?</h2>
                 <div class="separator-small"></div>
                 <p>Pas de pression, pas de vente forcée. On discute de votre asso et je vous dis honnêtement si mes outils peuvent vous faire gagner du temps. C'est tout.</p>
+            </div>
+
+            <div id="success-msg" class="success-message">
+                ✅ <strong>Super !</strong> J'ai bien reçu votre demande.<br>Je vous rappelle très vite sur le créneau demandé.
             </div>
 
             <form id="contact-form" class="contact-form">
@@ -644,8 +645,12 @@
                 <p class="form-secure-text">🔒 Connexion sécurisée - Jérémy - 06 50 30 25 47</p>
             </form>
 
-            <div id="success-msg" class="success-message">
-                ✅ <strong>Super !</strong> J'ai bien reçu votre demande.<br>Je vous rappelle très vite sur le créneau demandé.
+            <div class="direct-contact">
+                <p>Vous préférez le contact direct ?</p>
+                <div class="direct-contact-btns">
+                    <a href="tel:0650302547" class="qbutton outline"><i class="fa-solid fa-phone"></i> 06 50 30 25 47</a>
+                    <a href="mailto:contact@assopage.fr" class="qbutton outline"><i class="fa-solid fa-envelope"></i> Par Email</a>
+                </div>
             </div>
 
         </div>
@@ -691,7 +696,6 @@
         });
 
         /* ─── SCRIPT DU FORMULAIRE DE CONTACT ─── */
-        // IMPORTANT : REMPLACE L'URL CI-DESSOUS PAR CELLE DE TON DEPLOIEMENT APPS SCRIPT
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxnBeHhvvNqNf1VnSuTCBoCRJ5eSmwJgysnzfUR1Y0fBspAp3SWwLpbQtq636Czlr11sw/exec";
 
         document.getElementById('contact-form').addEventListener('submit', function(e) {
@@ -713,7 +717,6 @@
             // Envoi via fetch
             fetch(WEB_APP_URL, {
                 method: 'POST',
-                // Envoi en text/plain pour éviter les blocages CORS sur Google Apps Script
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify(data)
             })
@@ -722,6 +725,9 @@
                 if(result.status === "success") {
                     document.getElementById('contact-form').style.display = 'none';
                     document.getElementById('success-msg').style.display = 'block';
+                    
+                    // Remonter un peu l'écran pour voir le message
+                    document.getElementById('contact').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 } else {
                     alert("Une erreur est survenue lors de l'envoi. Vous pouvez me joindre au 06 50 30 25 47.");
                     submitBtn.innerText = "Réserver mon diagnostic gratuit";
