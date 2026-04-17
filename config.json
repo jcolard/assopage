@@ -1,0 +1,47 @@
+{
+  "ASSOCIATION_NAME": "En Faim Sans Fil",
+  "SLOGAN_HERO": "Des vies libérées au fil du temps",
+  "THEME_COLOR_MAIN": "#f99a5b",
+  "THEME_COLOR_DARK": "#0e7162",
+  "THEME_COLOR_LIGHT": "#7acef0",
+  "FONT_TITLE": "League Spartan",
+  "FONT_BODY": "Roboto",
+
+  "IMAGES": {
+    "LOGO_URL": "https://www.enfaimsansfil.org/wp-content/uploads/2025/05/Favicon_512.webp",
+    "HERO_IMAGE": "https://www.enfaimsansfil.org/wp-content/uploads/2026/01/Gemini_Generated_Image.avif",
+    "ABOUT_IMAGE": "https://www.enfaimsansfil.org/wp-content/uploads/2025/09/Shooting-photo-famille-Chateauneuf-les-Martigues.jpg",
+    "SERVICE_1_IMAGE": "https://www.enfaimsansfil.org/wp-content/uploads/2025/12/AdobeStock_491081245-scaled.webp",
+    "SERVICE_2_IMAGE": "https://www.enfaimsansfil.org/wp-content/uploads/2025/12/AdobeStock_85421780-scaled.jpeg",
+    "SERVICE_3_IMAGE": "https://www.enfaimsansfil.org/wp-content/uploads/2025/08/AdobeStock_444700024-scaled.avif"
+  },
+
+  "CONTENT": {
+    "HERO_EYEBROW": "Verdun-sur-Garonne · Fondée en 2015",
+    "HERO_TITLE_HTML": "Des vies<br><span class='accent'>libérées</span><br>au fil du temps.",
+    "HERO_SUBTITLE": "En Faim Sans Fil accompagne les enfants sous nutrition entérale et leurs familles dans le sevrage. Retrouver le plaisir de manger change la vie.",
+    "HERO_BADGE": "Brisons l'isolement des familles ensemble",
+    
+    "STATS_TITLE": "Une aide précieuse",
+    "STAT_1_VAL": "2015", "STAT_1_LAB": "Année de création",
+    "STAT_2_VAL": "100",  "STAT_2_LAB": "Accompagnement %",
+    "STAT_3_VAL": "2025", "STAT_3_LAB": "Relance de l'asso",
+    "STAT_4_VAL": "10000","STAT_4_LAB": "Sensibilisés +",
+
+    "ABOUT_QUOTE": "« Redonner le plaisir de manger et le sourire aux enfants. »",
+    "ABOUT_AUTHOR": "— Romane Benjamins, Étudiante en médecine",
+    "ABOUT_TEXT": "Notre mission est d'offrir un soutien administratif et psychologique crucial pour guider les familles et briser leur isolement.",
+
+    "SERVICE_1_TITLE": "Soutien Psychologique", "SERVICE_1_DESC": "Collaboration entre familles et pros.",
+    "SERVICE_2_TITLE": "Soutien Administratif", "SERVICE_2_DESC": "Aide pour vos dossiers (MDPH, scolarité).",
+    "SERVICE_3_TITLE": "Ateliers Découverte", "SERVICE_3_DESC": "Réapprendre le plaisir de goûter.",
+
+    "FOOTER_TEXT": "Association loi 1901 d’entraide familiale. Elle ne dispense aucun avis médical."
+  },
+
+  "LINKS": {
+    "DONATE_URL": "https://www.helloasso.com/...",
+    "CONTACT_EMAIL": "contact@enfaimsansfil.org",
+    "FACEBOOK": "#", "INSTAGRAM": "#", "LINKEDIN": "#"
+  }
+}
