@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr" style="opacity: 0; transition: opacity 0.5s;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="meta-title">Chargement...</title>
+    <style id="dynamic-theme"></style>
+    <style>
+        /* Insère ici TOUT ton CSS d'origine (Aix-en-Vue simplifié) */
+        /* Remplace juste les couleurs hardcodées par les variables CSS suivantes : */
+        :root {
+            --rouge: var(--theme-main);
+            --noir: var(--theme-dark);
+            --bleu: var(--theme-light);
+            --ocre: var(--theme-accent);
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="#" class="nav-logo">
+        <img id="logo-img" src="" alt="Logo">
+        <span id="nav-name"></span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="#manifeste">L'association</a></li>
+        <li><a href="#activites">Nos actions</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<header class="hero">
+    <div class="hero-content">
+        <p class="hero-eyebrow" id="hero-eyebrow"></p>
+        <h1 class="hero-title" id="hero-title"></h1>
+        <p class="hero-sub" id="hero-subtitle"></p>
+        <a href="#contact" class="btn-outline">Nous rejoindre</a>
+    </div>
+    <div class="hero-visual">
+        <div class="hero-photo-frame">
+            <img id="img-hero" src="" alt="Hero">
+        </div>
+        <div class="hero-badge" id="hero-badge"></div>
+    </div>
+</header>
+
+<footer>
+    <p id="footer-text"></p>
+    <p>Site propulsé par <a href="https://assopage.fr">Assopage.fr</a></p>
+</footer>
+
+<script>
+async function init() {
+    try {
+        const res = await fetch('./config.json');
+        const d = await res.json();
+
+        // 1. Meta & Titres
+        document.title = d.ASSOCIATION_NAME + " — " + d.SLOGAN_HERO;
+        document.getElementById('meta-title').textContent = d.ASSOCIATION_NAME;
+        
+        // 2. Couleurs & Polices
+        document.getElementById('dynamic-theme').innerHTML = `
+            :root {
+                --theme-main: ${d.THEME_COLOR_MAIN};
+                --theme-dark: ${d.THEME_COLOR_DARK};
+                --theme-light: ${d.THEME_COLOR_LIGHT};
+                --theme-accent: ${d.THEME_COLOR_ACCENT || '#bdd395'};
+                --font-t: '${d.FONT_TITLE}', sans-serif;
+                --font-b: '${d.FONT_BODY}', sans-serif;
+            }
+            body { font-family: var(--font-b); }
+            h1, h2, h3, .nav-logo { font-family: var(--font-t); }
+        `;
+
+        // 3. Remplissage des textes (Exemples)
+        document.getElementById('nav-name').textContent = d.ASSOCIATION_NAME;
+        document.getElementById('hero-eyebrow').textContent = d.CONTENT.HERO_EYEBROW;
+        document.getElementById('hero-title').innerHTML = d.CONTENT.HERO_TITLE_HTML;
+        document.getElementById('hero-subtitle').textContent = d.CONTENT.HERO_SUBTITLE;
+        document.getElementById('hero-badge').textContent = d.CONTENT.HERO_BADGE;
+        document.getElementById('footer-text').textContent = d.CONTENT.FOOTER_TEXT;
+
+        // 4. Images
+        document.getElementById('logo-img').src = d.IMAGES.LOGO_URL;
+        document.getElementById('img-hero').src = d.IMAGES.HERO_IMAGE;
+        // ... continue pour les 6 images
+
+        // 5. Rendre la page visible (évite le flash de variables non remplies)
+        document.documentElement.style.opacity = "1";
+        
+        // Relance tes animations de scroll
+        window.dispatchEvent(new Event('load'));
+
+    } catch (e) { console.error("Erreur config:", e); }
+}
+init();
+</script>
+</body>
+</html>
