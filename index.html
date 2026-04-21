@@ -331,7 +331,6 @@
 </head>
 <body>
 
-    <!-- VIDEO MODAL -->
     <div class="video-modal-overlay" id="videoModal">
         <div class="video-modal-inner">
             <button class="close-btn" onclick="closeModal()">✕ Fermer</button>
@@ -353,9 +352,9 @@
 
     <header class="hero">
         <div class="hero-content">
-            <h1>Donner aux petites assos<br><span style="color: var(--yellow);">les moyens d'une grande.</span></h1>
+            <h1>Sites &amp; Appli<br><span style="color: var(--yellow);">pour les assos</span></h1>
             <div class="separator-small"></div>
-            <p>Je vous donne les moyens de briller et de gagner du temps.</p>
+            <p>Donner aux petites assos les moyens d'une grande.</p>
             <div class="hero-buttons">
                 <a href="#concept" class="qbutton yellow">🌐 Découvrir</a>
                 <a href="#contact" class="qbutton dark">📞 Recevoir la démo</a>
@@ -396,19 +395,15 @@
         </div>
     </div>
 
-    <!-- ─── CONCEPT ─── -->
     <section class="section concept-section" id="concept">
         <div class="container concept-layout">
             <div class="concept-text">
                 <h2>Le Concept</h2>
                 <div class="separator-small" style="margin-left: 0;"></div>
 
-                <p class="concept-intro">Moi, c'est Jérémy, développeur web pour asso depuis 3 ans. J'ai constaté que les petites assos perdent du temps à gérer leur administratif et n'ont pas assez de temps pour gérer leur visibilité. J'ai donc créé <strong>Assopage</strong> pour gérer tout simplement :</p>
-
-                <p style="font-family: var(--font-title); font-size: 1.15rem; color: var(--black); letter-spacing: 1px; margin-bottom: 5px;">
-                    <strong>🚀 Votre App, Votre Logo</strong>
+                <p class="concept-intro" style="font-family: var(--font-title); font-size: 1.3rem; font-weight: 700; color: var(--black); line-height: 1.4; margin-bottom: 25px;">
+                    Moi, c'est Jérémy, développeur web pour asso depuis 3 ans. J'ai constaté que les petites assos perdent du temps à gérer leur administratif et n'ont pas assez de temps pour gérer leur visibilité. J'ai donc créé <span style="color: #d69e00;">Assopage</span> pour gérer tout simplement : Votre App, Votre Logo, pour piloter votre asso directement sur le terrain.
                 </p>
-                <p style="margin-bottom: 20px;">Une application mobile personnalisée pour piloter votre asso directement sur le terrain.</p>
 
                 <p style="font-family: var(--font-title); font-size: 1.05rem; color: var(--black); letter-spacing: 1px; margin-bottom: 12px; text-transform: uppercase;">
                     ⚙️ Gestion à la carte — activez seulement ce dont vous avez besoin :
@@ -480,7 +475,6 @@
         </div>
     </section>
 
-    <!-- ─── OFFRES / CONFIGURATEUR ─── -->
     <section class="section offers-section" id="offres">
         <div class="container">
             <h2>Configurez Votre Assopage</h2>
@@ -494,7 +488,7 @@
 
             <div class="configurateur">
                 <h3>Sélectionnez vos modules</h3>
-                <p id="plan-desc-text">Formule hébergée par Assopage — 60€/an TTC de base, puis chaque module additionnel est inclus.</p>
+                <p id="plan-desc-text">Formule hébergée par Assopage — 60€/an TTC par module.</p>
 
                 <div class="module-checkboxes" id="moduleCheckboxes">
 
@@ -578,7 +572,6 @@
         </div>
     </section>
 
-    <!-- ─── TEMOIGNAGES ─── -->
     <section class="section testimonials-section">
         <div class="container">
             <h2 style="color: var(--black);">Le Terrain Parle</h2>
@@ -644,7 +637,6 @@
         </div>
     </section>
 
-    <!-- ─── CONTACT ─── -->
     <section class="section contact-section" id="contact">
         <div class="container contact-wrapper">
             <div class="contact-header">
@@ -803,12 +795,12 @@
                 nlCheckbox.checked = false;
                 nlBadge.textContent = 'Autohébergé uniquement';
                 nlBadge.className = 'module-badge reserved';
-                document.getElementById('plan-desc-text').textContent = 'Formule hébergée par Assopage — tarif unique 60€/an TTC tous modules inclus.';
+                document.getElementById('plan-desc-text').textContent = 'Formule hébergée par Assopage — 60€/an TTC par module.';
             } else {
                 nlItem.classList.remove('disabled');
                 nlBadge.textContent = 'Disponible';
                 nlBadge.className = 'module-badge';
-                document.getElementById('plan-desc-text').textContent = 'Formule autohébergée — 180€ à vie, tous modules disponibles.';
+                document.getElementById('plan-desc-text').textContent = 'Formule autohébergée — 180€ à vie par module.';
             }
             updatePrice();
         }
@@ -837,14 +829,19 @@
             recap.style.display = 'flex';
             noMsg.style.display = 'none';
 
+            const baseAbo = 60;
+            const baseCash = 180;
+
             if (currentPlan === 'abo') {
+                const totalAbo = count * baseAbo;
                 priceLabel.textContent = 'Abonnement annuel TTC';
-                priceValue.innerHTML = '60€ <small>/ an</small>';
-                priceNote.textContent = 'Tous modules sélectionnés inclus dans ce tarif unique.';
+                priceValue.innerHTML = totalAbo + '€ <small>/ an</small>';
+                priceNote.textContent = count + ' module(s) sélectionné(s) (' + baseAbo + '€ par module).';
             } else {
+                const totalCash = count * baseCash;
                 priceLabel.textContent = 'Paiement unique — à vie';
-                priceValue.innerHTML = '180€ <small>à vie</small>';
-                priceNote.textContent = 'Autohébergé, tous modules sélectionnés inclus.';
+                priceValue.innerHTML = totalCash + '€ <small>à vie</small>';
+                priceNote.textContent = 'Autohébergé, ' + count + ' module(s) sélectionné(s) (' + baseCash + '€ par module).';
             }
         }
 
