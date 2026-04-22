@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assopage - Site en travaux</title>
+    <title>Assopage – Mon App, Mon Asso</title>
+    <meta name="description" content="Assopage : l'application web et mobile pour gérer votre association. CRM, Agenda, Billetterie, Trésorerie. Dès 50€/an." />
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Roboto+Condensed:wght@300;400;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="favicon.png">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
     <style>
         :root {
             --yellow: #fdf987;
@@ -21,109 +23,874 @@
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        
+        html { scroll-behavior: smooth; }
+
         body {
             font-family: var(--font-body);
             color: var(--black);
-            background: var(--black);
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            background: var(--white);
+            line-height: 1.6;
+            font-size: 18px;
+            overflow-x: hidden;
         }
 
-        /* Réutilisation de ton style Hero pour le fond */
-        .maintenance-container {
-            flex: 1;
-            background-image: url('le fond.png');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            text-align: center;
-            padding: 20px;
-        }
+        h1, h2, h3, h4 { font-family: var(--font-title); text-transform: uppercase; font-weight: 500; color: var(--black); }
+        h2 { font-size: 2.5rem; letter-spacing: 2px; margin-bottom: 20px; text-align: center; }
+        p { margin-bottom: 20px; color: var(--text-grey); }
+        
+        .separator-small { width: 80px; height: 4px; background-color: var(--yellow); margin: 0 auto 40px auto; }
+        .separator-dark { background-color: var(--black); }
 
-        /* Overlay pour assurer la lisibilité */
-        .maintenance-container::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.6);
-            z-index: 1;
+        /* ─── BOUTONS ─── */
+        .qbutton {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            font-family: var(--font-title); text-transform: uppercase;
+            font-size: 18px; letter-spacing: 1px; font-weight: 500; text-decoration: none;
+            padding: 15px 35px; transition: all 0.3s ease; text-align: center; border: 2px solid transparent; cursor: pointer;
         }
+        .qbutton.yellow { background-color: var(--yellow); color: var(--black); }
+        .qbutton.yellow:hover { background-color: var(--black); color: var(--white); }
+        .qbutton.dark { background-color: var(--black); color: var(--white); border-color: var(--black); }
+        .qbutton.dark:hover { background-color: var(--yellow); color: var(--black); border-color: var(--yellow); }
+        .qbutton.outline { background-color: transparent; color: var(--black); border-color: var(--black); }
+        .qbutton.outline:hover { background-color: var(--black); color: var(--white); }
 
-        .content {
-            position: relative;
-            z-index: 2;
-            max-width: 600px;
+        @keyframes pulse-anim {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(253, 249, 135, 0.8); }
+            50% { transform: scale(1.04); box-shadow: 0 0 18px 6px rgba(253, 249, 135, 0.5); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(253, 249, 135, 0); }
         }
+        .pulse { animation: pulse-anim 2s infinite; font-weight: 700; }
 
-        .logo {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 900;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: -2px;
-            margin-bottom: 20px;
-            display: block;
+        /* ─── NAV ─── */
+        nav {
+            position: fixed;
+            top: 0; width: 100%; z-index: 1000;
+            background: rgba(10,10,10,0.92);
+            backdrop-filter: blur(8px);
+            padding: 16px 40px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 2px solid var(--yellow);
+        }
+        .logo { 
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 2rem; font-weight: 900; 
+            text-decoration: none; text-transform: uppercase; 
+            letter-spacing: -2px; line-height: 1;
         }
         .logo .asso { color: var(--white); }
         .logo .page { color: var(--yellow); }
+        .nav-links a {
+            font-family: var(--font-title); text-transform: uppercase; text-decoration: none;
+            color: var(--white); margin-left: 28px; font-size: 1rem; transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--yellow); }
+        .nav-billetterie-btn {
+            background: var(--yellow); color: var(--black) !important;
+            padding: 8px 20px; font-weight: 700;
+            animation: pulse-anim 2s infinite;
+        }
+        .nav-billetterie-btn:hover { background: var(--white) !important; color: var(--black) !important; }
 
-        h1 {
-            font-family: var(--font-title);
-            color: var(--white);
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-bottom: 15px;
+        @media (max-width: 900px) { 
+            .nav-links { display: none; } 
+            nav { padding: 14px 20px; }
         }
 
-        .separator-small {
-            width: 80px;
-            height: 4px;
-            background-color: var(--yellow);
-            margin: 0 auto 30px auto;
-        }
+        /* ─── LAYOUT ─── */
+        .section { padding: 80px 20px; }
+        .container { max-width: 1100px; margin: 0 auto; }
 
-        p {
-            color: var(--white);
-            font-family: var(--font-title);
-            font-size: 1.5rem;
-            font-weight: 300;
-            letter-spacing: 1px;
+        /* ─── HERO ─── */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 60%, #2a2a1a 100%);
+            display: flex; align-items: center;
+            padding: 0 8%;
+            position: relative; overflow: hidden;
+            padding-top: 80px;
         }
+        .hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 70% 50%, rgba(253,249,135,0.08) 0%, transparent 60%);
+        }
+        .hero-layout {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative; z-index: 2;
+        }
+        .hero-content { flex: 1; max-width: 580px; }
+        .hero h1 {
+            color: var(--white); font-size: clamp(2.8rem, 5vw, 4.8rem);
+            letter-spacing: 3px; line-height: 1.1; margin-bottom: 16px;
+        }
+        .hero h1 .accent { color: var(--yellow); }
+        .hero-subtitle {
+            font-family: var(--font-title); font-size: clamp(1.1rem, 2vw, 1.5rem);
+            color: rgba(255,255,255,0.75); font-weight: 300; margin-bottom: 12px;
+        }
+        .hero-sub2 {
+            font-size: 1rem; color: rgba(255,255,255,0.55); margin-bottom: 40px;
+        }
+        .hero .separator-small { margin: 0 0 28px 0; }
+        .hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
 
-        footer {
-            background-color: var(--black);
-            color: #666;
-            padding: 20px;
+        /* BILLETTERIE SIDE CARD */
+        .billetterie-card {
+            flex: 0 0 auto;
+            width: 260px;
+            background: var(--yellow);
+            border: 3px solid var(--black);
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.4);
+            padding: 30px 24px;
             text-align: center;
-            font-size: 0.9rem;
+            position: relative;
         }
+        .billetterie-card .icon-big { font-size: 3rem; margin-bottom: 12px; }
+        .billetterie-card h3 { 
+            font-family: var(--font-title); font-size: 1.8rem; 
+            color: var(--black); text-transform: uppercase; margin-bottom: 10px; 
+        }
+        .billetterie-card p { font-size: 0.9rem; color: #333; margin-bottom: 20px; }
+        .billetterie-btn {
+            display: block; width: 100%;
+            background: var(--black); color: var(--yellow);
+            font-family: var(--font-title); text-transform: uppercase;
+            font-size: 1.1rem; font-weight: 700; letter-spacing: 1px;
+            padding: 14px 10px; text-decoration: none;
+            border: 2px solid var(--black); transition: all 0.3s;
+        }
+        .billetterie-btn:hover { background: var(--white); color: var(--black); }
+        .billetterie-badge {
+            position: absolute; top: -14px; right: -10px;
+            background: var(--black); color: var(--yellow);
+            font-family: var(--font-title); font-size: 0.75rem;
+            padding: 4px 12px; text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        @media (max-width: 900px) {
+            .hero-layout { flex-direction: column; text-align: center; padding: 40px 0 60px; }
+            .hero-content { max-width: 100%; }
+            .hero .separator-small { margin: 0 auto 28px; }
+            .hero-buttons { justify-content: center; }
+            .billetterie-card { width: 100%; max-width: 340px; }
+        }
+
+        /* ─── LOGOS BANDEAU ─── */
+        .logos-section { background-color: var(--yellow); padding: 30px 0; overflow: hidden; border-top: 3px solid var(--black); border-bottom: 3px solid var(--black);}
+        .logos-section h3 { text-align: center; font-size: 0.9rem; margin-bottom: 18px; letter-spacing: 3px; font-family: var(--font-title); }
+        .marquee { display: flex; gap: 50px; width: max-content; animation: marquee 35s linear infinite; align-items: center; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .marquee img { height: 40px; width: auto; filter: grayscale(100%) contrast(120%); opacity: 0.8; transition: all 0.3s; }
+        .marquee img:hover { filter: grayscale(0%); opacity: 1; }
+
+        /* ─── CONCEPT ─── */
+        .concept-section { background: var(--white); }
+        .concept-layout { display: flex; align-items: flex-start; gap: 60px; }
+        .concept-text { flex: 1; }
+        .concept-text h2 { text-align: left; }
+        .concept-text .separator-small { margin-left: 0; margin-bottom: 30px; }
+        .concept-highlight {
+            background: var(--yellow); border-left: 4px solid var(--black);
+            padding: 18px 20px; margin: 25px 0;
+            font-family: var(--font-title); font-size: 1.05rem;
+            color: var(--black); font-style: italic;
+        }
+        .concept-stats { display: flex; gap: 30px; margin-top: 30px; flex-wrap: wrap; }
+        .stat-item { text-align: center; flex: 1; min-width: 100px; }
+        .stat-num { font-family: var(--font-title); font-size: 2.5rem; font-weight: 700; color: var(--black); line-height: 1; }
+        .stat-label { font-size: 0.85rem; color: var(--text-grey); text-transform: uppercase; letter-spacing: 1px; }
+
+        @media (max-width: 850px) {
+            .concept-layout { flex-direction: column; }
+            .concept-text h2 { text-align: center; }
+            .concept-text .separator-small { margin: 0 auto 30px !important; }
+        }
+
+        /* ─── MODULES / FLIP CARDS ─── */
+        .modules-section { background: var(--grey-light); }
+        
+        .price-display {
+            text-align: center; margin-bottom: 50px;
+        }
+        .price-display .price-base {
+            font-family: var(--font-title); font-size: 1.2rem; color: var(--text-grey); margin-bottom: 5px;
+        }
+        .price-display .price-total {
+            font-family: var(--font-title); font-size: 3rem; color: var(--black); font-weight: 700;
+            line-height: 1;
+        }
+        .price-display .price-total span { font-size: 1.2rem; font-weight: 400; color: var(--text-grey); }
+        .price-display .price-cta { margin-top: 15px; font-size: 0.95rem; color: var(--text-grey); }
+        .price-display .price-cta a { color: var(--black); font-weight: 700; text-decoration: underline; }
+
+        .modules-intro { text-align: center; max-width: 680px; margin: 0 auto 20px; }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 28px;
+            margin-top: 40px;
+        }
+
+        /* Flip card */
+        .flip-card { perspective: 1000px; height: 300px; cursor: pointer; }
+        .flip-card-inner {
+            position: relative; width: 100%; height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.55s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .flip-card:hover .flip-card-inner,
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+
+        .flip-front, .flip-back {
+            position: absolute; inset: 0;
+            backface-visibility: hidden; -webkit-backface-visibility: hidden;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 30px 24px; text-align: center;
+            border: 2px solid #ddd;
+        }
+        .flip-front { background: var(--white); }
+        .flip-back { transform: rotateY(180deg); background: var(--black); color: var(--white); border-color: var(--black); }
+
+        .flip-front .module-icon { font-size: 2.8rem; margin-bottom: 16px; }
+        .flip-front h3 { font-size: 1.5rem; font-family: var(--font-title); text-transform: uppercase; margin-bottom: 10px; }
+        .flip-front .module-tagline { font-size: 0.9rem; color: var(--text-grey); }
+        .flip-front .hint { font-size: 0.75rem; color: #bbb; margin-top: auto; padding-top: 16px; }
+
+        .flip-back ul { list-style: none; text-align: left; margin-bottom: 16px; }
+        .flip-back ul li { font-size: 0.88rem; color: rgba(255,255,255,0.85); margin-bottom: 8px; padding-left: 18px; position: relative; }
+        .flip-back ul li::before { content: '→'; position: absolute; left: 0; color: var(--yellow); }
+        .flip-back .module-note { font-size: 0.75rem; color: #aaa; font-style: italic; margin-top: 8px; }
+        .flip-back .btn-tuto {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: var(--yellow); color: var(--black);
+            font-family: var(--font-title); text-transform: uppercase;
+            font-size: 0.85rem; font-weight: 700;
+            padding: 8px 18px; border: none; cursor: pointer;
+            text-decoration: none; margin-top: 8px;
+            transition: all 0.2s;
+        }
+        .flip-back .btn-tuto:hover { background: var(--white); }
+
+        .flip-card.featured .flip-front { background: var(--yellow); border-color: var(--black); box-shadow: 6px 6px 0 var(--black); }
+
+        /* Module checkbox selector */
+        .module-select-area {
+            margin-top: 50px; text-align: center;
+            padding: 30px; background: var(--black);
+            border: 3px solid var(--yellow);
+        }
+        .module-select-area p { color: rgba(255,255,255,0.8); margin-bottom: 0; }
+        .module-select-area strong { color: var(--yellow); }
+
+        /* ─── VIDEO MODAL ─── */
+        .modal-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.85); z-index: 9999;
+            align-items: center; justify-content: center;
+        }
+        .modal-overlay.open { display: flex; }
+        .modal-box {
+            position: relative; width: 90%; max-width: 800px;
+            background: var(--black); border: 3px solid var(--yellow);
+        }
+        .modal-close {
+            position: absolute; top: -18px; right: -18px;
+            width: 36px; height: 36px; background: var(--yellow);
+            border: none; cursor: pointer; font-size: 1.2rem;
+            font-weight: 700; display: flex; align-items: center; justify-content: center;
+            z-index: 10;
+        }
+        .modal-box iframe { width: 100%; aspect-ratio: 16/9; display: block; border: none; }
+
+        /* ─── TEMOIGNAGES ─── */
+        .testimonials-section { background-color: var(--yellow); }
+        .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 35px; margin-top: 50px; }
+        .testi-card { background: var(--white); padding: 35px; border: 2px solid var(--black); box-shadow: 6px 6px 0px var(--black); display: flex; flex-direction: column; justify-content: space-between; }
+        .testi-quote { font-size: 1rem; font-style: italic; margin-bottom: 20px; color: var(--black); }
+        .testi-author-block { display: flex; align-items: center; gap: 15px; margin-top: 10px; }
+        .testi-profile-img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--black); background-color: var(--white); }
+        .testi-author-info { display: flex; flex-direction: column; }
+        .testi-author { font-family: var(--font-title); text-transform: uppercase; font-weight: 700; color: var(--black); line-height: 1.2; }
+        .testi-role { font-size: 0.85rem; color: #666; }
+
+        /* ─── FORMULAIRE TEST ─── */
+        .test-section { background: var(--white); }
+        .test-wrapper { max-width: 650px; margin: 0 auto; }
+        .test-header { text-align: center; margin-bottom: 40px; }
+
+        .form-group { margin-bottom: 22px; }
+        .form-group label { display: block; font-family: var(--font-title); font-weight: 500; font-size: 1.1rem; margin-bottom: 8px; color: var(--black); }
+        .form-control {
+            width: 100%; padding: 12px 15px;
+            font-family: var(--font-body); font-size: 1rem;
+            border: 2px solid #ddd; background-color: var(--grey-light);
+            transition: border-color 0.3s;
+        }
+        .form-control:focus { border-color: var(--black); outline: none; background-color: var(--white); }
+
+        .modules-check-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+        }
+        .check-item {
+            display: flex; align-items: center; gap: 10px;
+            padding: 12px 14px; background: var(--grey-light);
+            border: 2px solid #ddd; cursor: pointer; transition: all 0.2s;
+        }
+        .check-item:hover { border-color: var(--black); }
+        .check-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--black); cursor: pointer; }
+        .check-item span { font-size: 0.95rem; color: var(--black); font-weight: 500; }
+        .check-item.checked { border-color: var(--black); background: var(--yellow); }
+
+        .price-preview {
+            background: var(--black); color: var(--white);
+            padding: 20px 24px; margin: 25px 0;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .price-preview .label { font-family: var(--font-title); font-size: 1rem; color: rgba(255,255,255,0.7); }
+        .price-preview .amount { font-family: var(--font-title); font-size: 2rem; color: var(--yellow); }
+        .price-preview .sub { font-size: 0.8rem; color: rgba(255,255,255,0.5); }
+
+        .rgpd-group { display: flex; align-items: flex-start; gap: 10px; margin: 25px 0; }
+        .rgpd-group input { width: 18px; height: 18px; margin-top: 4px; accent-color: var(--black); cursor: pointer; flex-shrink: 0; }
+        .rgpd-group span { font-size: 0.85rem; color: #666; line-height: 1.4; }
+        .rgpd-group a { color: var(--black); font-weight: 700; text-decoration: underline; }
+
+        .form-submit-btn { width: 100%; border: none; font-size: 1.2rem; padding: 18px; }
+        .form-secure-text { text-align: center; font-size: 0.85rem; color: #888; margin-top: 15px; font-style: italic; }
+
+        .success-message {
+            display: none; background-color: #d4edda; color: #155724;
+            padding: 24px; border: 2px solid #c3e6cb;
+            text-align: center; font-family: var(--font-title); font-size: 1.2rem; margin-bottom: 30px;
+        }
+
+        /* ─── FAQ ─── */
+        .faq-section { background: var(--black); }
+        .faq-section h2 { color: var(--white); }
+        .faq-section .separator-small { background: var(--yellow); }
+        .faq-list { max-width: 750px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .faq-question {
+            width: 100%; background: none; border: none; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 22px 0; text-align: left;
+            font-family: var(--font-title); font-size: 1.15rem; 
+            color: var(--white); text-transform: uppercase; letter-spacing: 1px;
+        }
+        .faq-question .faq-icon { 
+            flex-shrink: 0; width: 28px; height: 28px; background: var(--yellow); 
+            color: var(--black); display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; font-weight: 700; transition: transform 0.3s;
+        }
+        .faq-question.open .faq-icon { transform: rotate(45deg); }
+        .faq-answer { 
+            max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s;
+            color: rgba(255,255,255,0.7); font-size: 1rem; line-height: 1.6;
+        }
+        .faq-answer.open { max-height: 300px; padding-bottom: 22px; }
+
+        /* ─── CONTACT ─── */
+        .contact-section { background: var(--grey-light); text-align: center; }
+        .contact-wrapper { max-width: 600px; margin: 0 auto; }
+        .direct-contact-btns { display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
+        .direct-contact-btns .qbutton { min-width: 220px; flex: 1 1 auto; max-width: 280px; }
+
+        /* ─── FOOTER ─── */
+        footer { background-color: var(--black); color: var(--white); padding: 60px 20px; text-align: center; }
+        footer .logo { color: var(--white); margin-bottom: 30px; display: inline-block; }
+        .social-icons a { color: var(--white); font-size: 24px; margin: 0 15px; text-decoration: none; transition: color 0.2s; }
+        .social-icons a:hover { color: var(--yellow); }
+        .footer-links a { color: #aaa; text-decoration: none; font-size: 0.9rem; margin: 0 10px; }
+        .footer-links a:hover { color: var(--yellow); }
     </style>
 </head>
 <body>
 
-    <div class="maintenance-container">
-        <div class="content">
-            <div class="logo">
-                <span class="asso">ASSO</span><span class="page">PAGE</span>
+    <!-- ─── NAV ─── -->
+    <nav>
+        <a href="#" class="logo"><span class="asso">ASSO</span><span class="page">PAGE</span></a>
+        <div class="nav-links">
+            <a href="#concept">Le Concept</a>
+            <a href="#modules">Modules</a>
+            <a href="#tester">Tester</a>
+            <a href="https://assopage.fr/billetterie" target="_blank" class="nav-billetterie-btn">🎟️ Billetterie</a>
+        </div>
+    </nav>
+
+    <!-- ─── HERO ─── -->
+    <header class="hero">
+        <div class="hero-layout">
+            <div class="hero-content">
+                <h1>Mon App,<br><span class="accent">Mon Asso</span></h1>
+                <div class="separator-small"></div>
+                <p class="hero-subtitle">L'application web & mobile pour gérer votre association</p>
+                <p class="hero-sub2">Avec votre logo et vos couleurs. Dès 50€/an, jusqu'à 9 utilisateurs.</p>
+                <div class="hero-buttons">
+                    <a href="#tester" class="qbutton yellow pulse">🚀 Tester gratuitement</a>
+                    <a href="#modules" class="qbutton outline" style="color: var(--white); border-color: var(--white);">Voir les modules</a>
+                </div>
             </div>
-            
-            <h1>Site en travaux</h1>
-            <div class="separator-small"></div>
-            <p>On peaufine les réglages, on revient très vite.</p>
+
+            <div class="billetterie-card">
+                <div class="billetterie-badge">Accès rapide</div>
+                <div class="icon-big">🎟️</div>
+                <h3>Billetterie</h3>
+                <p>Accédez directement à la billetterie en ligne de votre association</p>
+                <a href="https://assopage.fr/billetterie" target="_blank" class="billetterie-btn">Accéder →</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ─── LOGOS ─── -->
+    <div class="logos-section">
+        <h3>ILS ONT CHOISI ASSOPAGE</h3>
+        <div class="marquee">
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/zenith2_huztz0.png" alt="Zénith" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/efsf2_pkzklq.png" alt="EFSF" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/hopesphere2_lfqhyq.png" alt="Hope-Sphère" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/vrai_logo_atao_cu8uzr.png" alt="ATAO" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/secpop2_q9k820.png" alt="Secours Populaire" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/aev_logo_asso_hv4ewr.jpg" alt="Aix en Vue" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/arche_chachou_syokwr.jpg" alt="Arche Chachou" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/Classolidr_qcgw3u.png" alt="Classolidr" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/lameka_r3tnbf.png" alt="La Meka" />
+            <!-- repeat -->
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/zenith2_huztz0.png" alt="Zénith" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/efsf2_pkzklq.png" alt="EFSF" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/hopesphere2_lfqhyq.png" alt="Hope-Sphère" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/vrai_logo_atao_cu8uzr.png" alt="ATAO" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/secpop2_q9k820.png" alt="Secours Populaire" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/aev_logo_asso_hv4ewr.jpg" alt="Aix en Vue" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/arche_chachou_syokwr.jpg" alt="Arche Chachou" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/Classolidr_qcgw3u.png" alt="Classolidr" />
+            <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775667116/lameka_r3tnbf.png" alt="La Meka" />
         </div>
     </div>
 
+    <!-- ─── CONCEPT ─── -->
+    <section class="section concept-section" id="concept">
+        <div class="container concept-layout">
+            <div class="concept-text">
+                <h2>Le Concept</h2>
+                <div class="separator-small"></div>
+                <p>Moi c'est Jérémy, développeur web pour associations depuis <strong>7 ans</strong>. J'aide les assos à perdre moins de temps sur l'administratif, et à booster leur visibilité grâce à Assopage.</p>
+                <p>Chaque association est différente. C'est pourquoi Assopage est une application <strong>à la carte</strong> — vous choisissez uniquement les modules dont vous avez besoin, personnalisée avec votre logo et vos couleurs.</p>
+                <div class="concept-highlight">
+                    Une appli web et mobile avec votre logo et vos couleurs.<br>
+                    Une gestion simple dès 50€/an, jusqu'à 9 utilisateurs inclus.
+                </div>
+                <div class="concept-stats">
+                    <div class="stat-item">
+                        <div class="stat-num">7</div>
+                        <div class="stat-label">Ans d'expérience</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">+40</div>
+                        <div class="stat-label">Assos accompagnées</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">50€</div>
+                        <div class="stat-label">Dès / an</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── MODULES (FLIP CARDS) ─── -->
+    <section class="section modules-section" id="modules">
+        <div class="container">
+            <h2>Créez votre appli personnalisée</h2>
+            <div class="separator-small separator-dark"></div>
+            <p class="modules-intro">Survolez ou appuyez sur chaque module pour découvrir le détail. Regardez les tutoriels vidéo pour voir en action.</p>
+
+            <div class="modules-grid">
+
+                <!-- CRM -->
+                <div class="flip-card featured" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-front">
+                            <div class="module-icon">👥</div>
+                            <h3>CRM</h3>
+                            <div class="module-tagline">Gérez vos contacts, adhérents et bénévoles en un seul endroit.</div>
+                            <div class="hint">↩ Retourner pour le détail</div>
+                        </div>
+                        <div class="flip-back">
+                            <ul>
+                                <li>Gestion des adhérents, donateurs, bénévoles</li>
+                                <li>Suivi des interactions et documents par contact</li>
+                                <li>Emailing : contacter un groupe en un clic</li>
+                                <li>Carte interactive pour situer vos contacts</li>
+                            </ul>
+                            <button class="btn-tuto" onclick="openVideo(event)"><i class="fa-brands fa-youtube"></i> Voir le tutoriel</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AGENDA -->
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-front">
+                            <div class="module-icon">📅</div>
+                            <h3>Agenda & Événements</h3>
+                            <div class="module-tagline">Organisez vos événements, gérez les participants, suivez les paiements.</div>
+                            <div class="hint">↩ Retourner pour le détail</div>
+                        </div>
+                        <div class="flip-back">
+                            <ul>
+                                <li>Gestion complète de vos événements</li>
+                                <li>Ajout et suivi des participants</li>
+                                <li>Rapports et photos pour vos réseaux sociaux</li>
+                                <li>Suivi de l'émargement et des paiements</li>
+                            </ul>
+                            <button class="btn-tuto" onclick="openVideo(event)"><i class="fa-brands fa-youtube"></i> Voir le tutoriel</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BILLETTERIE -->
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-front">
+                            <div class="module-icon">🎟️</div>
+                            <h3>Billetterie en ligne</h3>
+                            <div class="module-tagline">Vendez vos billets en ligne avec une page événementielle dédiée.</div>
+                            <div class="hint">↩ Retourner pour le détail</div>
+                        </div>
+                        <div class="flip-back">
+                            <ul>
+                                <li>Page internet événementielle personnalisée</li>
+                                <li>Formulaire d'inscription sur-mesure</li>
+                                <li>Confirmations par email automatiques</li>
+                                <li>Statistiques d'événement en temps réel</li>
+                            </ul>
+                            <p class="module-note">⚠️ Nécessite le module Agenda & Événements</p>
+                            <button class="btn-tuto" onclick="openVideo(event)"><i class="fa-brands fa-youtube"></i> Voir le tutoriel</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TRÉSORERIE -->
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-front">
+                            <div class="module-icon">💶</div>
+                            <h3>Trésorerie</h3>
+                            <div class="module-tagline">Suivez vos finances simplement, depuis votre téléphone.</div>
+                            <div class="hint">↩ Retourner pour le détail</div>
+                        </div>
+                        <div class="flip-back">
+                            <ul>
+                                <li>Saisie guidée des dépenses et recettes</li>
+                                <li>Ajout de justificatif avec l'appareil photo</li>
+                                <li>Suivi comptable : gérer articles et projets</li>
+                                <li>Suivi et relance des cotisations*</li>
+                            </ul>
+                            <p class="module-note">* Nécessite le module CRM</p>
+                            <button class="btn-tuto" onclick="openVideo(event)"><i class="fa-brands fa-youtube"></i> Voir le tutoriel</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── VIDEO MODAL ─── -->
+    <div class="modal-overlay" id="videoModal" onclick="closeVideo(event)">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeVideoBtn()">✕</button>
+            <iframe id="videoFrame" src="" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- ─── TEMOIGNAGES ─── -->
+    <section class="section testimonials-section">
+        <div class="container">
+            <h2 style="color: var(--black);">Le Terrain Parle</h2>
+            <div class="separator-small separator-dark"></div>
+            <div class="testi-grid">
+                <div class="testi-card">
+                    <p class="testi-quote">"Son efficacité a transformé notre communication. Un partenaire exceptionnel qui a fait croître notre asso pour nos adhérents déficients visuels."</p>
+                    <div class="testi-author-block">
+                        <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775736530/karine_bdvv7c.png" alt="Karine Centeno" class="testi-profile-img">
+                        <div class="testi-author-info">
+                            <div class="testi-author">Karine Centeno</div>
+                            <div class="testi-role">Présidente, Aix en Vue</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card" style="background-color: var(--black);">
+                    <p class="testi-quote" style="color: var(--white);">"Gérer 240 bénévoles c'était un grand sujet. Jérémy a répondu au-delà de nos attentes. Rapide, efficace : un gain de temps considérable."</p>
+                    <div class="testi-author-block">
+                        <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775736577/benoit_bat5g8.png" alt="Benoit Vitrand" class="testi-profile-img" style="border-color: var(--yellow);">
+                        <div class="testi-author-info">
+                            <div class="testi-author" style="color: var(--yellow);">Benoit Vitrand</div>
+                            <div class="testi-role" style="color: #ccc;">Président, La Mekanik Du Rire</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <p class="testi-quote">"Il nous a fait des tutos explicatifs. Adaptable aux novices et aux diverses demandes pratiques. Nous conseillons très vivement Jérémy en qui nous avons une totale confiance."</p>
+                    <div class="testi-author-block">
+                        <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/hopesphere2_lfqhyq.png" alt="Nathalie" class="testi-profile-img" style="object-fit: contain; padding: 5px;">
+                        <div class="testi-author-info">
+                            <div class="testi-author">Nathalie</div>
+                            <div class="testi-role">Hopesphere</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── FORMULAIRE TEST ─── -->
+    <section class="section test-section" id="tester">
+        <div class="container test-wrapper">
+            <div class="test-header">
+                <h2>Tester l'application</h2>
+                <div class="separator-small"></div>
+                <p>Indiquez vos informations et cochez les modules qui vous intéressent. Aucune information de paiement requise. <strong>Vous recevrez l'application dans les 48h.</strong></p>
+            </div>
+
+            <div id="success-msg" class="success-message">
+                ✅ <strong>Super !</strong> J'ai bien reçu votre demande. Vous recevrez l'accès à l'application sous 48h.
+            </div>
+
+            <form id="test-form">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="form-group">
+                        <label for="prenom">Prénom</label>
+                        <input type="text" id="prenom" name="prenom" class="form-control" required placeholder="Marie">
+                    </div>
+                    <div class="form-group">
+                        <label for="nom">Nom</label>
+                        <input type="text" id="nom" name="nom" class="form-control" required placeholder="Dupont">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Adresse e-mail</label>
+                    <input type="email" id="email" name="email" class="form-control" required placeholder="contact@monasso.fr">
+                </div>
+                <div class="form-group">
+                    <label for="telephone">Téléphone</label>
+                    <input type="tel" id="telephone" name="telephone" class="form-control" required placeholder="06 12 34 56 78">
+                </div>
+
+                <div class="form-group" style="margin-top: 30px;">
+                    <label>Modules qui m'intéressent</label>
+                    <div class="modules-check-grid" id="modules-grid">
+                        <label class="check-item" onclick="updateModuleCheck(this)">
+                            <input type="checkbox" name="modules" value="CRM" onchange="updatePrice()"> <span>👥 CRM</span>
+                        </label>
+                        <label class="check-item" onclick="updateModuleCheck(this)">
+                            <input type="checkbox" name="modules" value="Agenda & Évènements" onchange="updatePrice()"> <span>📅 Agenda & Événements</span>
+                        </label>
+                        <label class="check-item" onclick="updateModuleCheck(this)">
+                            <input type="checkbox" name="modules" value="Billetterie" onchange="updatePrice()"> <span>🎟️ Billetterie</span>
+                        </label>
+                        <label class="check-item" onclick="updateModuleCheck(this)">
+                            <input type="checkbox" name="modules" value="Trésorerie" onchange="updatePrice()"> <span>💶 Trésorerie</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="price-preview" id="price-preview">
+                    <div>
+                        <div class="label">Estimation tarifaire</div>
+                        <div class="sub">Dès 50€/an · Jusqu'à 9 utilisateurs</div>
+                    </div>
+                    <div class="amount" id="price-amount">50€<small style="font-size:1rem">/an</small></div>
+                </div>
+
+                <div class="rgpd-group">
+                    <input type="checkbox" id="rgpd" name="rgpd" required>
+                    <label for="rgpd">
+                        <span>J'accepte que ces données soient utilisées pour être recontacté, conformément à la <a href="https://drive.google.com/file/d/18hyh86EaF0ukg7aKnT8hTBRToUd5tjS7/view?usp=sharing" target="_blank">politique de confidentialité</a>. Vos données restent en France, 0 revente.</span>
+                    </label>
+                </div>
+
+                <button type="submit" id="submit-btn" class="qbutton yellow form-submit-btn">🚀 Recevoir mon accès test gratuit</button>
+                <p class="form-secure-text">🔒 Sans engagement · Sans CB · Jérémy vous contacte sous 48h</p>
+            </form>
+        </div>
+    </section>
+
+    <!-- ─── FAQ ─── -->
+    <section class="section faq-section" id="faq">
+        <div class="container">
+            <h2>Questions fréquentes</h2>
+            <div class="separator-small"></div>
+            <div class="faq-list">
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Est-ce que je dois m'y connaître en informatique pour utiliser Assopage ?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Pas du tout. Assopage a été conçu pour les associations dont les membres sont souvent bénévoles et pas forcément à l'aise avec le numérique. L'interface est pensée pour être utilisée depuis un smartphone, avec des tutoriels vidéo pour chaque module. Jérémy assure également un accompagnement personnalisé pour vous prendre en main l'outil rapidement.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Puis-je changer de modules ou résilier à tout moment ?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Oui, sans engagement. Vous pouvez ajouter ou retirer des modules quand vous le souhaitez, et résilier votre abonnement à tout moment. Votre application, vos données et vos contenus vous appartiennent — vous pouvez demander leur export à tout moment. Il n'y a aucune clause piège ni frais de sortie.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Comment fonctionne l'application test de 48h ?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Après avoir rempli le formulaire ci-dessus, Jérémy crée manuellement votre application de démonstration avec les modules que vous avez sélectionnés. Vous recevez un lien d'accès par email sous 48h. Vous pouvez tester librement, sans carte bancaire ni engagement. Si l'outil vous convient, Jérémy vous guide vers la formule adaptée à votre association.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── CONTACT ─── -->
+    <section class="section contact-section" id="contact">
+        <div class="container contact-wrapper">
+            <h2>Vous préférez en parler ?</h2>
+            <div class="separator-small separator-dark"></div>
+            <p>Pas de pression, pas de vente forcée. On discute de votre asso et je vous dis honnêtement si Assopage peut vous faire gagner du temps.</p>
+            <div class="direct-contact-btns">
+                <a href="tel:0650302547" class="qbutton dark"><i class="fa-solid fa-phone"></i> 06 50 30 25 47</a>
+                <a href="mailto:contact@assopage.fr" class="qbutton outline"><i class="fa-solid fa-envelope"></i> Par Email</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── FOOTER ─── -->
     <footer>
-        © 2026 Assopage par Jérémy Colard.
+        <a href="#" class="logo"><span class="asso" style="color:var(--white);">ASSO</span><span class="page">PAGE</span></a>
+        <div class="separator-small" style="margin: 20px auto;"></div>
+        <div class="social-icons">
+            <a href="https://www.linkedin.com/in/j%C3%A9r%C3%A9my-colard-26a7a1287/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://www.je-co.fr" target="_blank" aria-label="Portfolio Je-co"><i class="fa-solid fa-globe"></i></a>
+        </div>
+        <div class="footer-links" style="margin-top: 25px;">
+            <a href="https://billing.stripe.com/p/login/28E28q4Th9lS5Rf11PdAk00" target="_blank">Gérer mon abonnement</a> |
+            <a href="https://assopage.fr/billetterie" target="_blank">Billetterie</a> |
+            <a href="https://www.je-co.fr" target="_blank">Portfolio Sur-mesure</a>
+        </div>
+        <p style="margin-top: 30px; font-size: 0.9rem; color: #666;">© 2026 Assopage par Jérémy Colard. Tous droits réservés.</p>
     </footer>
 
+    <script>
+        /* ─── VIDEO MODAL ─── */
+        const VIDEO_URL = "https://www.youtube.com/embed/6lkeJijGcRQ?autoplay=1";
+
+        function openVideo(e) {
+            e.stopPropagation();
+            document.getElementById('videoFrame').src = VIDEO_URL;
+            document.getElementById('videoModal').classList.add('open');
+        }
+        function closeVideo(e) {
+            if (e.target === document.getElementById('videoModal')) closeVideoBtn();
+        }
+        function closeVideoBtn() {
+            document.getElementById('videoModal').classList.remove('open');
+            document.getElementById('videoFrame').src = '';
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVideoBtn(); });
+
+        /* ─── PRICE CALCULATOR ─── */
+        const PRICES = { 'CRM': 50, 'Agenda & Évènements': 50, 'Billetterie': 30, 'Trésorerie': 50 };
+        const BASE = 50;
+
+        function updatePrice() {
+            const checked = [...document.querySelectorAll('input[name="modules"]:checked')];
+            const modules = checked.map(i => i.value);
+            let total = BASE;
+            modules.forEach(m => { if (PRICES[m] && m !== Object.keys(PRICES)[0]) total += 15; });
+            // Simple: base 50€ + 15€ per extra module
+            const count = modules.length;
+            total = count === 0 ? 50 : 50 + (count - 1) * 15;
+            document.getElementById('price-amount').innerHTML = total + '€<small style="font-size:1rem">/an</small>';
+        }
+
+        function updateModuleCheck(label) {
+            setTimeout(() => {
+                const cb = label.querySelector('input');
+                label.classList.toggle('checked', cb.checked);
+                updatePrice();
+            }, 10);
+        }
+
+        /* ─── FAQ ─── */
+        function toggleFaq(btn) {
+            const answer = btn.nextElementSibling;
+            const isOpen = answer.classList.contains('open');
+            document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+            document.querySelectorAll('.faq-question').forEach(b => b.classList.remove('open'));
+            if (!isOpen) {
+                answer.classList.add('open');
+                btn.classList.add('open');
+            }
+        }
+
+        /* ─── FORMULAIRE TEST ─── */
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxnBeHhvvNqNf1VnSuTCBoCRJ5eSmwJgysnzfUR1Y0fBspAp3SWwLpbQtq636Czlr11sw/exec";
+
+        document.getElementById('test-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.innerText = "Envoi en cours...";
+            submitBtn.disabled = true;
+
+            const modules = [...document.querySelectorAll('input[name="modules"]:checked')].map(i => i.value);
+
+            const data = {
+                prenom: document.getElementById('prenom').value,
+                nom: document.getElementById('nom').value,
+                telephone: document.getElementById('telephone').value,
+                email: document.getElementById('email').value,
+                modules: modules.join(', '),
+                creneau: 'Demande test app'
+            };
+
+            fetch(WEB_APP_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.status === "success") {
+                    document.getElementById('test-form').style.display = 'none';
+                    document.getElementById('success-msg').style.display = 'block';
+                    document.getElementById('tester').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    alert("Une erreur est survenue. Contactez-moi au 06 50 30 25 47.");
+                    submitBtn.innerText = "🚀 Recevoir mon accès test gratuit";
+                    submitBtn.disabled = false;
+                }
+            })
+            .catch(() => {
+                alert("Erreur de connexion. Contactez-moi directement au 06 50 30 25 47.");
+                submitBtn.innerText = "🚀 Recevoir mon accès test gratuit";
+                submitBtn.disabled = false;
+            });
+        });
+    </script>
 </body>
 </html>
