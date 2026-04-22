@@ -63,7 +63,7 @@
     </div>
 
     <script>
-        const API_URL = "https://script.google.com/macros/s/AKfycby954cL6ebCx9BHLVIzHtEjQNOZPgs-Qh0J_u6xIcBbv1hTRQ1h0C81xZJxdXt752slXw/exec"; // <--- REMETTEZ L'URL DE LA WEB APP ICI
+        const API_URL = "https://script.google.com/macros/s/AKfycby954cL6ebCx9BHLVIzHtEjQNOZPgs-Qh0J_u6xIcBbv1hTRQ1h0C81xZJxdXt752slXw/exec"; 
         let allData = [], currentAssoIndex = null, registeredEvents = new Set();
 
         async function loadData() {
@@ -86,7 +86,7 @@
             list.classList.remove('hidden');
             list.innerHTML = allData.map((asso, i) => `
                 <div onclick="showEvents(${i})" class="bg-white p-6 rounded-2xl border hover:shadow-xl cursor-pointer transition-all flex flex-col items-center">
-                    <img src="${asso.logo_base64 || ''}" class="w-24 h-24 mb-4 object-contain rounded-full bg-gray-50 p-2 border shadow-inner">
+                    <img src="${asso.logo_url || ''}" class="w-24 h-24 mb-4 object-contain rounded-full bg-gray-50 p-2 border shadow-inner" loading="lazy">
                     <h3 class="text-xl font-bold text-gray-800">${asso.nom_asso}</h3>
                 </div>
             `).join('');
@@ -102,8 +102,10 @@
             
             const list = document.getElementById('events-list');
             list.innerHTML = asso.evenements.map(ev => {
-                // Gestion intelligente du prix pour l'affichage du bouton
                 const priceLabel = (ev.prix && ev.prix !== "") ? ` • ${ev.prix}€` : '';
+                
+                // On prépare l'affichage des heures (Début à Fin)
+                const timeRange = ev.heure_fin ? `${ev.heure_debut} à ${ev.heure_fin}` : ev.heure_debut;
 
                 return `
                 <div class="bg-white rounded-xl overflow-hidden border shadow-sm flex flex-col sm:flex-row">
@@ -113,7 +115,8 @@
                     <div class="p-4 flex-1 flex flex-col justify-between">
                         <div>
                             <h4 class="font-bold text-lg leading-tight mb-1">${ev.titre}</h4>
-                            <p class="text-xs text-indigo-600 font-bold mb-2">📅 ${ev.date} • 🕒 ${ev.heure_debut}</p>
+                            <p class="text-xs text-indigo-600 font-bold mb-2">📅 ${ev.date} • 🕒 ${timeRange}</p>
+                            <p class="text-gray-500 text-xs mb-2 italic">📍 ${ev.adresse}</p>
                             <p class="text-gray-600 text-sm line-clamp-2">${ev.description}</p>
                         </div>
                         <div class="mt-4 pt-4 border-t" id="btn-container-${ev.id}">
@@ -128,23 +131,19 @@
             }).join('');
         }
 
+        // ... garder les fonctions openRegModal, doRegister, openCheckModal, doCheck, etc. inchangées ...
+
         function openRegModal(sh, id, t, d, h, a) {
             document.getElementById('m-id-sheet').value = sh; document.getElementById('m-ev-id').value = id;
             document.getElementById('m-ev-t').value = t; document.getElementById('m-ev-d').value = d;
             document.getElementById('m-ev-h').value = h; document.getElementById('m-ev-a').value = a;
             document.getElementById('m-ev-title').innerText = t;
-            
-            // --- CORRECTION : Réinitialisation complète de la modale ---
             document.getElementById('m-nom').value = "";
             document.getElementById('m-email').value = "";
             const btn = document.getElementById('m-btn');
-            btn.disabled = false;
-            btn.innerText = "Valider l'inscription";
+            btn.disabled = false; btn.innerText = "Valider l'inscription";
             const msg = document.getElementById('m-msg');
-            msg.classList.add('hidden');
-            msg.innerText = "";
-            // -----------------------------------------------------------
-
+            msg.classList.add('hidden'); msg.innerText = "";
             document.getElementById('reg-modal').classList.remove('hidden');
         }
 
@@ -172,7 +171,6 @@
         }
 
         function openCheckModal() { document.getElementById('check-modal').classList.remove('hidden'); }
-        
         async function doCheck() {
             const email = document.getElementById('c-email').value, resDiv = document.getElementById('check-results');
             if (!email) return;
@@ -195,7 +193,6 @@
         function closeModals() {
             document.querySelectorAll('#reg-modal, #check-modal').forEach(m => m.classList.add('hidden'));
             document.getElementById('check-results').classList.add('hidden');
-            document.getElementById('c-email').value = "";
         }
 
         function showAssos() {
