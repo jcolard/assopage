@@ -88,23 +88,22 @@
             background-size: cover; background-position: center;
             display: flex; align-items: center; justify-content: flex-start;
             position: relative; text-align: left; padding: 0 8%;
-            background-color: transparent;
         }
         @media (max-width: 768px) { .hero { background-position: 55% center; } }
         .hero-content { position: relative; z-index: 2; max-width: 750px; margin-top: 50px; }
         .hero h1 {
             color: var(--white); font-size: clamp(3.5rem, 6vw, 6rem);
             letter-spacing: 4px; line-height: 1.1; margin-bottom: 10px;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.7); text-align: left;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); text-align: left;
         }
         .hero h2.subtitle {
             color: var(--yellow); font-family: var(--font-title); font-size: clamp(1.5rem, 3vw, 2.2rem);
             font-weight: 400; margin-bottom: 10px; text-transform: none; text-align: left;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
         .hero p.sub-subtitle {
             color: var(--white); font-family: var(--font-body); font-size: clamp(1.1rem, 2vw, 1.3rem);
-            font-weight: 300; margin-bottom: 40px; text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+            font-weight: 300; margin-bottom: 40px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
         .hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
 
@@ -119,7 +118,7 @@
 
         /* ─── CONCEPT ─── */
         .concept-section { background-color: var(--white); }
-        .concept-layout { display: flex; align-items: flex-start; justify-content: space-between; gap: 60px; }
+        .concept-layout { display: flex; flex-direction: row; align-items: flex-start; justify-content: space-between; gap: 60px; }
         .concept-text { flex: 1; text-align: left; }
         .concept-text h2 { text-align: left; margin-bottom: 20px; }
         .concept-intro { font-size: 1.15rem; margin-bottom: 20px; color: var(--text-grey); line-height: 1.8;}
@@ -143,7 +142,9 @@
         .modules-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px;
         }
-        .flip-card { background-color: transparent; width: 100%; height: 380px; perspective: 1000px; }
+        .flip-card {
+            background-color: transparent; width: 100%; height: 380px; perspective: 1000px;
+        }
         .flip-card-inner {
             position: relative; width: 100%; height: 100%; text-align: center;
             transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer;
@@ -189,7 +190,7 @@
         .price-recap { margin-top: 30px; padding: 25px; background: var(--black); color: var(--white); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;}
         .price-value { font-family: var(--font-title); font-size: 3.5rem; font-weight: 700; color: var(--yellow); line-height: 1; }
         .price-value small { font-size: 1.2rem; color: #bbb; font-weight: 300; }
-
+        
         /* ─── FORMULAIRE TESTER L'APPLI ─── */
         .form-section { background-color: var(--grey-light); }
         .contact-wrapper { max-width: 700px; margin: 0 auto; background: var(--white); padding: 40px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);}
@@ -204,8 +205,7 @@
         .form-module-item.disabled { opacity: 0.5; pointer-events: none; }
         .form-module-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--black); }
 
-        .form-buttons-group { display: flex; gap: 15px; margin-top: 30px; flex-wrap: wrap; }
-        .form-buttons-group button { flex: 1; border: none; font-size: 1.2rem; padding: 18px; min-width: 250px; }
+        .form-submit-btn { width: 100%; border: none; font-size: 1.2rem; padding: 18px; }
 
         /* ─── TEMOIGNAGES ─── */
         .testimonials-section { background-color: var(--yellow); }
@@ -493,7 +493,6 @@
                         <div style="font-family: var(--font-title); font-size: 1rem; color: #aaa; text-transform: uppercase;">Total annuel</div>
                         <div class="price-value" id="calc-price">0€ <small>/ an</small></div>
                     </div>
-                    <a href="#tester" class="qbutton yellow">Acheter ma configuration →</a>
                 </div>
             </div>
         </div>
@@ -501,12 +500,12 @@
 
     <section class="section form-section" id="tester">
         <div class="container contact-wrapper">
-            <h2 style="margin-bottom: 10px;">Tester ou commander</h2>
+            <h2 style="margin-bottom: 10px;">Lancer la configuration</h2>
             <div class="separator-small separator-dark"></div>
-            <p style="text-align: center; margin-bottom: 30px;">Indiquez vos informations et cochez les modules. Vous pourrez choisir de tester l'appli gratuitement (accès sous 48h) ou de valider la commande immédiatement via Stripe.</p>
+            <p style="text-align: center; margin-bottom: 30px;">Indiquez vos informations et cochez les modules qui vous intéressent. Vous pouvez tester gratuitement ou valider directement votre paiement.</p>
 
             <div id="success-msg" style="display:none; background:#d4edda; color:#155724; padding:15px; text-align:center; margin-bottom:20px; border-radius:5px;">
-                <strong>✅ Demande envoyée !</strong>
+                <strong>✅ Demande envoyée !</strong> Vous recevrez vos accès d'ici 48h.
             </div>
 
             <form id="contact-form">
@@ -524,7 +523,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Quels modules voulez-vous inclure ?</label>
+                    <label>Quels modules voulez-vous utiliser ?</label>
                     <div class="form-modules-grid">
                         <label class="form-module-item">
                             <input type="checkbox" name="test_mod" value="CRM"> CRM
@@ -542,9 +541,9 @@
                     <small style="color: #666; font-style: italic; margin-top: 5px; display: block;">* Le module Billetterie nécessite l'Agenda.</small>
                 </div>
 
-                <div class="form-buttons-group">
-                    <button type="submit" name="action" value="test" class="qbutton outline form-submit-btn">Recevoir mon app test (Gratuit)</button>
-                    <button type="submit" name="action" value="pay" class="qbutton dark form-submit-btn">Payer ma configuration (Stripe)</button>
+                <div style="display: flex; gap: 15px; margin-top: 20px; flex-wrap: wrap;">
+                    <button type="button" id="btn-tester" class="qbutton outline form-submit-btn" style="flex: 1; border: 2px solid var(--black); background: transparent; cursor: pointer;">Tester l'app</button>
+                    <button type="button" id="btn-payer" class="qbutton dark form-submit-btn" style="flex: 1; border: 2px solid var(--black); cursor: pointer;">Payer l'app</button>
                 </div>
             </form>
         </div>
@@ -616,11 +615,11 @@
 
     <footer>
         <div class="container footer-cta">
-            <h2>Vous préférez une appli personnalisée sur devis ?</h2>
-            <p>Découvrez mon travail de développeur sur-mesure.</p>
+            <h2>Vous avez un besoin spécifique, créer votre app sur devis</h2>
+            <p>Pour en savoir plus sur les applications personnalisées, découvrez mon portfolio d'apps sur-mesure.</p>
             <div style="margin-top: 20px;">
                 <a href="https://www.je-co.fr" target="_blank" class="qbutton yellow">Voir mon Portfolio</a>
-                <a href="mailto:contact@assopage.fr" class="qbutton outline" style="color:white; border-color:white;">Contactez-moi</a>
+                <a href="mailto:contact@assopage.fr" class="qbutton outline" style="color:white; border-color:white;">Contactez-moi par mail</a>
             </div>
         </div>
 
@@ -657,7 +656,6 @@
             const labelBill = document.getElementById('conf-billetterie');
             const warnBill = document.getElementById('warn-billetterie');
 
-            // Logique de dépendance : Billetterie dépend Agenda
             if (!agenda.checked) {
                 billetterie.checked = false;
                 billetterie.disabled = true;
@@ -669,7 +667,6 @@
                 warnBill.style.color = "#666";
             }
 
-            // Maj classes visuelles et prix à 50€ / module
             let count = 0;
             document.querySelectorAll('input[name="calc_modules"]').forEach(cb => {
                 const parent = cb.closest('.module-check-item');
@@ -684,7 +681,7 @@
             document.getElementById('calc-price').innerHTML = (count * 50) + '€ <small>/ an</small>';
         }
 
-        /* ─── FORMULAIRE TESTER OU PAYER ─── */
+        /* ─── FORMULAIRE TESTER/PAYER ─── */
         function handleFormDeps() {
             const agenda = document.getElementById('test-agenda');
             const billetterie = document.getElementById('test-billetterie');
@@ -700,26 +697,29 @@
             }
         }
 
-        // Init AppScript Simulation for form
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxnBeHhvvNqNf1VnSuTCBoCRJ5eSmwJgysnzfUR1Y0fBspAp3SWwLpbQtq636Czlr11sw/exec";
-        let submitAction = 'test';
 
-        // Capte l'action en fonction du bouton cliqué
-        document.querySelectorAll('#contact-form button[type="submit"]').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                submitAction = e.target.value;
-            });
-        });
+        document.getElementById('btn-tester').addEventListener('click', function(e) { processForm(e, false); });
+        document.getElementById('btn-payer').addEventListener('click', function(e) { processForm(e, true); });
 
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
+        function processForm(e, isPayment) {
             e.preventDefault();
+            const form = document.getElementById('contact-form');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const btnTester = document.getElementById('btn-tester');
+            const btnPayer = document.getElementById('btn-payer');
+            btnTester.disabled = true;
+            btnPayer.disabled = true;
             
-            // Désactiver les boutons pendant l'envoi
-            const buttons = document.querySelectorAll('#contact-form button');
-            buttons.forEach(b => {
-                b.disabled = true;
-                if (b.value === submitAction) b.innerText = "En cours...";
-            });
+            if(isPayment) {
+                btnPayer.innerText = "Validation en cours...";
+            } else {
+                btnTester.innerText = "Envoi en cours...";
+            }
 
             const checkedModules = Array.from(document.querySelectorAll('input[name="test_mod"]:checked')).map(cb => cb.value).join(', ');
 
@@ -727,9 +727,13 @@
                 nom: document.getElementById('nom').value,
                 email: document.getElementById('email').value,
                 telephone: document.getElementById('telephone').value,
-                modules: checkedModules,
-                action: submitAction
+                modules: checkedModules
             };
+
+            // Simule l'ouverture d'un lien Stripe fictif si l'utilisateur veut payer
+            if(isPayment) {
+                window.open('https://buy.stripe.com/lien-fictif-assopage', '_blank');
+            }
 
             fetch(WEB_APP_URL, {
                 method: 'POST',
@@ -738,27 +742,13 @@
             })
             .then(r => r.json())
             .then(res => {
-                handleSuccess(submitAction);
+                document.getElementById('contact-form').style.display = 'none';
+                document.getElementById('success-msg').style.display = 'block';
             }).catch(err => {
-                // Fallback (au cas où AppScript est down)
-                handleSuccess(submitAction);
+                // Fallback for visual test if AppScript is broken
+                document.getElementById('contact-form').style.display = 'none';
+                document.getElementById('success-msg').style.display = 'block';
             });
-        });
-
-        function handleSuccess(action) {
-            document.getElementById('contact-form').style.display = 'none';
-            const msgBox = document.getElementById('success-msg');
-            msgBox.style.display = 'block';
-
-            if (action === 'test') {
-                msgBox.innerHTML = "<strong>✅ Demande envoyée !</strong><br>Vous recevrez vos accès d'ici 48h sur votre boîte mail.";
-            } else if (action === 'pay') {
-                msgBox.innerHTML = "<strong>✅ Validation en cours...</strong><br>Redirection vers la page de paiement sécurisée Stripe.";
-                // Redirection fictive vers Stripe
-                setTimeout(() => {
-                    window.location.href = "https://buy.stripe.com/test_fictif";
-                }, 1500);
-            }
         }
 
         /* ─── FAQ TOGGLE ─── */
