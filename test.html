@@ -3,74 +3,778 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Billeterie des Associations</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Billetterie — Assopage</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Roboto+Condensed:wght@300;400;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --yellow: #fdf987;
+            --black: #0a0a0a;
+            --white: #ffffff;
+            --grey-light: #f5f5f5;
+            --grey-mid: #e8e8e8;
+            --text-grey: #4a4a4a;
+            --font-title: 'Oswald', sans-serif;
+            --font-body: 'Roboto Condensed', sans-serif;
+            --font-brand: 'Montserrat', sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--grey-light);
+            color: var(--black);
+            font-size: 17px;
+            line-height: 1.5;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* ─── HEADER ─── */
+        header {
+            background: var(--black);
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--yellow);
+        }
+
+        .logo {
+            font-family: var(--font-brand);
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .logo .asso { color: var(--white); }
+        .logo .page { color: var(--yellow); }
+
+        .header-badge {
+            font-family: var(--font-title);
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .header-badge::before {
+            content: '';
+            width: 6px; height: 6px;
+            background: var(--yellow);
+            border-radius: 50%;
+        }
+
+        /* ─── HERO BANNER ─── */
+        .page-hero {
+            background: var(--black);
+            padding: 60px 40px 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-hero::after {
+            content: 'BILLETTERIE';
+            position: absolute;
+            font-family: var(--font-brand);
+            font-size: 12vw;
+            font-weight: 900;
+            color: rgba(255,255,255,0.03);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            white-space: nowrap;
+            pointer-events: none;
+            letter-spacing: -4px;
+        }
+        .page-hero h1 {
+            font-family: var(--font-title);
+            text-transform: uppercase;
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 6px;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 12px;
+        }
+        .page-hero h1 span { color: var(--yellow); }
+        .hero-sep {
+            width: 60px; height: 4px;
+            background: var(--yellow);
+            margin: 0 auto 20px;
+        }
+        .page-hero p {
+            color: #888;
+            font-family: var(--font-title);
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ─── MAIN CONTAINER ─── */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 24px 80px;
+        }
+
+        /* ─── LOADER ─── */
+        #loader {
+            text-align: center;
+            padding: 80px 0;
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            color: #888;
+            text-transform: uppercase;
+        }
+        #loader::after {
+            content: '';
+            display: block;
+            width: 40px; height: 4px;
+            background: var(--yellow);
+            margin: 20px auto 0;
+            animation: loading 1s ease-in-out infinite alternate;
+        }
+        @keyframes loading {
+            from { transform: scaleX(0.3); opacity: 0.3; }
+            to { transform: scaleX(1); opacity: 1; }
+        }
+
+        /* ─── SECTION TITLE ─── */
+        .section-title {
+            font-family: var(--font-title);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            color: #888;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--grey-mid);
+        }
+
+        /* ─── ASSO GRID ─── */
+        #asso-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        #asso-list.hidden { display: none; }
+
+        .asso-card {
+            background: var(--white);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 30px 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        .asso-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 4px;
+            background: var(--yellow);
+            transform: scaleX(0);
+            transition: transform 0.25s ease;
+            transform-origin: left;
+        }
+        .asso-card:hover {
+            border-color: var(--black);
+            transform: translateY(-6px);
+            box-shadow: 8px 8px 0px var(--black);
+        }
+        .asso-card:hover::before { transform: scaleX(1); }
+
+        .asso-logo-wrap {
+            width: 110px; height: 110px;
+            border-radius: 50%;
+            background: var(--grey-light);
+            border: 3px solid var(--grey-mid);
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+            margin-bottom: 22px;
+            transition: border-color 0.25s;
+            flex-shrink: 0;
+        }
+        .asso-card:hover .asso-logo-wrap { border-color: var(--yellow); }
+        .asso-logo-wrap img {
+            width: 100%; height: 100%;
+            object-fit: contain;
+            padding: 10px;
+        }
+        .asso-card h3 {
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--black);
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .asso-card .see-events {
+            font-family: var(--font-title);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #aaa;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+        .asso-card:hover .see-events { color: var(--black); }
+        .see-events svg { width: 14px; transition: transform 0.2s; }
+        .asso-card:hover .see-events svg { transform: translateX(4px); }
+
+        /* ─── EVENTS SECTION ─── */
+        #events-section { display: none; }
+        #events-section.visible { display: block; }
+
+        .events-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .asso-identity {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .asso-identity-logo {
+            width: 60px; height: 60px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 2px solid var(--black);
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+        }
+        .asso-identity-logo img {
+            width: 100%; height: 100%;
+            object-fit: contain; padding: 6px;
+        }
+        #selected-asso-name {
+            font-family: var(--font-title);
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--black);
+        }
+
+        .events-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* ─── BUTTONS ─── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-title);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            padding: 12px 24px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .btn-back {
+            background: var(--white);
+            color: var(--black);
+            border-color: var(--black);
+        }
+        .btn-back:hover { background: var(--black); color: var(--white); }
+        .btn-check {
+            background: var(--yellow);
+            color: var(--black);
+            border-color: var(--yellow);
+        }
+        .btn-check:hover { background: var(--black); color: var(--white); border-color: var(--black); }
+        .btn-register {
+            background: var(--black);
+            color: var(--white);
+            border-color: var(--black);
+            width: 100%;
+            justify-content: center;
+            font-size: 1rem;
+            padding: 14px;
+        }
+        .btn-register:hover { background: var(--yellow); color: var(--black); border-color: var(--yellow); }
+        .btn-primary {
+            background: var(--yellow);
+            color: var(--black);
+            border-color: var(--yellow);
+            font-size: 1rem;
+            padding: 14px 32px;
+            width: 100%;
+            justify-content: center;
+        }
+        .btn-primary:hover { background: var(--black); color: var(--white); border-color: var(--black); }
+        .btn-cancel {
+            background: transparent;
+            color: #888;
+            border-color: transparent;
+            font-size: 0.8rem;
+            width: 100%;
+            justify-content: center;
+        }
+        .btn-cancel:hover { color: var(--black); }
+
+        /* ─── EVENTS GRID ─── */
+        #events-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 28px;
+        }
+
+        .event-card {
+            background: var(--white);
+            border: 2px solid var(--grey-mid);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.25s ease;
+        }
+        .event-card:hover {
+            border-color: var(--black);
+            box-shadow: 6px 6px 0 var(--black);
+        }
+
+        .event-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            background: #111;
+        }
+        .event-img-placeholder {
+            width: 100%;
+            height: 200px;
+            background: var(--black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .event-img-placeholder span {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            color: var(--yellow);
+            font-weight: 700;
+        }
+
+        .event-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+
+        .event-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
+        .event-tag {
+            font-family: var(--font-title);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            background: var(--yellow);
+            color: var(--black);
+            border: 1px solid rgba(0,0,0,0.15);
+        }
+        .event-tag.date-tag {
+            background: var(--black);
+            color: var(--yellow);
+        }
+
+        .event-title {
+            font-family: var(--font-title);
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            line-height: 1.2;
+            color: var(--black);
+        }
+
+        .event-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 14px;
+        }
+        .event-meta-item {
+            font-size: 0.85rem;
+            color: var(--text-grey);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .event-meta-item svg { width: 14px; flex-shrink: 0; }
+
+        .event-desc {
+            font-size: 0.9rem;
+            color: var(--text-grey);
+            flex: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .event-footer {
+            padding-top: 16px;
+            border-top: 1px solid var(--grey-mid);
+        }
+        .btn-registered {
+            width: 100%;
+            text-align: center;
+            font-family: var(--font-title);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            padding: 14px;
+            color: #2d7a3a;
+            background: #e8f5eb;
+            border: 2px solid #2d7a3a;
+        }
+
+        /* ─── DIVIDER ─── */
+        .divider { width: 60px; height: 4px; background: var(--yellow); margin: 0 0 30px; }
+
+        /* ─── MODALS ─── */
+        .modal-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            align-items: center; justify-content: center;
+            z-index: 500;
+            padding: 20px;
+            backdrop-filter: blur(4px);
+        }
+        .modal-overlay.open { display: flex; }
+
+        .modal {
+            background: var(--white);
+            max-width: 500px; width: 100%;
+            border: 2px solid var(--black);
+            box-shadow: 10px 10px 0 var(--black);
+            position: relative;
+            animation: modal-in 0.2s ease;
+        }
+        @keyframes modal-in {
+            from { transform: translateY(20px) scale(0.97); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        .modal-header {
+            background: var(--black);
+            padding: 24px 30px;
+        }
+        .modal-header h3 {
+            font-family: var(--font-title);
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 6px;
+        }
+        .modal-header p {
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--yellow);
+            letter-spacing: 1px;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .modal-check { max-width: 550px; max-height: 90vh; overflow-y: auto; }
+        .modal-check .modal-header { background: var(--yellow); }
+        .modal-check .modal-header h3 { color: rgba(0,0,0,0.5); }
+        .modal-check .modal-header p { color: var(--black); }
+
+        /* ─── FORM ELEMENTS ─── */
+        .form-group { margin-bottom: 22px; }
+        .form-group label {
+            display: block;
+            font-family: var(--font-title);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            color: var(--black);
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            border: 2px solid var(--grey-mid);
+            background: var(--grey-light);
+            color: var(--black);
+            transition: border-color 0.2s;
+            outline: none;
+        }
+        .form-control:focus {
+            border-color: var(--black);
+            background: var(--white);
+        }
+        .form-control::placeholder { color: #bbb; }
+
+        .msg-success {
+            text-align: center;
+            padding: 16px;
+            background: #e8f5eb;
+            border: 2px solid #2d7a3a;
+            font-family: var(--font-title);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #2d7a3a;
+            margin-top: 16px;
+            display: none;
+        }
+
+        .check-result-item {
+            padding: 14px 18px;
+            border-left: 4px solid var(--yellow);
+            background: var(--grey-light);
+            margin-bottom: 10px;
+        }
+        .check-result-item .ev-name {
+            font-family: var(--font-title);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        .check-result-item .ev-when {
+            font-size: 0.82rem;
+            color: var(--text-grey);
+        }
+
+        .search-row {
+            display: flex;
+            gap: 10px;
+        }
+        .search-row .form-control { flex: 1; }
+
+        .no-results {
+            text-align: center;
+            padding: 30px;
+            font-family: var(--font-title);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #aaa;
+            font-size: 0.85rem;
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: var(--black);
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 3px solid var(--yellow);
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        footer p {
+            font-family: var(--font-title);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #555;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 600px) {
+            header { padding: 0 20px; }
+            .page-hero { padding: 50px 20px 40px; }
+            .container { padding: 30px 16px 60px; }
+            .events-header { flex-direction: column; align-items: flex-start; }
+            #events-list { grid-template-columns: 1fr; }
+            footer { flex-direction: column; text-align: center; }
+            .header-badge { display: none; }
+        }
+        @media (max-width: 380px) {
+            #asso-list { grid-template-columns: 1fr; }
+        }
+
+        /* ─── FADE IN ─── */
+        .fade-in {
+            animation: fade-in 0.4s ease forwards;
+        }
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .stagger > * { opacity: 0; animation: fade-in 0.4s ease forwards; }
+        .stagger > *:nth-child(1) { animation-delay: 0.05s; }
+        .stagger > *:nth-child(2) { animation-delay: 0.1s; }
+        .stagger > *:nth-child(3) { animation-delay: 0.15s; }
+        .stagger > *:nth-child(4) { animation-delay: 0.2s; }
+        .stagger > *:nth-child(5) { animation-delay: 0.25s; }
+        .stagger > *:nth-child(6) { animation-delay: 0.3s; }
+    </style>
 </head>
-<body class="bg-gray-50 min-h-screen p-4 sm:p-8 font-sans">
-    <div id="app" class="max-w-5xl mx-auto">
-        <h1 id="main-title" class="text-3xl sm:text-4xl font-extrabold text-center mb-10 text-indigo-900 tracking-tight cursor-pointer" onclick="showAssos()">Billeterie Associations</h1>
-        
-        <div id="loader" class="text-center text-gray-500 py-10 font-medium">Chargement...</div>
+<body>
 
-        <div id="asso-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 hidden"></div>
-
-        <div id="events-section" class="mt-8 hidden">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
-                <button onclick="showAssos()" class="px-4 py-2 bg-white text-gray-700 border rounded-lg hover:bg-gray-50 font-bold shadow-sm transition-all">← Retour</button>
-                <button onclick="openCheckModal()" class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg hover:bg-indigo-100 font-bold border border-indigo-200">Voir mes inscriptions</button>
-            </div>
-            <h2 id="selected-asso-name" class="text-2xl font-bold mb-8 text-gray-800 border-b pb-2"></h2>
-            <div id="events-list" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+    <header>
+        <div class="logo" onclick="showAssos()" style="cursor:pointer;">
+            <span class="asso">ASSO</span><span class="page">PAGE</span>
         </div>
+        <div class="header-badge">Billetterie en ligne</div>
+    </header>
+
+    <div class="page-hero">
+        <h1>Événements <span>Associations</span></h1>
+        <div class="hero-sep"></div>
+        <p>Inscrivez-vous en quelques secondes</p>
     </div>
 
-    <div id="reg-modal" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl">
-            <h3 class="text-xl font-bold mb-2">S'inscrire à</h3>
-            <p id="m-ev-title" class="text-indigo-600 font-bold mb-6 text-lg"></p>
-            <form onsubmit="doRegister(event)">
-                <input type="hidden" id="m-id-sheet"> <input type="hidden" id="m-ev-id">
-                <input type="hidden" id="m-ev-t"> <input type="hidden" id="m-ev-d">
-                <input type="hidden" id="m-ev-h"> <input type="hidden" id="m-ev-a">
-                <div class="mb-4">
-                    <label class="block text-sm font-bold mb-1">Nom Complet</label>
-                    <input required id="m-nom" type="text" class="w-full p-2 border rounded-lg">
-                </div>
-                <div class="mb-6">
-                    <label class="block text-sm font-bold mb-1">Email</label>
-                    <input required id="m-email" type="email" class="w-full p-2 border rounded-lg">
-                </div>
-                <button id="m-btn" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700">Valider l'inscription</button>
-                <p id="m-msg" class="mt-4 text-center font-bold hidden"></p>
-            </form>
-            <button onclick="closeModals()" class="mt-4 w-full text-gray-400 text-sm">Annuler</button>
-        </div>
-    </div>
+    <div class="container">
+        <div id="loader">Chargement des associations</div>
 
-    <div id="check-modal" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-2xl p-6 sm:p-8 max-w-lg w-full shadow-2xl max-h-[90vh] overflow-y-auto">
-            <h3 class="text-xl font-bold mb-6">Mes Inscriptions à venir</h3>
-            <div id="check-form">
-                <p class="text-sm mb-4 text-gray-600">Entrez votre email pour voir vos réservations dans cette association.</p>
-                <div class="flex gap-2">
-                    <input id="c-email" type="email" placeholder="votre@email.com" class="flex-1 p-2 border rounded-lg">
-                    <button onclick="doCheck()" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-bold">Chercher</button>
+        <div id="asso-list" class="hidden stagger"></div>
+
+        <div id="events-section">
+            <div class="events-header">
+                <div class="asso-identity">
+                    <div class="asso-identity-logo" id="asso-identity-logo"></div>
+                    <div>
+                        <div style="font-family:var(--font-title);font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:#aaa;margin-bottom:4px;">Association</div>
+                        <div id="selected-asso-name"></div>
+                    </div>
+                </div>
+                <div class="events-actions">
+                    <button onclick="showAssos()" class="btn btn-back">
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4"/></svg>
+                        Retour
+                    </button>
+                    <button onclick="openCheckModal()" class="btn btn-check">
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="width:14px"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+                        Mes inscriptions
+                    </button>
                 </div>
             </div>
-            <div id="check-results" class="mt-6 space-y-4 hidden"></div>
-            <button onclick="closeModals()" class="mt-8 w-full text-gray-500 font-bold border-t pt-4">Fermer</button>
+
+            <div class="section-title">Événements à venir</div>
+            <div id="events-list" class="stagger"></div>
         </div>
     </div>
+
+    <!-- MODAL INSCRIPTION -->
+    <div id="reg-modal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Inscription à l'événement</h3>
+                <p id="m-ev-title"></p>
+            </div>
+            <div class="modal-body">
+                <form onsubmit="doRegister(event)">
+                    <input type="hidden" id="m-id-sheet">
+                    <input type="hidden" id="m-ev-id">
+                    <input type="hidden" id="m-ev-t">
+                    <input type="hidden" id="m-ev-d">
+                    <input type="hidden" id="m-ev-h">
+                    <input type="hidden" id="m-ev-a">
+
+                    <div class="form-group">
+                        <label for="m-nom">Nom complet</label>
+                        <input required id="m-nom" type="text" class="form-control" placeholder="Marie Dupont">
+                    </div>
+                    <div class="form-group">
+                        <label for="m-email">Adresse e-mail</label>
+                        <input required id="m-email" type="email" class="form-control" placeholder="marie@asso.fr">
+                    </div>
+
+                    <button id="m-btn" class="btn btn-primary" type="submit">Valider mon inscription</button>
+                    <div id="m-msg" class="msg-success"></div>
+                </form>
+                <button onclick="closeModals()" class="btn btn-cancel" style="margin-top:12px;">Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL MES INSCRIPTIONS -->
+    <div id="check-modal" class="modal-overlay">
+        <div class="modal modal-check">
+            <div class="modal-header">
+                <h3>Suivi des réservations</h3>
+                <p>Mes inscriptions à venir</p>
+            </div>
+            <div class="modal-body">
+                <div id="check-form">
+                    <p style="font-size:0.85rem;color:var(--text-grey);margin-bottom:16px;">Entrez votre email pour retrouver vos réservations dans cette association.</p>
+                    <div class="search-row">
+                        <input id="c-email" type="email" placeholder="votre@email.fr" class="form-control">
+                        <button onclick="doCheck()" class="btn btn-primary" style="width:auto;padding:12px 24px;">Chercher</button>
+                    </div>
+                </div>
+                <div id="check-results" style="margin-top:20px;display:none;"></div>
+                <button onclick="closeModals()" class="btn btn-cancel" style="margin-top:24px;border-top:1px solid var(--grey-mid);padding-top:20px;">Fermer</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="logo" style="font-size:1.2rem;">
+            <span class="asso">ASSO</span><span class="page">PAGE</span>
+        </div>
+        <p>Billetterie propulsée par Assopage</p>
+    </footer>
 
     <script>
-        const API_URL = "https://script.google.com/macros/s/AKfycby954cL6ebCx9BHLVIzHtEjQNOZPgs-Qh0J_u6xIcBbv1hTRQ1h0C81xZJxdXt752slXw/exec"; 
+        const API_URL = "https://script.google.com/macros/s/AKfycby954cL6ebCx9BHLVIzHtEjQNOZPgs-Qh0J_u6xIcBbv1hTRQ1h0C81xZJxdXt752slXw/exec";
         let allData = [], currentAssoIndex = null, registeredEvents = new Set();
 
         async function loadData() {
             try {
                 const r = await fetch("./associations.json?t=" + Date.now());
                 allData = await r.json();
-                document.getElementById('loader').classList.add('hidden');
+                document.getElementById('loader').style.display = 'none';
                 const urlParams = new URLSearchParams(window.location.search);
                 const asso = urlParams.get('asso');
                 if (asso) {
@@ -78,127 +782,207 @@
                     if (idx !== -1) return showEvents(idx, false);
                 }
                 renderAssos();
-            } catch (e) { document.getElementById('loader').innerText = "Erreur de chargement."; }
+            } catch (e) {
+                document.getElementById('loader').innerText = "Erreur de chargement.";
+            }
         }
 
         function renderAssos() {
             const list = document.getElementById('asso-list');
             list.classList.remove('hidden');
             list.innerHTML = allData.map((asso, i) => `
-                <div onclick="showEvents(${i})" class="bg-white p-6 rounded-2xl border hover:shadow-xl cursor-pointer transition-all flex flex-col items-center">
-                    <img src="${asso.logo_url || ''}" class="w-24 h-24 mb-4 object-contain rounded-full bg-gray-50 p-2 border shadow-inner" loading="lazy">
-                    <h3 class="text-xl font-bold text-gray-800">${asso.nom_asso}</h3>
+                <div onclick="showEvents(${i})" class="asso-card fade-in">
+                    <div class="asso-logo-wrap">
+                        <img src="${asso.logo_url || ''}" alt="${asso.nom_asso}" loading="lazy">
+                    </div>
+                    <h3>${asso.nom_asso}</h3>
+                    <div class="see-events">
+                        Voir les événements
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 4l4 4-4 4"/>
+                        </svg>
+                    </div>
                 </div>
             `).join('');
+
+            // Stagger cards
+            list.querySelectorAll('.asso-card').forEach((el, i) => {
+                el.style.animationDelay = (i * 0.07) + 's';
+            });
         }
 
         function showEvents(i, push = true) {
             currentAssoIndex = i;
             const asso = allData[i];
             if (push) window.history.pushState({}, '', '?asso=' + encodeURIComponent(asso.nom_asso));
+
             document.getElementById('asso-list').classList.add('hidden');
-            document.getElementById('events-section').classList.remove('hidden');
+            const evSection = document.getElementById('events-section');
+            evSection.classList.add('visible');
+
+            // Identity
             document.getElementById('selected-asso-name').innerText = asso.nom_asso;
-            
+            document.getElementById('asso-identity-logo').innerHTML = `<img src="${asso.logo_url || ''}" alt="${asso.nom_asso}" style="width:100%;height:100%;object-fit:contain;padding:6px;">`;
+
             const list = document.getElementById('events-list');
             list.innerHTML = asso.evenements.map(ev => {
-                const priceLabel = (ev.prix && ev.prix !== "") ? ` • ${ev.prix}€` : '';
-                
-                // On prépare l'affichage des heures (Début à Fin)
-                const timeRange = ev.heure_fin ? `${ev.heure_debut} à ${ev.heure_fin}` : ev.heure_debut;
+                const priceLabel = (ev.prix && ev.prix !== "") ? `${ev.prix}€` : 'Gratuit';
+                const priceFree = (!ev.prix || ev.prix === "");
+                const timeRange = ev.heure_fin ? `${ev.heure_debut} — ${ev.heure_fin}` : ev.heure_debut;
+                const imgEl = ev.image_url
+                    ? `<img src="${ev.image_url}" class="event-img" alt="${ev.titre}" loading="lazy">`
+                    : `<div class="event-img-placeholder"><span>${ev.titre.charAt(0)}</span></div>`;
 
                 return `
-                <div class="bg-white rounded-xl overflow-hidden border shadow-sm flex flex-col sm:flex-row">
-                    <div class="sm:w-1/3 h-40 sm:h-auto bg-gray-100">
-                        <img src="${ev.image_url || ''}" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-4 flex-1 flex flex-col justify-between">
-                        <div>
-                            <h4 class="font-bold text-lg leading-tight mb-1">${ev.titre}</h4>
-                            <p class="text-xs text-indigo-600 font-bold mb-2">📅 ${ev.date} • 🕒 ${timeRange}</p>
-                            <p class="text-gray-500 text-xs mb-2 italic">📍 ${ev.adresse}</p>
-                            <p class="text-gray-600 text-sm line-clamp-2">${ev.description}</p>
+                <div class="event-card">
+                    ${imgEl}
+                    <div class="event-body">
+                        <div class="event-tags">
+                            <span class="event-tag date-tag">${ev.date}</span>
+                            <span class="event-tag">${priceFree ? 'Gratuit' : priceLabel}</span>
                         </div>
-                        <div class="mt-4 pt-4 border-t" id="btn-container-${ev.id}">
-                            ${registeredEvents.has(ev.id) 
-                                ? '<div class="text-center text-green-600 font-bold py-2">✓ Inscription validée</div>'
-                                : `<button onclick="openRegModal('${asso.id_sheet}', '${ev.id}', '${ev.titre.replace(/'/g, "\\'")}', '${ev.date}', '${ev.heure_debut}', '${ev.adresse.replace(/'/g, "\\'")}')" class="w-full bg-indigo-600 text-white font-bold py-2 rounded-lg">S'inscrire${priceLabel}</button>`
+                        <div class="event-title">${ev.titre}</div>
+                        <div class="event-meta">
+                            <div class="event-meta-item">
+                                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/>
+                                </svg>
+                                ${timeRange}
+                            </div>
+                            <div class="event-meta-item">
+                                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M8 1.5C5.5 1.5 3.5 3.5 3.5 6c0 3.5 4.5 8.5 4.5 8.5s4.5-5 4.5-8.5c0-2.5-2-4.5-4.5-4.5z"/><circle cx="8" cy="6" r="1.5"/>
+                                </svg>
+                                ${ev.adresse}
+                            </div>
+                        </div>
+                        <p class="event-desc">${ev.description}</p>
+                        <div class="event-footer" id="btn-container-${ev.id}">
+                            ${registeredEvents.has(ev.id)
+                                ? '<div class="btn-registered">✓ Inscription validée</div>'
+                                : `<button onclick="openRegModal('${asso.id_sheet}', '${ev.id}', '${ev.titre.replace(/'/g, "\\'")}', '${ev.date}', '${ev.heure_debut}', '${ev.adresse.replace(/'/g, "\\'")}')" class="btn btn-register">S'inscrire${!priceFree ? ' — ' + priceLabel : ''}</button>`
                             }
                         </div>
                     </div>
-                </div>
-                `;
+                </div>`;
             }).join('');
+
+            // Stagger
+            list.querySelectorAll('.event-card').forEach((el, i) => {
+                el.style.opacity = '0';
+                el.style.animation = `fade-in 0.4s ease ${i * 0.08}s forwards`;
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ... garder les fonctions openRegModal, doRegister, openCheckModal, doCheck, etc. inchangées ...
-
         function openRegModal(sh, id, t, d, h, a) {
-            document.getElementById('m-id-sheet').value = sh; document.getElementById('m-ev-id').value = id;
-            document.getElementById('m-ev-t').value = t; document.getElementById('m-ev-d').value = d;
-            document.getElementById('m-ev-h').value = h; document.getElementById('m-ev-a').value = a;
+            document.getElementById('m-id-sheet').value = sh;
+            document.getElementById('m-ev-id').value = id;
+            document.getElementById('m-ev-t').value = t;
+            document.getElementById('m-ev-d').value = d;
+            document.getElementById('m-ev-h').value = h;
+            document.getElementById('m-ev-a').value = a;
             document.getElementById('m-ev-title').innerText = t;
-            document.getElementById('m-nom').value = "";
-            document.getElementById('m-email').value = "";
+            document.getElementById('m-nom').value = '';
+            document.getElementById('m-email').value = '';
             const btn = document.getElementById('m-btn');
-            btn.disabled = false; btn.innerText = "Valider l'inscription";
+            btn.disabled = false;
+            btn.innerText = "Valider mon inscription";
             const msg = document.getElementById('m-msg');
-            msg.classList.add('hidden'); msg.innerText = "";
-            document.getElementById('reg-modal').classList.remove('hidden');
+            msg.style.display = 'none';
+            msg.innerText = '';
+            document.getElementById('reg-modal').classList.add('open');
         }
 
         async function doRegister(e) {
             e.preventDefault();
-            const btn = document.getElementById('m-btn'), msg = document.getElementById('m-msg'), evId = document.getElementById('m-ev-id').value;
-            btn.disabled = true; btn.innerText = "Traitement...";
+            const btn = document.getElementById('m-btn');
+            const msg = document.getElementById('m-msg');
+            const evId = document.getElementById('m-ev-id').value;
+            btn.disabled = true;
+            btn.innerText = "Traitement...";
             try {
-                const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({
-                    action: 'register', id_sheet: document.getElementById('m-id-sheet').value,
-                    evenement_id: evId, user_nom: document.getElementById('m-nom').value,
-                    user_email: document.getElementById('m-email').value, ev_titre: document.getElementById('m-ev-t').value,
-                    ev_date: document.getElementById('m-ev-d').value, ev_heure: document.getElementById('m-ev-h').value,
-                    ev_adresse: document.getElementById('m-ev-a').value
-                })});
+                const res = await fetch(API_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        action: 'register',
+                        id_sheet: document.getElementById('m-id-sheet').value,
+                        evenement_id: evId,
+                        user_nom: document.getElementById('m-nom').value,
+                        user_email: document.getElementById('m-email').value,
+                        ev_titre: document.getElementById('m-ev-t').value,
+                        ev_date: document.getElementById('m-ev-d').value,
+                        ev_heure: document.getElementById('m-ev-h').value,
+                        ev_adresse: document.getElementById('m-ev-a').value
+                    })
+                });
                 const r = await res.json();
                 if (r.success) {
-                    msg.className = "mt-4 text-center text-green-600 font-bold";
-                    msg.innerText = r.message; msg.classList.remove('hidden');
+                    msg.style.display = 'block';
+                    msg.innerText = r.message;
                     registeredEvents.add(evId);
-                    document.getElementById('btn-container-' + evId).innerHTML = '<div class="text-center text-green-600 font-bold py-2">✓ Inscription validée</div>';
-                    setTimeout(closeModals, 1500);
+                    document.getElementById('btn-container-' + evId).innerHTML = '<div class="btn-registered">✓ Inscription validée</div>';
+                    setTimeout(closeModals, 1800);
                 }
-            } catch (err) { btn.disabled = false; btn.innerText = "Erreur, réessayer"; }
+            } catch (err) {
+                btn.disabled = false;
+                btn.innerText = "Erreur, réessayer";
+            }
         }
 
-        function openCheckModal() { document.getElementById('check-modal').classList.remove('hidden'); }
+        function openCheckModal() {
+            document.getElementById('check-modal').classList.add('open');
+        }
+
         async function doCheck() {
-            const email = document.getElementById('c-email').value, resDiv = document.getElementById('check-results');
+            const email = document.getElementById('c-email').value;
+            const resDiv = document.getElementById('check-results');
             if (!email) return;
-            resDiv.innerHTML = "Recherche..."; resDiv.classList.remove('hidden');
+            resDiv.style.display = 'block';
+            resDiv.innerHTML = '<div class="no-results">Recherche en cours...</div>';
             try {
-                const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({
-                    action: 'check', id_sheet: allData[currentAssoIndex].id_sheet, user_email: email
-                })});
+                const res = await fetch(API_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        action: 'check',
+                        id_sheet: allData[currentAssoIndex].id_sheet,
+                        user_email: email
+                    })
+                });
                 const r = await res.json();
-                if (r.data.length === 0) resDiv.innerHTML = "<p class='text-gray-400 italic'>Aucune inscription trouvée.</p>";
-                else resDiv.innerHTML = r.data.map(i => `
-                    <div class="p-3 border-l-4 border-indigo-500 bg-gray-50 rounded-r-lg">
-                        <p class="font-bold text-gray-800">${i.titre}</p>
-                        <p class="text-xs text-gray-500">📅 ${i.date} à ${i.heure}</p>
-                    </div>
-                `).join('');
-            } catch(e) { resDiv.innerHTML = "Erreur."; }
+                if (!r.data || r.data.length === 0) {
+                    resDiv.innerHTML = '<div class="no-results">Aucune inscription trouvée</div>';
+                } else {
+                    resDiv.innerHTML = r.data.map(i => `
+                        <div class="check-result-item">
+                            <div class="ev-name">${i.titre}</div>
+                            <div class="ev-when">📅 ${i.date} à ${i.heure}</div>
+                        </div>
+                    `).join('');
+                }
+            } catch (e) {
+                resDiv.innerHTML = '<div class="no-results">Erreur de connexion</div>';
+            }
         }
 
         function closeModals() {
-            document.querySelectorAll('#reg-modal, #check-modal').forEach(m => m.classList.add('hidden'));
-            document.getElementById('check-results').classList.add('hidden');
+            document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('open'));
+            document.getElementById('check-results').style.display = 'none';
         }
+
+        // Close on overlay click
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) closeModals();
+            });
+        });
 
         function showAssos() {
             window.history.pushState({}, '', window.location.pathname);
             document.getElementById('asso-list').classList.remove('hidden');
-            document.getElementById('events-section').classList.add('hidden');
+            document.getElementById('events-section').classList.remove('visible');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         loadData();
