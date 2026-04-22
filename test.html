@@ -1,331 +1,132 @@
 <!DOCTYPE html>
-<html lang="fr" style="opacity: 0; transition: opacity 0.6s ease-in-out;">
+<html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="meta-title">Chargement de la démo...</title>
-<meta name="theme-color" id="meta-theme-color" content="#ffffff">
-
-<style id="dynamic-theme"></style>
-
-<style>
-/* --- TON CSS ORIGINAL (Légèrement adapté pour les variables) --- */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --papier: #ffffff;
-  --papier-fonce: #f7f9f9;
-  --gris: #474747;
-  --creme: #f7f9f9;
-  /* Les couleurs principales sont gérées par le script JS en bas */
-}
-html { scroll-behavior: smooth; }
-body { background: var(--papier); color: var(--gris); overflow-x: hidden; line-height: 1.6; }
-body::after { content:''; position:fixed; inset:0; pointer-events:none; z-index:9997; opacity:.5; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E"); }
-
-/* NAV */
-nav { position:fixed; top:0; left:0; right:0; z-index:500; padding:1.2rem 3.5rem; display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,.98); border-bottom: 1px solid rgba(0,0,0,0.05); transition:box-shadow .3s; }
-nav::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background:var(--rouge); }
-.nav-logo { font-weight:900; color:var(--noir); text-decoration:none; letter-spacing:-.02em; display:flex; align-items:center; gap:.5rem; font-size: 1.4rem; }
-.nav-logo img { height: 42px; width: auto; display: block; }
-.nav-links { display:flex; gap:2rem; list-style:none; align-items:center; }
-.nav-links a { color:var(--noir); text-decoration:none; font-size:.85rem; font-weight:800; letter-spacing:.05em; text-transform:uppercase; position:relative; padding-bottom:3px; }
-.nav-links a::after { content:''; position:absolute; bottom:0; left:0; width:0; height:3px; background:var(--rouge); transition:width .35s cubic-bezier(.4,0,.2,1); }
-.nav-links a:hover::after { width:100%; }
-.hamburger { display:none; flex-direction:column; gap:6px; background:none; border:none; padding:.5rem; cursor:pointer; }
-.hamburger span { display:block; width:28px; height:3px; background:var(--noir); border-radius:2px; }
-
-/* HERO */
-.hero { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; align-items:center; padding:8rem 4rem 5rem; position:relative; overflow:hidden; background:var(--creme); gap: 4rem; }
-.hero-content { position:relative; z-index:3; }
-.hero-eyebrow { font-size:.85rem; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--ocre); margin-bottom:1.8rem; display:flex; align-items:center; gap:1rem; opacity:0; transform:translateY(20px); transition:all .9s ease; }
-.brush-dash { display:inline-block; height:4px; width:52px; background:var(--ocre); border-radius: 4px; }
-.hero-title { font-size:clamp(3rem,7vw,5.5rem); line-height:1.1; font-weight:900; letter-spacing:-.03em; color:var(--noir); margin-bottom:1.8rem; opacity:0; transform:translateY(30px); transition:all 1s ease .15s; }
-.hero-title .accent { position:relative; display:inline-block; color:var(--rouge); font-style:italic; }
-.hero-sub { font-size:clamp(1rem,1.6vw,1.2rem); color:var(--gris); max-width:480px; line-height:1.7; margin-bottom:3rem; font-weight: 500; opacity:0; transform:translateY(20px); transition:all .9s ease .35s; }
-.hero-actions { display:flex; gap:1.5rem; flex-wrap:wrap; opacity:0; transform:translateY(20px); transition:all .9s ease .5s; }
-.hero-visual { position:relative; z-index:2; opacity:0; transform:translateX(30px); transition:all 1.1s ease .3s; }
-.hero-photo-frame { position:relative; clip-path:polygon(0 0,100% 0,95% 100%,5% 100%); overflow:hidden; background: #1c1c1c; }
-.hero-photo-frame img { display: block; width: 100%; height: 580px; object-fit: cover; }
-.hero-badge { position:absolute; bottom:-1.5rem; left:-1.5rem; background:var(--rouge); color:white; padding:1.2rem 1.8rem; clip-path:polygon(0 0,100% 0,97% 100%,3% 100%); font-size:1.1rem; font-style:italic; font-weight: 700; box-shadow:0 8px 30px rgba(0,0,0,.15); max-width:220px; line-height:1.4; z-index: 4; }
-
-/* BOUTONS */
-.btn-outline { background:transparent; color:var(--noir); padding:1.1rem 2.6rem; font-weight:800; font-size:.9rem; letter-spacing:.05em; text-transform:uppercase; text-decoration:none; display:inline-block; position:relative; transition:color .3s; }
-.btn-outline::before { content:''; position:absolute; inset:0; border:2.5px solid var(--noir); clip-path:polygon(0 0,100% 0,97% 100%,3% 100%); transition:border-color .3s; }
-.btn-outline:hover { color:var(--rouge); }
-.btn-outline:hover::before { border-color:var(--rouge); }
-
-/* STATS */
-.hero-stats { background: var(--noir); padding: 5rem 4rem; position: relative; }
-.hero-stats-inner { max-width: 1300px; margin: 0 auto; text-align: center; }
-.hero-stats-inner .section-label { justify-content: center; color: var(--ocre); margin-bottom: 1rem; }
-.hero-stats-inner .section-title { color: var(--papier); font-size: clamp(2rem,4vw,3.2rem); margin-bottom: 3rem; }
-.hero-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
-.hero-stat-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 2rem 1.5rem; position: relative; overflow: hidden; opacity:0; transform:translateY(20px); transition:all .7s ease; }
-.hero-stat-box.visible { opacity:1; transform:translateY(0); }
-.hero-stat-box::before { content:''; position:absolute; top:0; left:0; width:0; height:3px; background:var(--rouge); transition:width .8s ease; }
-.hero-stat-box.visible::before { width:100%; }
-.hero-stat-number { font-size:clamp(2.5rem,4vw,3.8rem); font-weight:900; color:var(--rouge); display:block; line-height:1; }
-.hero-stat-label { font-size:.75rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#CCCCCC; margin-top:.6rem; display:block; line-height:1.4; }
-
-body.loaded .hero-eyebrow,body.loaded .hero-title,body.loaded .hero-sub,body.loaded .hero-actions,body.loaded .hero-visual { opacity:1; transform:translateY(0) translateX(0); }
-
-/* SECTIONS GLOBALES */
-.section-label { font-size:.8rem; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--ocre); display:flex; align-items:center; gap:1rem; margin-bottom:1.8rem; }
-.section-label::before { content:''; width:35px; height:4px; flex-shrink:0; background:var(--ocre); border-radius:2px; }
-.section-title { font-size:clamp(2.2rem,5vw,4rem); line-height:1.1; letter-spacing:-.025em; margin-bottom:1.8rem; font-weight:900; color: var(--noir); }
-.reveal { opacity:0; transform:translateY(44px); transition:opacity .9s ease, transform .9s ease; }
-.reveal.visible { opacity:1; transform:translateY(0); }
-
-/* MANIFESTE (ABOUT) */
-.manifeste { background:var(--noir); color:var(--papier); padding:7rem 4rem; position:relative; overflow:hidden; }
-.manifeste-inner { max-width:1300px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:7rem; align-items:center; position:relative; z-index:1; }
-.manifeste-text blockquote { font-size:clamp(1.8rem,3.5vw,3rem); font-style:italic; line-height:1.4; color: #FFFFFF; position:relative; padding-left:2.5rem; margin-bottom:2rem; border-left: 5px solid var(--rouge); }
-.manifeste-text p.citation-author { color:#E0E0E0; font-size:1rem; margin-top:1rem; font-style:italic; }
-.manifeste-text .manifeste-body { margin-top:2rem; color: #F0F0F0; line-height:1.8; font-size: 1.05rem; }
-.manifeste-photo img { width:100%; height:420px; object-fit:cover; clip-path:polygon(0 0,100% 0,92% 100%,8% 100%); display:block; }
-
-/* ACTIVITÉS */
-.activites { padding:8rem 4rem; background:var(--papier); position:relative; }
-.act-head { max-width:1300px; margin:0 auto 5rem; }
-.act-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; max-width:1300px; margin:0 auto; }
-.act-card { background:white; border:1px solid rgba(0,0,0,.05); overflow:hidden; position:relative; transition:transform .35s ease, box-shadow .35s ease; display: flex; flex-direction: column; }
-.act-card:hover { transform:translateY(-8px); box-shadow:0 20px 50px rgba(0,0,0,.12); }
-.act-card::after { content:''; position:absolute; top:0; left:0; width:0; height:4px; background:var(--rouge); transition:width .5s cubic-bezier(.4,0,.2,1); }
-.act-card:hover::after { width:100%; }
-.act-img { width:100%; height:220px; object-fit:cover; display:block; }
-.act-body { padding:2rem; display:flex; flex-direction:column; flex-grow:1; }
-.act-title { font-size:1.4rem; font-weight:800; margin-bottom:.8rem; line-height:1.2; }
-.act-desc { font-size:1rem; line-height:1.6; color:var(--gris); font-weight: 500; }
-
-/* FOOTER */
-footer { background:#0D0D0D; color:var(--papier); padding:3rem 4rem 2rem; }
-.footer-brand { font-size:2rem; font-weight:900; margin-bottom:1.2rem; display:flex; align-items:center; gap:.6rem; }
-.footer-brand img { height: 38px; width: auto; display: block; }
-.footer-desc { font-size:.95rem; color:#BBBBBB; line-height:1.75; max-width:400px; margin-bottom:1rem; }
-.footer-bottom { margin:2rem 0 0; display:flex; justify-content:space-between; border-top:1px solid rgba(255,255,255,.1); padding-top:1.5rem; font-size:.8rem; color:#888; }
-
-/* RESPONSIVE BASIC */
-@media(max-width:1050px){ .hero { grid-template-columns:1fr; text-align:center; padding-top:6rem; } .hero-eyebrow, .hero-actions { justify-content:center; } .hero-sub { margin-left:auto; margin-right:auto; } .hero-visual, .manifeste-photo { display:none; } .manifeste-inner { grid-template-columns:1fr; } .act-grid { grid-template-columns:1fr 1fr; } .hero-stats-grid { grid-template-columns:1fr 1fr; } }
-@media(max-width:768px){ nav { padding:1rem 1.5rem; } .nav-links { display:none; } .hamburger { display:flex; } .act-grid, .hero-stats-grid { grid-template-columns:1fr; } .footer-bottom { flex-direction:column; text-align:center; gap: 1rem; } }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billeterie des Associations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-50 min-h-screen p-8 font-sans">
+    <div id="app" class="max-w-6xl mx-auto">
+        <h1 class="text-4xl font-extrabold text-center mb-10 text-indigo-900 tracking-tight">Découvrez nos Événements</h1>
+        
+        <div id="loader" class="text-center text-gray-500 py-10 font-medium">
+            Chargement des événements en cours...
+        </div>
 
-<nav role="navigation">
-  <a href="#" class="nav-logo">
-    <img id="nav-logo-img" src="" alt="Logo">
-    <span id="nav-name"></span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#manifeste">L'association</a></li>
-    <li><a href="#activites">Nos actions</a></li>
-    <li><a id="nav-donate-link" href="#" target="_blank">Faire un don</a></li>
-  </ul>
-  <button class="hamburger"><span></span><span></span><span></span></button>
-</nav>
+        <div id="asso-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 hidden">
+            </div>
 
-<header class="hero">
-  <div class="hero-content">
-    <p class="hero-eyebrow"><span class="brush-dash"></span><span id="hero-eyebrow"></span></p>
-    <h1 class="hero-title" id="hero-title"></h1>
-    <p class="hero-sub" id="hero-sub"></p>
-    <div class="hero-actions">
-      <a id="hero-contact-link" href="#" class="btn-outline">Nous contacter</a>
+        <div id="events-section" class="mt-8 hidden">
+            <button onclick="showAssos()" class="mb-6 px-4 py-2 bg-indigo-100 text-indigo-700 rounded-lg hover:bg-indigo-200 font-bold transition-colors">
+                ← Retour aux associations
+            </button>
+            <h2 id="selected-asso-name" class="text-3xl font-bold mb-8 text-gray-800 border-b pb-2"></h2>
+            
+            <div id="events-list" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                </div>
+        </div>
     </div>
-  </div>
-  <div class="hero-visual">
-    <div class="hero-photo-frame">
-      <img id="hero-img" src="" alt="Hero">
-    </div>
-    <div class="hero-badge" id="hero-badge"></div>
-  </div>
-</header>
 
-<section class="hero-stats">
-  <div class="hero-stats-inner">
-    <p class="section-label reveal" id="stats-label"></p>
-    <h2 class="section-title reveal" id="stats-title" style="color:var(--papier);"></h2>
-    <div class="hero-stats-grid">
-      <div class="hero-stat-box"><span class="hero-stat-number" id="stat-1-val" data-target="0">0</span><span class="hero-stat-label" id="stat-1-lab"></span></div>
-      <div class="hero-stat-box"><span class="hero-stat-number" id="stat-2-val" data-target="0">0</span><span class="hero-stat-label" id="stat-2-lab"></span></div>
-      <div class="hero-stat-box"><span class="hero-stat-number" id="stat-3-val" data-target="0">0</span><span class="hero-stat-label" id="stat-3-lab"></span></div>
-      <div class="hero-stat-box"><span class="hero-stat-number" id="stat-4-val" data-target="0">0</span><span class="hero-stat-label" id="stat-4-lab"></span></div>
-    </div>
-  </div>
-</section>
+    <script>
+        // === REMPLACEZ CETTE URL PAR CELLE DE VOTRE DEPLOIEMENT APPS SCRIPT ===
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzSuM2Eibirkv1E_by3wnJLY2DHLFWvP09XtQe0acvYwoQlVhqyE8SaPOUAmv7CvJijXA/exec";
+        
+        let allData = [];
 
-<section id="manifeste" class="manifeste">
-  <div class="manifeste-inner">
-    <div class="manifeste-text reveal">
-      <p class="section-label">Notre Mission</p>
-      <blockquote id="about-quote"></blockquote>
-      <p class="citation-author" id="about-author"></p>
-      <p class="manifeste-body" id="about-text"></p>
-    </div>
-    <div class="manifeste-photo reveal">
-      <img id="about-img" src="" alt="À propos">
-    </div>
-  </div>
-</section>
+        // Fonction pour récupérer les données depuis le Google Script
+        async function loadData() {
+            try {
+                const response = await fetch(APPS_SCRIPT_URL);
+                if (!response.ok) throw new Error("Erreur réseau");
+                
+                allData = await response.json();
+                
+                document.getElementById('loader').classList.add('hidden');
+                
+                if (allData.erreur) {
+                    alert("Erreur côté serveur : " + allData.erreur);
+                } else {
+                    renderAssos();
+                }
+            } catch (error) {
+                document.getElementById('loader').innerText = "Impossible de charger les données. Veuillez réessayer plus tard.";
+                console.error("Erreur de fetch:", error);
+            }
+        }
 
-<section id="activites" class="activites">
-  <div class="act-head reveal">
-    <p class="section-label">Ce que nous offrons</p>
-    <h2 class="section-title">Nos <em style="color:var(--rouge);font-style:italic;">Actions</em></h2>
-  </div>
-  <div class="act-grid">
-    <div class="act-card reveal">
-      <img class="act-img" id="srv-img-1" src="" alt="">
-      <div class="act-body"><h3 class="act-title" id="srv-title-1"></h3><p class="act-desc" id="srv-desc-1"></p></div>
-    </div>
-    <div class="act-card reveal">
-      <img class="act-img" id="srv-img-2" src="" alt="">
-      <div class="act-body"><h3 class="act-title" id="srv-title-2"></h3><p class="act-desc" id="srv-desc-2"></p></div>
-    </div>
-    <div class="act-card reveal">
-      <img class="act-img" id="srv-img-3" src="" alt="">
-      <div class="act-body"><h3 class="act-title" id="srv-title-3"></h3><p class="act-desc" id="srv-desc-3"></p></div>
-    </div>
-  </div>
-</section>
+        // Affichage de la grille des associations
+        function renderAssos() {
+            const list = document.getElementById('asso-list');
+            list.classList.remove('hidden');
+            
+            list.innerHTML = allData.map((asso, index) => `
+                <div onclick="showEvents(${index})" class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 cursor-pointer transition-all duration-300 flex flex-col items-center">
+                    ${asso.logo_base64 
+                        ? `<img src="${asso.logo_base64}" alt="Logo ${asso.nom_asso}" class="w-32 h-32 mb-6 object-contain rounded-full shadow-inner bg-gray-50 p-2">` 
+                        : `<div class="w-32 h-32 mb-6 bg-gray-200 rounded-full flex items-center justify-center text-gray-400">Pas de logo</div>`
+                    }
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">${asso.nom_asso}</h3>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-50 text-indigo-700">
+                        ${asso.evenements ? asso.evenements.length : 0} événement(s)
+                    </span>
+                </div>
+            `).join('');
+        }
 
-<footer>
-  <div style="max-width:1300px; margin:0 auto;">
-    <div class="footer-brand">
-      <img id="footer-logo-img" src="" alt="Logo">
-      <span id="footer-name"></span>
-    </div>
-    <p class="footer-desc" id="footer-text"></p>
-  </div>
-  <div class="footer-bottom">
-    <span id="footer-copyright"></span>
-    <span id="footer-slogan"></span>
-    <span>Généré par <a href="https://www.assopage.fr" style="color:#888;">Assopage.fr</a></span>
-  </div>
-</footer>
+        // Affichage des événements pour une association donnée
+        function showEvents(index) {
+            const asso = allData[index];
+            
+            // Masquer les assos, montrer les events
+            document.getElementById('asso-list').classList.add('hidden');
+            document.getElementById('events-section').classList.remove('hidden');
+            document.getElementById('selected-asso-name').innerText = `Événements proposés par ${asso.nom_asso}`;
 
-<script>
-async function loadDemoConfig() {
-  try {
-    // 1. Récupération du JSON
-    const response = await fetch('./config.json');
-    if (!response.ok) throw new Error("Fichier config.json introuvable.");
-    const d = await response.json();
+            const list = document.getElementById('events-list');
+            
+            if (!asso.evenements || asso.evenements.length === 0) {
+                list.innerHTML = `<p class="text-gray-500 italic">Aucun événement à venir pour le moment.</p>`;
+                return;
+            }
 
-    // 2. META & THEME DYNAMIQUE
-    document.title = d.ASSOCIATION_NAME + " - " + d.SLOGAN_HERO;
-    document.getElementById('meta-theme-color').content = d.THEME_COLOR_MAIN;
+            list.innerHTML = asso.evenements.map(ev => `
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 flex flex-col sm:flex-row hover:shadow-lg transition-shadow">
+                    <div class="sm:w-2/5 h-48 sm:h-auto bg-gray-100 shrink-0">
+                        ${ev.image_base64 
+                            ? `<img src="${ev.image_base64}" class="w-full h-full object-cover">`
+                            : `<div class="w-full h-full flex items-center justify-center text-gray-400">Image non disponible</div>`
+                        }
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-xl font-bold text-gray-900 leading-tight">${ev.titre}</h4>
+                                <span class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded ml-2 whitespace-nowrap">${ev.prix} €</span>
+                            </div>
+                            <p class="text-sm font-medium text-indigo-600 mb-3 flex items-center gap-1">
+                                📅 ${ev.date} • 🕒 ${ev.heure_debut} à ${ev.heure_fin}
+                            </p>
+                            <p class="text-sm text-gray-600 mb-2 font-medium">📍 ${ev.adresse}</p>
+                            <p class="text-gray-700 text-sm line-clamp-3 mb-4">${ev.description}</p>
+                        </div>
+                        <div class="mt-4 flex items-center justify-between border-t pt-4">
+                            <span class="text-sm text-gray-500">Places dispo: <strong class="text-gray-800">${ev.place}</strong></span>
+                            <span class="text-sm text-gray-500">Inscrits: <strong class="text-gray-800">${ev.inscrits}</strong></span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
 
-    const googleFontUrl = `https://fonts.googleapis.com/css2?family=${d.FONT_TITLE.replace(/\s+/g, '+')}:wght@700;800;900&family=${d.FONT_BODY.replace(/\s+/g, '+')}:wght@400;500;700&display=swap`;
-    
-    document.getElementById('dynamic-theme').innerHTML = `
-      @import url('${googleFontUrl}');
-      :root {
-        --rouge: ${d.THEME_COLOR_MAIN};
-        --noir: ${d.THEME_COLOR_DARK};
-        --bleu: ${d.THEME_COLOR_LIGHT};
-        --ocre: ${d.THEME_COLOR_LIGHT};
-      }
-      body { font-family: '${d.FONT_BODY}', sans-serif; }
-      h1, h2, h3, .nav-logo, .footer-brand, .hero-stat-number, blockquote, .section-label { 
-        font-family: '${d.FONT_TITLE}', sans-serif; 
-      }
-    `;
+        // Retour à la liste principale
+        function showAssos() {
+            document.getElementById('asso-list').classList.remove('hidden');
+            document.getElementById('events-section').classList.add('hidden');
+        }
 
-    // 3. REMPLISSAGE DU TEXTE
-    document.getElementById('nav-name').textContent = d.ASSOCIATION_NAME;
-    document.getElementById('footer-name').textContent = d.ASSOCIATION_NAME;
-    document.getElementById('footer-slogan').textContent = d.SLOGAN_HERO;
-    document.getElementById('footer-copyright').textContent = "© 2026 " + d.ASSOCIATION_NAME;
-    
-    document.getElementById('hero-eyebrow').textContent = d.CONTENT.HERO_EYEBROW;
-    document.getElementById('hero-title').innerHTML = d.CONTENT.HERO_TITLE_HTML;
-    document.getElementById('hero-sub').textContent = d.CONTENT.HERO_SUBTITLE;
-    document.getElementById('hero-badge').textContent = d.CONTENT.HERO_BADGE;
-
-    document.getElementById('stats-title').innerHTML = d.CONTENT.STATS_TITLE;
-    
-    // Stats Valeurs
-    document.getElementById('stat-1-val').dataset.target = d.CONTENT.STAT_1_VAL;
-    document.getElementById('stat-1-lab').textContent = d.CONTENT.STAT_1_LAB;
-    document.getElementById('stat-2-val').dataset.target = d.CONTENT.STAT_2_VAL;
-    document.getElementById('stat-2-lab').textContent = d.CONTENT.STAT_2_LAB;
-    document.getElementById('stat-3-val').dataset.target = d.CONTENT.STAT_3_VAL;
-    document.getElementById('stat-3-lab').textContent = d.CONTENT.STAT_3_LAB;
-    document.getElementById('stat-4-val').dataset.target = d.CONTENT.STAT_4_VAL;
-    document.getElementById('stat-4-lab').textContent = d.CONTENT.STAT_4_LAB;
-
-    document.getElementById('about-quote').innerHTML = d.CONTENT.ABOUT_QUOTE;
-    document.getElementById('about-author').textContent = d.CONTENT.ABOUT_AUTHOR;
-    document.getElementById('about-text').textContent = d.CONTENT.ABOUT_TEXT;
-
-    document.getElementById('srv-title-1').textContent = d.CONTENT.SERVICE_1_TITLE;
-    document.getElementById('srv-desc-1').textContent = d.CONTENT.SERVICE_1_DESC;
-    document.getElementById('srv-title-2').textContent = d.CONTENT.SERVICE_2_TITLE;
-    document.getElementById('srv-desc-2').textContent = d.CONTENT.SERVICE_2_DESC;
-    document.getElementById('srv-title-3').textContent = d.CONTENT.SERVICE_3_TITLE;
-    document.getElementById('srv-desc-3').textContent = d.CONTENT.SERVICE_3_DESC;
-
-    document.getElementById('footer-text').textContent = d.CONTENT.FOOTER_TEXT;
-
-    // 4. REMPLISSAGE DES IMAGES
-    document.getElementById('nav-logo-img').src = d.IMAGES.LOGO_URL;
-    document.getElementById('footer-logo-img').src = d.IMAGES.LOGO_URL;
-    document.getElementById('hero-img').src = d.IMAGES.HERO_IMAGE;
-    document.getElementById('about-img').src = d.IMAGES.ABOUT_IMAGE;
-    document.getElementById('srv-img-1').src = d.IMAGES.SERVICE_1_IMAGE;
-    document.getElementById('srv-img-2').src = d.IMAGES.SERVICE_2_IMAGE;
-    document.getElementById('srv-img-3').src = d.IMAGES.SERVICE_3_IMAGE;
-
-    // 5. REMPLISSAGE DES LIENS
-    document.getElementById('nav-donate-link').href = d.LINKS.DONATE_URL;
-    document.getElementById('hero-contact-link').href = "mailto:" + d.LINKS.CONTACT_EMAIL;
-
-    // 6. LANCEMENT (Apparition et Animations)
-    initAnimations();
-
-  } catch (error) {
-    console.error("Échec du chargement de la démo :", error);
-    document.getElementById('meta-title').textContent = "Erreur de chargement";
-  }
-}
-
-function initAnimations() {
-  // Affiche la page en fondu
-  document.documentElement.style.opacity = "1";
-  setTimeout(() => document.body.classList.add('loaded'), 100);
-
-  // Scroll Reveal
-  const io = new IntersectionObserver(e => e.forEach(x => {  if(x.isIntersecting) x.target.classList.add('visible');}), {threshold:.1, rootMargin:'0px 0px -40px 0px'});
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-  // Stats Box Reveal
-  const heroStatBoxes = document.querySelectorAll('.hero-stat-box');
-  const hsbio = new IntersectionObserver(entries => {  entries.forEach(entry => {    if(entry.isIntersecting) {      heroStatBoxes.forEach((box, i) => setTimeout(() => box.classList.add('visible'), i * 130));      hsbio.disconnect();    }  });}, {threshold: .1});
-  if(heroStatBoxes[0]) hsbio.observe(heroStatBoxes[0].closest('.hero-stats') || heroStatBoxes[0]);
-
-  // Compteurs Dynamiques
-  const cio = new IntersectionObserver(entries => {  
-    if(entries[0].isIntersecting) {    
-      document.querySelectorAll('.hero-stat-number').forEach(el => {      
-        const target = parseInt(el.dataset.target) || 0;      
-        let c = 0;      
-        const step = Math.max(1, Math.ceil(target / 40));      
-        const t = setInterval(() => {        
-          c = Math.min(c + step, target);        
-          // Ajoute un "+" si c'est la stat 4 pour l'effet visuel
-          el.textContent = c.toLocaleString('fr-FR') + (el.id === 'stat-4-val' ? '+' : '');        
-          if(c >= target) clearInterval(t);      
-        }, 30);    
-      });    
-      cio.disconnect();  
-    }}, {threshold: .1});
-  const heroStatsSection = document.querySelector('.hero-stats');
-  if(heroStatsSection) cio.observe(heroStatsSection);
-}
-
-// Lancement au chargement
-document.addEventListener('DOMContentLoaded', loadDemoConfig);
-</script>
+        // Lancement au chargement de la page
+        loadData();
+    </script>
 </body>
 </html>
