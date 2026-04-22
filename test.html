@@ -6,7 +6,7 @@
     <title>Billeterie des Associations</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 min-h-screen p-8 font-sans">
+<body class="bg-gray-50 min-h-screen p-8 font-sans relative">
     <div id="app" class="max-w-6xl mx-auto">
         <h1 class="text-4xl font-extrabold text-center mb-10 text-indigo-900 tracking-tight">Découvrez nos Événements</h1>
         
@@ -28,35 +28,62 @@
         </div>
     </div>
 
+    <div id="registration-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-900">S'inscrire</h3>
+                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 text-2xl font-bold">&times;</button>
+            </div>
+            
+            <p id="modal-event-title" class="text-indigo-600 font-medium mb-6"></p>
+
+            <form id="registration-form" onsubmit="handleRegistration(event)">
+                <input type="hidden" id="reg-asso-name">
+                <input type="hidden" id="reg-event-id">
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="nom">Nom et Prénom</label>
+                    <input required type="text" id="reg-nom" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500" placeholder="Jean Dupont">
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Adresse E-mail</label>
+                    <input required type="email" id="reg-email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500" placeholder="jean.dupont@email.com">
+                </div>
+                
+                <button type="submit" id="reg-submit-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition-colors">
+                    Confirmer l'inscription
+                </button>
+                <p id="reg-message" class="mt-4 text-center text-sm font-bold hidden"></p>
+            </form>
+        </div>
+    </div>
+
     <script>
-        // Le site charge désormais le JSON directement depuis GitHub Pages
         const DATA_URL = "./associations.json";
+        // === REMPLACEZ PAR L'URL DE VOTRE NOUVELLE WEB APP (doPost) ===
+        const INSCRIPTION_API_URL = "URL_DE_LA_NOUVELLE_WEB_APP_INSCRIPTION"; 
         
         let allData = [];
 
-        // 1. Fonction pour récupérer les données depuis le fichier JSON local
         async function loadData() {
             try {
-                // On ajoute ?t=timestamp pour forcer le navigateur à ignorer son cache
-                // et télécharger la toute dernière version poussée par Apps Script
                 const response = await fetch(DATA_URL + "?t=" + new Date().getTime());
-                if (!response.ok) throw new Error("Erreur réseau ou fichier JSON introuvable");
+                if (!response.ok) throw new Error("Fichier introuvable");
                 
                 allData = await response.json();
                 document.getElementById('loader').classList.add('hidden');
                 
                 if (allData.erreur) {
-                    alert("Erreur côté serveur : " + allData.erreur);
+                    alert("Erreur serveur : " + allData.erreur);
                 } else {
                     checkUrlAndRoute();
                 }
             } catch (error) {
-                document.getElementById('loader').innerText = "Impossible de charger les données. Le fichier est peut-être en cours de mise à jour.";
-                console.error("Erreur de fetch:", error);
+                document.getElementById('loader').innerText = "Impossible de charger les données.";
             }
         }
 
-        // 2. Vérifie l'URL actuelle pour voir s'il y a un paramètre ?asso=...
         function checkUrlAndRoute() {
             const urlParams = new URLSearchParams(window.location.search);
             const assoParam = urlParams.get('asso');
@@ -68,11 +95,9 @@
                     return;
                 }
             }
-            
             renderAssos();
         }
 
-        // 3. Affichage de la grille des associations
         function renderAssos() {
             const list = document.getElementById('asso-list');
             list.classList.remove('hidden');
@@ -91,7 +116,6 @@
             `).join('');
         }
 
-        // 4. Affichage des événements pour une association donnée
         function showEvents(index, pushToHistory = true) {
             const asso = allData[index];
             
@@ -107,16 +131,20 @@
             const list = document.getElementById('events-list');
             
             if (!asso.evenements || asso.evenements.length === 0) {
-                list.innerHTML = `<p class="text-gray-500 italic">Aucun événement à venir pour le moment.</p>`;
+                list.innerHTML = `<p class="text-gray-500 italic">Aucun événement à venir.</p>`;
                 return;
             }
 
-            list.innerHTML = asso.evenements.map(ev => `
+            // On utilise des apostrophes échappées pour éviter de casser le JSON lors du passage dans onclick
+            list.innerHTML = asso.evenements.map(ev => {
+                const isFull = parseInt(ev.inscrits) >= parseInt(ev.place);
+                
+                return `
                 <div class="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 flex flex-col sm:flex-row hover:shadow-lg transition-shadow">
                     <div class="sm:w-2/5 h-48 sm:h-auto bg-gray-100 shrink-0">
                         ${ev.image_url 
                             ? `<img src="${ev.image_url}" class="w-full h-full object-cover" loading="lazy">`
-                            : `<div class="w-full h-full flex items-center justify-center text-gray-400">Image non disponible</div>`
+                            : `<div class="w-full h-full flex items-center justify-center text-gray-400">Image non dispo</div>`
                         }
                     </div>
                     <div class="p-6 flex-1 flex flex-col justify-between">
@@ -129,33 +157,104 @@
                                 📅 ${ev.date} • 🕒 ${ev.heure_debut} à ${ev.heure_fin}
                             </p>
                             <p class="text-sm text-gray-600 mb-2 font-medium">📍 ${ev.adresse}</p>
-                            <p class="text-gray-700 text-sm line-clamp-3 mb-4">${ev.description}</p>
+                            <p class="text-gray-700 text-sm line-clamp-2 mb-4">${ev.description}</p>
                         </div>
-                        <div class="mt-4 flex items-center justify-between border-t pt-4">
-                            <span class="text-sm text-gray-500">Places dispo: <strong class="text-gray-800">${ev.place}</strong></span>
-                            <span class="text-sm text-gray-500">Inscrits: <strong class="text-gray-800">${ev.inscrits}</strong></span>
+                        
+                        <div class="mt-auto border-t pt-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-sm text-gray-500">Places dispo: <strong class="text-gray-800">${ev.place}</strong></span>
+                                <span class="text-sm text-gray-500">Inscrits: <strong class="text-gray-800">${ev.inscrits}</strong></span>
+                            </div>
+                            
+                            ${isFull 
+                                ? `<button disabled class="w-full bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded-lg cursor-not-allowed">Complet</button>`
+                                : `<button onclick="openModal('${asso.nom_asso.replace(/'/g, "\\'")}', '${ev.id}', '${ev.titre.replace(/'/g, "\\'")}')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg transition-colors">S'inscrire</button>`
+                            }
                         </div>
                     </div>
                 </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
-        // 5. Retour à la liste principale
         function showAssos(pushToHistory = true) {
-            if (pushToHistory) {
-                window.history.pushState({}, '', window.location.pathname);
-            }
-
+            if (pushToHistory) window.history.pushState({}, '', window.location.pathname);
             document.getElementById('asso-list').classList.remove('hidden');
             document.getElementById('events-section').classList.add('hidden');
         }
 
-        // 6. Gestion du bouton "Précédent" / "Suivant" du navigateur
-        window.addEventListener('popstate', () => {
-            checkUrlAndRoute();
-        });
+        // --- GESTION DE LA MODALE ET DE L'INSCRIPTION ---
 
-        // Lancement au chargement de la page
+        function openModal(assoName, eventId, eventTitle) {
+            document.getElementById('reg-asso-name').value = assoName;
+            document.getElementById('reg-event-id').value = eventId;
+            document.getElementById('modal-event-title').innerText = eventTitle;
+            
+            // Réinitialiser le formulaire
+            document.getElementById('registration-form').reset();
+            const msgEl = document.getElementById('reg-message');
+            msgEl.classList.add('hidden');
+            msgEl.innerText = '';
+            document.getElementById('reg-submit-btn').disabled = false;
+            document.getElementById('reg-submit-btn').innerText = "Confirmer l'inscription";
+
+            document.getElementById('registration-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('registration-modal').classList.add('hidden');
+        }
+
+        async function handleRegistration(e) {
+            e.preventDefault(); // Empêche le rechargement de la page
+            
+            const btn = document.getElementById('reg-submit-btn');
+            const msgEl = document.getElementById('reg-message');
+            
+            const payload = {
+                nom_asso: document.getElementById('reg-asso-name').value,
+                evenement_id: document.getElementById('reg-event-id').value,
+                user_nom: document.getElementById('reg-nom').value,
+                user_email: document.getElementById('reg-email').value
+            };
+
+            // État de chargement
+            btn.disabled = true;
+            btn.innerText = "Inscription en cours...";
+            msgEl.classList.add('hidden');
+
+            try {
+                // Requête POST vers la Web App Apps Script
+                const response = await fetch(INSCRIPTION_API_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
+                
+                const result = await response.json();
+
+                msgEl.classList.remove('hidden');
+                if (result.success) {
+                    msgEl.className = "mt-4 text-center text-sm font-bold text-green-600";
+                    msgEl.innerText = result.message;
+                    btn.innerText = "Inscrit !";
+                    // Optionnel : fermer la modale automatiquement après 2 secondes
+                    setTimeout(closeModal, 2000);
+                } else {
+                    msgEl.className = "mt-4 text-center text-sm font-bold text-red-600";
+                    msgEl.innerText = result.message;
+                    btn.disabled = false;
+                    btn.innerText = "Réessayer";
+                }
+            } catch (error) {
+                msgEl.classList.remove('hidden');
+                msgEl.className = "mt-4 text-center text-sm font-bold text-red-600";
+                msgEl.innerText = "Erreur de connexion au serveur.";
+                btn.disabled = false;
+                btn.innerText = "Réessayer";
+            }
+        }
+
+        window.addEventListener('popstate', () => { checkUrlAndRoute(); });
         loadData();
     </script>
 </body>
