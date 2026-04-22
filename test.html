@@ -29,16 +29,18 @@
     </div>
 
     <script>
-        // === REMPLACEZ CETTE URL PAR CELLE DE VOTRE DEPLOIEMENT APPS SCRIPT ===
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwpJQu__uU8UC9vdSuCywqkiY09DOmzamJDofihu-qP1seUgFp2q1JokOCTDEA11GcScQ/exec";
+        // Le site charge désormais le JSON directement depuis GitHub Pages
+        const DATA_URL = "./associations.json";
         
         let allData = [];
 
-        // 1. Fonction pour récupérer les données depuis le Google Script
+        // 1. Fonction pour récupérer les données depuis le fichier JSON local
         async function loadData() {
             try {
-                const response = await fetch(APPS_SCRIPT_URL);
-                if (!response.ok) throw new Error("Erreur réseau");
+                // On ajoute ?t=timestamp pour forcer le navigateur à ignorer son cache
+                // et télécharger la toute dernière version poussée par Apps Script
+                const response = await fetch(DATA_URL + "?t=" + new Date().getTime());
+                if (!response.ok) throw new Error("Erreur réseau ou fichier JSON introuvable");
                 
                 allData = await response.json();
                 document.getElementById('loader').classList.add('hidden');
@@ -46,11 +48,10 @@
                 if (allData.erreur) {
                     alert("Erreur côté serveur : " + allData.erreur);
                 } else {
-                    // Au lieu de tout afficher, on vérifie d'abord l'URL
                     checkUrlAndRoute();
                 }
             } catch (error) {
-                document.getElementById('loader').innerText = "Impossible de charger les données. Veuillez réessayer plus tard.";
+                document.getElementById('loader').innerText = "Impossible de charger les données. Le fichier est peut-être en cours de mise à jour.";
                 console.error("Erreur de fetch:", error);
             }
         }
@@ -58,19 +59,16 @@
         // 2. Vérifie l'URL actuelle pour voir s'il y a un paramètre ?asso=...
         function checkUrlAndRoute() {
             const urlParams = new URLSearchParams(window.location.search);
-            const assoParam = urlParams.get('asso'); // Récupère la valeur de 'asso'
+            const assoParam = urlParams.get('asso');
 
             if (assoParam) {
-                // On cherche l'association qui correspond au nom dans l'URL
                 const index = allData.findIndex(a => a.nom_asso === assoParam);
                 if (index !== -1) {
-                    // Si on la trouve, on affiche ses événements (sans rajouter l'URL dans l'historique)
                     showEvents(index, false);
                     return;
                 }
             }
             
-            // Si pas de paramètre ou asso introuvable, on affiche la liste principale
             renderAssos();
         }
 
@@ -97,14 +95,11 @@
         function showEvents(index, pushToHistory = true) {
             const asso = allData[index];
             
-            // Mise à jour de l'URL si on vient du clic (et pas d'un chargement direct de lien)
             if (pushToHistory) {
-                // On encode le nom de l'asso (ex: "Les Amis" devient "Les%20Amis") pour l'URL
                 const newUrl = window.location.pathname + '?asso=' + encodeURIComponent(asso.nom_asso);
                 window.history.pushState({ assoIndex: index }, '', newUrl);
             }
 
-            // Masquer les assos, montrer les events
             document.getElementById('asso-list').classList.add('hidden');
             document.getElementById('events-section').classList.remove('hidden');
             document.getElementById('selected-asso-name').innerText = `Événements proposés par ${asso.nom_asso}`;
@@ -119,8 +114,8 @@
             list.innerHTML = asso.evenements.map(ev => `
                 <div class="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 flex flex-col sm:flex-row hover:shadow-lg transition-shadow">
                     <div class="sm:w-2/5 h-48 sm:h-auto bg-gray-100 shrink-0">
-                        ${ev.image_base64 
-                            ? `<img src="${ev.image_base64}" class="w-full h-full object-cover">`
+                        ${ev.image_url 
+                            ? `<img src="${ev.image_url}" class="w-full h-full object-cover" loading="lazy">`
                             : `<div class="w-full h-full flex items-center justify-center text-gray-400">Image non disponible</div>`
                         }
                     </div>
@@ -148,7 +143,6 @@
         // 5. Retour à la liste principale
         function showAssos(pushToHistory = true) {
             if (pushToHistory) {
-                // On nettoie l'URL (on retire le ?asso=...)
                 window.history.pushState({}, '', window.location.pathname);
             }
 
