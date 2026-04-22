@@ -6,228 +6,187 @@
     <title>Billeterie des Associations</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 min-h-screen p-8 font-sans relative">
-    <div id="app" class="max-w-6xl mx-auto">
-        <h1 class="text-4xl font-extrabold text-center mb-10 text-indigo-900 tracking-tight">Découvrez nos Événements</h1>
+<body class="bg-gray-50 min-h-screen p-4 sm:p-8 font-sans">
+    <div id="app" class="max-w-5xl mx-auto">
+        <h1 id="main-title" class="text-3xl sm:text-4xl font-extrabold text-center mb-10 text-indigo-900 tracking-tight cursor-pointer" onclick="showAssos()">Billeterie Associations</h1>
         
-        <div id="loader" class="text-center text-gray-500 py-10 font-medium">Chargement des événements...</div>
-        <div id="asso-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 hidden"></div>
+        <div id="loader" class="text-center text-gray-500 py-10 font-medium">Chargement...</div>
+
+        <div id="asso-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 hidden"></div>
 
         <div id="events-section" class="mt-8 hidden">
-            <button onclick="showAssos()" class="mb-6 px-4 py-2 bg-indigo-100 text-indigo-700 rounded-lg hover:bg-indigo-200 font-bold transition-colors">
-                ← Retour aux associations
-            </button>
-            <h2 id="selected-asso-name" class="text-3xl font-bold mb-8 text-gray-800 border-b pb-2"></h2>
-            <div id="events-list" class="grid grid-cols-1 lg:grid-cols-2 gap-8"></div>
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+                <button onclick="showAssos()" class="px-4 py-2 bg-white text-gray-700 border rounded-lg hover:bg-gray-50 font-bold shadow-sm transition-all">← Retour</button>
+                <button onclick="openCheckModal()" class="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg hover:bg-indigo-100 font-bold border border-indigo-200">Voir mes inscriptions</button>
+            </div>
+            <h2 id="selected-asso-name" class="text-2xl font-bold mb-8 text-gray-800 border-b pb-2"></h2>
+            <div id="events-list" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
         </div>
     </div>
 
-    <div id="registration-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
-        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-gray-900">S'inscrire</h3>
-                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 text-2xl font-bold">&times;</button>
-            </div>
-            
-            <p id="modal-event-title" class="text-indigo-600 font-medium mb-6"></p>
-
-            <form id="registration-form" onsubmit="handleRegistration(event)">
-                <input type="hidden" id="reg-id-sheet">
-                <input type="hidden" id="reg-event-id">
-                <input type="hidden" id="reg-event-titre">
-                <input type="hidden" id="reg-event-date">
-                <input type="hidden" id="reg-event-heure">
-                <input type="hidden" id="reg-event-adresse">
-                
+    <div id="reg-modal" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full shadow-2xl">
+            <h3 class="text-xl font-bold mb-2">S'inscrire à</h3>
+            <p id="m-ev-title" class="text-indigo-600 font-bold mb-6 text-lg"></p>
+            <form onsubmit="doRegister(event)">
+                <input type="hidden" id="m-id-sheet"> <input type="hidden" id="m-ev-id">
+                <input type="hidden" id="m-ev-t"> <input type="hidden" id="m-ev-d">
+                <input type="hidden" id="m-ev-h"> <input type="hidden" id="m-ev-a">
                 <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Nom et Prénom</label>
-                    <input required type="text" id="reg-nom" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500" placeholder="Jean Dupont">
+                    <label class="block text-sm font-bold mb-1">Nom Complet</label>
+                    <input required id="m-nom" type="text" class="w-full p-2 border rounded-lg">
                 </div>
-                
                 <div class="mb-6">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Adresse E-mail</label>
-                    <input required type="email" id="reg-email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500" placeholder="jean@email.com">
+                    <label class="block text-sm font-bold mb-1">Email</label>
+                    <input required id="m-email" type="email" class="w-full p-2 border rounded-lg">
                 </div>
-                
-                <button type="submit" id="reg-submit-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition-colors">
-                    Confirmer l'inscription
-                </button>
-                <p id="reg-message" class="mt-4 text-center text-sm font-bold hidden"></p>
+                <button id="m-btn" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700">Valider l'inscription</button>
+                <p id="m-msg" class="mt-4 text-center font-bold hidden"></p>
             </form>
+            <button onclick="closeModals()" class="mt-4 w-full text-gray-400 text-sm">Annuler</button>
+        </div>
+    </div>
+
+    <div id="check-modal" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 max-w-lg w-full shadow-2xl max-h-[90vh] overflow-y-auto">
+            <h3 class="text-xl font-bold mb-6">Mes Inscriptions à venir</h3>
+            <div id="check-form">
+                <p class="text-sm mb-4 text-gray-600">Entrez votre email pour voir vos réservations dans cette association.</p>
+                <div class="flex gap-2">
+                    <input id="c-email" type="email" placeholder="votre@email.com" class="flex-1 p-2 border rounded-lg">
+                    <button onclick="doCheck()" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-bold">Chercher</button>
+                </div>
+            </div>
+            <div id="check-results" class="mt-6 space-y-4 hidden"></div>
+            <button onclick="closeModals()" class="mt-8 w-full text-gray-500 font-bold border-t pt-4">Fermer</button>
         </div>
     </div>
 
     <script>
-        const DATA_URL = "./associations.json";
-        // /!\ REMPLACEZ PAR L'URL DE LA NOUVELLE WEB APP
-        const INSCRIPTION_API_URL = "https://script.google.com/macros/s/AKfycby954cL6ebCx9BHLVIzHtEjQNOZPgs-Qh0J_u6xIcBbv1hTRQ1h0C81xZJxdXt752slXw/exec"; 
-        
-        let allData = [];
+        const API_URL = "https://script.google.com/macros/s/AKfycby954cL6ebCx9BHLVIzHtEjQNOZPgs-Qh0J_u6xIcBbv1hTRQ1h0C81xZJxdXt752slXw/exec"; // <--- METTRE L'URL ICI
+        let allData = [], currentAssoIndex = null, registeredEvents = new Set();
 
         async function loadData() {
             try {
-                const response = await fetch(DATA_URL + "?t=" + new Date().getTime());
-                if (!response.ok) throw new Error();
-                allData = await response.json();
+                const r = await fetch("./associations.json?t=" + Date.now());
+                allData = await r.json();
                 document.getElementById('loader').classList.add('hidden');
-                checkUrlAndRoute();
-            } catch (error) {
-                document.getElementById('loader').innerText = "Impossible de charger les données.";
-            }
-        }
-
-        function checkUrlAndRoute() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const assoParam = urlParams.get('asso');
-            if (assoParam) {
-                const index = allData.findIndex(a => a.nom_asso === assoParam);
-                if (index !== -1) return showEvents(index, false);
-            }
-            renderAssos();
+                const urlParams = new URLSearchParams(window.location.search);
+                const asso = urlParams.get('asso');
+                if (asso) {
+                    const idx = allData.findIndex(a => a.nom_asso === asso);
+                    if (idx !== -1) return showEvents(idx, false);
+                }
+                renderAssos();
+            } catch (e) { document.getElementById('loader').innerText = "Erreur de chargement."; }
         }
 
         function renderAssos() {
             const list = document.getElementById('asso-list');
             list.classList.remove('hidden');
-            list.innerHTML = allData.map((asso, index) => `
-                <div onclick="showEvents(${index})" class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 cursor-pointer transition-all flex flex-col items-center">
-                    ${asso.logo_base64 ? `<img src="${asso.logo_base64}" class="w-32 h-32 mb-6 object-contain rounded-full shadow-inner bg-gray-50 p-2">` : `<div class="w-32 h-32 mb-6 bg-gray-200 rounded-full flex items-center justify-center text-gray-400">Pas de logo</div>`}
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">${asso.nom_asso}</h3>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-50 text-indigo-700">${asso.evenements ? asso.evenements.length : 0} événement(s)</span>
+            list.innerHTML = allData.map((asso, i) => `
+                <div onclick="showEvents(${i})" class="bg-white p-6 rounded-2xl border hover:shadow-xl cursor-pointer transition-all flex flex-col items-center">
+                    <img src="${asso.logo_base64 || ''}" class="w-24 h-24 mb-4 object-contain rounded-full bg-gray-50 p-2 border shadow-inner">
+                    <h3 class="text-xl font-bold text-gray-800">${asso.nom_asso}</h3>
                 </div>
             `).join('');
         }
 
-        function showEvents(index, pushToHistory = true) {
-            const asso = allData[index];
-            if (pushToHistory) window.history.pushState({ assoIndex: index }, '', window.location.pathname + '?asso=' + encodeURIComponent(asso.nom_asso));
-
+        function showEvents(i, push = true) {
+            currentAssoIndex = i;
+            const asso = allData[i];
+            if (push) window.history.pushState({}, '', '?asso=' + encodeURIComponent(asso.nom_asso));
             document.getElementById('asso-list').classList.add('hidden');
             document.getElementById('events-section').classList.remove('hidden');
-            document.getElementById('selected-asso-name').innerText = `Événements de ${asso.nom_asso}`;
-
+            document.getElementById('selected-asso-name').innerText = asso.nom_asso;
+            
             const list = document.getElementById('events-list');
-            if (!asso.evenements || asso.evenements.length === 0) {
-                list.innerHTML = `<p class="text-gray-500 italic">Aucun événement à venir.</p>`;
-                return;
-            }
-
-            list.innerHTML = asso.evenements.map(ev => {
-                const isFull = parseInt(ev.inscrits) >= parseInt(ev.place);
-                
-                // Préparation des données échappées pour la fonction openModal
-                const safeAssoSheet = asso.id_sheet;
-                const safeEvId = ev.id;
-                const safeTitre = ev.titre.replace(/'/g, "\\'").replace(/"/g, "&quot;");
-                const safeDate = ev.date;
-                const safeHeure = ev.heure_debut;
-                const safeAdresse = ev.adresse.replace(/'/g, "\\'").replace(/"/g, "&quot;");
-
-                return `
-                <div class="bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 flex flex-col sm:flex-row hover:shadow-lg transition-shadow">
-                    <div class="sm:w-2/5 h-48 sm:h-auto bg-gray-100 shrink-0">
-                        ${ev.image_url ? `<img src="${ev.image_url}" class="w-full h-full object-cover" loading="lazy">` : `<div class="w-full h-full flex items-center justify-center text-gray-400">Image non dispo</div>`}
+            list.innerHTML = asso.evenements.map(ev => `
+                <div class="bg-white rounded-xl overflow-hidden border shadow-sm flex flex-col sm:flex-row">
+                    <div class="sm:w-1/3 h-40 sm:h-auto bg-gray-100">
+                        <img src="${ev.image_url || ''}" class="w-full h-full object-cover">
                     </div>
-                    <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div class="p-4 flex-1 flex flex-col justify-between">
                         <div>
-                            <div class="flex justify-between items-start mb-2">
-                                <h4 class="text-xl font-bold text-gray-900 leading-tight">${ev.titre}</h4>
-                                <span class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded ml-2 whitespace-nowrap">${ev.prix} €</span>
-                            </div>
-                            <p class="text-sm font-medium text-indigo-600 mb-3">📅 ${ev.date} • 🕒 ${ev.heure_debut} à ${ev.heure_fin}</p>
-                            <p class="text-sm text-gray-600 mb-2">📍 ${ev.adresse}</p>
-                            <p class="text-gray-700 text-sm line-clamp-2 mb-4">${ev.description}</p>
+                            <h4 class="font-bold text-lg leading-tight mb-1">${ev.titre}</h4>
+                            <p class="text-xs text-indigo-600 font-bold mb-2">📅 ${ev.date} • 🕒 ${ev.heure_debut}</p>
+                            <p class="text-gray-600 text-sm line-clamp-2">${ev.description}</p>
                         </div>
-                        <div class="mt-auto border-t pt-4">
-                            <div class="flex items-center justify-between mb-3">
-                                <span class="text-sm text-gray-500">Places dispo: <strong>${ev.place}</strong></span>
-                                <span class="text-sm text-gray-500">Inscrits: <strong>${ev.inscrits}</strong></span>
-                            </div>
-                            ${isFull 
-                                ? `<button disabled class="w-full bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded-lg cursor-not-allowed">Complet</button>`
-                                : `<button onclick="openModal('${safeAssoSheet}', '${safeEvId}', '${safeTitre}', '${safeDate}', '${safeHeure}', '${safeAdresse}')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg">S'inscrire</button>`
+                        <div class="mt-4 pt-4 border-t" id="btn-container-${ev.id}">
+                            ${registeredEvents.has(ev.id) 
+                                ? '<div class="text-center text-green-600 font-bold py-2">✓ Inscription validée</div>'
+                                : `<button onclick="openRegModal('${asso.id_sheet}', '${ev.id}', '${ev.titre.replace(/'/g, "\\'")}', '${ev.date}', '${ev.heure_debut}', '${ev.adresse.replace(/'/g, "\\'")}')" class="w-full bg-indigo-600 text-white font-bold py-2 rounded-lg">S'inscrire • ${ev.prix}€</button>`
                             }
                         </div>
                     </div>
                 </div>
-                `;
-            }).join('');
+            `).join('');
         }
 
-        function showAssos(pushToHistory = true) {
-            if (pushToHistory) window.history.pushState({}, '', window.location.pathname);
+        function openRegModal(sh, id, t, d, h, a) {
+            document.getElementById('m-id-sheet').value = sh; document.getElementById('m-ev-id').value = id;
+            document.getElementById('m-ev-t').value = t; document.getElementById('m-ev-d').value = d;
+            document.getElementById('m-ev-h').value = h; document.getElementById('m-ev-a').value = a;
+            document.getElementById('m-ev-title').innerText = t;
+            document.getElementById('reg-modal').classList.remove('hidden');
+        }
+
+        async function doRegister(e) {
+            e.preventDefault();
+            const btn = document.getElementById('m-btn'), msg = document.getElementById('m-msg'), evId = document.getElementById('m-ev-id').value;
+            btn.disabled = true; btn.innerText = "Traitement...";
+            try {
+                const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({
+                    action: 'register', id_sheet: document.getElementById('m-id-sheet').value,
+                    evenement_id: evId, user_nom: document.getElementById('m-nom').value,
+                    user_email: document.getElementById('m-email').value, ev_titre: document.getElementById('m-ev-t').value,
+                    ev_date: document.getElementById('m-ev-d').value, ev_heure: document.getElementById('m-ev-h').value,
+                    ev_adresse: document.getElementById('m-ev-a').value
+                })});
+                const r = await res.json();
+                if (r.success) {
+                    msg.className = "mt-4 text-center text-green-600 font-bold";
+                    msg.innerText = r.message; msg.classList.remove('hidden');
+                    registeredEvents.add(evId);
+                    document.getElementById('btn-container-' + evId).innerHTML = '<div class="text-center text-green-600 font-bold py-2">✓ Inscription validée</div>';
+                    setTimeout(closeModals, 1500);
+                }
+            } catch (err) { btn.disabled = false; btn.innerText = "Erreur, réessayer"; }
+        }
+
+        function openCheckModal() { document.getElementById('check-modal').classList.remove('hidden'); }
+        
+        async function doCheck() {
+            const email = document.getElementById('c-email').value, resDiv = document.getElementById('check-results');
+            if (!email) return;
+            resDiv.innerHTML = "Recherche..."; resDiv.classList.remove('hidden');
+            try {
+                const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({
+                    action: 'check', id_sheet: allData[currentAssoIndex].id_sheet, user_email: email
+                })});
+                const r = await res.json();
+                if (r.data.length === 0) resDiv.innerHTML = "<p class='text-gray-400 italic'>Aucune inscription trouvée.</p>";
+                else resDiv.innerHTML = r.data.map(i => `
+                    <div class="p-3 border-l-4 border-indigo-500 bg-gray-50 rounded-r-lg">
+                        <p class="font-bold text-gray-800">${i.titre}</p>
+                        <p class="text-xs text-gray-500">📅 ${i.date} à ${i.heure}</p>
+                    </div>
+                `).join('');
+            } catch(e) { resDiv.innerHTML = "Erreur."; }
+        }
+
+        function closeModals() {
+            document.querySelectorAll('#reg-modal, #check-modal').forEach(m => m.classList.add('hidden'));
+            document.getElementById('check-results').classList.add('hidden');
+            document.getElementById('c-email').value = "";
+        }
+
+        function showAssos() {
+            window.history.pushState({}, '', window.location.pathname);
             document.getElementById('asso-list').classList.remove('hidden');
             document.getElementById('events-section').classList.add('hidden');
         }
 
-        function openModal(idSheet, evId, titre, date, heure, adresse) {
-            document.getElementById('reg-id-sheet').value = idSheet;
-            document.getElementById('reg-event-id').value = evId;
-            document.getElementById('reg-event-titre').value = titre;
-            document.getElementById('reg-event-date').value = date;
-            document.getElementById('reg-event-heure').value = heure;
-            document.getElementById('reg-event-adresse').value = adresse;
-            
-            document.getElementById('modal-event-title').innerText = titre;
-            document.getElementById('registration-form').reset();
-            
-            const msgEl = document.getElementById('reg-message');
-            msgEl.classList.add('hidden');
-            const btn = document.getElementById('reg-submit-btn');
-            btn.disabled = false;
-            btn.innerText = "Confirmer l'inscription";
-
-            document.getElementById('registration-modal').classList.remove('hidden');
-        }
-
-        function closeModal() { document.getElementById('registration-modal').classList.add('hidden'); }
-
-        async function handleRegistration(e) {
-            e.preventDefault();
-            const btn = document.getElementById('reg-submit-btn');
-            const msgEl = document.getElementById('reg-message');
-            
-            const payload = {
-                id_sheet: document.getElementById('reg-id-sheet').value,
-                evenement_id: document.getElementById('reg-event-id').value,
-                user_nom: document.getElementById('reg-nom').value,
-                user_email: document.getElementById('reg-email').value,
-                ev_titre: document.getElementById('reg-event-titre').value,
-                ev_date: document.getElementById('reg-event-date').value,
-                ev_heure: document.getElementById('reg-event-heure').value,
-                ev_adresse: document.getElementById('reg-event-adresse').value
-            };
-
-            btn.disabled = true;
-            btn.innerText = "Inscription en cours...";
-            msgEl.classList.add('hidden');
-
-            try {
-                const response = await fetch(INSCRIPTION_API_URL, { method: 'POST', body: JSON.stringify(payload) });
-                const result = await response.json();
-
-                msgEl.classList.remove('hidden');
-                if (result.success) {
-                    msgEl.className = "mt-4 text-center text-sm font-bold text-green-600";
-                    msgEl.innerText = result.message;
-                    btn.innerText = "Inscrit !";
-                    setTimeout(closeModal, 2000);
-                } else {
-                    msgEl.className = "mt-4 text-center text-sm font-bold text-red-600";
-                    msgEl.innerText = result.message;
-                    btn.disabled = false;
-                    btn.innerText = "Réessayer";
-                }
-            } catch (error) {
-                msgEl.classList.remove('hidden');
-                msgEl.className = "mt-4 text-center text-sm font-bold text-red-600";
-                msgEl.innerText = "Erreur réseau.";
-                btn.disabled = false;
-                btn.innerText = "Réessayer";
-            }
-        }
-
-        window.addEventListener('popstate', checkUrlAndRoute);
         loadData();
     </script>
 </body>
