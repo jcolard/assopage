@@ -30,24 +30,24 @@
 
     <script>
         // === REMPLACEZ CETTE URL PAR CELLE DE VOTRE DEPLOIEMENT APPS SCRIPT ===
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwpJQu__uU8UC9vdSuCywqkiY09DOmzamJDofihu-qP1seUgFp2q1JokOCTDEA11GcScQ/exec";
+        const APPS_SCRIPT_URL = "URL_DE_VOTRE_WEB_APP_APPSCRIPT";
         
         let allData = [];
 
-        // Fonction pour récupérer les données depuis le Google Script
+        // 1. Fonction pour récupérer les données depuis le Google Script
         async function loadData() {
             try {
                 const response = await fetch(APPS_SCRIPT_URL);
                 if (!response.ok) throw new Error("Erreur réseau");
                 
                 allData = await response.json();
-                
                 document.getElementById('loader').classList.add('hidden');
                 
                 if (allData.erreur) {
                     alert("Erreur côté serveur : " + allData.erreur);
                 } else {
-                    renderAssos();
+                    // Au lieu de tout afficher, on vérifie d'abord l'URL
+                    checkUrlAndRoute();
                 }
             } catch (error) {
                 document.getElementById('loader').innerText = "Impossible de charger les données. Veuillez réessayer plus tard.";
@@ -55,7 +55,26 @@
             }
         }
 
-        // Affichage de la grille des associations
+        // 2. Vérifie l'URL actuelle pour voir s'il y a un paramètre ?asso=...
+        function checkUrlAndRoute() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const assoParam = urlParams.get('asso'); // Récupère la valeur de 'asso'
+
+            if (assoParam) {
+                // On cherche l'association qui correspond au nom dans l'URL
+                const index = allData.findIndex(a => a.nom_asso === assoParam);
+                if (index !== -1) {
+                    // Si on la trouve, on affiche ses événements (sans rajouter l'URL dans l'historique)
+                    showEvents(index, false);
+                    return;
+                }
+            }
+            
+            // Si pas de paramètre ou asso introuvable, on affiche la liste principale
+            renderAssos();
+        }
+
+        // 3. Affichage de la grille des associations
         function renderAssos() {
             const list = document.getElementById('asso-list');
             list.classList.remove('hidden');
@@ -74,10 +93,17 @@
             `).join('');
         }
 
-        // Affichage des événements pour une association donnée
-        function showEvents(index) {
+        // 4. Affichage des événements pour une association donnée
+        function showEvents(index, pushToHistory = true) {
             const asso = allData[index];
             
+            // Mise à jour de l'URL si on vient du clic (et pas d'un chargement direct de lien)
+            if (pushToHistory) {
+                // On encode le nom de l'asso (ex: "Les Amis" devient "Les%20Amis") pour l'URL
+                const newUrl = window.location.pathname + '?asso=' + encodeURIComponent(asso.nom_asso);
+                window.history.pushState({ assoIndex: index }, '', newUrl);
+            }
+
             // Masquer les assos, montrer les events
             document.getElementById('asso-list').classList.add('hidden');
             document.getElementById('events-section').classList.remove('hidden');
@@ -119,11 +145,21 @@
             `).join('');
         }
 
-        // Retour à la liste principale
-        function showAssos() {
+        // 5. Retour à la liste principale
+        function showAssos(pushToHistory = true) {
+            if (pushToHistory) {
+                // On nettoie l'URL (on retire le ?asso=...)
+                window.history.pushState({}, '', window.location.pathname);
+            }
+
             document.getElementById('asso-list').classList.remove('hidden');
             document.getElementById('events-section').classList.add('hidden');
         }
+
+        // 6. Gestion du bouton "Précédent" / "Suivant" du navigateur
+        window.addEventListener('popstate', () => {
+            checkUrlAndRoute();
+        });
 
         // Lancement au chargement de la page
         loadData();
