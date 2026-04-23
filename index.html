@@ -73,10 +73,10 @@
             border-bottom: 2px solid var(--yellow);
         }
         .logo { 
-            font-family: 'Montserrat', sans-serif; 
-            font-size: 2rem; font-weight: 900; 
-            text-decoration: none; text-transform: uppercase; 
-            letter-spacing: -2px; line-height: 1;
+             font-family: 'Montserrat', sans-serif; 
+             font-size: 2rem; font-weight: 900; 
+             text-decoration: none; text-transform: uppercase; 
+             letter-spacing: -2px; line-height: 1;
         }
         .logo .asso { color: var(--white); }
         .logo .page { color: var(--yellow); }
@@ -93,8 +93,8 @@
         .nav-billetterie-btn:hover { background: var(--white) !important; color: var(--black) !important; }
 
         @media (max-width: 900px) { 
-            .nav-links { display: none; } 
-            nav { padding: 14px 20px; }
+             .nav-links { display: none; } 
+             nav { padding: 14px 20px; }
         }
 
         /* ─── LAYOUT ─── */
@@ -166,18 +166,24 @@
         }
 
         @media (max-width: 900px) {
-            .mockup-wrapper { grid-template-columns: 1fr; }
+            .mockup-wrapper { grid-template-columns: 1fr; gap: 40px; }
         }
 
-        /* ─── CONTROLS ─── */
-        .mockup-controls {
+        /* ─── NOUVELLE DISPOSITION MOCKUP ─── */
+        .mockup-settings {
             display: flex;
             flex-direction: column;
-            gap: 28px;
+            gap: 24px;
+        }
+        
+        .mockup-display {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
         }
 
         .mockup-header-text { text-align: left; }
-        .mockup-header-text h2 { text-align: left; }
+        .mockup-header-text h2 { text-align: left; margin-bottom: 10px; }
         .mockup-header-text .separator-small { margin-left: 0; margin-bottom: 20px; }
 
         .control-block {
@@ -195,78 +201,6 @@
             color: var(--black);
             border-left: 3px solid var(--yellow);
             padding-left: 10px;
-        }
-
-        /* Module tabs */
-        .module-tabs {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-        }
-
-        .module-tab {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 16px;
-            background: var(--white);
-            border: 2px solid #ddd;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: var(--font-title);
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--black);
-        }
-        .module-tab:hover { border-color: var(--black); }
-        .module-tab.active {
-            background: var(--black);
-            color: var(--yellow);
-            border-color: var(--black);
-        }
-        .module-tab .tab-icon { font-size: 1.2rem; }
-
-        /* Theme toggle */
-        .theme-row {
-            display: flex;
-            gap: 8px;
-        }
-        .theme-btn {
-            flex: 1;
-            padding: 10px;
-            background: var(--white);
-            border: 2px solid #ddd;
-            cursor: pointer;
-            font-family: var(--font-title);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.2s;
-            color: var(--black);
-        }
-        .theme-btn.active {
-            background: var(--black);
-            color: var(--white);
-            border-color: var(--black);
-        }
-
-        /* Color swatches */
-        .color-row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .color-swatch {
-            width: 34px; height: 34px;
-            cursor: pointer;
-            border: 3px solid transparent;
-            transition: transform 0.2s, border-color 0.2s;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-        }
-        .color-swatch.active {
-            border-color: var(--black);
-            transform: scale(1.15);
         }
 
         /* Text inputs */
@@ -298,47 +232,54 @@
         .upload-zone p { margin: 0; font-size: 0.9rem; color: var(--text-grey); }
         .upload-zone .upload-icon { font-size: 1.5rem; margin-bottom: 4px; }
 
-        /* Module description box */
-        .module-desc-box {
-            background: var(--black);
-            padding: 24px 28px;
-            border-left: 4px solid var(--yellow);
+        /* Color swatches */
+        .color-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
         }
-        .module-desc-box h4 {
+        .color-swatch {
+            width: 34px; height: 34px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: transform 0.2s, border-color 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+        .color-swatch.active {
+            border-color: var(--black);
+            transform: scale(1.15);
+        }
+
+        /* Theme toggle */
+        .theme-row {
+            display: flex;
+            gap: 8px;
+        }
+        .theme-btn {
+            flex: 1;
+            padding: 10px;
+            background: var(--white);
+            border: 2px solid #ddd;
+            cursor: pointer;
             font-family: var(--font-title);
-            text-transform: uppercase;
-            font-size: 1rem;
-            letter-spacing: 2px;
-            color: var(--yellow);
-            margin-bottom: 14px;
-        }
-        .module-desc-box ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .module-desc-box ul li {
             font-size: 0.9rem;
-            color: rgba(255,255,255,0.8);
-            margin-bottom: 8px;
-            padding-left: 18px;
-            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.2s;
+            color: var(--black);
         }
-        .module-desc-box ul li::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: var(--yellow);
+        .theme-btn.active {
+            background: var(--black);
+            color: var(--white);
+            border-color: var(--black);
         }
 
         /* Canvas preview */
         .mockup-preview {
-            position: sticky;
-            top: 100px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
         }
 
         .canvas-frame {
@@ -358,6 +299,79 @@
         .download-btn {
             width: 100%;
             max-width: 360px;
+            font-size: 0.9rem;
+            padding: 12px 20px;
+        }
+
+        /* Module tabs */
+        .module-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .module-tab {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 14px;
+            background: var(--white);
+            border: 2px solid #ddd;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--font-title);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--black);
+        }
+        .module-tab:hover { border-color: var(--black); }
+        .module-tab.active {
+            background: var(--black);
+            color: var(--yellow);
+            border-color: var(--black);
+        }
+        .module-tab .tab-icon { font-size: 1.1rem; }
+
+        /* Module description box CONDENSÉE */
+        .module-desc-box {
+            background: var(--black);
+            padding: 16px 20px;
+            border-left: 4px solid var(--yellow);
+        }
+        .module-desc-box h4 {
+            font-family: var(--font-title);
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            color: var(--yellow);
+            margin-bottom: 10px;
+        }
+        .module-desc-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 15px;
+            row-gap: 6px;
+        }
+        .module-desc-box ul li {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            padding-left: 14px;
+            position: relative;
+            margin-bottom: 0;
+        }
+        .module-desc-box ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--yellow);
+        }
+        @media (max-width: 500px) {
+            .module-desc-box ul { grid-template-columns: 1fr; }
         }
 
         /* ─── TEMOIGNAGES ─── */
@@ -385,13 +399,13 @@
             color: var(--white); text-transform: uppercase; letter-spacing: 1px;
         }
         .faq-question .faq-icon { 
-            flex-shrink: 0; width: 28px; height: 28px; background: var(--yellow); 
-            color: var(--black); display: flex; align-items: center; justify-content: center;
+             flex-shrink: 0; width: 28px; height: 28px; background: var(--yellow); 
+             color: var(--black); display: flex; align-items: center; justify-content: center;
             font-size: 1.2rem; font-weight: 700; transition: transform 0.3s;
         }
         .faq-question.open .faq-icon { transform: rotate(45deg); }
         .faq-answer { 
-            max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s;
+             max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s;
             color: rgba(255,255,255,0.7); font-size: 1rem; line-height: 1.6;
         }
         .faq-answer.open { max-height: 300px; padding-bottom: 22px; }
@@ -482,16 +496,53 @@
         </div>
     </div>
 
-    <!-- ─── MOCKUP GENERATOR ─── -->
     <section class="mockup-section" id="modules">
         <div class="mockup-wrapper">
 
-            <!-- CONTROLS -->
-            <div class="mockup-controls">
+            <div class="mockup-settings">
                 <div class="mockup-header-text">
                     <h2>Visualisez votre application</h2>
                     <div class="separator-small" style="margin-left:0;margin-bottom:16px;"></div>
                     <p style="margin-bottom:0;">Personnalisez le mockup en temps réel avec vos couleurs et votre logo. Chaque module est pensé pour s'adapter à votre association.</p>
+                </div>
+
+                <div class="control-block">
+                    <div class="control-label">Nom de l'asso</div>
+                    <input type="text" id="assoName" class="mockup-input" maxlength="25" placeholder="Mon Association">
+                </div>
+
+                <div class="control-block">
+                    <div class="control-label">Logo de votre association</div>
+                    <div class="upload-zone">
+                        <input type="file" id="logoUpload" accept="image/png,image/jpeg,image/webp">
+                        <div class="upload-icon">⬆️</div>
+                        <p>Glissez votre logo ici ou cliquez</p>
+                    </div>
+                </div>
+
+                <div class="control-block">
+                    <div class="control-label">Couleur thématique</div>
+                    <div class="color-row" id="colorPalette"></div>
+                </div>
+
+                <div class="control-block">
+                    <div class="control-label">Thème visuel</div>
+                    <div class="theme-row">
+                        <button class="theme-btn active" data-mode="light">☀️ Clair</button>
+                        <button class="theme-btn" data-mode="dark">🌙 Sombre</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mockup-display">
+                
+                <div class="mockup-preview">
+                    <div class="canvas-frame">
+                        <canvas id="myCanvas" width="1080" height="1920"></canvas>
+                    </div>
+                    <button class="qbutton yellow download-btn" onclick="downloadCanvas()">
+                        <i class="fa-solid fa-download"></i> Télécharger le mockup
+                    </button>
                 </div>
 
                 <div class="control-block">
@@ -512,63 +563,19 @@
                     </div>
                 </div>
 
-                <div class="control-block">
-                    <div class="control-label">Thème visuel</div>
-                    <div class="theme-row">
-                        <button class="theme-btn active" data-mode="light">☀️ Clair</button>
-                        <button class="theme-btn" data-mode="dark">🌙 Sombre</button>
-                    </div>
-                </div>
-
-                <div class="control-block">
-                    <div class="control-label">Couleur thématique</div>
-                    <div class="color-row" id="colorPalette"></div>
-                </div>
-
-                <div class="control-block">
-                    <div class="control-label">Logo de votre association</div>
-                    <div class="upload-zone">
-                        <input type="file" id="logoUpload" accept="image/png,image/jpeg,image/webp">
-                        <div class="upload-icon">⬆️</div>
-                        <p>Glissez votre logo ici ou cliquez</p>
-                    </div>
-                </div>
-
-                <div class="control-block" id="textInputBlock">
-                    <div class="control-label">Nom de l'application</div>
-                    <input type="text" id="appName" class="mockup-input" maxlength="15" placeholder="Mon Asso">
-                </div>
-
-                <div class="control-block" id="assoNameBlock" style="display:none;">
-                    <div class="control-label">Nom affiché sur la billetterie</div>
-                    <input type="text" id="assoName" class="mockup-input" maxlength="25" placeholder="Mon Association">
-                </div>
-
-                <!-- Module description -->
                 <div class="module-desc-box" id="moduleDesc">
                     <h4 id="descTitle">Module Agenda & Événements</h4>
                     <ul id="descList"></ul>
                 </div>
 
-                <a href="#contact" class="qbutton dark" style="text-align:center;">
+                <a href="#contact" class="qbutton dark" style="text-align:center; margin-top: 10px;">
                     <i class="fa-solid fa-rocket"></i> Créer mon application
                 </a>
-            </div>
 
-            <!-- PREVIEW -->
-            <div class="mockup-preview">
-                <div class="canvas-frame">
-                    <canvas id="myCanvas" width="1080" height="1920"></canvas>
-                </div>
-                <button class="qbutton yellow download-btn" onclick="downloadCanvas()">
-                    <i class="fa-solid fa-download"></i> Télécharger le mockup
-                </button>
             </div>
-
         </div>
     </section>
 
-    <!-- ─── VIDEO MODAL ─── -->
     <div class="modal-overlay" id="videoModal" onclick="closeVideo(event)">
         <div class="modal-box">
             <button class="modal-close" onclick="closeVideoBtn()">✕</button>
@@ -576,7 +583,6 @@
         </div>
     </div>
 
-    <!-- ─── FAQ ─── -->
     <section class="section faq-section" id="faq">
         <div class="container">
             <h2>Questions fréquentes</h2>
@@ -613,7 +619,6 @@
         </div>
     </section>
 
-    <!-- ─── TEMOIGNAGES (après FAQ) ─── -->
     <section class="section testimonials-section">
         <div class="container">
             <h2 style="color: var(--black);">Le Terrain Parle</h2>
@@ -653,7 +658,6 @@
         </div>
     </section>
 
-    <!-- ─── CONTACT ─── -->
     <section class="section contact-section" id="contact">
         <div class="container contact-wrapper">
             <h2>Vous avez un besoin spécifique, créer votre app sur devis</h2>
@@ -791,21 +795,23 @@
                 ctx.putImageData(idata, 0, 0);
             }
 
+            // Update text drawing with single field
+            const txt = document.getElementById('assoName').value.trim();
+
             if (currentSection === 'billeterie') {
                 if (logoImage) ctx.drawImage(logoImage, BILL_LOGO.x, BILL_LOGO.y, BILL_LOGO.w, BILL_LOGO.h);
-                const txt = document.getElementById('assoName').value.trim().toUpperCase();
-                if (txt) {
+                const txtUpper = txt.toUpperCase();
+                if (txtUpper) {
                     ctx.fillStyle = "#0a0a0a";
                     ctx.font = "400 70px 'Oswald', sans-serif";
                     ctx.letterSpacing = "2px";
                     ctx.textBaseline = "middle";
                     ctx.textAlign = "left";
-                    ctx.fillText(txt, BILL_TEXT.x, BILL_TEXT.y + (BILL_TEXT.h / 2));
+                    ctx.fillText(txtUpper, BILL_TEXT.x, BILL_TEXT.y + (BILL_TEXT.h / 2));
                     ctx.letterSpacing = "0px";
                 }
             } else {
                 if (logoImage) ctx.drawImage(logoImage, APP_LOGO.x, APP_LOGO.y, APP_LOGO.w, APP_LOGO.h);
-                const txt = document.getElementById('appName').value.trim();
                 if (txt) {
                     ctx.fillStyle = (currentMode === 'light') ? "#ffffff" : "#000000";
                     ctx.font = "400 45px 'Rubik', sans-serif";
@@ -861,9 +867,6 @@
                     document.querySelectorAll('.module-tab').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                     currentSection = btn.dataset.section;
-                    // Toggle text inputs
-                    document.getElementById('textInputBlock').style.display = currentSection === 'billeterie' ? 'none' : 'flex';
-                    document.getElementById('assoNameBlock').style.display = currentSection === 'billeterie' ? 'flex' : 'none';
                     renderCanvas();
                     updateDescription();
                 };
@@ -892,8 +895,7 @@
                 reader.readAsDataURL(file);
             };
 
-            // Text inputs
-            document.getElementById('appName').oninput = renderCanvas;
+            // Single text input triggers re-render
             document.getElementById('assoName').oninput = renderCanvas;
 
             updateDescription();
