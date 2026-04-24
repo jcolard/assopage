@@ -17,7 +17,7 @@
       },
       {
         "id": "0fee48cf",
-        "titre": "Jardinage",
+        "titre": "Un grand cri d'amour",
         "description": "",
         "date": "03/06/2026",
         "heure_debut": "14:00",
@@ -36,17 +36,6 @@
         "adresse": "Mairie annexe de Luynes place de la libération",
         "prix": "",
         "image_url": "https://drive.google.com/thumbnail?id=1wy9yKBJm6pX8BO_2RTPWW7nOaV1i5-bO&sz=w1000"
-      },
-      {
-        "id": "2aab734c",
-        "titre": "Jour férié",
-        "description": "",
-        "date": "25/05/2026",
-        "heure_debut": "08:00",
-        "heure_fin": "18:00",
-        "adresse": "",
-        "prix": "",
-        "image_url": "https://drive.google.com/thumbnail?id=1iIxmyW4DfmZqAb7SbHh8lXyw0Su8gw0K&sz=w1000"
       },
       {
         "id": "2c662c49",
@@ -72,8 +61,8 @@
       },
       {
         "id": "2f871672",
-        "titre": "Séjour à Saint-Etienne de Tinée",
-        "description": "Week End à la montagne pour changer d'air - Retour le lundi 25 mai en fin d'après midi",
+        "titre": "GYM",
+        "description": "",
         "date": "22/05/2026",
         "heure_debut": "13:30",
         "heure_fin": "18:00",
@@ -160,8 +149,8 @@
       },
       {
         "id": "57766bec",
-        "titre": "Don Juan",
-        "description": "",
+        "titre": "Randonnée",
+        "description": "Ce circuit urbain est plus une balade dominicale qu'une véritable randonnée. Beaucoup de bitume certes mais sur des routes peu fréquentées. Il permet de découvrir la campagne aux portes de la ville et d'avoir de beaux points de vue sur l'agglomération stéphanoise.",
         "date": "17/06/2026",
         "heure_debut": "14:00",
         "heure_fin": "17:00",
@@ -204,7 +193,7 @@
       },
       {
         "id": "6a44b9c9",
-        "titre": "Gym douce avec Denis",
+        "titre": "Café blabla",
         "description": "",
         "date": "30/05/2026",
         "heure_debut": "09:00",
@@ -215,7 +204,7 @@
       },
       {
         "id": "72fcd693",
-        "titre": "Ascension",
+        "titre": "Les oubliées au cinéma",
         "description": "",
         "date": "23/06/2026",
         "heure_debut": "14:00",
@@ -270,8 +259,8 @@
       },
       {
         "id": "8f519aed",
-        "titre": "Don Juan",
-        "description": "spectacle en audiodescription précédé d’une visite tactile des décors",
+        "titre": "Randonnée",
+        "description": "Ce circuit urbain est plus une balade dominicale qu'une véritable randonnée. Beaucoup de bitume certes mais sur des routes peu fréquentées. Il permet de découvrir la campagne aux portes de la ville et d'avoir de beaux points de vue sur l'agglomération stéphanoise.",
         "date": "05/06/2026",
         "heure_debut": "18:15",
         "heure_fin": "22:30",
@@ -281,7 +270,7 @@
       },
       {
         "id": "909eeb22",
-        "titre": "Atelier jeux",
+        "titre": "Repas Petites Cantines",
         "description": "",
         "date": "28/05/2026",
         "heure_debut": "14:00",
@@ -369,7 +358,7 @@
       },
       {
         "id": "bc23b200",
-        "titre": "Atelier expression corporelle au Pavillon noir",
+        "titre": "Atelier nature Pavillon noir",
         "description": "Cet atelier fait partie du parcours musique et danse que nous avons créé avec notre partenaire le Pavillon noir. Il s’agit d’un atelier dirigé par Natalia, d’une heure et trente minutes qui se déroulera dans un studio du Pavillon noir. Merci d’arriver 15 mn avant la séance. Le prix est de 15€ pour 1 seul atelier, 25€ pour 2 ateliers et  30 euros pour les 3 ateliers. Payer à l'inscription.",
         "date": "20/05/2026",
         "heure_debut": "10:00",
@@ -413,7 +402,7 @@
       },
       {
         "id": "d93d205b",
-        "titre": "Gym douce avec Denis",
+        "titre": "Débat sur l'inclusion",
         "description": "",
         "date": "22/05/2026",
         "heure_debut": "15:30",
@@ -421,17 +410,6 @@
         "adresse": "Salle polyvalente les Floralies",
         "prix": "",
         "image_url": "https://drive.google.com/thumbnail?id=1gZWyRzhxt9kdkGRhm1omb806HbfKp9b3&sz=w1000"
-      },
-      {
-        "id": "dd63751e",
-        "titre": "Ascension",
-        "description": "",
-        "date": "14/05/2026",
-        "heure_debut": "08:00",
-        "heure_fin": "18:00",
-        "adresse": "",
-        "prix": "",
-        "image_url": "https://drive.google.com/thumbnail?id=1wRNcfKIVxbYX7HSmDDx8j7tU16MBO-5I&sz=w1000"
       },
       {
         "id": "e2858fdc",
@@ -446,7 +424,7 @@
       },
       {
         "id": "e3295aa5",
-        "titre": "Feldenkrais cours collectif",
+        "titre": "Séjour à Sete",
         "description": "Cours collectif",
         "date": "22/05/2026",
         "heure_debut": "14:00",
@@ -457,8 +435,8 @@
       },
       {
         "id": "e45cb6ec",
-        "titre": "UN GRAND CRI D'AMOUR sans accompagnement",
-        "description": "Pièce de Josiane Balasko interprétée par une troupe amateur au théâtre Ainsi de Suite à Aix en Provence. Du rire, de l'émotion et un grand cri d'amour",
+        "titre": "Atelier découverte",
+        "description": "",
         "date": "31/05/2026",
         "heure_debut": "15:30",
         "heure_fin": "17:15",
@@ -479,7 +457,7 @@
       },
       {
         "id": "fc8bf101",
-        "titre": "Atelier trucs et astuces",
+        "titre": "Jardinage",
         "description": "",
         "date": "21/05/2026",
         "heure_debut": "14:00",
