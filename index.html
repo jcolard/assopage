@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assopage – Mon App, Mon Asso</title>
     <meta name="description" content="Assopage : l'application web et mobile pour gérer votre association. CRM, Agenda, Billetterie, Trésorerie. Dès 50€/an." />
-    
+    <link rel="icon" type="image/png" href="favicon.png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Roboto+Condensed:wght@300;400;700&family=Montserrat:wght@800;900&family=Rubik:wght@400;600&display=swap" rel="stylesheet">
@@ -153,7 +154,7 @@
         .marquee img:hover { filter: grayscale(0%); opacity: 1; }
 
         /* ═══════════════════════════════════════════════
-           ─── MOCKUP SECTION — COMPACT + MOBILE FIRST ───
+           ─── MOCKUP SECTION
         ═══════════════════════════════════════════════ */
         .mockup-section { background: var(--grey-light); padding: 50px 16px; }
 
@@ -167,6 +168,23 @@
         }
         @media (max-width: 900px) {
             .mockup-wrapper { grid-template-columns: 1fr; gap: 28px; }
+        }
+
+        /* ── Vidéo intégrée ── */
+        .mockup-video-wrap {
+            width: 100%;
+            margin-bottom: 14px;
+            position: relative;
+            border: 3px solid var(--black);
+            box-shadow: 6px 6px 0 var(--black);
+            background: var(--black);
+            overflow: hidden;
+        }
+        .mockup-video-wrap video {
+            width: 100%;
+            display: block;
+            max-height: 260px;
+            object-fit: cover;
         }
 
         /* ── Colonne gauche ── */
@@ -193,7 +211,6 @@
             margin-bottom: 16px;
         }
 
-        /* Chaque champ = pleine largeur, empilé */
         .ctrl {
             width: 100%;
             padding: 8px 0;
@@ -201,7 +218,6 @@
         }
         .ctrl:last-of-type { border-bottom: none; }
 
-        /* Input texte */
         .ctrl-input {
             width: 100%;
             padding: 9px 12px;
@@ -216,7 +232,6 @@
         .ctrl-input:focus { border-color: var(--black); outline: none; }
         .ctrl-input::placeholder { color: #aaa; }
 
-        /* Upload logo */
         .ctrl-upload {
             position: relative;
             width: 100%;
@@ -235,7 +250,6 @@
         .ctrl-upload .up-icon { font-size: 1rem; flex-shrink: 0; }
         .ctrl-upload span { font-size: 0.85rem; color: var(--text-grey); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 
-        /* Couleurs + thème : retour à la ligne autorisé */
         .color-theme-row {
             display: flex;
             align-items: center;
@@ -273,7 +287,6 @@
         .theme-icon-btn.active.light { border-color: var(--black); box-shadow: 0 0 0 2px var(--black); }
         .theme-icon-btn.active.dark { background: var(--black); border-color: var(--black); color: var(--yellow); }
 
-        /* Modules : toujours une ligne, padding minimal, taille auto */
         .module-tabs {
             display: flex;
             width: 100%;
@@ -304,13 +317,11 @@
         .module-tab:last-child { border-right-width: 2px; }
         .module-tab.active { background: var(--black); color: var(--yellow); border-color: var(--black); z-index: 1; }
         .module-tab .tab-icon { font-size: clamp(0.85rem, 2.5vw, 1rem); flex-shrink: 0; }
-        /* Masquer texte sous 520px : icône seule suffit, padding réduit */
         @media (max-width: 520px) {
             .module-tab .tab-text { display: none; }
             .module-tab { padding: 9px 0; }
         }
 
-        /* Description module */
         .module-desc-box {
             background: var(--black);
             padding: 12px 14px;
@@ -370,6 +381,124 @@
         .download-btn { width: 100%; max-width: 300px; font-size: 0.85rem; padding: 10px 16px; }
         .create-app-btn { width: 100%; max-width: 300px; font-size: 0.9rem; padding: 12px 16px; text-align: center; }
 
+        /* ─── FORMULAIRE DE CRÉATION ─── */
+        .form-section { background: var(--white); padding: 80px 20px; }
+        .form-section h2 { color: var(--black); }
+        .form-box {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--grey-light);
+            border: 2px solid var(--black);
+            box-shadow: 8px 8px 0 var(--black);
+            padding: 40px;
+        }
+        .form-intro {
+            font-size: 0.95rem;
+            color: var(--text-grey);
+            margin-bottom: 28px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-label {
+            display: block;
+            font-family: var(--font-title);
+            text-transform: uppercase;
+            font-size: 0.82rem;
+            letter-spacing: 2px;
+            color: var(--black);
+            margin-bottom: 6px;
+        }
+        .form-label small {
+            display: block;
+            font-family: var(--font-body);
+            text-transform: none;
+            letter-spacing: 0;
+            font-size: 0.78rem;
+            color: var(--text-grey);
+            margin-top: 2px;
+        }
+        .form-input {
+            width: 100%;
+            padding: 10px 14px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            border: 2px solid #ddd;
+            background: var(--white);
+            color: var(--black);
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+        .form-input:focus { border-color: var(--black); outline: none; }
+        .form-input::placeholder { color: #aaa; }
+
+        .form-modules-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        @media (max-width: 520px) { .form-modules-grid { grid-template-columns: 1fr; } }
+
+        .module-check-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border: 2px solid #ddd;
+            background: var(--white);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--font-title);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+        .module-check-label:hover { border-color: var(--black); }
+        .module-check-label input[type="checkbox"] { display: none; }
+        .module-check-label .check-box {
+            width: 20px; height: 20px;
+            border: 2px solid #ccc;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s;
+            font-size: 0.75rem;
+        }
+        .module-check-label input[type="checkbox"]:checked ~ .check-box {
+            background: var(--black);
+            border-color: var(--black);
+            color: var(--yellow);
+        }
+        .module-check-label input[type="checkbox"]:checked ~ .check-box::after { content: '✓'; }
+        .module-check-label.checked { border-color: var(--black); background: var(--grey-light); }
+
+        .form-note {
+            font-size: 0.78rem;
+            color: var(--text-grey);
+            margin-top: 8px;
+            margin-bottom: 0;
+        }
+
+        .form-submit-btn {
+            width: 100%;
+            margin-top: 10px;
+            font-size: 1rem;
+            padding: 16px;
+            border: none;
+        }
+
+        .form-status {
+            margin-top: 16px;
+            padding: 12px 16px;
+            font-family: var(--font-title);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            display: none;
+        }
+        .form-status.success { background: var(--yellow); color: var(--black); border: 2px solid var(--black); }
+        .form-status.error { background: #fee; color: #900; border: 2px solid #900; }
+
         /* ─── TEMOIGNAGES ─── */
         .testimonials-section { background-color: var(--yellow); }
         .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 35px; margin-top: 50px; }
@@ -404,7 +533,10 @@
              max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s;
             color: rgba(255,255,255,0.7); font-size: 1rem; line-height: 1.6;
         }
-        .faq-answer.open { max-height: 300px; padding-bottom: 22px; }
+        .faq-answer.open { max-height: 500px; padding-bottom: 22px; }
+        .faq-answer p { color: rgba(255,255,255,0.7); margin-bottom: 8px; }
+        .faq-answer p:last-child { margin-bottom: 0; }
+        .faq-answer em { color: rgba(255,255,255,0.5); font-size: 0.88rem; display: block; margin-top: 6px; }
 
         /* ─── CONTACT ─── */
         .contact-section { background: var(--grey-light); text-align: center; }
@@ -419,6 +551,45 @@
         .social-icons a:hover { color: var(--yellow); }
         .footer-links a { color: #aaa; text-decoration: none; font-size: 0.9rem; margin: 0 10px; }
         .footer-links a:hover { color: var(--yellow); }
+
+        /* ─── COOKIES BANNER ─── */
+        #cookie-banner {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            background: rgba(10,10,10,0.96);
+            border-top: 2px solid var(--yellow);
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            z-index: 9998;
+            backdrop-filter: blur(6px);
+        }
+        #cookie-banner p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.82rem;
+            margin: 0;
+            flex: 1;
+            min-width: 200px;
+        }
+        #cookie-banner a { color: var(--yellow); text-decoration: underline; }
+        .cookie-btns { display: flex; gap: 10px; flex-shrink: 0; }
+        .cookie-btn {
+            font-family: var(--font-title);
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            letter-spacing: 1px;
+            padding: 7px 18px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .cookie-btn.accept { background: var(--yellow); color: var(--black); }
+        .cookie-btn.accept:hover { background: var(--white); }
+        .cookie-btn.decline { background: transparent; color: #aaa; border: 1px solid #444; }
+        .cookie-btn.decline:hover { color: var(--white); border-color: #888; }
 
         /* ─── VIDEO MODAL ─── */
         .modal-overlay {
@@ -442,6 +613,15 @@
     </style>
 </head>
 <body>
+
+    <!-- ─── COOKIE BANNER ─── -->
+    <div id="cookie-banner" style="display:none;">
+        <p>🍪 Ce site utilise des cookies fonctionnels pour assurer son bon fonctionnement. Aucune donnée n'est transmise à des tiers à des fins publicitaires. <a href="mailto:contact@assopage.fr">En savoir plus</a>.</p>
+        <div class="cookie-btns">
+            <button class="cookie-btn decline" onclick="dismissCookies()">Refuser</button>
+            <button class="cookie-btn accept" onclick="acceptCookies()">Accepter</button>
+        </div>
+    </div>
 
     <nav>
         <a href="#" class="logo"><span class="asso">ASSO</span><span class="page">PAGE</span></a>
@@ -492,7 +672,7 @@
         </div>
     </div>
 
-    <!-- ═══ SECTION MOCKUP REDESIGNÉE ═══ -->
+    <!-- ═══ SECTION MOCKUP ═══ -->
     <section class="mockup-section" id="modules">
         <div class="mockup-wrapper">
 
@@ -501,6 +681,13 @@
 
                 <div class="mockup-title">Personnalisez votre application</div>
                 <div class="mockup-title-bar"></div>
+
+                <!-- Vidéo autoplay mute -->
+                <div class="mockup-video-wrap">
+                    <video autoplay muted loop playsinline>
+                        <source src="https://res.cloudinary.com/dwfblz9nl/video/upload/v1777065031/Vid%C3%A9o_sans_titre_ywgvgq.mp4" type="video/mp4">
+                    </video>
+                </div>
 
                 <div class="ctrl">
                     <input type="text" id="assoName" class="ctrl-input" maxlength="25" placeholder="Nom de votre association">
@@ -556,12 +743,85 @@
                     <button class="qbutton yellow download-btn" onclick="downloadCanvas()">
                         <i class="fa-solid fa-download"></i> Télécharger le mockup
                     </button>
-                    <a href="#contact" class="qbutton dark create-app-btn">
+                    <a href="#creer-mon-app" class="qbutton dark create-app-btn">
                         <i class="fa-solid fa-rocket"></i> Créer mon application
                     </a>
                 </div>
             </div>
 
+        </div>
+    </section>
+
+    <!-- ═══ FORMULAIRE DE CRÉATION ═══ -->
+    <section class="form-section" id="creer-mon-app">
+        <div class="container">
+            <h2>Créer mon application</h2>
+            <div class="separator-small separator-dark"></div>
+            <div class="form-box">
+                <p class="form-intro">Vos préférences (nom, logo, couleur, thème) sont automatiquement récupérées depuis la personnalisation ci-dessus. Complétez les informations ci-dessous pour recevoir votre app de test sous 48h.</p>
+
+                <div class="form-group">
+                    <label class="form-label">Modules souhaités
+                        <small>Le module Agenda est obligatoire si vous prenez Billetterie</small>
+                    </label>
+                    <div class="form-modules-grid" id="formModulesGrid">
+                        <label class="module-check-label" id="flabel-evenement">
+                            <input type="checkbox" name="form_module" value="évenement" id="fmod-evenement" onchange="syncModuleLabel(this)">
+                            <span class="check-box"></span>
+                            📅 Agenda
+                        </label>
+                        <label class="module-check-label" id="flabel-crm">
+                            <input type="checkbox" name="form_module" value="crm" id="fmod-crm" onchange="syncModuleLabel(this)">
+                            <span class="check-box"></span>
+                            👥 CRM
+                        </label>
+                        <label class="module-check-label" id="flabel-tresorerie">
+                            <input type="checkbox" name="form_module" value="trésorerie" id="fmod-tresorerie" onchange="syncModuleLabel(this)">
+                            <span class="check-box"></span>
+                            💶 Trésorerie
+                        </label>
+                        <label class="module-check-label" id="flabel-billetterie">
+                            <input type="checkbox" name="form_module" value="billetterie" id="fmod-billetterie" onchange="syncModuleLabel(this)">
+                            <span class="check-box"></span>
+                            🎟️ Billetterie
+                        </label>
+                    </div>
+                    <p class="form-note">Jusqu'à 4 modules. Vous pourrez modifier votre sélection ultérieurement.</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="f-statut">Votre statut au sein de l'association</label>
+                    <input type="text" id="f-statut" class="form-input" placeholder="Ex : Président, Trésorier, Bénévole…" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="f-nom">Votre nom</label>
+                    <input type="text" id="f-nom" class="form-input" placeholder="Prénom Nom" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="f-email-asso">Email officiel de l'association</label>
+                    <input type="email" id="f-email-asso" class="form-input" placeholder="contact@votreasso.fr" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="f-email-access">Email du premier utilisateur (Gmail ou Outlook)
+                        <small>Doit être lié à un compte Google ou Microsoft — c'est l'accès à votre application.</small>
+                    </label>
+                    <input type="email" id="f-email-access" class="form-input" placeholder="prenom.nom@gmail.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="f-tel">Téléphone</label>
+                    <input type="tel" id="f-tel" class="form-input" placeholder="+33 6 00 00 00 00" required>
+                </div>
+
+                <button class="qbutton dark form-submit-btn" onclick="submitAssopageForm()">
+                    <i class="fa-solid fa-paper-plane"></i> Envoyer ma demande
+                </button>
+
+                <div class="form-status" id="form-status"></div>
+            </div>
         </div>
     </section>
 
@@ -577,33 +837,58 @@
             <h2>Questions fréquentes</h2>
             <div class="separator-small"></div>
             <div class="faq-list">
+
                 <div class="faq-item">
                     <button class="faq-question" onclick="toggleFaq(this)">
-                        Est-ce que je dois m'y connaître en informatique pour utiliser Assopage ?
+                        Pouvons-nous vous contacter en cas de difficulté ?
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        Pas du tout. Assopage a été conçu pour les associations dont les membres sont souvent bénévoles et pas forcément à l'aise avec le numérique. L'interface est pensée pour être utilisée depuis un smartphone, avec des tutoriels vidéo pour chaque module. Jérémy assure également un accompagnement personnalisé pour vous prendre en main l'outil rapidement.
+                        <p>Bien sûr. Un bouton "Contacter Assopage" est intégré directement dans l'application, et nous répondons en règle générale dans la journée. Pendant toute la durée de votre abonnement, nous garantissons la disponibilité de l'app ainsi que la sécurisation de vos données.</p>
                     </div>
                 </div>
+
                 <div class="faq-item">
                     <button class="faq-question" onclick="toggleFaq(this)">
-                        Puis-je changer de modules ou résilier à tout moment ?
+                        Comment s'organise l'équipe Assopage ?
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        Oui, sans engagement. Vous pouvez ajouter ou retirer des modules quand vous le souhaitez, et résilier votre abonnement à tout moment. Votre application, vos données et vos contenus vous appartiennent — vous pouvez demander leur export à tout moment. Il n'y a aucune clause piège ni frais de sortie.
+                        <p>Nous sommes actuellement une équipe de trois personnes : Jérémy, le fondateur, qui gère le développement et la sécurité ; Nicolas, qui s'occupe des tests et de la partie commerciale ; et Mani, dédié à l'accompagnement des associations ainsi qu'au frontend et frontoffice.</p>
                     </div>
                 </div>
+
                 <div class="faq-item">
                     <button class="faq-question" onclick="toggleFaq(this)">
-                        Comment fonctionne l'application test de 48h ?
+                        Assopage est-il sécurisé ?
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        Après avoir pris contact, Jérémy crée manuellement votre application de démonstration avec les modules que vous avez sélectionnés. Vous recevez un lien d'accès par email sous 48h. Vous pouvez tester librement, sans carte bancaire ni engagement. Si l'outil vous convient, Jérémy vous guide vers la formule adaptée à votre association.
+                        <p>Vos données sont hébergées sur Google Cloud Platform (GCP), dont nous sommes certifiés. Nous respectons le RGPD et mettons en place toutes les mesures nécessaires pour garantir l'intégrité de vos données et assurer la continuité du service. Vos données ne seront jamais utilisées à des fins commerciales.</p>
                     </div>
                 </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Comment fonctionne le test des 14 jours ?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Après soumission du formulaire, vous recevez un lien pour accéder à votre application sur navigateur, ainsi qu'un lien pour l'installer en tant que web app sur votre téléphone. Un lien de paiement reste disponible pendant 14 jours dans l'espace "Mon compte" de l'app. Sans paiement de votre part à l'issue de cette période, vos données et accès seront supprimés. L'engagement est annuel.</p>
+                        <em>* Nous nous réservons le droit de ne pas envoyer l'application si votre nom et votre adresse email ne correspondent pas aux informations publiques de votre association.<br>* Pour accéder à l'application, vous devez impérativement nous communiquer une adresse email Gmail ou Outlook.</em>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Puis-je n'utiliser que le module Billetterie ?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Vous pouvez choisir librement entre 1 et 4 modules. Notez cependant que le module Agenda est obligatoire si vous souhaitez activer le module Billetterie.</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -675,6 +960,21 @@
     </footer>
 
     <script>
+        /* ─── COOKIES ─── */
+        function showCookieBanner() {
+            const consent = localStorage.getItem('assopage_cookie_consent');
+            if (!consent) document.getElementById('cookie-banner').style.display = 'flex';
+        }
+        function acceptCookies() {
+            localStorage.setItem('assopage_cookie_consent', 'accepted');
+            document.getElementById('cookie-banner').style.display = 'none';
+        }
+        function dismissCookies() {
+            localStorage.setItem('assopage_cookie_consent', 'declined');
+            document.getElementById('cookie-banner').style.display = 'none';
+        }
+        setTimeout(showCookieBanner, 1500);
+
         /* ─── VIDEO MODAL ─── */
         const VIDEO_URL = "https://www.youtube.com/embed/6lkeJijGcRQ?autoplay=1";
         function openVideo(e) {
@@ -817,8 +1117,104 @@
             link.click();
         }
 
+        /* ─── MODULE CHECKBOX SYNC ─── */
+        function syncModuleLabel(cb) {
+            const label = cb.closest('.module-check-label');
+            if (cb.checked) label.classList.add('checked');
+            else label.classList.remove('checked');
+        }
+
+        /* ─── FORMULAIRE SOUMISSION ─── */
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwotx0wfscNThG4pFJ8D2zcH7yeO1DAMQIMJswvtop6G7dEcvD3i8hIyiY27ODC9kT4mw/exec";
+
+        async function submitAssopageForm() {
+            const statusEl = document.getElementById('form-status');
+
+            // Collect selected modules
+            const modulesChecked = [];
+            document.querySelectorAll('input[name="form_module"]:checked').forEach(cb => modulesChecked.push(cb.value));
+
+            const nom = document.getElementById('f-nom').value.trim();
+            const statut = document.getElementById('f-statut').value.trim();
+            const emailAsso = document.getElementById('f-email-asso').value.trim();
+            const emailAccess = document.getElementById('f-email-access').value.trim();
+            const tel = document.getElementById('f-tel').value.trim();
+
+            // Validate required fields
+            if (!nom || !statut || !emailAsso || !emailAccess || !tel || modulesChecked.length === 0) {
+                statusEl.style.display = 'block';
+                statusEl.className = 'form-status error';
+                statusEl.textContent = 'Merci de remplir tous les champs obligatoires et de sélectionner au moins un module.';
+                return;
+            }
+
+            // Grab data from mockup section
+            const nomAsso = document.getElementById('assoName').value.trim();
+            const couleur = currentColor;
+            const theme = currentMode === 'dark' ? 'sombre' : 'clair';
+
+            // Convert logo to base64 if uploaded
+            let logoBase64 = '';
+            let logoName = '';
+            let logoMimeType = '';
+
+            if (logoImage && logoImage.src && logoImage.src.startsWith('data:')) {
+                logoBase64 = logoImage.src;
+                logoName = document.getElementById('uploadLabel').textContent;
+                logoMimeType = logoImage.src.split(';')[0].replace('data:', '');
+            }
+
+            const payload = {
+                nom_asso: nomAsso || '(non renseigné)',
+                nom: nom,
+                statut: statut,
+                email_asso: emailAsso,
+                gmail_outlook: emailAccess,
+                telephone: tel,
+                couleur: couleur,
+                theme: theme,
+                modules: modulesChecked.join(', '),
+                logoBase64: logoBase64,
+                logoName: logoName,
+                logoMimeType: logoMimeType
+            };
+
+            statusEl.style.display = 'block';
+            statusEl.className = 'form-status';
+            statusEl.textContent = 'Envoi en cours…';
+
+            try {
+                const response = await fetch(WEB_APP_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await response.json();
+                if (data.status === 'success') {
+                    statusEl.className = 'form-status success';
+                    statusEl.textContent = '✅ Demande envoyée ! Vous recevrez votre application sous 48h.';
+                    // Reset form fields only (not mockup)
+                    document.getElementById('f-nom').value = '';
+                    document.getElementById('f-statut').value = '';
+                    document.getElementById('f-email-asso').value = '';
+                    document.getElementById('f-email-access').value = '';
+                    document.getElementById('f-tel').value = '';
+                    document.querySelectorAll('input[name="form_module"]').forEach(cb => {
+                        cb.checked = false;
+                        cb.closest('.module-check-label').classList.remove('checked');
+                    });
+                } else {
+                    statusEl.className = 'form-status error';
+                    statusEl.textContent = 'Erreur : ' + (data.message || 'Une erreur est survenue.');
+                }
+            } catch (err) {
+                statusEl.className = 'form-status error';
+                statusEl.textContent = 'Erreur réseau : ' + err.message;
+            }
+        }
+
+        /* ─── INIT ─── */
         function init() {
-            // Load all images
             for (let m in imageUrls) {
                 for (let s in imageUrls[m]) {
                     const img = new Image();
@@ -832,7 +1228,6 @@
                 }
             }
 
-            // Build color palette
             const paletteContainer = document.getElementById('colorPalette');
             colorList.forEach(color => {
                 const swatch = document.createElement('div');
@@ -848,7 +1243,6 @@
                 paletteContainer.appendChild(swatch);
             });
 
-            // Module tabs
             document.querySelectorAll('.module-tab').forEach(btn => {
                 btn.onclick = () => {
                     document.querySelectorAll('.module-tab').forEach(b => b.classList.remove('active'));
@@ -859,7 +1253,6 @@
                 };
             });
 
-            // Theme buttons (icône seulement)
             document.querySelectorAll('.theme-icon-btn').forEach(btn => {
                 btn.onclick = () => {
                     document.querySelectorAll('.theme-icon-btn').forEach(b => b.classList.remove('active'));
@@ -869,7 +1262,6 @@
                 };
             });
 
-            // Logo upload
             document.getElementById('logoUpload').onchange = (e) => {
                 const file = e.target.files[0];
                 if (!file) return;
@@ -884,7 +1276,6 @@
             };
 
             document.getElementById('assoName').oninput = renderCanvas;
-
             updateDescription();
         }
 
