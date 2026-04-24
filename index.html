@@ -14,7 +14,7 @@
     
     <style>
         :root {
-            --yellow: #fdf987;
+            --yellow: #feef3e;
             --black: #0a0a0a;
             --white: #ffffff;
             --grey-light: #f5f5f5;
@@ -139,10 +139,11 @@
         .hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
 
         @media (max-width: 900px) {
-            .hero-layout { flex-direction: column; text-align: center; padding: 40px 0 60px; }
+            .hero { background-position: 60% center; }
+            .hero-layout { flex-direction: column; text-align: left; padding: 40px 0 60px; }
             .hero-content { max-width: 100%; }
-            .hero .separator-small { margin: 0 auto 28px; }
-            .hero-buttons { justify-content: center; }
+            .hero .separator-small { margin: 0 0 28px 0; }
+            .hero-buttons { justify-content: flex-start; }
         }
 
         /* ─── LOGOS BANDEAU ─── */
@@ -185,6 +186,42 @@
             display: block;
             max-height: 260px;
             object-fit: cover;
+        }
+
+        /* Nudge click-to-play */
+        .video-nudge {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 18px;
+            cursor: pointer;
+            background: var(--black);
+            transition: background 0.2s;
+        }
+        .video-nudge:hover { background: #1a1a1a; }
+        .nudge-play-btn {
+            width: 46px; height: 46px;
+            border-radius: 50%;
+            background: var(--yellow);
+            color: var(--black);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            transition: transform 0.2s;
+        }
+        .video-nudge:hover .nudge-play-btn { transform: scale(1.1); }
+        .nudge-text { display: flex; flex-direction: column; gap: 2px; }
+        .nudge-eyebrow {
+            font-family: var(--font-title);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.88rem;
+            color: var(--yellow);
+        }
+        .nudge-sub {
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
         }
 
         /* ── Colonne gauche ── */
@@ -682,15 +719,22 @@
                 <div class="mockup-title">Personnalisez votre application</div>
                 <div class="mockup-title-bar"></div>
 
-                <!-- Vidéo autoplay mute -->
-                <div class="mockup-video-wrap">
-                    <video autoplay muted loop playsinline>
+                <!-- Vidéo avec nudge -->
+                <div class="mockup-video-wrap" id="videoNudgeWrap">
+                    <div class="video-nudge" id="videoNudge" onclick="launchInlineVideo()">
+                        <div class="nudge-play-btn">▶</div>
+                        <div class="nudge-text">
+                            <span class="nudge-eyebrow">Voir l'application en action</span>
+                            <span class="nudge-sub">Découvrez Assopage en 2 minutes</span>
+                        </div>
+                    </div>
+                    <video id="inlineVideo" style="display:none; width:100%; max-height:260px; object-fit:cover;" controls playsinline>
                         <source src="https://res.cloudinary.com/dwfblz9nl/video/upload/v1777065031/Vid%C3%A9o_sans_titre_ywgvgq.mp4" type="video/mp4">
                     </video>
                 </div>
 
                 <div class="ctrl">
-                    <input type="text" id="assoName" class="ctrl-input" maxlength="25" placeholder="Nom de votre association">
+                    <input type="text" id="assoName" class="ctrl-input" maxlength="25" placeholder="Nom de votre association *" required>
                 </div>
 
                 <div class="ctrl">
@@ -939,7 +983,7 @@
             <p>Pour en savoir plus et pour toutes les applications personnalisées sur devis.</p>
             <div class="direct-contact-btns">
                 <a href="mailto:contact@assopage.fr" class="qbutton dark"><i class="fa-solid fa-envelope"></i> Me contacter par mail</a>
-                <a href="https://www.je-co.fr" target="_blank" class="qbutton outline"><i class="fa-solid fa-globe"></i> Voir mon portfolio Je-co</a>
+                <a href="https://www.je-co.fr" target="_blank" class="qbutton outline"><i class="fa-solid fa-globe"></i> Mon portfolio</a>
             </div>
         </div>
     </section>
@@ -960,6 +1004,14 @@
     </footer>
 
     <script>
+        /* ─── VIDEO INLINE NUDGE ─── */
+        function launchInlineVideo() {
+            document.getElementById('videoNudge').style.display = 'none';
+            const vid = document.getElementById('inlineVideo');
+            vid.style.display = 'block';
+            vid.play();
+        }
+
         /* ─── COOKIES ─── */
         function showCookieBanner() {
             const consent = localStorage.getItem('assopage_cookie_consent');
@@ -1006,12 +1058,12 @@
 
         let currentMode = 'light';
         let currentSection = 'evenement';
-        let currentColor = '#fdf987';
+        let currentColor = '#feef3e';
         let logoImage = null;
         let imagesLoaded = 0;
         const TOTAL_IMAGES = 8;
 
-        const colorList = ['#fdf987', '#1E88E5', '#E53935', '#FFA000', '#43A047', '#E8710A', '#D81B60', '#8E24AA'];
+        const colorList = ['#feef3e', '#1E88E5', '#E53935', '#FFA000', '#43A047', '#E8710A', '#D81B60', '#8E24AA'];
 
         const imageUrls = {
             light: {
@@ -1150,6 +1202,14 @@
 
             // Grab data from mockup section
             const nomAsso = document.getElementById('assoName').value.trim();
+
+            if (!nomAsso) {
+                statusEl.style.display = 'block';
+                statusEl.className = 'form-status error';
+                statusEl.textContent = 'Merci de renseigner le nom de votre association dans la section "Personnalisez votre application" ci-dessus.';
+                document.getElementById('assoName').focus();
+                return;
+            }
             const couleur = currentColor;
             const theme = currentMode === 'dark' ? 'sombre' : 'clair';
 
@@ -1233,7 +1293,7 @@
                 const swatch = document.createElement('div');
                 swatch.className = 'color-swatch' + (color === currentColor ? ' active' : '');
                 swatch.style.backgroundColor = color;
-                if (color === '#fdf987') swatch.style.border = '3px solid #ccc';
+                if (color === '#feef3e') swatch.style.border = '3px solid #ccc';
                 swatch.onclick = () => {
                     document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
                     swatch.classList.add('active');
