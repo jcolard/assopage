@@ -662,7 +662,7 @@
 <body>
 
     <header>
-        <a class="logo" href="/" style="text-decoration:none;">
+        <div class="logo" onclick="logoClick()" style="cursor:pointer;">
             <span class="asso">ASSO</span><span class="page">PAGE</span>
         </div>
         <div class="header-badge">Billetterie en ligne</div>
@@ -977,6 +977,13 @@
                 if (e.target === overlay) closeModals();
             });
         });
+        function logoClick() {
+    if (document.getElementById('events-section').classList.contains('visible')) {
+        showAssos();
+    } else {
+        window.location.href = '/';
+    }
+}
 
         function showAssos() {
             window.history.pushState({}, '', window.location.pathname);
