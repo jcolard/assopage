@@ -152,226 +152,282 @@
         .marquee img { height: 40px; width: auto; filter: grayscale(100%) contrast(120%); opacity: 0.8; transition: all 0.3s; }
         .marquee img:hover { filter: grayscale(0%); opacity: 1; }
 
-        /* ─── MOCKUP GENERATOR SECTION ─── */
-        .mockup-section { background: var(--grey-light); padding: 80px 20px; }
-        .mockup-section h2 { color: var(--black); }
+        /* ═══════════════════════════════════════════════
+           ─── MOCKUP SECTION — REDESIGN COMPACT ───
+        ═══════════════════════════════════════════════ */
+        .mockup-section { background: var(--grey-light); padding: 60px 20px; }
 
         .mockup-wrapper {
             max-width: 1100px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            gap: 50px;
             align-items: start;
         }
 
         @media (max-width: 900px) {
-            .mockup-wrapper { grid-template-columns: 1fr; gap: 40px; }
+            .mockup-wrapper { grid-template-columns: 1fr; gap: 30px; }
         }
 
-        /* ─── NOUVELLE DISPOSITION MOCKUP ─── */
+        /* ── Colonne gauche : tous les contrôles ── */
         .mockup-settings {
             display: flex;
             flex-direction: column;
-            gap: 24px;
-        }
-        
-        .mockup-display {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
+            gap: 0;
         }
 
-        .mockup-header-text { text-align: left; }
-        .mockup-header-text h2 { text-align: left; margin-bottom: 10px; }
-        .mockup-header-text .separator-small { margin-left: 0; margin-bottom: 20px; }
-
-        .control-block {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .control-label {
+        /* Titre section */
+        .mockup-title {
             font-family: var(--font-title);
-            font-size: 0.8rem;
+            font-size: 2rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--black);
+            margin-bottom: 6px;
+        }
+        .mockup-title-bar {
+            width: 60px;
+            height: 4px;
+            background: var(--yellow);
+            margin-bottom: 20px;
+        }
+
+        /* Bloc de contrôle générique */
+        .ctrl {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+        .ctrl:last-of-type { border-bottom: none; }
+
+        .ctrl-label {
+            font-family: var(--font-title);
+            font-size: 0.78rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             color: var(--black);
-            border-left: 3px solid var(--yellow);
-            padding-left: 10px;
+            white-space: nowrap;
+            min-width: 90px;
+            flex-shrink: 0;
         }
 
-        /* Text inputs */
-        .mockup-input {
-            width: 100%;
-            padding: 12px 15px;
+        .ctrl-right {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Input texte inline */
+        .ctrl-input {
+            flex: 1;
+            padding: 8px 12px;
             font-family: var(--font-body);
-            font-size: 1rem;
+            font-size: 0.95rem;
             border: 2px solid #ddd;
             background: var(--white);
             transition: border-color 0.3s;
             color: var(--black);
+            min-width: 0;
         }
-        .mockup-input:focus { border-color: var(--black); outline: none; }
-        .mockup-input::placeholder { color: #aaa; }
+        .ctrl-input:focus { border-color: var(--black); outline: none; }
+        .ctrl-input::placeholder { color: #aaa; font-size: 0.9rem; }
 
-        /* Logo upload */
-        .upload-zone {
+        /* Upload logo inline */
+        .ctrl-upload {
             position: relative;
+            flex: 1;
             border: 2px dashed #ccc;
             background: var(--white);
-            padding: 18px 20px;
-            text-align: center;
+            padding: 7px 12px;
             cursor: pointer;
             transition: border-color 0.2s;
-        }
-        .upload-zone:hover { border-color: var(--black); }
-        .upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-        .upload-zone p { margin: 0; font-size: 0.9rem; color: var(--text-grey); }
-        .upload-zone .upload-icon { font-size: 1.5rem; margin-bottom: 4px; }
-
-        /* Color swatches */
-        .color-row {
             display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
         }
+        .ctrl-upload:hover { border-color: var(--black); }
+        .ctrl-upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+        .ctrl-upload span { font-size: 0.85rem; color: var(--text-grey); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .ctrl-upload .up-icon { font-size: 1rem; flex-shrink: 0; }
+
+        /* Palette couleurs + thème sur une même ligne */
+        .color-theme-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: nowrap;
+        }
+
         .color-swatch {
-            width: 34px; height: 34px;
+            width: 28px; height: 28px;
             cursor: pointer;
             border: 3px solid transparent;
             transition: transform 0.2s, border-color 0.2s;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+            flex-shrink: 0;
         }
         .color-swatch.active {
             border-color: var(--black);
-            transform: scale(1.15);
+            transform: scale(1.2);
         }
 
-        /* Theme toggle */
-        .theme-row {
-            display: flex;
-            gap: 8px;
+        /* Séparateur vertical entre couleurs et thème */
+        .ctrl-divider {
+            width: 1px;
+            height: 28px;
+            background: #ccc;
+            flex-shrink: 0;
+            margin: 0 4px;
         }
-        .theme-btn {
+
+        /* Thème : 2 boutons icône uniquement */
+        .theme-icon-btn {
+            width: 28px; height: 28px;
+            border: 2px solid #ddd;
+            background: var(--white);
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .theme-icon-btn.active.light {
+            background: var(--white);
+            border-color: var(--black);
+            box-shadow: 0 0 0 2px var(--black);
+        }
+        .theme-icon-btn.active.dark {
+            background: var(--black);
+            border-color: var(--black);
+            color: var(--yellow);
+        }
+
+        /* Tabs modules — ligne unique même sur mobile */
+        .module-tabs {
+            display: flex;
+            gap: 0;
+            width: 100%;
+            margin-top: 4px;
+        }
+
+        .module-tab {
             flex: 1;
-            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 9px 4px;
             background: var(--white);
             border: 2px solid #ddd;
+            border-right-width: 0;
             cursor: pointer;
-            font-family: var(--font-title);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
             transition: all 0.2s;
+            font-family: var(--font-title);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             color: var(--black);
+            white-space: nowrap;
         }
-        .theme-btn.active {
+        .module-tab:last-child { border-right-width: 2px; }
+        .module-tab:hover { border-color: var(--black); z-index: 1; }
+        .module-tab.active {
             background: var(--black);
-            color: var(--white);
+            color: var(--yellow);
             border-color: var(--black);
+            z-index: 2;
+        }
+        .module-tab .tab-icon { font-size: 0.95rem; }
+
+        /* Sur mobile : masquer le texte des onglets, garder icône */
+        @media (max-width: 480px) {
+            .module-tab .tab-text { display: none; }
+            .module-tab { padding: 10px 6px; }
+            .module-tab .tab-icon { font-size: 1.1rem; }
         }
 
-        /* Canvas preview */
+        /* Description module condensée */
+        .module-desc-box {
+            background: var(--black);
+            padding: 12px 16px;
+            border-left: 4px solid var(--yellow);
+            margin-top: 8px;
+        }
+        .module-desc-box h4 {
+            font-family: var(--font-title);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            color: var(--yellow);
+            margin-bottom: 8px;
+        }
+        .module-desc-box ul {
+            list-style: none;
+            padding: 0; margin: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 15px;
+            row-gap: 4px;
+        }
+        .module-desc-box ul li {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.8);
+            padding-left: 14px;
+            position: relative;
+            margin-bottom: 0;
+        }
+        .module-desc-box ul li::before { content: '→'; position: absolute; left: 0; color: var(--yellow); }
+        @media (max-width: 500px) { .module-desc-box ul { grid-template-columns: 1fr; } }
+
+        /* ── Colonne droite : preview + bouton ── */
+        .mockup-display {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            position: sticky;
+            top: 90px;
+        }
+
         .mockup-preview {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
         .canvas-frame {
-            position: relative;
             width: 100%;
-            max-width: 360px;
+            max-width: 320px;
         }
 
         #myCanvas {
             width: 100%;
             height: auto;
             display: block;
-            box-shadow: 12px 12px 0 var(--black);
+            box-shadow: 10px 10px 0 var(--black);
             border: 3px solid var(--black);
         }
 
         .download-btn {
             width: 100%;
-            max-width: 360px;
-            font-size: 0.9rem;
-            padding: 12px 20px;
-        }
-
-        /* Module tabs */
-        .module-tabs {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            width: 100%;
-        }
-
-        .module-tab {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 14px;
-            background: var(--white);
-            border: 2px solid #ddd;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: var(--font-title);
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--black);
-        }
-        .module-tab:hover { border-color: var(--black); }
-        .module-tab.active {
-            background: var(--black);
-            color: var(--yellow);
-            border-color: var(--black);
-        }
-        .module-tab .tab-icon { font-size: 1.1rem; }
-
-        /* Module description box CONDENSÉE */
-        .module-desc-box {
-            background: var(--black);
-            padding: 16px 20px;
-            border-left: 4px solid var(--yellow);
-        }
-        .module-desc-box h4 {
-            font-family: var(--font-title);
-            text-transform: uppercase;
-            font-size: 0.95rem;
-            letter-spacing: 2px;
-            color: var(--yellow);
-            margin-bottom: 10px;
-        }
-        .module-desc-box ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            column-gap: 15px;
-            row-gap: 6px;
-        }
-        .module-desc-box ul li {
+            max-width: 320px;
             font-size: 0.85rem;
-            color: rgba(255,255,255,0.8);
-            padding-left: 14px;
-            position: relative;
-            margin-bottom: 0;
+            padding: 10px 16px;
         }
-        .module-desc-box ul li::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: var(--yellow);
-        }
-        @media (max-width: 500px) {
-            .module-desc-box ul { grid-template-columns: 1fr; }
+
+        .create-app-btn {
+            width: 100%;
+            max-width: 320px;
+            font-size: 0.9rem;
+            padding: 14px 20px;
+            text-align: center;
         }
 
         /* ─── TEMOIGNAGES ─── */
@@ -496,46 +552,78 @@
         </div>
     </div>
 
+    <!-- ═══ SECTION MOCKUP REDESIGNÉE ═══ -->
     <section class="mockup-section" id="modules">
         <div class="mockup-wrapper">
 
+            <!-- ── Colonne gauche : contrôles ── -->
             <div class="mockup-settings">
-                <div class="mockup-header-text">
-                    <h2>Visualisez votre application</h2>
-                    <div class="separator-small" style="margin-left:0;margin-bottom:16px;"></div>
-                    <p style="margin-bottom:0;">Personnalisez le mockup en temps réel avec vos couleurs et votre logo. Chaque module est pensé pour s'adapter à votre association.</p>
-                </div>
 
-                <div class="control-block">
-                    <div class="control-label">Nom de l'asso</div>
-                    <input type="text" id="assoName" class="mockup-input" maxlength="25" placeholder="Mon Association">
-                </div>
+                <div class="mockup-title">Personnalisez votre application</div>
+                <div class="mockup-title-bar"></div>
 
-                <div class="control-block">
-                    <div class="control-label">Logo de votre association</div>
-                    <div class="upload-zone">
-                        <input type="file" id="logoUpload" accept="image/png,image/jpeg,image/webp">
-                        <div class="upload-icon">⬆️</div>
-                        <p>Glissez votre logo ici ou cliquez</p>
+                <!-- Nom de l'asso -->
+                <div class="ctrl">
+                    <span class="ctrl-label">Asso</span>
+                    <div class="ctrl-right">
+                        <input type="text" id="assoName" class="ctrl-input" maxlength="25" placeholder="Écrivez le nom de votre asso ici">
                     </div>
                 </div>
 
-                <div class="control-block">
-                    <div class="control-label">Couleur thématique</div>
-                    <div class="color-row" id="colorPalette"></div>
-                </div>
-
-                <div class="control-block">
-                    <div class="control-label">Thème visuel</div>
-                    <div class="theme-row">
-                        <button class="theme-btn active" data-mode="light">☀️ Clair</button>
-                        <button class="theme-btn" data-mode="dark">🌙 Sombre</button>
+                <!-- Logo -->
+                <div class="ctrl">
+                    <span class="ctrl-label">Logo</span>
+                    <div class="ctrl-right">
+                        <label class="ctrl-upload">
+                            <input type="file" id="logoUpload" accept="image/png,image/jpeg,image/webp">
+                            <span class="up-icon">⬆️</span>
+                            <span id="uploadLabel">Glissez votre logo ou cliquez</span>
+                        </label>
                     </div>
                 </div>
+
+                <!-- Couleurs + Thème sur une seule ligne -->
+                <div class="ctrl">
+                    <span class="ctrl-label">Couleurs</span>
+                    <div class="ctrl-right">
+                        <div class="color-theme-row">
+                            <div id="colorPalette" style="display:flex;gap:6px;align-items:center;flex-wrap:nowrap;"></div>
+                            <div class="ctrl-divider"></div>
+                            <button class="theme-icon-btn light active" data-mode="light" title="Thème clair">☀️</button>
+                            <button class="theme-icon-btn dark" data-mode="dark" title="Thème sombre">🌙</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modules sur une seule ligne -->
+                <div class="ctrl" style="flex-direction:column; align-items:flex-start; gap:8px; padding-bottom:0; border-bottom:none;">
+                    <span class="ctrl-label">Module</span>
+                    <div class="module-tabs">
+                        <button class="module-tab active" data-section="evenement">
+                            <span class="tab-icon">📅</span><span class="tab-text"> Agenda</span>
+                        </button>
+                        <button class="module-tab" data-section="crm">
+                            <span class="tab-icon">👥</span><span class="tab-text"> CRM</span>
+                        </button>
+                        <button class="module-tab" data-section="tresorerie">
+                            <span class="tab-icon">💶</span><span class="tab-text"> Trésorerie</span>
+                        </button>
+                        <button class="module-tab" data-section="billeterie">
+                            <span class="tab-icon">🎟️</span><span class="tab-text"> Billetterie</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Description module -->
+                <div class="module-desc-box" id="moduleDesc">
+                    <h4 id="descTitle">Module Agenda & Événements</h4>
+                    <ul id="descList"></ul>
+                </div>
+
             </div>
 
+            <!-- ── Colonne droite : canvas + boutons ── -->
             <div class="mockup-display">
-                
                 <div class="mockup-preview">
                     <div class="canvas-frame">
                         <canvas id="myCanvas" width="1080" height="1920"></canvas>
@@ -543,36 +631,12 @@
                     <button class="qbutton yellow download-btn" onclick="downloadCanvas()">
                         <i class="fa-solid fa-download"></i> Télécharger le mockup
                     </button>
+                    <a href="#contact" class="qbutton dark create-app-btn">
+                        <i class="fa-solid fa-rocket"></i> Créer mon application
+                    </a>
                 </div>
-
-                <div class="control-block">
-                    <div class="control-label">Choisir un module</div>
-                    <div class="module-tabs">
-                        <button class="module-tab active" data-section="evenement">
-                            <span class="tab-icon">📅</span> Agenda
-                        </button>
-                        <button class="module-tab" data-section="crm">
-                            <span class="tab-icon">👥</span> CRM
-                        </button>
-                        <button class="module-tab" data-section="tresorerie">
-                            <span class="tab-icon">💶</span> Trésorerie
-                        </button>
-                        <button class="module-tab" data-section="billeterie">
-                            <span class="tab-icon">🎟️</span> Billetterie
-                        </button>
-                    </div>
-                </div>
-
-                <div class="module-desc-box" id="moduleDesc">
-                    <h4 id="descTitle">Module Agenda & Événements</h4>
-                    <ul id="descList"></ul>
-                </div>
-
-                <a href="#contact" class="qbutton dark" style="text-align:center; margin-top: 10px;">
-                    <i class="fa-solid fa-rocket"></i> Créer mon application
-                </a>
-
             </div>
+
         </div>
     </section>
 
@@ -717,7 +781,7 @@
 
         let currentMode = 'light';
         let currentSection = 'evenement';
-        let currentColor = '#fdf987'; // Assopage yellow as default
+        let currentColor = '#fdf987';
         let logoImage = null;
         let imagesLoaded = 0;
         const TOTAL_IMAGES = 8;
@@ -795,7 +859,6 @@
                 ctx.putImageData(idata, 0, 0);
             }
 
-            // Update text drawing with single field
             const txt = document.getElementById('assoName').value.trim();
 
             if (currentSection === 'billeterie') {
@@ -850,7 +913,6 @@
                 const swatch = document.createElement('div');
                 swatch.className = 'color-swatch' + (color === currentColor ? ' active' : '');
                 swatch.style.backgroundColor = color;
-                // Special border for yellow swatch so it's visible
                 if (color === '#fdf987') swatch.style.border = '3px solid #ccc';
                 swatch.onclick = () => {
                     document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
@@ -872,10 +934,10 @@
                 };
             });
 
-            // Theme buttons
-            document.querySelectorAll('.theme-btn').forEach(btn => {
+            // Theme buttons (icône seulement)
+            document.querySelectorAll('.theme-icon-btn').forEach(btn => {
                 btn.onclick = () => {
-                    document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.theme-icon-btn').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                     currentMode = btn.dataset.mode;
                     renderCanvas();
@@ -886,6 +948,7 @@
             document.getElementById('logoUpload').onchange = (e) => {
                 const file = e.target.files[0];
                 if (!file) return;
+                document.getElementById('uploadLabel').textContent = file.name;
                 const reader = new FileReader();
                 reader.onload = (ev) => {
                     logoImage = new Image();
@@ -895,8 +958,6 @@
                 reader.readAsDataURL(file);
             };
 
-            
-            // Single text input triggers re-render
             document.getElementById('assoName').oninput = renderCanvas;
 
             updateDescription();
