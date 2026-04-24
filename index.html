@@ -14,7 +14,7 @@
     
     <style>
         :root {
-            --yellow: #feef3e;
+            --yellow: #fdf987;
             --black: #0a0a0a;
             --white: #ffffff;
             --grey-light: #f5f5f5;
@@ -139,7 +139,7 @@
         .hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
 
         @media (max-width: 900px) {
-            .hero { background-position: 60% center; }
+            .hero { background-position: 54% center; }
             .hero-layout { flex-direction: column; text-align: left; padding: 40px 0 60px; }
             .hero-content { max-width: 100%; }
             .hero .separator-small { margin: 0 0 28px 0; }
@@ -1058,12 +1058,12 @@
 
         let currentMode = 'light';
         let currentSection = 'evenement';
-        let currentColor = '#feef3e';
+        let currentColor = '#fdf987';
         let logoImage = null;
         let imagesLoaded = 0;
         const TOTAL_IMAGES = 8;
 
-        const colorList = ['#feef3e', '#1E88E5', '#E53935', '#FFA000', '#43A047', '#E8710A', '#D81B60', '#8E24AA'];
+        const colorList = ['#fdf987', '#1E88E5', '#E53935', '#FFA000', '#43A047', '#E8710A', '#D81B60', '#8E24AA'];
 
         const imageUrls = {
             light: {
@@ -1293,7 +1293,7 @@
                 const swatch = document.createElement('div');
                 swatch.className = 'color-swatch' + (color === currentColor ? ' active' : '');
                 swatch.style.backgroundColor = color;
-                if (color === '#feef3e') swatch.style.border = '3px solid #ccc';
+                if (color === '#fdf987') swatch.style.border = '3px solid #ccc';
                 swatch.onclick = () => {
                     document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
                     swatch.classList.add('active');
