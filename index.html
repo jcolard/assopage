@@ -153,9 +153,9 @@
         .marquee img:hover { filter: grayscale(0%); opacity: 1; }
 
         /* ═══════════════════════════════════════════════
-           ─── MOCKUP SECTION — REDESIGN COMPACT ───
+           ─── MOCKUP SECTION — COMPACT + MOBILE FIRST ───
         ═══════════════════════════════════════════════ */
-        .mockup-section { background: var(--grey-light); padding: 60px 20px; }
+        .mockup-section { background: var(--grey-light); padding: 50px 16px; }
 
         .mockup-wrapper {
             max-width: 1100px;
@@ -165,22 +165,22 @@
             gap: 50px;
             align-items: start;
         }
-
         @media (max-width: 900px) {
-            .mockup-wrapper { grid-template-columns: 1fr; gap: 30px; }
+            .mockup-wrapper { grid-template-columns: 1fr; gap: 28px; }
         }
 
-        /* ── Colonne gauche : tous les contrôles ── */
+        /* ── Colonne gauche ── */
         .mockup-settings {
             display: flex;
             flex-direction: column;
             gap: 0;
+            width: 100%;
+            min-width: 0;
         }
 
-        /* Titre section */
         .mockup-title {
             font-family: var(--font-title);
-            font-size: 2rem;
+            font-size: clamp(1.3rem, 4vw, 2rem);
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -188,247 +188,187 @@
             margin-bottom: 6px;
         }
         .mockup-title-bar {
-            width: 60px;
-            height: 4px;
+            width: 60px; height: 4px;
             background: var(--yellow);
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
-        /* Bloc de contrôle générique */
+        /* Chaque champ = pleine largeur, empilé */
         .ctrl {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 0;
+            width: 100%;
+            padding: 8px 0;
             border-bottom: 1px solid rgba(0,0,0,0.08);
         }
         .ctrl:last-of-type { border-bottom: none; }
 
-        .ctrl-label {
-            font-family: var(--font-title);
-            font-size: 0.78rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--black);
-            white-space: nowrap;
-            min-width: 90px;
-            flex-shrink: 0;
-        }
-
-        .ctrl-right {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* Input texte inline */
+        /* Input texte */
         .ctrl-input {
-            flex: 1;
-            padding: 8px 12px;
+            width: 100%;
+            padding: 9px 12px;
             font-family: var(--font-body);
             font-size: 0.95rem;
             border: 2px solid #ddd;
             background: var(--white);
             transition: border-color 0.3s;
             color: var(--black);
-            min-width: 0;
+            box-sizing: border-box;
         }
         .ctrl-input:focus { border-color: var(--black); outline: none; }
-        .ctrl-input::placeholder { color: #aaa; font-size: 0.9rem; }
+        .ctrl-input::placeholder { color: #aaa; }
 
-        /* Upload logo inline */
+        /* Upload logo */
         .ctrl-upload {
             position: relative;
-            flex: 1;
+            width: 100%;
             border: 2px dashed #ccc;
             background: var(--white);
-            padding: 7px 12px;
+            padding: 9px 12px;
             cursor: pointer;
             transition: border-color 0.2s;
             display: flex;
             align-items: center;
             gap: 8px;
-            min-width: 0;
+            box-sizing: border-box;
         }
         .ctrl-upload:hover { border-color: var(--black); }
         .ctrl-upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-        .ctrl-upload span { font-size: 0.85rem; color: var(--text-grey); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .ctrl-upload .up-icon { font-size: 1rem; flex-shrink: 0; }
+        .ctrl-upload span { font-size: 0.85rem; color: var(--text-grey); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 
-        /* Palette couleurs + thème sur une même ligne */
+        /* Couleurs + thème : retour à la ligne autorisé */
         .color-theme-row {
             display: flex;
             align-items: center;
-            gap: 8px;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
+            gap: 6px;
+            width: 100%;
         }
 
         .color-swatch {
-            width: 28px; height: 28px;
+            width: 26px; height: 26px;
             cursor: pointer;
             border: 3px solid transparent;
             transition: transform 0.2s, border-color 0.2s;
             box-shadow: 0 1px 4px rgba(0,0,0,0.15);
             flex-shrink: 0;
         }
-        .color-swatch.active {
-            border-color: var(--black);
-            transform: scale(1.2);
-        }
+        .color-swatch.active { border-color: var(--black); transform: scale(1.2); }
 
-        /* Séparateur vertical entre couleurs et thème */
         .ctrl-divider {
-            width: 1px;
-            height: 28px;
+            width: 1px; height: 26px;
             background: #ccc;
             flex-shrink: 0;
-            margin: 0 4px;
         }
 
-        /* Thème : 2 boutons icône uniquement */
         .theme-icon-btn {
-            width: 28px; height: 28px;
+            width: 26px; height: 26px;
             border: 2px solid #ddd;
             background: var(--white);
             cursor: pointer;
             display: flex; align-items: center; justify-content: center;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: all 0.2s;
             flex-shrink: 0;
         }
-        .theme-icon-btn.active.light {
-            background: var(--white);
-            border-color: var(--black);
-            box-shadow: 0 0 0 2px var(--black);
-        }
-        .theme-icon-btn.active.dark {
-            background: var(--black);
-            border-color: var(--black);
-            color: var(--yellow);
-        }
+        .theme-icon-btn.active.light { border-color: var(--black); box-shadow: 0 0 0 2px var(--black); }
+        .theme-icon-btn.active.dark { background: var(--black); border-color: var(--black); color: var(--yellow); }
 
-        /* Tabs modules — ligne unique même sur mobile */
+        /* Modules : toujours une ligne, padding minimal, taille auto */
         .module-tabs {
             display: flex;
-            gap: 0;
             width: 100%;
-            margin-top: 4px;
+            gap: 0;
         }
 
         .module-tab {
             flex: 1;
+            min-width: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 4px;
-            padding: 9px 4px;
+            gap: 3px;
+            padding: 8px 2px;
             background: var(--white);
             border: 2px solid #ddd;
             border-right-width: 0;
             cursor: pointer;
             transition: all 0.2s;
             font-family: var(--font-title);
-            font-size: 0.8rem;
+            font-size: clamp(0.6rem, 1.8vw, 0.82rem);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0;
             color: var(--black);
             white-space: nowrap;
+            overflow: hidden;
         }
         .module-tab:last-child { border-right-width: 2px; }
-        .module-tab:hover { border-color: var(--black); z-index: 1; }
-        .module-tab.active {
-            background: var(--black);
-            color: var(--yellow);
-            border-color: var(--black);
-            z-index: 2;
-        }
-        .module-tab .tab-icon { font-size: 0.95rem; }
-
-        /* Sur mobile : masquer le texte des onglets, garder icône */
-        @media (max-width: 480px) {
+        .module-tab.active { background: var(--black); color: var(--yellow); border-color: var(--black); z-index: 1; }
+        .module-tab .tab-icon { font-size: clamp(0.85rem, 2.5vw, 1rem); flex-shrink: 0; }
+        /* Masquer texte sous 520px : icône seule suffit, padding réduit */
+        @media (max-width: 520px) {
             .module-tab .tab-text { display: none; }
-            .module-tab { padding: 10px 6px; }
-            .module-tab .tab-icon { font-size: 1.1rem; }
+            .module-tab { padding: 9px 0; }
         }
 
-        /* Description module condensée */
+        /* Description module */
         .module-desc-box {
             background: var(--black);
-            padding: 12px 16px;
+            padding: 12px 14px;
             border-left: 4px solid var(--yellow);
-            margin-top: 8px;
+            margin-top: 6px;
+            width: 100%;
+            box-sizing: border-box;
         }
         .module-desc-box h4 {
             font-family: var(--font-title);
             text-transform: uppercase;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             letter-spacing: 2px;
             color: var(--yellow);
             margin-bottom: 8px;
         }
         .module-desc-box ul {
-            list-style: none;
-            padding: 0; margin: 0;
+            list-style: none; padding: 0; margin: 0;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            column-gap: 15px;
-            row-gap: 4px;
+            column-gap: 12px; row-gap: 4px;
         }
         .module-desc-box ul li {
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             color: rgba(255,255,255,0.8);
             padding-left: 14px;
-            position: relative;
-            margin-bottom: 0;
+            position: relative; margin-bottom: 0;
         }
         .module-desc-box ul li::before { content: '→'; position: absolute; left: 0; color: var(--yellow); }
-        @media (max-width: 500px) { .module-desc-box ul { grid-template-columns: 1fr; } }
+        @media (max-width: 480px) { .module-desc-box ul { grid-template-columns: 1fr; } }
 
-        /* ── Colonne droite : preview + bouton ── */
+        /* ── Colonne droite ── */
         .mockup-display {
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            position: sticky;
-            top: 90px;
+            gap: 14px;
+        }
+        @media (min-width: 901px) {
+            .mockup-display { position: sticky; top: 90px; }
         }
 
         .mockup-preview {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
-        .canvas-frame {
-            width: 100%;
-            max-width: 320px;
-        }
+        .canvas-frame { width: 100%; max-width: 300px; }
 
         #myCanvas {
-            width: 100%;
-            height: auto;
-            display: block;
-            box-shadow: 10px 10px 0 var(--black);
+            width: 100%; height: auto; display: block;
+            box-shadow: 8px 8px 0 var(--black);
             border: 3px solid var(--black);
         }
 
-        .download-btn {
-            width: 100%;
-            max-width: 320px;
-            font-size: 0.85rem;
-            padding: 10px 16px;
-        }
-
-        .create-app-btn {
-            width: 100%;
-            max-width: 320px;
-            font-size: 0.9rem;
-            padding: 14px 20px;
-            text-align: center;
-        }
+        .download-btn { width: 100%; max-width: 300px; font-size: 0.85rem; padding: 10px 16px; }
+        .create-app-btn { width: 100%; max-width: 300px; font-size: 0.9rem; padding: 12px 16px; text-align: center; }
 
         /* ─── TEMOIGNAGES ─── */
         .testimonials-section { background-color: var(--yellow); }
@@ -562,59 +502,44 @@
                 <div class="mockup-title">Personnalisez votre application</div>
                 <div class="mockup-title-bar"></div>
 
-                <!-- Nom de l'asso -->
                 <div class="ctrl">
-                    <span class="ctrl-label">Asso</span>
-                    <div class="ctrl-right">
-                        <input type="text" id="assoName" class="ctrl-input" maxlength="25" placeholder="Écrivez le nom de votre asso ici">
+                    <input type="text" id="assoName" class="ctrl-input" maxlength="25" placeholder="Nom de votre association">
+                </div>
+
+                <div class="ctrl">
+                    <label class="ctrl-upload">
+                        <input type="file" id="logoUpload" accept="image/png,image/jpeg,image/webp">
+                        <span class="up-icon">⬆️</span>
+                        <span id="uploadLabel">Votre logo (PNG, JPG…)</span>
+                    </label>
+                </div>
+
+                <div class="ctrl">
+                    <div class="color-theme-row">
+                        <div id="colorPalette" style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;"></div>
+                        <div class="ctrl-divider"></div>
+                        <button class="theme-icon-btn light active" data-mode="light" title="Thème clair">☀️</button>
+                        <button class="theme-icon-btn dark" data-mode="dark" title="Thème sombre">🌙</button>
                     </div>
                 </div>
 
-                <!-- Logo -->
-                <div class="ctrl">
-                    <span class="ctrl-label">Logo</span>
-                    <div class="ctrl-right">
-                        <label class="ctrl-upload">
-                            <input type="file" id="logoUpload" accept="image/png,image/jpeg,image/webp">
-                            <span class="up-icon">⬆️</span>
-                            <span id="uploadLabel">Glissez votre logo ou cliquez</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Couleurs + Thème sur une seule ligne -->
-                <div class="ctrl">
-                    <span class="ctrl-label">Couleurs</span>
-                    <div class="ctrl-right">
-                        <div class="color-theme-row">
-                            <div id="colorPalette" style="display:flex;gap:6px;align-items:center;flex-wrap:nowrap;"></div>
-                            <div class="ctrl-divider"></div>
-                            <button class="theme-icon-btn light active" data-mode="light" title="Thème clair">☀️</button>
-                            <button class="theme-icon-btn dark" data-mode="dark" title="Thème sombre">🌙</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Modules sur une seule ligne -->
-                <div class="ctrl" style="flex-direction:column; align-items:flex-start; gap:8px; padding-bottom:0; border-bottom:none;">
-                    <span class="ctrl-label">Module</span>
+                <div class="ctrl" style="padding-bottom:0; border-bottom:none;">
                     <div class="module-tabs">
                         <button class="module-tab active" data-section="evenement">
-                            <span class="tab-icon">📅</span><span class="tab-text"> Agenda</span>
+                            <span class="tab-icon">📅</span><span class="tab-text">&nbsp;Agenda</span>
                         </button>
                         <button class="module-tab" data-section="crm">
-                            <span class="tab-icon">👥</span><span class="tab-text"> CRM</span>
+                            <span class="tab-icon">👥</span><span class="tab-text">&nbsp;CRM</span>
                         </button>
                         <button class="module-tab" data-section="tresorerie">
-                            <span class="tab-icon">💶</span><span class="tab-text"> Trésorerie</span>
+                            <span class="tab-icon">💶</span><span class="tab-text">&nbsp;Tréso</span>
                         </button>
                         <button class="module-tab" data-section="billeterie">
-                            <span class="tab-icon">🎟️</span><span class="tab-text"> Billetterie</span>
+                            <span class="tab-icon">🎟️</span><span class="tab-text">&nbsp;Billets</span>
                         </button>
                     </div>
                 </div>
 
-                <!-- Description module -->
                 <div class="module-desc-box" id="moduleDesc">
                     <h4 id="descTitle">Module Agenda & Événements</h4>
                     <ul id="descList"></ul>
