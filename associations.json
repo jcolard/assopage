@@ -49,17 +49,6 @@
         "image_url": "https://drive.google.com/thumbnail?id=1Z-ONQJ9QzcuFqKgoNDSYUJeiXkJMUOhC&sz=w1000"
       },
       {
-        "id": "2f871672",
-        "titre": "GYM",
-        "description": "",
-        "date": "24/04/2026",
-        "heure_debut": "13:30",
-        "heure_fin": "18:00",
-        "adresse": "Gare routière boulevard Coq Aix",
-        "prix": 414,
-        "image_url": "https://drive.google.com/thumbnail?id=1CCdRVWMls9fEhy-mI6SvRAqycGHKEoY1&sz=w1000"
-      },
-      {
         "id": "30c7e9ba",
         "titre": "Visite pavillon noir...",
         "description": "Visite du pavillon noir, présentation du ballet Prejlocaj et immersion au coeur de la répétition, moment dansé avec les danseurs.",
@@ -168,17 +157,6 @@
         "adresse": "Piscine Plein Ciel Avenue Marcel Pagnol – Jas de Bouffan En bus : Aixpress A Arrêt Saint John Perse",
         "prix": "",
         "image_url": "https://drive.google.com/thumbnail?id=1x2JMg0Rn0hU4aLyLsVOuNpxJ3AY38tHN&sz=w1000"
-      },
-      {
-        "id": "688b7ed4",
-        "titre": "Atelier peinture",
-        "description": "Natation",
-        "date": "24/04/2026",
-        "heure_debut": "14:00",
-        "heure_fin": "15:00",
-        "adresse": "Piscine Plein Ciel Avenue Marcel Pagnol – Jas de Bouffan En bus : Aixpress A Arrêt Saint John Perse",
-        "prix": "",
-        "image_url": "https://drive.google.com/thumbnail?id=1VqZh20kZlTLd6Y9H5Q8mDxbXsGDD8_8R&sz=w1000"
       },
       {
         "id": "6a44b9c9",
