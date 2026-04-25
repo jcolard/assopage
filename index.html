@@ -783,6 +783,9 @@
                 <div class="mockup-preview">
                     <div class="canvas-frame">
                         <canvas id="myCanvas" width="1080" height="1920"></canvas>
+                        <p style="font-size:0.72rem; color:#888; text-align:center; margin-top:6px; font-family:var(--font-body);">
+    👆 Cliquez sur l'aperçu pour changer de module
+</p>
                     </div>
                     <button class="qbutton yellow download-btn" onclick="downloadCanvas()">
                         <i class="fa-solid fa-download"></i> Télécharger le mockup
@@ -1336,6 +1339,19 @@
             };
 
             document.getElementById('assoName').oninput = renderCanvas;
+            // Click sur le canvas → switch module suivant
+const sectionOrder = ['evenement', 'crm', 'tresorerie', 'billeterie'];
+canvas.style.cursor = 'pointer';
+canvas.onclick = () => {
+    const idx = sectionOrder.indexOf(currentSection);
+    currentSection = sectionOrder[(idx + 1) % sectionOrder.length];
+    // Mettre à jour les tabs
+    document.querySelectorAll('.module-tab').forEach(b => {
+        b.classList.toggle('active', b.dataset.section === currentSection);
+    });
+    renderCanvas();
+    updateDescription();
+};
             updateDescription();
         }
 
