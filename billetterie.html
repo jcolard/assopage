@@ -17,6 +17,8 @@
             --grey-light: #f5f5f5;
             --grey-mid: #e8e8e8;
             --text-grey: #4a4a4a;
+            --red: #c0392b;
+            --red-light: #fdecea;
             --font-title: 'Oswald', sans-serif;
             --font-body: 'Roboto Condensed', sans-serif;
             --font-brand: 'Montserrat', sans-serif;
@@ -357,6 +359,32 @@
         }
         .btn-cancel:hover { color: var(--black); }
 
+        /* ─── BUTTON DÉSINSCRIPTION ─── */
+        .btn-unregister {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--font-title);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            padding: 8px 14px;
+            border: 2px solid var(--red);
+            background: transparent;
+            color: var(--red);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        .btn-unregister:hover {
+            background: var(--red);
+            color: var(--white);
+        }
+        .btn-unregister:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         /* ─── EVENTS GRID ─── */
         #events-list {
             display: grid;
@@ -575,12 +603,18 @@
             display: none;
         }
 
+        /* ─── RÉSULTAT CHECK ─── */
         .check-result-item {
             padding: 14px 18px;
             border-left: 4px solid var(--yellow);
             background: var(--grey-light);
             margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
         }
+        .check-result-item .ev-info { flex: 1; min-width: 0; }
         .check-result-item .ev-name {
             font-family: var(--font-title);
             font-size: 1rem;
@@ -590,6 +624,16 @@
         }
         .check-result-item .ev-when {
             font-size: 0.82rem;
+            color: var(--text-grey);
+        }
+
+        /* État "désinscrit" sur un résultat */
+        .check-result-item.unregistered {
+            border-left-color: var(--red);
+            opacity: 0.5;
+        }
+        .check-result-item.unregistered .ev-name {
+            text-decoration: line-through;
             color: var(--text-grey);
         }
 
@@ -608,6 +652,36 @@
             color: #aaa;
             font-size: 0.85rem;
         }
+
+        /* ─── MODAL CONFIRM DÉSINSCRIPTION ─── */
+        .modal-confirm { max-width: 440px; }
+        .modal-confirm .modal-header { background: var(--red); }
+        .modal-confirm .modal-header h3 { color: rgba(255,255,255,0.6); }
+        .modal-confirm .modal-header p { color: var(--white); }
+
+        .confirm-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .btn-confirm-yes {
+            flex: 1;
+            background: var(--red);
+            color: var(--white);
+            border-color: var(--red);
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+        .btn-confirm-yes:hover { background: #922b21; border-color: #922b21; }
+        .btn-confirm-no {
+            flex: 1;
+            background: var(--white);
+            color: var(--black);
+            border-color: var(--black);
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+        .btn-confirm-no:hover { background: var(--black); color: var(--white); }
 
         /* ─── FOOTER ─── */
         footer {
@@ -637,6 +711,7 @@
             #events-list { grid-template-columns: 1fr; }
             footer { flex-direction: column; text-align: center; }
             .header-badge { display: none; }
+            .check-result-item { flex-direction: column; align-items: flex-start; }
         }
         @media (max-width: 380px) {
             #asso-list { grid-template-columns: 1fr; }
@@ -759,6 +834,27 @@
         </div>
     </div>
 
+    <!-- MODAL CONFIRMATION DÉSINSCRIPTION -->
+    <div id="confirm-modal" class="modal-overlay">
+        <div class="modal modal-confirm">
+            <div class="modal-header">
+                <h3>Confirmer la désinscription</h3>
+                <p id="confirm-ev-title"></p>
+            </div>
+            <div class="modal-body">
+                <p style="font-size:0.9rem;color:var(--text-grey);line-height:1.6;">
+                    Êtes-vous sûr(e) de vouloir vous désinscrire de cet événement ?<br>
+                    Un email de confirmation vous sera envoyé.
+                </p>
+                <div class="confirm-actions">
+                    <button onclick="cancelUnregister()" class="btn btn-confirm-no">Annuler</button>
+                    <button onclick="confirmUnregister()" class="btn btn-confirm-yes">Se désinscrire</button>
+                </div>
+                <div id="confirm-msg" class="msg-success" style="margin-top:16px;"></div>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="logo" style="font-size:1.2rem;">
             <span class="asso">ASSO</span><span class="page">PAGE</span>
@@ -769,6 +865,9 @@
     <script>
         const API_URL = "https://script.google.com/macros/s/AKfycbxLuplsw7AtwY29w8vu5jt1xMPfnOpOwSTUpHKKFoavDKdDtLyW4b2CDufFwVwRhr7SVw/exec";
         let allData = [], currentAssoIndex = null, registeredEvents = new Set();
+
+        // État pour la désinscription en attente
+        let pendingUnregister = null; // { inscription_id, email, titre, rowEl }
 
         async function loadData() {
             try {
@@ -805,7 +904,6 @@
                 </div>
             `).join('');
 
-            // Stagger cards
             list.querySelectorAll('.asso-card').forEach((el, i) => {
                 el.style.animationDelay = (i * 0.07) + 's';
             });
@@ -820,7 +918,6 @@
             const evSection = document.getElementById('events-section');
             evSection.classList.add('visible');
 
-            // Identity
             document.getElementById('selected-asso-name').innerText = asso.nom_asso;
             document.getElementById('asso-identity-logo').innerHTML = `<img src="${asso.logo_url || ''}" alt="${asso.nom_asso}" style="width:100%;height:100%;object-fit:contain;padding:6px;">`;
 
@@ -867,7 +964,6 @@
                 </div>`;
             }).join('');
 
-            // Stagger
             list.querySelectorAll('.event-card').forEach((el, i) => {
                 el.style.opacity = '0';
                 el.style.animation = `fade-in 0.4s ease ${i * 0.08}s forwards`;
@@ -936,7 +1032,7 @@
         }
 
         async function doCheck() {
-            const email = document.getElementById('c-email').value;
+            const email = document.getElementById('c-email').value.trim();
             const resDiv = document.getElementById('check-results');
             if (!email) return;
             resDiv.style.display = 'block';
@@ -954,10 +1050,22 @@
                 if (!r.data || r.data.length === 0) {
                     resDiv.innerHTML = '<div class="no-results">Aucune inscription trouvée</div>';
                 } else {
-                    resDiv.innerHTML = r.data.map(i => `
-                        <div class="check-result-item">
-                            <div class="ev-name">${i.titre}</div>
-                            <div class="ev-when">📅 ${i.date} à ${i.heure}</div>
+                    resDiv.innerHTML = r.data.map(item => `
+                        <div class="check-result-item" id="row-${item.inscription_id}">
+                            <div class="ev-info">
+                                <div class="ev-name">${item.titre}</div>
+                                <div class="ev-when">📅 ${item.date} à ${item.heure}</div>
+                            </div>
+                            <button
+                                class="btn-unregister"
+                                onclick="askUnregister('${item.inscription_id}', '${email}', '${item.titre.replace(/'/g, "\\'")}', 'row-${item.inscription_id}')"
+                                title="Se désinscrire"
+                            >
+                                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M2 8h12M10 4l4 4-4 4"/>
+                                </svg>
+                                Se désinscrire
+                            </button>
                         </div>
                     `).join('');
                 }
@@ -966,24 +1074,96 @@
             }
         }
 
+        /* ─── DÉSINSCRIPTION ─── */
+
+        function askUnregister(inscriptionId, email, titre, rowId) {
+            pendingUnregister = { inscriptionId, email, titre, rowId };
+            document.getElementById('confirm-ev-title').innerText = titre;
+            document.getElementById('confirm-msg').style.display = 'none';
+            document.getElementById('confirm-msg').innerText = '';
+            document.getElementById('confirm-modal').classList.add('open');
+        }
+
+        function cancelUnregister() {
+            pendingUnregister = null;
+            document.getElementById('confirm-modal').classList.remove('open');
+        }
+
+        async function confirmUnregister() {
+            if (!pendingUnregister) return;
+            const { inscriptionId, email, titre, rowId } = pendingUnregister;
+
+            const yesBtn = document.querySelector('.btn-confirm-yes');
+            yesBtn.disabled = true;
+            yesBtn.innerText = 'Traitement...';
+
+            try {
+                const res = await fetch(API_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        action: 'unregister',
+                        id_sheet: allData[currentAssoIndex].id_sheet,
+                        inscription_id: inscriptionId,
+                        user_email: email
+                    })
+                });
+                const r = await res.json();
+
+                const msg = document.getElementById('confirm-msg');
+
+                if (r.success) {
+                    msg.style.display = 'block';
+                    msg.innerText = 'Désinscription confirmée.';
+
+                    // Marquer visuellement la ligne dans la liste
+                    const rowEl = document.getElementById(rowId);
+                    if (rowEl) {
+                        rowEl.classList.add('unregistered');
+                        rowEl.querySelector('.btn-unregister').remove();
+                    }
+
+                    pendingUnregister = null;
+                    setTimeout(() => {
+                        document.getElementById('confirm-modal').classList.remove('open');
+                        yesBtn.disabled = false;
+                        yesBtn.innerText = 'Se désinscrire';
+                    }, 1600);
+                } else {
+                    msg.style.display = 'block';
+                    msg.innerText = r.message || 'Erreur lors de la désinscription.';
+                    msg.style.background = '#fdecea';
+                    msg.style.borderColor = 'var(--red)';
+                    msg.style.color = 'var(--red)';
+                    yesBtn.disabled = false;
+                    yesBtn.innerText = 'Se désinscrire';
+                }
+            } catch (err) {
+                yesBtn.disabled = false;
+                yesBtn.innerText = 'Erreur, réessayer';
+            }
+        }
+
+        /* ─── UTILS ─── */
+
         function closeModals() {
             document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('open'));
             document.getElementById('check-results').style.display = 'none';
+            pendingUnregister = null;
         }
 
-        // Close on overlay click
         document.querySelectorAll('.modal-overlay').forEach(overlay => {
             overlay.addEventListener('click', (e) => {
                 if (e.target === overlay) closeModals();
             });
         });
+
         function logoClick() {
-    if (document.getElementById('events-section').classList.contains('visible')) {
-        showAssos();
-    } else {
-        window.location.href = '/';
-    }
-}
+            if (document.getElementById('events-section').classList.contains('visible')) {
+                showAssos();
+            } else {
+                window.location.href = '/';
+            }
+        }
 
         function showAssos() {
             window.history.pushState({}, '', window.location.pathname);
