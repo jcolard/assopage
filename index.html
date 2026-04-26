@@ -823,8 +823,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     👆 Cliquez sur l'aperçu pour changer de module
 </p>
                     </div>
-                    <button class="qbutton yellow download-btn" onclick="downloadCanvas()">
-                        <i class="fa-solid fa-download"></i> Télécharger le mockup
+                    <button class="qbutton yellow download-btn" onclick="shareCanvas()">
+                        <i class="fa-solid fa-share-nodes"></i> Partager le mockup
                     </button>
                     <a href="#creer-mon-app" class="qbutton dark create-app-btn">
                         <i class="fa-solid fa-rocket"></i> Tester votre application
@@ -1204,11 +1204,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             }
         }
 
-        function downloadCanvas() {
-            const link = document.createElement('a');
-            link.download = 'mockup-assopage.png';
-            link.href = canvas.toDataURL('image/png');
-            link.click();
+        async function shareCanvas() {
+            const nomAsso = document.getElementById('assoName').value.trim();
+            const titre = nomAsso ? `L'appli de ${nomAsso} sur Assopage` : 'Mon appli association sur Assopage';
+
+            canvas.toBlob(async (blob) => {
+                const file = new File([blob], 'mockup-assopage.png', { type: 'image/png' });
+                const shareData = {
+                    title: titre,
+                    text: `Découvrez l'application de gestion associative personnalisée avec Assopage — CRM, Agenda, Billetterie, Trésorerie. Dès 50€/an.`,
+                    url: 'https://assopage.fr',
+                    files: [file]
+                };
+
+                try {
+                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                        await navigator.share(shareData);
+                    } else if (navigator.share) {
+                        // Fallback sans fichier si les fichiers ne sont pas supportés
+                        await navigator.share({ title: shareData.title, text: shareData.text, url: shareData.url });
+                    } else {
+                        // Dernier recours : téléchargement classique
+                        const link = document.createElement('a');
+                        link.download = 'mockup-assopage.png';
+                        link.href = canvas.toDataURL('image/png');
+                        link.click();
+                    }
+                } catch (err) {
+                    if (err.name !== 'AbortError') console.error('Partage échoué :', err);
+                }
+            }, 'image/png');
         }
 
         /* ─── MODULE CHECKBOX SYNC ─── */
