@@ -110,8 +110,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }
         .nav-billetterie-btn:hover { background: var(--white) !important; color: var(--black) !important; }
 
+        /* ─── NAV MOBILE : afficher le bouton billetterie ─── */
+        .nav-billetterie-mobile {
+            display: none;
+        }
+
         @media (max-width: 900px) { 
-             .nav-links { display: none; } 
+             .nav-links { display: none; }
+             .nav-billetterie-mobile { display: flex; }
              nav { padding: 14px 20px; }
         }
 
@@ -216,6 +222,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             transition: background 0.2s;
         }
         .video-nudge:hover { background: #1a1a1a; }
+
+        /* ─── HALO animé autour du bouton play ─── */
+        @keyframes halo-pulse {
+            0%   { box-shadow: 0 0 0 0 rgba(253,249,135,0.9), 0 0 0 0 rgba(253,249,135,0.5); }
+            50%  { box-shadow: 0 0 0 10px rgba(253,249,135,0.3), 0 0 0 22px rgba(253,249,135,0.12); }
+            100% { box-shadow: 0 0 0 0 rgba(253,249,135,0), 0 0 0 0 rgba(253,249,135,0); }
+        }
+
         .nudge-play-btn {
             width: 46px; height: 46px;
             border-radius: 50%;
@@ -225,6 +239,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             font-size: 1.1rem;
             flex-shrink: 0;
             transition: transform 0.2s;
+            animation: halo-pulse 2s ease-out infinite;
         }
         .video-nudge:hover .nudge-play-btn { transform: scale(1.1); }
         .nudge-text { display: flex; flex-direction: column; gap: 2px; }
@@ -683,6 +698,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <nav>
         <a href="#" class="logo"><span class="asso">ASSO</span><span class="page">PAGE</span></a>
+        <!-- Bouton billetterie visible sur mobile -->
+        <a href="https://assopage.fr/billetterie" target="_blank" class="nav-billetterie-mobile qbutton" style="font-size:0.85rem; padding:8px 14px; background:var(--yellow); color:var(--black); font-weight:700; animation: pulse-anim 2s infinite;">🎟️ Billetterie</a>
         <div class="nav-links">
             <a href="#modules">Modules</a>
             <a href="#faq">FAQ</a>
@@ -699,8 +716,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <p class="hero-subtitle">L'application web & mobile pour gérer votre association</p>
                 <p class="hero-sub2">Avec votre logo et vos couleurs. Dès 50€/an, jusqu'à 9 utilisateurs.</p>
                 <div class="hero-buttons">
-                    <a href="https://assopage.fr/billetterie" target="_blank" class="qbutton yellow pulse">🎟️ Accéder à la billetterie</a>
-                    <a href="#modules" class="qbutton outline" style="color: var(--white); border-color: var(--white);">Voir les modules</a>
+                    <a href="#modules" class="qbutton yellow pulse">🚀 Tester l'appli gratuitement</a>
                 </div>
             </div>
         </div>
@@ -812,7 +828,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <i class="fa-solid fa-download"></i> Télécharger le mockup
                     </button>
                     <a href="#creer-mon-app" class="qbutton dark create-app-btn">
-                        <i class="fa-solid fa-rocket"></i> Créer mon application
+                        <i class="fa-solid fa-rocket"></i> Tester votre application
                     </a>
                 </div>
             </div>
@@ -823,10 +839,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- ═══ FORMULAIRE DE CRÉATION ═══ -->
     <section class="form-section" id="creer-mon-app">
         <div class="container">
-            <h2>Créer mon application</h2>
+            <h2>Tester votre application</h2>
             <div class="separator-small separator-dark"></div>
             <div class="form-box">
-                <p class="form-intro">Vos préférences (nom, logo, couleur, thème) sont automatiquement récupérées depuis la personnalisation ci-dessus. Complétez les informations ci-dessous pour recevoir votre app de test sous 48h.</p>
+                <p class="form-intro">Vos préférences (nom, logo, couleur, thème) sont automatiquement récupérées depuis la personnalisation ci-dessus. Complétez les informations ci-dessous pour recevoir votre app de test pendant 14 jours sous 48h.</p>
 
                 <div class="form-group">
                     <label class="form-label">Modules souhaités 50€/module/an
@@ -885,7 +901,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
 
                 <button class="qbutton dark form-submit-btn" onclick="submitAssopageForm()">
-                    <i class="fa-solid fa-paper-plane"></i> Envoyer ma demande
+                    <i class="fa-solid fa-envelope"></i> Recevoir mon app par mail
                 </button>
 
                 <div class="form-status" id="form-status"></div>
@@ -905,6 +921,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <h2>Questions fréquentes</h2>
             <div class="separator-small"></div>
             <div class="faq-list">
+
+                <!-- 🎟️ Billetterie EN PREMIER -->
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        🎟️ Comment fonctionne la billetterie ?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Vous obtenez votre propre page d'inscription accessible via une url unique. Vous pouvez choisir de la rendre accessible via notre espace billetterie ou non. Redirigez votre audience vers votre page pour leur permettre de s'inscrire/se désinscrire via une simple adresse email. Ils recevront un mail de confirmation.</p>
+                        <p>Gérez vos évènements et inscrits via le module "Agenda & Évènement" de l'application Assopage.</p>
+                        <p>Assopage ne gère pas les paiements.</p>
+                    </div>
+                </div>
 
                 <div class="faq-item">
                     <button class="faq-question" onclick="toggleFaq(this)">
@@ -944,20 +973,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <div class="faq-answer">
                         <p>Après soumission du formulaire, vous recevez un lien pour accéder à votre application sur navigateur, ainsi qu'un lien pour l'installer en tant que web app sur votre téléphone. Un lien de paiement reste disponible pendant 14 jours dans l'espace "Mon compte" de l'app. Sans paiement de votre part à l'issue de cette période, vos données et accès seront supprimés. L'engagement est annuel.</p>
                         <em>* Nous nous réservons le droit de ne pas envoyer l'application si votre nom et votre adresse email ne correspondent pas aux informations publiques de votre association.<br>* Pour accéder à l'application, vous devez impérativement nous communiquer une adresse email Gmail ou Outlook.</em>
-                    </div>
-                </div>
-
-               <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
-        🎟️ Comment fonctionne la billetterie ?
-        <span class="faq-icon">+</span>
-    </button>
-    <div class="faq-answer">
-        <p>Vous obtenez votre propre page d'inscription accessible via une url unique. Vous pouvez choisir de la rendre accessible via notre espace billetterie ou non. Redirigez votre audience vers votre page pour leur permettre de s'inscrire/se désinscrire via une simple adresse email. Ils recevront un mail de confirmation.</p>
-        <p>Gérez vos évènements et inscrits via le module "Agenda & Évènement" de l'application Assopage.</p>
-        <p>Assopage ne gère pas les paiements.</p>
-    </div>
-</div>
                     </div>
                 </div>
 
@@ -1010,7 +1025,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="separator-small separator-dark"></div>
             <p>Pour en savoir plus et pour toutes les applications personnalisées sur devis.</p>
             <div class="direct-contact-btns">
-                <a href="mailto:contact@assopage.fr" class="qbutton dark"><i class="fa-solid fa-envelope"></i> Me contacter par mail</a>
+                <a href="mailto:contact@assopage.fr" class="qbutton dark"><i class="fa-solid fa-envelope"></i> Nous contacter par mail</a>
                 <a href="https://www.je-co.fr" target="_blank" class="qbutton outline"><i class="fa-solid fa-globe"></i> Mon portfolio</a>
             </div>
         </div>
@@ -1365,18 +1380,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             document.getElementById('assoName').oninput = renderCanvas;
             // Click sur le canvas → switch module suivant
-const sectionOrder = ['evenement', 'crm', 'tresorerie', 'billeterie'];
-canvas.style.cursor = 'pointer';
-canvas.onclick = () => {
-    const idx = sectionOrder.indexOf(currentSection);
-    currentSection = sectionOrder[(idx + 1) % sectionOrder.length];
-    // Mettre à jour les tabs
-    document.querySelectorAll('.module-tab').forEach(b => {
-        b.classList.toggle('active', b.dataset.section === currentSection);
-    });
-    renderCanvas();
-    updateDescription();
-};
+            const sectionOrder = ['evenement', 'crm', 'tresorerie', 'billeterie'];
+            canvas.style.cursor = 'pointer';
+            canvas.onclick = () => {
+                const idx = sectionOrder.indexOf(currentSection);
+                currentSection = sectionOrder[(idx + 1) % sectionOrder.length];
+                // Mettre à jour les tabs
+                document.querySelectorAll('.module-tab').forEach(b => {
+                    b.classList.toggle('active', b.dataset.section === currentSection);
+                });
+                renderCanvas();
+                updateDescription();
+            };
             updateDescription();
         }
 
