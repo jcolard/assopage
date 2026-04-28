@@ -12,7 +12,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assopage – Mon App, Mon Asso</title>
-    <meta name="description" content="Assopage : l'application web et mobile pour gérer votre association. CRM, Agenda, Billetterie, Trésorerie. Dès 50€/an." />
+    <meta name="description" content="Assopage : l'application web et mobile pour gérer votre association. CRM, Agenda, Inscription, Trésorerie. Dès 50€/an." />
     <!-- Google tag (gtag.js) -->
 
     <!-- Google Tag Manager -->
@@ -103,20 +103,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             color: var(--white); margin-left: 28px; font-size: 1rem; transition: color 0.2s;
         }
         .nav-links a:hover { color: var(--yellow); }
-        .nav-billetterie-btn {
+        .nav-Inscription-btn {
             background: var(--yellow); color: var(--black) !important;
             padding: 8px 20px; font-weight: 700;
         }
-        .nav-billetterie-btn:hover { background: var(--white) !important; color: var(--black) !important; }
+        .nav-Inscription-btn:hover { background: var(--white) !important; color: var(--black) !important; }
 
-        /* ─── NAV MOBILE : afficher le bouton billetterie ─── */
-        .nav-billetterie-mobile {
+        /* ─── NAV MOBILE : afficher le bouton Inscription ─── */
+        .nav-Inscription-mobile {
             display: none;
         }
 
         @media (max-width: 900px) { 
              .nav-links { display: none; }
-             .nav-billetterie-mobile { display: flex; }
+             .nav-Inscription-mobile { display: flex; }
              nav { padding: 14px 20px; }
         }
 
@@ -697,13 +697,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <nav>
         <a href="#" class="logo"><span class="asso">ASSO</span><span class="page">PAGE</span></a>
-        <!-- Bouton billetterie visible sur mobile : emoji uniquement -->
-        <a href="https://assopage.fr/billetterie" target="_blank" class="nav-billetterie-mobile qbutton" style="font-size:1.3rem; padding:6px 12px; background:var(--yellow); color:var(--black); font-weight:700; line-height:1;">🎟️</a>
+        <!-- Bouton Inscription visible sur mobile : emoji uniquement -->
+        <a href="https://assopage.fr/Inscription" target="_blank" class="nav-Inscription-mobile qbutton" style="font-size:1.3rem; padding:6px 12px; background:var(--yellow); color:var(--black); font-weight:700; line-height:1;">🎟️</a>
         <div class="nav-links">
             <a href="#modules">Modules</a>
             <a href="#faq">FAQ</a>
             <a href="#contact">Contact</a>
-            <a href="https://assopage.fr/billetterie" target="_blank" class="nav-billetterie-btn">🎟️ Billetterie</a>
+            <a href="https://assopage.fr/Inscription" target="_blank" class="nav-Inscription-btn">🎟️ Inscription</a>
         </div>
     </nav>
 
@@ -845,7 +845,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                 <div class="form-group">
                     <label class="form-label">Modules souhaités 50€/module/an
-                        <small>Le module Agenda est obligatoire si vous prenez Billetterie</small>
+                        <small>Le module Agenda est obligatoire si vous prenez Inscription</small>
                     </label>
                     <div class="form-modules-grid" id="formModulesGrid">
                         <label class="module-check-label" id="flabel-evenement">
@@ -863,10 +863,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <span class="check-box"></span>
                             💶 Trésorerie
                         </label>
-                        <label class="module-check-label" id="flabel-billetterie">
-                            <input type="checkbox" name="form_module" value="billetterie" id="fmod-billetterie" onchange="syncModuleLabel(this)">
+                        <label class="module-check-label" id="flabel-Inscription">
+                            <input type="checkbox" name="form_module" value="Inscription" id="fmod-Inscription" onchange="syncModuleLabel(this)">
                             <span class="check-box"></span>
-                            🎟️ Billetterie
+                            🎟️ Inscription
                         </label>
                     </div>
                     <p class="form-note">Jusqu'à 4 modules. Vous pourrez modifier votre sélection ultérieurement.</p>
@@ -921,14 +921,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="separator-small"></div>
             <div class="faq-list">
 
-                <!-- 🎟️ Billetterie EN PREMIER -->
+                <!-- 🎟️ Inscription EN PREMIER -->
                 <div class="faq-item">
                     <button class="faq-question" onclick="toggleFaq(this)">
-                        🎟️ Comment fonctionne la billetterie ?
+                        🎟️ Comment fonctionne la Inscription ?
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p>Vous obtenez votre propre page d'inscription accessible via une url unique. Vous pouvez choisir de la rendre accessible via notre espace billetterie ou non. Redirigez votre audience vers votre page pour leur permettre de s'inscrire/se désinscrire via une simple adresse email. Ils recevront un mail de confirmation.</p>
+                        <p>Vous obtenez votre propre page d'inscription accessible via une url unique. Vous pouvez choisir de la rendre accessible via notre espace Inscription ou non. Redirigez votre audience vers votre page pour leur permettre de s'inscrire/se désinscrire via une simple adresse email. Ils recevront un mail de confirmation.</p>
                         <p>Gérez vos évènements et inscrits via le module "Agenda & Évènement" de l'application Assopage.</p>
                         <p>Assopage ne gère pas les paiements.</p>
                     </div>
@@ -1039,7 +1039,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="footer-links" style="margin-top: 25px;">
             <a href="https://billing.stripe.com/p/login/28E28q4Th9lS5Rf11PdAk00" target="_blank">Gérer mon abonnement</a> |
-            <a href="https://assopage.fr/billetterie" target="_blank">Billetterie</a> |
+            <a href="https://assopage.fr/Inscription" target="_blank">Inscription</a> |
             <a href="https://www.je-co.fr" target="_blank">Portfolio Sur-mesure</a>
         </div>
         <p style="margin-top: 30px; font-size: 0.9rem; color: #666;">© 2026 Assopage par Jérémy Colard. Tous droits réservés.</p>
@@ -1144,7 +1144,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 points: ["Saisie guidée des dépenses et recettes","Ajout de justificatif avec l'appareil photo","Suivi comptable : gérer articles et projets","Suivi et relance des cotisations*"]
             },
             billeterie: {
-                title: "Module Billetterie",
+                title: "Module Inscription",
                 points: ["Page internet événementielle personnalisée","Formulaire d'inscription sur-mesure","Confirmations par email automatiques","Statistiques d'événement en temps réel"]
             }
         };
@@ -1212,7 +1212,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 const file = new File([blob], 'mockup-assopage.png', { type: 'image/png' });
                 const shareData = {
                     title: titre,
-                    text: `Découvrez l'application de gestion associative personnalisée avec Assopage — CRM, Agenda, Billetterie, Trésorerie. Dès 50€/an.`,
+                    text: `Découvrez l'application de gestion associative personnalisée avec Assopage — CRM, Agenda, Inscription, Trésorerie. Dès 50€/an.`,
                     url: 'https://assopage.fr',
                     files: [file]
                 };
