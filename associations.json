@@ -49,17 +49,6 @@
         "image_url": "https://drive.google.com/thumbnail?id=1Z-ONQJ9QzcuFqKgoNDSYUJeiXkJMUOhC&sz=w1000"
       },
       {
-        "id": "30c7e9ba",
-        "titre": "Visite pavillon noir...",
-        "description": "Visite du pavillon noir, présentation du ballet Prejlocaj et immersion au coeur de la répétition, moment dansé avec les danseurs.",
-        "date": "28/04/2026",
-        "heure_debut": "12:00",
-        "heure_fin": "14:00",
-        "adresse": "530 Av. Wolfgang Amadeus Mozart, 13627 Aix-en-Provence, France",
-        "prix": "",
-        "image_url": "https://drive.google.com/thumbnail?id=18HzWgYSzV9QUdgnX5rn1l0SfZs6AzafQ&sz=w1000"
-      },
-      {
         "id": "32b4f8d9",
         "titre": "Repas Petites cantines",
         "description": "Repas",
@@ -80,17 +69,6 @@
         "adresse": "Mairie Annexe Pont de l’Arc 75 route des Milles, place Sextius Conca – Aix en Provence",
         "prix": "",
         "image_url": "https://drive.google.com/thumbnail?id=1gZWyRzhxt9kdkGRhm1omb806HbfKp9b3&sz=w1000"
-      },
-      {
-        "id": "387a782a",
-        "titre": "Cours espagnol",
-        "description": "",
-        "date": "28/04/2026",
-        "heure_debut": "14:00",
-        "heure_fin": "16:00",
-        "adresse": "Centre social La Provence",
-        "prix": "",
-        "image_url": "https://drive.google.com/thumbnail?id=1ct0yTyylijbbKCRnX-CUEya31I5AGwP-&sz=w1000"
       },
       {
         "id": "43086bc6",
