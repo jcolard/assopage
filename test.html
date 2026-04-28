@@ -5,45 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script>
-/* ============================================================
-   CONFIGURATION — MODIFIEZ CES VALEURS POUR PERSONNALISER
-   VOTRE SITE. Vous pouvez aussi utiliser l'éditeur visuel
-   intégré (bouton en haut à droite) pour modifier en direct.
-   ============================================================ */
-
 const CONFIG = {
-
-  /* ── IDENTITÉ ─────────────────────────────────────────── */
   nomAssociation: "Nom de votre association",
   sousNom: "Votre slogan ou tagline ici",
   anneeCreation: "2024",
   ville: "Votre ville",
-
-  /* ── LOGO ─────────────────────────────────────────────── */
   logoMot1: "Mon",
   logoMot2: "Asso",
   logoMot3: "Ciation",
   logoImageUrl: "",
-  // Collez l'URL de votre logo ici, ou laissez "" pour afficher uniquement le texte
-
-  /* ── COULEURS ──────────────────────────────────────────── */
-  couleurPrimaire:   "#D80000",  // Couleur principale — boutons, accents, liens actifs
-  couleurSecondaire: "#C8860A",  // Couleur secondaire — labels, icônes, détails
-  couleurFond:       "#F4F2EB",  // Couleur de fond des sections claires
-  couleurFondSombre: "#111111",  // Couleur de fond des sections sombres
-  couleurTexte:      "#111111",  // Couleur principale du texte
-  couleurBleu:       "#1A3A5C",  // Couleur du bouton "Contacter"
-
-  /* ── POLICES ───────────────────────────────────────────── */
-  policetitre: "Playfair Display",  // Police des titres — doit exister sur Google Fonts
-  policeCorps: "Manrope",           // Police du texte courant — doit exister sur Google Fonts
+  couleurPrimaire:   "#D80000",
+  couleurSecondaire: "#C8860A",
+  couleurFond:       "#F4F2EB",
+  couleurFondSombre: "#111111",
+  couleurTexte:      "#111111",
+  couleurBleu:       "#1A3A5C",
+  policetitre: "Playfair Display",
+  policeCorps: "Manrope",
   googleFontsUrl: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Manrope:wght@300;400;500;600;700;800&display=swap",
-
-  /* ── SEO ───────────────────────────────────────────────── */
   metaTitre: "Nom de votre association — Votre slogan",
   metaDescription: "Décrivez votre association en 1-2 phrases pour les moteurs de recherche (160 caractères max).",
-
-  /* ── HERO ──────────────────────────────────────────────── */
   heroTitre1:        "Première ligne",
   heroTitreAccent:   "mot clé",
   heroTitre2:        "de votre titre.",
@@ -51,14 +32,10 @@ const CONFIG = {
   heroBadge:         "Votre chiffre clé — ex : 200 événements en 2025",
   heroImageUrl:      "https://votre-site.com/votre-image-hero.jpg",
   heroImageAlt:      "Description de votre image pour l'accessibilité",
-
-  /* ── BOUTONS HERO ──────────────────────────────────────── */
   heroBouton1Texte:  "Texte du bouton principal",
   heroBouton1Url:    "https://lien-du-bouton-principal.fr",
   heroBouton2Texte:  "Texte du bouton secondaire",
   heroBouton2Href:   "#contact",
-
-  /* ── STATISTIQUES ──────────────────────────────────────── */
   statsLabel:        "Votre association en chiffres",
   statsTitre:        "Une année",
   statsTitreAccent:  "remarquable",
@@ -68,8 +45,6 @@ const CONFIG = {
     { nombre: 300,  prefixe: "",  label: "Membres au total" },
     { nombre: 5000, prefixe: "+", label: "Personnes touchées" },
   ],
-
-  /* ── ACTIVITÉS ─────────────────────────────────────────── */
   activitesLabel:       "Ce que nous proposons",
   activitesTitre1:      "Des activités pour",
   activitesTitreAccent: "tout le monde",
@@ -77,35 +52,16 @@ const CONFIG = {
   activitesBoutonTexte: "S'inscrire",
   activitesBoutonUrl:   "https://lien-inscription.fr",
   activites: [
-    {
-      tag:      "Catégorie 1",
-      titre:    "Titre de l'activité 1",
-      desc:     "Décrivez cette activité en 2-3 phrases. Qu'est-ce que c'est ? Pour qui ? Quand ?",
-      imageUrl: "https://votre-site.com/image-activite-1.jpg",
-    },
-    {
-      tag:      "Catégorie 2",
-      titre:    "Titre de l'activité 2",
-      desc:     "Décrivez cette activité en 2-3 phrases. Mettez en avant ce qui la rend unique et accessible.",
-      imageUrl: "https://votre-site.com/image-activite-2.jpg",
-    },
-    {
-      tag:      "Catégorie 3",
-      titre:    "Titre de l'activité 3",
-      desc:     "Décrivez cette activité en 2-3 phrases. Donnez envie de participer !",
-      imageUrl: "https://votre-site.com/image-activite-3.jpg",
-    },
+    { tag: "Catégorie 1", titre: "Titre de l'activité 1", desc: "Décrivez cette activité en 2-3 phrases. Qu'est-ce que c'est ? Pour qui ? Quand ?", imageUrl: "" },
+    { tag: "Catégorie 2", titre: "Titre de l'activité 2", desc: "Décrivez cette activité en 2-3 phrases. Mettez en avant ce qui la rend unique et accessible.", imageUrl: "" },
+    { tag: "Catégorie 3", titre: "Titre de l'activité 3", desc: "Décrivez cette activité en 2-3 phrases. Donnez envie de participer !", imageUrl: "" },
   ],
-
-  /* ── AGENDA ────────────────────────────────────────────── */
   agendaLabel:       "Agenda",
   agendaTitre1:      "Activités du",
   agendaTitreAccent: "moment",
   agendaBoutonTexte: "Voir tout le planning",
   agendaBoutonUrl:   "https://votre-planning.fr",
   agendaJsonUrl:     "./activite.json",
-
-  /* ── PROJET PHARE ──────────────────────────────────────── */
   projetLabel:             "Projet phare 2026",
   projetTitre:             "NOM DE VOTRE PROJET",
   projetSousTexte:         "Résumez votre projet phare en 1-2 phrases. Qu'est-ce que c'est ? Quel est son impact ? Pourquoi est-ce important ?",
@@ -119,11 +75,9 @@ const CONFIG = {
   projetAxe2Texte:         "Décrivez le deuxième volet ou axe de votre projet en 2-3 phrases.",
   projetBoutonTexte:       "Soutenir ce projet",
   projetBoutonUrl:         "https://votre-page-don.fr",
-  projetVideoId:           "dQw4w9WgXcQ",
-  projetVideoBadge:        "Votre événement 2026",
-  projetVideoTitre:        "Titre de la vidéo de présentation",
-
-  /* ── CTA / CONTACT ─────────────────────────────────────── */
+  projetImageUrl:          "",
+  projetImageBadge:        "Votre événement 2026",
+  projetImageTitre:        "Titre de l'image de présentation",
   ctaLabel:      "Rejoignez l'aventure",
   ctaTitre:      "2026\nen vue !",
   ctaSousTexte:  "Bénévole, adhérent, donateur... chaque engagement compte. Inscrivez-vous à notre newsletter pour rester informé(e) de nos actions.",
@@ -131,26 +85,18 @@ const CONFIG = {
   ctaTelephone:  "+33600000000",
   ctaTelAffiche: "06 00 00 00 00",
   newsletterUrl: "",
-
-  /* ── RÉSEAUX SOCIAUX ───────────────────────────────────── */
   facebook:  "https://facebook.com/votre-page",
   linkedin:  "",
   instagram: "https://instagram.com/votre-compte",
-
-  /* ── BOUTONS FLOTTANTS ─────────────────────────────────── */
   btnDonnerTexte:  "DONNER",
   btnDonnerUrl:    "https://votre-page-don.fr",
   btnContactTexte: "CONTACTER",
   btnContactHref:  "#contact",
   btnSignalerTexte:"SIGNALER",
   btnSignalerUrl:  "signalement.html",
-
-  /* ── FOOTER ────────────────────────────────────────────── */
   footerDesc:  "Décrivez votre association en 2-3 phrases pour le pied de page. Mentionnez votre statut juridique, votre ville et votre mission principale.",
   footerCopy:  "© 2026 Votre Association — Loi 1901",
   footerSlogan:"Votre slogan court",
-
-  /* ── MUSIQUE ───────────────────────────────────────────── */
   musiqueUrl:    "",
   musiqueVolume: 0.35,
 };
@@ -163,7 +109,6 @@ const CONFIG = {
 <style id="root-vars"></style>
 
 <style>
-/* ===== RESET ===== */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--fond);color:var(--texte);font-family:var(--police-corps),sans-serif;overflow-x:hidden;line-height:1.6}
@@ -260,8 +205,6 @@ body.loaded .hero-eyebrow,body.loaded .hero-title,body.loaded .hero-sub,body.loa
 .agenda-card-time{font-size:.8rem;font-weight:700;color:#F0C060;letter-spacing:.06em}
 .agenda-card-title{font-family:var(--police-titre),serif;font-size:1.2rem;font-weight:800;color:white;margin-bottom:.6rem;line-height:1.25}
 .agenda-card-desc{font-size:.9rem;color:#bbb;line-height:1.65;flex-grow:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.agenda-card.is-today .agenda-date-block{background:var(--secondaire)}
-.agenda-today-tag{display:inline-block;font-size:.65rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#F0C060;border:1px solid rgba(240,192,96,.3);padding:.25rem .6rem;margin-left:.5rem;clip-path:polygon(0 0,100% 0,93% 100%,7% 100%);align-self:center}
 .agenda-skeleton{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);overflow:hidden;height:340px;position:relative}
 .agenda-skeleton::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.05) 50%,transparent 100%);background-size:200% 100%;animation:agSk 1.6s ease-in-out infinite}
 @keyframes agSk{0%{background-position:-200% 0}100%{background-position:200% 0}}
@@ -299,10 +242,14 @@ body.loaded .hero-eyebrow,body.loaded .hero-title,body.loaded .hero-sub,body.loa
 .axe-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--primaire)}
 .axe-card h4{font-family:var(--police-titre),serif;font-size:1.1rem;font-weight:700;font-style:italic;color:var(--primaire);margin-bottom:.65rem;padding-left:.6rem}
 .axe-card p{font-size:.95rem;line-height:1.65;color:#222;font-weight:500;padding-left:.6rem}
-.projet-photo-video-wrap{position:relative;display:flex;flex-direction:column}
-.projet-photo-video-frame{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;clip-path:polygon(0 0,100% 0,97% 100%,3% 100%);box-shadow:0 20px 60px rgba(0,0,0,.15)}
-.projet-photo-video-frame iframe{width:100%;height:100%;border:none;display:block}
-.projet-photo-video-badge{position:absolute;bottom:-1rem;left:-1rem;background:var(--texte);color:white;padding:.8rem 1.4rem;clip-path:polygon(0 0,100% 0,95% 100%,5% 100%);font-family:var(--police-titre),serif;font-size:.9rem;font-style:italic;font-weight:700;box-shadow:0 8px 20px rgba(0,0,0,.25);z-index:2}
+
+/* PROJET IMAGE (remplace vidéo) */
+.projet-photo-visual-wrap{position:relative;display:flex;flex-direction:column}
+.projet-photo-img-frame{position:relative;width:100%;overflow:hidden;clip-path:polygon(0 0,100% 0,97% 100%,3% 100%);box-shadow:0 20px 60px rgba(0,0,0,.15);background:rgba(0,0,0,.05)}
+.projet-photo-img-frame img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.projet-img-placeholder{width:100%;aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;background:linear-gradient(135deg,rgba(200,134,10,.08),rgba(216,0,0,.06));color:#aaa;font-size:.85rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.projet-img-placeholder svg{width:48px;height:48px;opacity:.3}
+.projet-photo-img-badge{position:absolute;bottom:-1rem;left:-1rem;background:var(--texte);color:white;padding:.8rem 1.4rem;clip-path:polygon(0 0,100% 0,95% 100%,5% 100%);font-family:var(--police-titre),serif;font-size:.9rem;font-style:italic;font-weight:700;box-shadow:0 8px 20px rgba(0,0,0,.25);z-index:2}
 
 /* CTA */
 .cta-section{position:relative;overflow:hidden;text-align:center;padding:10rem 4rem;background:var(--primaire);color:white}
@@ -363,215 +310,82 @@ nav.mobile-bottom-nav::after{display:none!important}
 @media(max-width:768px){nav{padding:1rem 1.5rem}.nav-links{display:none}.hamburger{display:flex}.hero{padding:6rem 1.5rem 3rem}.activites,.cta-section,.projet-photo-section,.agenda-section{padding:5rem 1.5rem}.act-grid{grid-template-columns:1fr}footer{padding:3rem 1.5rem 2rem}.footer-bottom{flex-direction:column;text-align:center}.cta-section .section-title{font-size:3rem}.hero-stats{padding:4rem 1.5rem}.hero-stats-grid{grid-template-columns:1fr 1fr;gap:1rem}.agenda-grid{grid-template-columns:1fr}.agenda-header{flex-direction:column;align-items:flex-start}}
 
 /* ================================================================
-   ÉDITEUR VISUEL — SURCOUCHE
+   ÉDITEUR VISUEL
    ================================================================ */
+body.edit-mode [data-editable]{outline:2px dashed rgba(216,0,0,.4);outline-offset:3px;cursor:text;border-radius:2px;transition:outline-color .2s,background .2s;position:relative}
+body.edit-mode [data-editable]:hover{outline-color:var(--primaire);background:rgba(216,0,0,.04)}
+body.edit-mode [data-editable]:focus{outline:2.5px solid var(--primaire);background:rgba(216,0,0,.06);border-radius:2px}
+[data-editable].changed{background:rgba(216,0,0,.06)!important}
 
-/* Mode édition actif */
-body.edit-mode [data-editable] {
-  outline: 2px dashed rgba(216,0,0,.4);
-  outline-offset: 3px;
-  cursor: text;
-  border-radius: 2px;
-  transition: outline-color .2s, background .2s;
-}
-body.edit-mode [data-editable]:hover {
-  outline-color: var(--primaire);
-  background: rgba(216,0,0,.04);
-}
-body.edit-mode [data-editable]:focus {
-  outline: 2.5px solid var(--primaire);
-  background: rgba(216,0,0,.06);
-  border-radius: 2px;
-}
+/* Tooltip label */
+body.edit-mode [data-editable][data-label]:hover::before{content:attr(data-label);position:absolute;top:-26px;left:0;font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:white;background:#D80000;padding:.2rem .55rem;clip-path:polygon(0 0,100% 0,96% 100%,4% 100%);pointer-events:none;white-space:nowrap;z-index:10000;font-family:'Manrope',sans-serif}
 
-/* Barre d'outils éditeur */
-#editor-toolbar {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 99999;
-  background: #1a1a1a;
-  border-bottom: 2px solid #D80000;
-  padding: .7rem 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-  font-family: 'Manrope', sans-serif;
-  transform: translateY(-100%);
-  transition: transform .35s cubic-bezier(.4,0,.2,1);
-  box-shadow: 0 4px 24px rgba(0,0,0,.5);
-}
-#editor-toolbar.visible {
-  transform: translateY(0);
-}
-body.edit-mode { padding-top: 56px; }
+/* Image editable zones */
+body.edit-mode .img-editable-wrap{outline:2px dashed rgba(200,134,10,.5);outline-offset:4px;cursor:pointer;position:relative;transition:outline-color .2s}
+body.edit-mode .img-editable-wrap:hover{outline-color:var(--secondaire)}
+.img-edit-overlay{display:none;position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:5;align-items:center;justify-content:center;flex-direction:column;gap:.6rem;cursor:pointer}
+.img-edit-overlay svg{width:32px;height:32px;stroke:white;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.img-edit-overlay span{color:white;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-family:'Manrope',sans-serif}
+body.edit-mode .img-editable-wrap:hover .img-edit-overlay{display:flex}
+.img-editable-wrap{position:relative}
 
-.et-logo {
-  font-weight: 900;
-  font-size: .85rem;
-  color: white;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-}
-.et-logo span { color: #D80000; }
-.et-sep { width: 1px; height: 24px; background: rgba(255,255,255,.12); flex-shrink: 0; }
-.et-hint { font-size: .72rem; color: #888; font-style: italic; }
-.et-spacer { flex: 1; }
-.et-btn {
-  display: flex;
-  align-items: center;
-  gap: .45rem;
-  padding: .5rem 1.1rem;
-  font-family: inherit;
-  font-size: .75rem;
-  font-weight: 800;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  border: none;
-  clip-path: polygon(0 0,100% 0,96% 100%,4% 100%);
-  transition: filter .2s, transform .2s;
-  white-space: nowrap;
-}
-.et-btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
-.et-btn-style { background: #2a2a2a; color: white; border: 1px solid rgba(255,255,255,.12); }
-.et-btn-export { background: #D80000; color: white; }
-.et-btn-toggle { background: transparent; border: 1.5px solid rgba(255,255,255,.25); color: white; padding: .5rem 1.1rem; font-family: inherit; font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; clip-path: polygon(0 0,100% 0,96% 100%,4% 100%); transition: all .2s; }
-.et-btn-toggle.active { background: #D80000; border-color: #D80000; }
-.et-count { background: rgba(216,0,0,.2); color: #ff8888; padding: .2rem .5rem; font-size: .7rem; font-weight: 800; border-radius: 2px; }
+/* Toolbar */
+#editor-toolbar{position:fixed;top:0;left:0;right:0;z-index:99999;background:#1a1a1a;border-bottom:2px solid #D80000;padding:.7rem 1.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;font-family:'Manrope',sans-serif;transform:translateY(-100%);transition:transform .35s cubic-bezier(.4,0,.2,1);box-shadow:0 4px 24px rgba(0,0,0,.5)}
+#editor-toolbar.visible{transform:translateY(0)}
+body.edit-mode{padding-top:56px}
+.et-logo{font-weight:900;font-size:.85rem;color:white;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem}
+.et-logo span{color:#D80000}
+.et-sep{width:1px;height:24px;background:rgba(255,255,255,.12);flex-shrink:0}
+.et-hint{font-size:.72rem;color:#888;font-style:italic}
+.et-spacer{flex:1}
+.et-btn{display:flex;align-items:center;gap:.45rem;padding:.5rem 1.1rem;font-family:inherit;font-size:.75rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border:none;clip-path:polygon(0 0,100% 0,96% 100%,4% 100%);transition:filter .2s,transform .2s;white-space:nowrap}
+.et-btn:hover{filter:brightness(1.15);transform:translateY(-1px)}
+.et-btn-style{background:#2a2a2a;color:white;border:1px solid rgba(255,255,255,.12)}
+.et-btn-export{background:#D80000;color:white}
+.et-btn-toggle{background:transparent;border:1.5px solid rgba(255,255,255,.25);color:white;padding:.5rem 1.1rem;font-family:inherit;font-size:.75rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;clip-path:polygon(0 0,100% 0,96% 100%,4% 100%);transition:all .2s}
+.et-btn-toggle.active{background:#D80000;border-color:#D80000}
+.et-count{background:rgba(216,0,0,.2);color:#ff8888;padding:.2rem .5rem;font-size:.7rem;font-weight:800;border-radius:2px}
+#editor-fab{position:fixed;top:1rem;right:1rem;z-index:99998;background:#1a1a1a;border:1.5px solid rgba(216,0,0,.5);color:white;padding:.6rem 1.2rem;font-family:'Manrope',sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;clip-path:polygon(0 0,100% 0,95% 100%,5% 100%);display:flex;align-items:center;gap:.5rem;box-shadow:0 4px 20px rgba(0,0,0,.4);transition:background .2s,border-color .2s,transform .2s}
+#editor-fab:hover{background:#D80000;border-color:#D80000;transform:translateY(-2px)}
+#editor-fab svg{width:14px;height:14px;stroke:white;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
 
-/* Bouton flottant "Ouvrir éditeur" */
-#editor-fab {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 99998;
-  background: #1a1a1a;
-  border: 1.5px solid rgba(216,0,0,.5);
-  color: white;
-  padding: .6rem 1.2rem;
-  font-family: 'Manrope', sans-serif;
-  font-size: .72rem;
-  font-weight: 800;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  clip-path: polygon(0 0,100% 0,95% 100%,5% 100%);
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  box-shadow: 0 4px 20px rgba(0,0,0,.4);
-  transition: background .2s, border-color .2s, transform .2s;
-}
-#editor-fab:hover { background: #D80000; border-color: #D80000; transform: translateY(-2px); }
-#editor-fab svg { width: 14px; height: 14px; stroke: white; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+/* Style Panel */
+#style-panel{position:fixed;top:0;right:-420px;bottom:0;width:400px;z-index:99997;background:#141414;border-left:2px solid rgba(216,0,0,.3);overflow-y:auto;transition:right .35s cubic-bezier(.4,0,.2,1);font-family:'Manrope',sans-serif;padding:1.5rem;box-shadow:-8px 0 40px rgba(0,0,0,.5)}
+#style-panel.open{right:0}
+body.panel-open{margin-right:400px}
+.sp-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.sp-title{font-size:1rem;font-weight:900;color:white;letter-spacing:.05em;text-transform:uppercase}
+.sp-close{background:none;border:none;color:#888;cursor:pointer;font-size:1.2rem;transition:color .2s;padding:.25rem}
+.sp-close:hover{color:white}
+.sp-group{margin-bottom:2rem}
+.sp-group-title{font-size:.65rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#D80000;margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
+.sp-group-title::after{content:'';flex:1;height:1px;background:rgba(216,0,0,.2)}
+.sp-row{display:flex;align-items:center;gap:.8rem;margin-bottom:.9rem}
+.sp-row-label{font-size:.75rem;color:#aaa;font-weight:600;flex:1;min-width:0;line-height:1.3}
+.sp-row-label small{display:block;font-size:.65rem;color:#666;margin-top:.1rem}
+.sp-color-wrap{position:relative;flex-shrink:0}
+.sp-color{width:40px;height:32px;border:1.5px solid rgba(255,255,255,.15);border-radius:3px;cursor:pointer;display:block;padding:0;background:none}
+.sp-color::-webkit-color-swatch-wrapper{padding:3px}
+.sp-color::-webkit-color-swatch{border:none;border-radius:1px}
+.sp-hex{width:80px;background:#222;border:1px solid rgba(255,255,255,.1);color:white;padding:.35rem .5rem;font-size:.75rem;font-family:'Courier New',monospace;border-radius:2px}
+.sp-select{background:#222;border:1px solid rgba(255,255,255,.1);color:white;padding:.4rem .6rem;font-size:.75rem;font-family:inherit;border-radius:2px;flex:1;cursor:pointer}
+.sp-select option{background:#222}
+.sp-export-hint{font-size:.72rem;color:#666;line-height:1.5;padding:.8rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:2px;margin-top:1.5rem}
+.sp-export-hint strong{color:#D80000}
 
-/* Panneau Style */
-#style-panel {
-  position: fixed;
-  top: 0; right: -420px;
-  bottom: 0;
-  width: 400px;
-  z-index: 99997;
-  background: #141414;
-  border-left: 2px solid rgba(216,0,0,.3);
-  overflow-y: auto;
-  transition: right .35s cubic-bezier(.4,0,.2,1);
-  font-family: 'Manrope', sans-serif;
-  padding: 1.5rem;
-  box-shadow: -8px 0 40px rgba(0,0,0,.5);
-}
-#style-panel.open { right: 0; }
-body.panel-open { margin-right: 400px; }
-.sp-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(255,255,255,.08);
-}
-.sp-title { font-size: 1rem; font-weight: 900; color: white; letter-spacing: .05em; text-transform: uppercase; }
-.sp-close { background: none; border: none; color: #888; cursor: pointer; font-size: 1.2rem; transition: color .2s; padding: .25rem; }
-.sp-close:hover { color: white; }
-.sp-group { margin-bottom: 2rem; }
-.sp-group-title { font-size: .65rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: #D80000; margin-bottom: 1rem; display: flex; align-items: center; gap: .6rem; }
-.sp-group-title::after { content: ''; flex: 1; height: 1px; background: rgba(216,0,0,.2); }
-.sp-row { display: flex; align-items: center; gap:.8rem; margin-bottom: .9rem; }
-.sp-row-label { font-size: .75rem; color: #aaa; font-weight: 600; flex: 1; min-width: 0; line-height: 1.3; }
-.sp-row-label small { display: block; font-size: .65rem; color: #666; margin-top: .1rem; }
-.sp-color-wrap { position: relative; flex-shrink: 0; }
-.sp-color {
-  width: 40px; height: 32px;
-  border: 1.5px solid rgba(255,255,255,.15);
-  border-radius: 3px;
-  cursor: pointer;
-  display: block;
-  padding: 0;
-  background: none;
-}
-.sp-color::-webkit-color-swatch-wrapper { padding: 3px; }
-.sp-color::-webkit-color-swatch { border: none; border-radius: 1px; }
-.sp-hex { width: 80px; background: #222; border: 1px solid rgba(255,255,255,.1); color: white; padding: .35rem .5rem; font-size: .75rem; font-family: 'Courier New', monospace; border-radius: 2px; }
-.sp-select { background: #222; border: 1px solid rgba(255,255,255,.1); color: white; padding: .4rem .6rem; font-size: .75rem; font-family: inherit; border-radius: 2px; flex: 1; cursor: pointer; }
-.sp-select option { background: #222; }
-.sp-preview-fonts { margin-top: .5rem; display: flex; gap: .5rem; flex-wrap: wrap; }
-.sp-font-chip { padding: .3rem .7rem; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); color: #ccc; font-size: .72rem; cursor: pointer; border-radius: 2px; transition: all .2s; }
-.sp-font-chip:hover,.sp-font-chip.active { background: #D80000; border-color: #D80000; color: white; }
-.sp-export-hint { font-size: .72rem; color: #666; line-height: 1.5; padding: .8rem; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); border-radius: 2px; margin-top: 1.5rem; }
-.sp-export-hint strong { color: #D80000; }
+/* Toast */
+#et-toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a1a;border:1px solid rgba(216,0,0,.4);color:white;padding:.8rem 1.5rem;font-family:'Manrope',sans-serif;font-size:.8rem;font-weight:700;clip-path:polygon(0 0,100% 0,97% 100%,3% 100%);z-index:999999;transition:transform .3s cubic-bezier(.4,0,.2,1);white-space:nowrap}
+#et-toast.show{transform:translateX(-50%) translateY(0)}
 
-/* Toast notification */
-#et-toast {
-  position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%) translateY(80px);
-  background: #1a1a1a;
-  border: 1px solid rgba(216,0,0,.4);
-  color: white;
-  padding: .8rem 1.5rem;
-  font-family: 'Manrope', sans-serif;
-  font-size: .8rem;
-  font-weight: 700;
-  clip-path: polygon(0 0,100% 0,97% 100%,3% 100%);
-  z-index: 999999;
-  transition: transform .3s cubic-bezier(.4,0,.2,1);
-  white-space: nowrap;
-}
-#et-toast.show { transform: translateX(-50%) translateY(0); }
-
-/* Tooltip on hover in edit mode */
-body.edit-mode [data-editable]:hover::before {
-  content: attr(data-label);
-  position: absolute;
-  top: -24px; left: 0;
-  font-size: .6rem;
-  font-weight: 800;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: white;
-  background: #D80000;
-  padding: .2rem .5rem;
-  clip-path: polygon(0 0,100% 0,96% 100%,4% 100%);
-  pointer-events: none;
-  white-space: nowrap;
-  z-index: 100;
-}
-body.edit-mode [data-editable] {
-  position: relative;
-}
-
-/* Highlight changed fields */
-[data-editable].changed {
-  background: rgba(216,0,0,.06) !important;
-}
+/* Stats editable */
+body.edit-mode .hero-stat-box{outline:2px dashed rgba(216,0,0,.3);outline-offset:4px;cursor:default}
+body.edit-mode .hero-stat-number{cursor:text}
+body.edit-mode .hero-stat-label{cursor:text}
 </style>
 </head>
 <body>
+
+<input type="file" id="img-file-input" accept="image/*" style="display:none">
 
 <!-- ===== ÉDITEUR FAB ===== -->
 <button id="editor-fab" title="Ouvrir l'éditeur visuel">
@@ -579,14 +393,14 @@ body.edit-mode [data-editable] {
   Éditeur visuel
 </button>
 
-<!-- ===== BARRE D'OUTILS ÉDITEUR ===== -->
+<!-- ===== TOOLBAR ===== -->
 <div id="editor-toolbar">
   <div class="et-logo">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D80000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
     <span>Mode</span> Édition
   </div>
   <div class="et-sep"></div>
-  <span class="et-hint">Cliquez sur un texte pour le modifier · <span id="et-change-count" class="et-count">0 modif.</span></span>
+  <span class="et-hint">Texte : cliquez pour éditer · Image : survolez et cliquez · <span id="et-change-count" class="et-count">0 modif.</span></span>
   <div class="et-spacer"></div>
   <button class="et-btn et-btn-style" id="btn-open-style">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
@@ -600,112 +414,35 @@ body.edit-mode [data-editable] {
   <button class="et-btn-toggle active" id="btn-toggle-edit">✏ Édition ON</button>
 </div>
 
-<!-- ===== PANNEAU STYLE ===== -->
+<!-- ===== STYLE PANEL ===== -->
 <div id="style-panel">
   <div class="sp-header">
     <span class="sp-title">Couleurs & Polices</span>
     <button class="sp-close" id="sp-close-btn">✕</button>
   </div>
-
   <div class="sp-group">
     <div class="sp-group-title">Couleurs</div>
-
-    <div class="sp-row">
-      <div class="sp-row-label">Couleur principale<small>Boutons, accents, liens actifs</small></div>
-      <div class="sp-color-wrap">
-        <input type="color" class="sp-color" data-var="couleurPrimaire" id="sp-primaire">
-      </div>
-      <input type="text" class="sp-hex" id="sp-primaire-hex" maxlength="7" placeholder="#D80000">
-    </div>
-
-    <div class="sp-row">
-      <div class="sp-row-label">Couleur secondaire<small>Labels, icônes, détails</small></div>
-      <div class="sp-color-wrap">
-        <input type="color" class="sp-color" data-var="couleurSecondaire" id="sp-secondaire">
-      </div>
-      <input type="text" class="sp-hex" id="sp-secondaire-hex" maxlength="7" placeholder="#C8860A">
-    </div>
-
-    <div class="sp-row">
-      <div class="sp-row-label">Fond clair<small>Fond général, sections claires</small></div>
-      <div class="sp-color-wrap">
-        <input type="color" class="sp-color" data-var="couleurFond" id="sp-fond">
-      </div>
-      <input type="text" class="sp-hex" id="sp-fond-hex" maxlength="7" placeholder="#F4F2EB">
-    </div>
-
-    <div class="sp-row">
-      <div class="sp-row-label">Fond sombre<small>Sections contrastées, agenda, stats</small></div>
-      <div class="sp-color-wrap">
-        <input type="color" class="sp-color" data-var="couleurFondSombre" id="sp-sombre">
-      </div>
-      <input type="text" class="sp-hex" id="sp-sombre-hex" maxlength="7" placeholder="#111111">
-    </div>
-
-    <div class="sp-row">
-      <div class="sp-row-label">Texte principal<small>Corps de texte, titres</small></div>
-      <div class="sp-color-wrap">
-        <input type="color" class="sp-color" data-var="couleurTexte" id="sp-texte">
-      </div>
-      <input type="text" class="sp-hex" id="sp-texte-hex" maxlength="7" placeholder="#111111">
-    </div>
-
-    <div class="sp-row">
-      <div class="sp-row-label">Bouton Contacter<small>Couleur spécifique du bouton contact</small></div>
-      <div class="sp-color-wrap">
-        <input type="color" class="sp-color" data-var="couleurBleu" id="sp-bleu">
-      </div>
-      <input type="text" class="sp-hex" id="sp-bleu-hex" maxlength="7" placeholder="#1A3A5C">
-    </div>
+    <div class="sp-row"><div class="sp-row-label">Couleur principale<small>Boutons, accents, liens actifs</small></div><div class="sp-color-wrap"><input type="color" class="sp-color" data-var="couleurPrimaire" id="sp-primaire"></div><input type="text" class="sp-hex" id="sp-primaire-hex" maxlength="7" placeholder="#D80000"></div>
+    <div class="sp-row"><div class="sp-row-label">Couleur secondaire<small>Labels, icônes, détails</small></div><div class="sp-color-wrap"><input type="color" class="sp-color" data-var="couleurSecondaire" id="sp-secondaire"></div><input type="text" class="sp-hex" id="sp-secondaire-hex" maxlength="7" placeholder="#C8860A"></div>
+    <div class="sp-row"><div class="sp-row-label">Fond clair<small>Fond général, sections claires</small></div><div class="sp-color-wrap"><input type="color" class="sp-color" data-var="couleurFond" id="sp-fond"></div><input type="text" class="sp-hex" id="sp-fond-hex" maxlength="7" placeholder="#F4F2EB"></div>
+    <div class="sp-row"><div class="sp-row-label">Fond sombre<small>Sections contrastées</small></div><div class="sp-color-wrap"><input type="color" class="sp-color" data-var="couleurFondSombre" id="sp-sombre"></div><input type="text" class="sp-hex" id="sp-sombre-hex" maxlength="7" placeholder="#111111"></div>
+    <div class="sp-row"><div class="sp-row-label">Texte principal<small>Corps de texte, titres</small></div><div class="sp-color-wrap"><input type="color" class="sp-color" data-var="couleurTexte" id="sp-texte"></div><input type="text" class="sp-hex" id="sp-texte-hex" maxlength="7" placeholder="#111111"></div>
+    <div class="sp-row"><div class="sp-row-label">Bouton Contacter<small>Couleur spécifique du bouton contact</small></div><div class="sp-color-wrap"><input type="color" class="sp-color" data-var="couleurBleu" id="sp-bleu"></div><input type="text" class="sp-hex" id="sp-bleu-hex" maxlength="7" placeholder="#1A3A5C"></div>
   </div>
-
   <div class="sp-group">
     <div class="sp-group-title">Police des titres</div>
-    <div class="sp-row">
-      <select class="sp-select" id="sp-police-titre">
-        <option>Playfair Display</option>
-        <option>Cormorant Garamond</option>
-        <option>Libre Baskerville</option>
-        <option>Crimson Pro</option>
-        <option>EB Garamond</option>
-        <option>Lora</option>
-        <option>Merriweather</option>
-        <option>Source Serif 4</option>
-        <option>DM Serif Display</option>
-        <option>Bodoni Moda</option>
-      </select>
-    </div>
-    <div class="sp-preview-fonts" id="sp-preview-titre"></div>
+    <div class="sp-row"><select class="sp-select" id="sp-police-titre"><option>Playfair Display</option><option>Cormorant Garamond</option><option>Libre Baskerville</option><option>Crimson Pro</option><option>EB Garamond</option><option>Lora</option><option>Merriweather</option><option>Source Serif 4</option><option>DM Serif Display</option><option>Bodoni Moda</option></select></div>
   </div>
-
   <div class="sp-group">
     <div class="sp-group-title">Police du corps</div>
-    <div class="sp-row">
-      <select class="sp-select" id="sp-police-corps">
-        <option>Manrope</option>
-        <option>Inter</option>
-        <option>DM Sans</option>
-        <option>Outfit</option>
-        <option>Nunito</option>
-        <option>Raleway</option>
-        <option>Josefin Sans</option>
-        <option>Work Sans</option>
-        <option>Barlow</option>
-        <option>Figtree</option>
-      </select>
-    </div>
-    <div class="sp-preview-fonts" id="sp-preview-corps"></div>
+    <div class="sp-row"><select class="sp-select" id="sp-police-corps"><option>Manrope</option><option>Inter</option><option>DM Sans</option><option>Outfit</option><option>Nunito</option><option>Raleway</option><option>Josefin Sans</option><option>Work Sans</option><option>Barlow</option><option>Figtree</option></select></div>
   </div>
-
-  <div class="sp-export-hint">
-    <strong>💡 Conseil :</strong> Une fois satisfait(e) de vos choix, cliquez sur <strong>Exporter JSON</strong> dans la barre du haut. Le fichier généré liste toutes les variables — collez-les dans la section <code>CONFIG</code> du template pour appliquer vos changements définitivement.
-  </div>
+  <div class="sp-export-hint"><strong>💡 Conseil :</strong> Une fois satisfait(e) de vos choix, cliquez sur <strong>Exporter JSON</strong>. Les images importées (preview uniquement) ne sont pas incluses dans le JSON — renseignez leurs URLs dans CONFIG.</div>
 </div>
 
-<!-- ===== TOAST ===== -->
 <div id="et-toast"></div>
 
-<!-- ===== NAVIGATION ===== -->
+<!-- ===== NAV ===== -->
 <nav role="navigation" aria-label="Navigation principale" id="main-nav">
   <a href="#" class="nav-logo" id="nav-logo-link">
     <img id="nav-logo-img" alt="Logo" aria-hidden="true" style="display:none">
@@ -714,30 +451,36 @@ body.edit-mode [data-editable] {
     <span class="logo-m3 nav-logo-m3"></span>
   </a>
   <ul class="nav-links" id="nav-links">
-    <li><a href="#agenda">L'association</a></li>
-    <li><a href="#activites">Activités</a></li>
-    <li><a href="#projet-photo">Projets</a></li>
-    <li><a href="#contact" id="nav-donate-link" class="nav-cta">Nous soutenir</a></li>
+    <li><a href="#agenda" id="nav-link-asso" data-editable data-key="nav_asso" data-label="Lien nav 1">L'association</a></li>
+    <li><a href="#activites" id="nav-link-act" data-editable data-key="nav_act" data-label="Lien nav 2">Activités</a></li>
+    <li><a href="#projet-photo" id="nav-link-proj" data-editable data-key="nav_proj" data-label="Lien nav 3">Projets</a></li>
+    <li><a href="#contact" id="nav-donate-link" class="nav-cta" data-editable data-key="nav_cta" data-label="Bouton nav CTA">Nous soutenir</a></li>
   </ul>
-  <button class="hamburger" aria-label="Menu" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 
 <!-- ===== HERO ===== -->
 <header class="hero" role="banner">
   <div class="hero-content">
-    <p class="hero-eyebrow"><span class="brush-dash"></span><span id="hero-eyebrow-text" data-editable data-key="ville" data-label="Ville + Année"></span></p>
-    <h1 class="hero-title" id="hero-title"></h1>
+    <p class="hero-eyebrow"><span class="brush-dash"></span><span id="hero-eyebrow-text" data-editable data-key="hero_eyebrow" data-label="Ville · Année"></span></p>
+    <h1 class="hero-title" id="hero-title-wrap">
+      <span id="hero-titre1" data-editable data-key="heroTitre1" data-label="Titre héro ligne 1"></span><br>
+      les <span class="accent" id="hero-accent" data-editable data-key="heroTitreAccent" data-label="Titre héro accent"></span><br>
+      <span id="hero-titre2" data-editable data-key="heroTitre2" data-label="Titre héro ligne 3"></span>
+    </h1>
     <p class="hero-sub" id="hero-sub" data-editable data-key="heroSousTexte" data-label="Sous-titre héro"></p>
     <div class="hero-actions">
-      <a id="hero-btn1" target="_blank" rel="noopener" class="btn-primary" data-editable data-key="heroBouton1Texte" data-label="Bouton principal"></a>
-      <a id="hero-btn2" class="btn-outline" data-editable data-key="heroBouton2Texte" data-label="Bouton secondaire"></a>
+      <a id="hero-btn1" target="_blank" rel="noopener" class="btn-primary" data-editable data-key="heroBouton1Texte" data-label="Bouton principal héro"></a>
+      <a id="hero-btn2" class="btn-outline" data-editable data-key="heroBouton2Texte" data-label="Bouton secondaire héro"></a>
     </div>
   </div>
   <div class="hero-visual">
-    <div class="hero-photo-frame">
-      <img id="hero-img" alt="">
+    <div class="hero-photo-frame img-editable-wrap" data-img-key="heroImageUrl" data-img-label="Image héro">
+      <div class="img-edit-overlay">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span>Changer l'image</span>
+      </div>
+      <img id="hero-img" alt="" style="display:block;width:100%;height:580px;object-fit:cover;">
     </div>
     <div class="hero-badge" id="hero-badge" data-editable data-key="heroBadge" data-label="Badge chiffre clé"></div>
   </div>
@@ -746,8 +489,11 @@ body.edit-mode [data-editable] {
 <!-- ===== STATS ===== -->
 <section class="hero-stats" aria-labelledby="stats-h">
   <div class="hero-stats-inner">
-    <p class="section-label reveal" id="stats-label" style="justify-content:center;" data-editable data-key="statsLabel" data-label="Label stats"></p>
-    <h2 class="section-title reveal" id="stats-h" style="color:var(--fond);"></h2>
+    <p class="section-label reveal" id="stats-label" style="justify-content:center;" data-editable data-key="statsLabel" data-label="Label section stats"></p>
+    <h2 class="section-title reveal" id="stats-h" style="color:var(--fond);">
+      <span id="stats-titre" data-editable data-key="statsTitre" data-label="Stats titre 1"></span>
+      <em style="color:var(--primaire);font-style:italic;" id="stats-titre-accent" data-editable data-key="statsTitreAccent" data-label="Stats titre accent"></em>
+    </h2>
     <div class="hero-stats-grid" id="stats-grid"></div>
   </div>
 </section>
@@ -758,11 +504,12 @@ body.edit-mode [data-editable] {
     <div class="agenda-header reveal">
       <div class="agenda-header-left">
         <p class="section-label" id="agenda-label" data-editable data-key="agendaLabel" data-label="Label agenda"></p>
-        <h2 class="section-title" id="agenda-h"></h2>
+        <h2 class="section-title" id="agenda-h">
+          <span id="agenda-titre1" data-editable data-key="agendaTitre1" data-label="Agenda titre 1"></span>
+          <em style="color:var(--primaire);font-style:italic;" id="agenda-titre-accent" data-editable data-key="agendaTitreAccent" data-label="Agenda titre accent"></em>
+        </h2>
       </div>
-      <div class="live-badge">
-        <span class="live-dot" aria-hidden="true"></span>En direct
-      </div>
+      <div class="live-badge"><span class="live-dot" aria-hidden="true"></span>En direct</div>
     </div>
     <div class="agenda-grid" id="agenda-grid" aria-live="polite" aria-busy="true">
       <div class="agenda-skeleton reveal" aria-hidden="true"></div>
@@ -770,7 +517,7 @@ body.edit-mode [data-editable] {
       <div class="agenda-skeleton reveal" aria-hidden="true"></div>
     </div>
     <div class="agenda-footer reveal">
-      <a id="agenda-btn" target="_blank" rel="noopener" class="btn-outline-light" data-editable data-key="agendaBoutonTexte" data-label="Bouton planning"></a>
+      <a id="agenda-btn" target="_blank" rel="noopener" class="btn-outline-light" data-editable data-key="agendaBoutonTexte" data-label="Bouton planning agenda"></a>
     </div>
   </div>
 </section>
@@ -779,12 +526,15 @@ body.edit-mode [data-editable] {
 <section id="activites" class="activites" aria-labelledby="act-h">
   <div class="act-head reveal">
     <p class="section-label" id="act-label" data-editable data-key="activitesLabel" data-label="Label activités"></p>
-    <h2 class="section-title" id="act-h"></h2>
+    <h2 class="section-title" id="act-h">
+      <span id="act-titre1" data-editable data-key="activitesTitre1" data-label="Activités titre 1"></span><br>
+      <em style="color:var(--primaire);font-style:italic;" id="act-titre-accent" data-editable data-key="activitesTitreAccent" data-label="Activités titre accent"></em>
+    </h2>
     <p id="act-sous" style="color:#222;font-size:1.1rem;line-height:1.7;max-width:520px;margin-top:.5rem;" data-editable data-key="activitesSousTexte" data-label="Sous-titre activités"></p>
   </div>
   <div class="act-grid" id="act-grid"></div>
   <div class="act-inscription-wrap reveal">
-    <a id="act-btn" target="_blank" rel="noopener" class="btn-primary" style="font-size:1rem;padding:1.2rem 3rem;" data-editable data-key="activitesBoutonTexte" data-label="Bouton inscription"></a>
+    <a id="act-btn" target="_blank" rel="noopener" class="btn-primary" style="font-size:1rem;padding:1.2rem 3rem;" data-editable data-key="activitesBoutonTexte" data-label="Bouton inscription activités"></a>
   </div>
 </section>
 
@@ -793,24 +543,37 @@ body.edit-mode [data-editable] {
   <div class="projet-photo-inner">
     <div class="projet-photo-header reveal">
       <p class="section-label" id="projet-label" style="justify-content:center;" data-editable data-key="projetLabel" data-label="Label projet"></p>
-      <h2 class="section-title" id="photo-h" data-editable data-key="projetTitre" data-label="Titre projet"></h2>
+      <h2 class="section-title" id="photo-h" data-editable data-key="projetTitre" data-label="Titre du projet"></h2>
       <p id="projet-sous" data-editable data-key="projetSousTexte" data-label="Sous-titre projet"></p>
     </div>
     <div class="projet-photo-layout">
       <div class="projet-photo-text reveal">
         <p class="section-label" id="projet-texte-label" data-editable data-key="projetTexteLabel" data-label="Label texte projet"></p>
-        <h3 class="section-title" id="projet-titre-court" style="font-size:clamp(1.6rem,3vw,2.4rem);margin-bottom:1.5rem;line-height:1.2;"></h3>
-        <p id="projet-desc" data-editable data-key="projetDescription1" data-label="Description projet"></p>
+        <h3 class="section-title" id="projet-titre-court" style="font-size:clamp(1.6rem,3vw,2.4rem);margin-bottom:1.5rem;line-height:1.2;">
+          <span id="projet-titre-court-1" data-editable data-key="projetTitreCourt1" data-label="Projet titre court ligne 1"></span>
+          <em style="color:var(--primaire);font-style:italic;" id="projet-titre-court-accent" data-editable data-key="projetTitreCourtAccent" data-label="Projet titre court accent"></em>
+        </h3>
+        <p id="projet-desc" data-editable data-key="projetDescription1" data-label="Description du projet"></p>
         <div class="axes-grid" id="axes-grid"></div>
         <div style="margin-top:2.5rem;">
-          <a id="projet-btn" target="_blank" rel="noopener" class="btn-primary" data-editable data-key="projetBoutonTexte" data-label="Bouton projet"></a>
+          <a id="projet-btn" target="_blank" rel="noopener" class="btn-primary" data-editable data-key="projetBoutonTexte" data-label="Bouton soutenir projet"></a>
         </div>
       </div>
-      <div class="projet-photo-video-wrap reveal">
-        <div class="projet-photo-video-frame">
-          <iframe id="projet-video" title="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+
+      <!-- IMAGE remplace vidéo -->
+      <div class="projet-photo-visual-wrap reveal">
+        <div class="projet-photo-img-frame img-editable-wrap" data-img-key="projetImageUrl" data-img-label="Image projet">
+          <div class="img-edit-overlay">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Changer l'image</span>
+          </div>
+          <div id="projet-img-placeholder" class="projet-img-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            Cliquez pour ajouter une image
+          </div>
+          <img id="projet-img" alt="" style="display:none;width:100%;aspect-ratio:16/9;object-fit:cover;">
         </div>
-        <div class="projet-photo-video-badge" id="projet-video-badge" data-editable data-key="projetVideoBadge" data-label="Badge vidéo"></div>
+        <div class="projet-photo-img-badge" id="projet-video-badge" data-editable data-key="projetImageBadge" data-label="Badge image projet"></div>
       </div>
     </div>
   </div>
@@ -821,7 +584,10 @@ body.edit-mode [data-editable] {
   <div class="cta-ghost" aria-hidden="true" id="cta-ghost"></div>
   <div class="cta-body">
     <p class="section-label reveal" id="cta-label" data-editable data-key="ctaLabel" data-label="Label CTA"></p>
-    <h2 class="section-title reveal" id="cta-h"></h2>
+    <h2 class="section-title reveal" id="cta-h">
+      <span id="cta-titre-l1" data-editable data-key="ctaTitreLigne1" data-label="CTA titre ligne 1"></span><br>
+      <span id="cta-titre-l2" data-editable data-key="ctaTitreLigne2" data-label="CTA titre ligne 2"></span>
+    </h2>
     <p class="cta-sub reveal" id="cta-sub" data-editable data-key="ctaSousTexte" data-label="Sous-titre CTA"></p>
     <form id="nl-form" class="nl-form reveal" aria-label="Newsletter">
       <input type="email" id="nl-email" class="nl-input" placeholder="Votre adresse e-mail..." required>
@@ -839,7 +605,10 @@ body.edit-mode [data-editable] {
     <div class="footer-brand" id="footer-brand"></div>
     <p class="footer-desc" id="footer-desc" data-editable data-key="footerDesc" data-label="Description footer"></p>
   </div>
-  <div class="footer-bottom" id="footer-bottom"></div>
+  <div class="footer-bottom" id="footer-bottom">
+    <span id="footer-copy" data-editable data-key="footerCopy" data-label="Copyright footer"></span>
+    <span id="footer-slogan" data-editable data-key="footerSlogan" data-label="Slogan footer"></span>
+  </div>
 </footer>
 
 <!-- ===== MUSIC ===== -->
@@ -849,7 +618,7 @@ body.edit-mode [data-editable] {
   <svg class="icon-pause" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="5" x2="8" y2="19"/><line x1="16" y1="5" x2="16" y2="19"/></svg>
 </button>
 
-<!-- ===== FLOATING CTA ===== -->
+<!-- ===== FLOATING ===== -->
 <div class="floating-cta" id="floating-cta">
   <a id="fl-donate" target="_blank" rel="noopener" class="float-btn float-btn--donate">
     <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -865,150 +634,186 @@ body.edit-mode [data-editable] {
   </a>
 </div>
 
-<!-- ===== MOBILE NAV ===== -->
 <nav class="mobile-bottom-nav" id="mobile-nav">
-  <a id="mob-donate" target="_blank" rel="noopener" class="mobile-nav-btn mobile-nav-btn--donate">
-    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-    <span id="mob-donate-txt"></span>
-  </a>
-  <a id="mob-contact" class="mobile-nav-btn mobile-nav-btn--contact">
-    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-    <span id="mob-contact-txt"></span>
-  </a>
-  <a id="mob-signal" class="mobile-nav-btn mobile-nav-btn--signal">
-    <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-    <span id="mob-signal-txt"></span>
-  </a>
+  <a id="mob-donate" target="_blank" rel="noopener" class="mobile-nav-btn mobile-nav-btn--donate"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span id="mob-donate-txt"></span></a>
+  <a id="mob-contact" class="mobile-nav-btn mobile-nav-btn--contact"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span id="mob-contact-txt"></span></a>
+  <a id="mob-signal" class="mobile-nav-btn mobile-nav-btn--signal"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span id="mob-signal-txt"></span></a>
 </nav>
 
 <script>
 /* ============================================================
-   ÉTAT GLOBAL — modifications en cours
+   ÉTAT GLOBAL
    ============================================================ */
-const CHANGES = {}; // { key: newValue }
+const CHANGES = {};
 let editModeActive = true;
 let changeCount = 0;
+let pendingImgCallback = null;
 
 /* ============================================================
-   INJECTION CONFIG → DOM
+   APPLY CONFIG
    ============================================================ */
 function applyConfig(cfg) {
   // CSS vars
-  const style = document.getElementById('root-vars');
-  style.textContent = `:root {
+  document.getElementById('root-vars').textContent = `:root {
     --primaire:   ${cfg.couleurPrimaire};
     --secondaire: ${cfg.couleurSecondaire};
     --fond:       ${cfg.couleurFond};
     --fond-sombre:${cfg.couleurFondSombre};
     --texte:      ${cfg.couleurTexte};
     --bleu:       ${cfg.couleurBleu};
-    --creme:      ${cfg.couleurFond};
-    --ocre-clair: #F0C060;
     --police-titre: '${cfg.policetitre}';
     --police-corps: '${cfg.policeCorps}';
   }`;
-
-  // Fonts
-  const fontEl = document.getElementById('google-fonts-link');
   const f1 = cfg.policetitre.replace(/ /g,'+');
   const f2 = cfg.policeCorps.replace(/ /g,'+');
-  fontEl.href = `https://fonts.googleapis.com/css2?family=${f1}:ital,wght@0,400;0,700;0,900;1,400&family=${f2}:wght@300;400;500;600;700;800&display=swap`;
+  document.getElementById('google-fonts-link').href = `https://fonts.googleapis.com/css2?family=${f1}:ital,wght@0,400;0,700;0,900;1,400&family=${f2}:wght@300;400;500;600;700;800&display=swap`;
 
-  // Meta
   document.getElementById('page-title').textContent = cfg.metaTitre;
   document.getElementById('page-desc').setAttribute('content', cfg.metaDescription);
 
   // Logo
   const logoImg = document.getElementById('nav-logo-img');
-  if (cfg.logoImageUrl) { logoImg.src = cfg.logoImageUrl; logoImg.style.display = 'block'; }
-  else logoImg.style.display = 'none';
+  if (cfg.logoImageUrl) { logoImg.src = cfg.logoImageUrl; logoImg.style.display = 'block'; } else logoImg.style.display = 'none';
   function mkLogo(sel, mot) {
     const el = document.querySelector(sel);
-    if (!el) return;
+    if (!el || !mot) return;
     el.innerHTML = `<span class="red-letter">${mot[0]}</span>${mot.slice(1)}`;
   }
   mkLogo('.nav-logo-m1', cfg.logoMot1);
   mkLogo('.nav-logo-m2', cfg.logoMot2);
   mkLogo('.nav-logo-m3', cfg.logoMot3);
 
+  // Nav links (text only if not overridden)
+  if (!CHANGES['nav_asso']) setTxt('nav-link-asso', 'L\'association');
+  if (!CHANGES['nav_act'])  setTxt('nav-link-act', 'Activités');
+  if (!CHANGES['nav_proj']) setTxt('nav-link-proj', 'Projets');
+  if (!CHANGES['nav_cta'])  setTxt('nav-donate-link', 'Nous soutenir');
+
   // Hero
-  document.getElementById('hero-eyebrow-text').textContent = cfg.ville + ' · Fondée en ' + cfg.anneeCreation;
-  document.getElementById('hero-title').innerHTML =
-    `${cfg.heroTitre1}<br>les <span class="accent">${cfg.heroTitreAccent}</span><br>${cfg.heroTitre2}`;
+  const eyebrow = `${cfg.ville} · Fondée en ${cfg.anneeCreation}`;
+  setTxt('hero-eyebrow-text', eyebrow);
+  CONFIG['hero_eyebrow'] = eyebrow;
+  setTxt('hero-titre1', cfg.heroTitre1);
+  setTxt('hero-accent', cfg.heroTitreAccent);
+  setTxt('hero-titre2', cfg.heroTitre2);
   document.getElementById('hero-sub').innerHTML = cfg.heroSousTexte;
-  document.getElementById('hero-badge').textContent = cfg.heroBadge;
+  setTxt('hero-badge', cfg.heroBadge);
+
   const btn1 = document.getElementById('hero-btn1');
   btn1.href = cfg.heroBouton1Url; btn1.textContent = cfg.heroBouton1Texte;
   const btn2 = document.getElementById('hero-btn2');
   btn2.href = cfg.heroBouton2Href; btn2.textContent = cfg.heroBouton2Texte;
+
   const heroImg = document.getElementById('hero-img');
-  heroImg.src = cfg.heroImageUrl; heroImg.alt = cfg.heroImageAlt;
+  if (cfg.heroImageUrl && !cfg.heroImageUrl.includes('votre-site')) {
+    heroImg.src = cfg.heroImageUrl; heroImg.alt = cfg.heroImageAlt; heroImg.style.display = 'block';
+  }
 
   // Stats
-  document.getElementById('stats-label').textContent = cfg.statsLabel;
-  document.getElementById('stats-h').innerHTML =
-    `${cfg.statsTitre} <em style="color:var(--primaire);font-style:italic;">${cfg.statsTitreAccent}</em>`;
+  setTxt('stats-label', cfg.statsLabel);
+  setTxt('stats-titre', cfg.statsTitre);
+  setTxt('stats-titre-accent', cfg.statsTitreAccent);
   const statsGrid = document.getElementById('stats-grid');
   statsGrid.innerHTML = '';
-  cfg.stats.forEach(s => {
+  cfg.stats.forEach((s, i) => {
     const box = document.createElement('div');
     box.className = 'hero-stat-box';
-    box.innerHTML = `<span class="hero-stat-number" data-target="${s.nombre}" data-prefix="${s.prefixe}">0</span><span class="hero-stat-label">${s.label}</span>`;
+    box.innerHTML = `
+      <span class="hero-stat-number" data-target="${s.nombre}" data-prefix="${s.prefixe}"
+            data-editable data-key="stat_${i}_nombre" data-label="Stat ${i+1} nombre"
+            contenteditable="false">${s.prefixe}0</span>
+      <span class="hero-stat-label"
+            data-editable data-key="stat_${i}_label" data-label="Stat ${i+1} libellé"
+            contenteditable="false">${s.label}</span>`;
     statsGrid.appendChild(box);
   });
 
   // Agenda
-  document.getElementById('agenda-label').textContent = cfg.agendaLabel;
-  document.getElementById('agenda-h').innerHTML =
-    `${cfg.agendaTitre1} <em style="color:var(--primaire);font-style:italic;">${cfg.agendaTitreAccent}</em>`;
+  setTxt('agenda-label', cfg.agendaLabel);
+  setTxt('agenda-titre1', cfg.agendaTitre1);
+  setTxt('agenda-titre-accent', cfg.agendaTitreAccent);
   const agBtn = document.getElementById('agenda-btn');
   agBtn.href = cfg.agendaBoutonUrl; agBtn.textContent = cfg.agendaBoutonTexte;
 
   // Activités
-  document.getElementById('act-label').textContent = cfg.activitesLabel;
-  document.getElementById('act-h').innerHTML =
-    `${cfg.activitesTitre1}<br><em style="color:var(--primaire);font-style:italic;">${cfg.activitesTitreAccent}</em>`;
-  document.getElementById('act-sous').textContent = cfg.activitesSousTexte;
+  setTxt('act-label', cfg.activitesLabel);
+  setTxt('act-titre1', cfg.activitesTitre1);
+  setTxt('act-titre-accent', cfg.activitesTitreAccent);
+  setTxt('act-sous', cfg.activitesSousTexte);
   const actBtn = document.getElementById('act-btn');
   actBtn.href = cfg.activitesBoutonUrl; actBtn.textContent = cfg.activitesBoutonTexte;
+
   const actGrid = document.getElementById('act-grid');
   actGrid.innerHTML = '';
-  cfg.activites.slice(0,3).forEach(a => {
+  cfg.activites.slice(0,3).forEach((a, i) => {
     const card = document.createElement('div');
     card.className = 'act-card reveal';
-    card.innerHTML = `<img class="act-img" src="${a.imageUrl}" alt="${a.tag}" loading="lazy"><div class="act-body"><span class="act-tag">${a.tag}</span><h3 class="act-title">${a.titre}</h3><p class="act-desc">${a.desc}</p></div>`;
+    const imgHtml = `<div class="img-editable-wrap" data-img-key="act_${i}_img" data-img-label="Image activité ${i+1}" style="position:relative">
+      <div class="img-edit-overlay">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span>Changer l'image</span>
+      </div>
+      <img class="act-img" id="act-img-${i}" src="${a.imageUrl || ''}" alt="${a.tag}" loading="lazy"
+           style="${a.imageUrl ? '' : 'display:none'}">
+      <div id="act-img-ph-${i}" class="projet-img-placeholder" style="height:220px;${a.imageUrl ? 'display:none' : ''}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:36px;height:36px;opacity:.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        Cliquez pour ajouter
+      </div>
+    </div>`;
+    card.innerHTML = `${imgHtml}<div class="act-body">
+      <span class="act-tag" data-editable data-key="act_${i}_tag" data-label="Tag activité ${i+1}">${a.tag}</span>
+      <h3 class="act-title" data-editable data-key="act_${i}_titre" data-label="Titre activité ${i+1}">${a.titre}</h3>
+      <p class="act-desc" data-editable data-key="act_${i}_desc" data-label="Description activité ${i+1}">${a.desc}</p>
+    </div>`;
     actGrid.appendChild(card);
   });
 
   // Projet
-  document.getElementById('projet-label').textContent = cfg.projetLabel;
-  document.getElementById('photo-h').textContent = cfg.projetTitre;
-  document.getElementById('projet-sous').textContent = cfg.projetSousTexte;
-  document.getElementById('projet-texte-label').textContent = cfg.projetTexteLabel;
-  document.getElementById('projet-titre-court').innerHTML =
-    `${cfg.projetTitreCourt1} <em style="color:var(--primaire);font-style:italic;">${cfg.projetTitreCourtAccent}</em>`;
-  document.getElementById('projet-desc').textContent = cfg.projetDescription1;
+  setTxt('projet-label', cfg.projetLabel);
+  const photoH = document.getElementById('photo-h');
+  photoH.textContent = cfg.projetTitre;
+  setTxt('projet-sous', cfg.projetSousTexte);
+  setTxt('projet-texte-label', cfg.projetTexteLabel);
+  setTxt('projet-titre-court-1', cfg.projetTitreCourt1);
+  setTxt('projet-titre-court-accent', cfg.projetTitreCourtAccent);
+  setTxt('projet-desc', cfg.projetDescription1);
+
   const axesGrid = document.getElementById('axes-grid');
   axesGrid.innerHTML = '';
-  [{t: cfg.projetAxe1Titre, p: cfg.projetAxe1Texte}, {t: cfg.projetAxe2Titre, p: cfg.projetAxe2Texte}].forEach(axe => {
+  [{t: cfg.projetAxe1Titre, p: cfg.projetAxe1Texte, k:'1'}, {t: cfg.projetAxe2Titre, p: cfg.projetAxe2Texte, k:'2'}].forEach(axe => {
     const card = document.createElement('div');
     card.className = 'axe-card reveal';
-    card.innerHTML = `<h4>${axe.t}</h4><p>${axe.p}</p>`;
+    card.innerHTML = `
+      <h4 data-editable data-key="projetAxe${axe.k}Titre" data-label="Axe ${axe.k} titre">${axe.t}</h4>
+      <p data-editable data-key="projetAxe${axe.k}Texte" data-label="Axe ${axe.k} texte">${axe.p}</p>`;
     axesGrid.appendChild(card);
   });
+
   const projBtn = document.getElementById('projet-btn');
   projBtn.href = cfg.projetBoutonUrl; projBtn.textContent = cfg.projetBoutonTexte;
-  document.getElementById('projet-video').src = `https://www.youtube.com/embed/${cfg.projetVideoId}`;
-  document.getElementById('projet-video-badge').textContent = cfg.projetVideoBadge;
+  setTxt('projet-video-badge', cfg.projetImageBadge);
+
+  // Projet image
+  if (cfg.projetImageUrl) {
+    document.getElementById('projet-img').src = cfg.projetImageUrl;
+    document.getElementById('projet-img').style.display = 'block';
+    document.getElementById('projet-img-placeholder').style.display = 'none';
+  }
 
   // CTA
   document.getElementById('cta-ghost').textContent = cfg.logoMot3;
-  document.getElementById('cta-label').textContent = cfg.ctaLabel;
-  document.getElementById('cta-h').innerHTML = cfg.ctaTitre.replace('\n','<br>');
-  document.getElementById('cta-sub').textContent = cfg.ctaSousTexte;
+  setTxt('cta-label', cfg.ctaLabel);
+  const ctaTitre = cfg.ctaTitre.split('\n');
+  setTxt('cta-titre-l1', ctaTitre[0] || '');
+  setTxt('cta-titre-l2', ctaTitre[1] || '');
+  CONFIG['ctaTitreLigne1'] = ctaTitre[0] || '';
+  CONFIG['ctaTitreLigne2'] = ctaTitre[1] || '';
+  setTxt('cta-sub', cfg.ctaSousTexte);
+
   document.getElementById('cta-btns').innerHTML =
-    `<a href="mailto:${cfg.ctaEmail}" class="btn-white">${cfg.ctaEmail}</a>` +
-    `<a href="tel:${cfg.ctaTelephone}" class="btn-ghost-w">${cfg.ctaTelAffiche}</a>`;
+    `<a href="mailto:${cfg.ctaEmail}" class="btn-white" data-editable data-key="ctaEmail" data-label="Email CTA">${cfg.ctaEmail}</a>` +
+    `<a href="tel:${cfg.ctaTelephone}" class="btn-ghost-w" data-editable data-key="ctaTelAffiche" data-label="Téléphone CTA">${cfg.ctaTelAffiche}</a>`;
+
   const socials = document.getElementById('cta-socials');
   socials.innerHTML = '';
   const svgFb = '<svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>';
@@ -1027,23 +832,23 @@ function applyConfig(cfg) {
     `<span style="font-size:1.5rem;"><span class="red-letter">${cfg.logoMot2[0]}</span>${cfg.logoMot2.slice(1)}</span>` +
     `<span style="font-size:1.1rem;"><span class="red-letter">${cfg.logoMot3[0]}</span>${cfg.logoMot3.slice(1)}</span>`;
   brand.innerHTML = logoHtml;
-  document.getElementById('footer-desc').textContent = cfg.footerDesc;
-  document.getElementById('footer-bottom').innerHTML =
-    `<span>${cfg.footerCopy}</span><span>${cfg.footerSlogan}</span>`;
+  setTxt('footer-desc', cfg.footerDesc);
+  setTxt('footer-copy', cfg.footerCopy);
+  setTxt('footer-slogan', cfg.footerSlogan);
 
-  // Floating btns
+  // Floating
   document.getElementById('fl-donate').href = cfg.btnDonnerUrl;
-  document.getElementById('fl-donate-txt').textContent = cfg.btnDonnerTexte;
+  setTxt('fl-donate-txt', cfg.btnDonnerTexte);
   document.getElementById('fl-contact').href = cfg.btnContactHref;
-  document.getElementById('fl-contact-txt').textContent = cfg.btnContactTexte;
+  setTxt('fl-contact-txt', cfg.btnContactTexte);
   document.getElementById('fl-signal').href = cfg.btnSignalerUrl;
-  document.getElementById('fl-signal-txt').textContent = cfg.btnSignalerTexte;
+  setTxt('fl-signal-txt', cfg.btnSignalerTexte);
   document.getElementById('mob-donate').href = cfg.btnDonnerUrl;
-  document.getElementById('mob-donate-txt').textContent = cfg.btnDonnerTexte;
+  setTxt('mob-donate-txt', cfg.btnDonnerTexte);
   document.getElementById('mob-contact').href = cfg.btnContactHref;
-  document.getElementById('mob-contact-txt').textContent = cfg.btnContactTexte;
+  setTxt('mob-contact-txt', cfg.btnContactTexte);
   document.getElementById('mob-signal').href = cfg.btnSignalerUrl;
-  document.getElementById('mob-signal-txt').textContent = cfg.btnSignalerTexte;
+  setTxt('mob-signal-txt', cfg.btnSignalerTexte);
   document.getElementById('nav-donate-link').href = cfg.btnDonnerUrl;
 
   // Music
@@ -1054,6 +859,11 @@ function applyConfig(cfg) {
     audio.innerHTML = `<source src="${cfg.musiqueUrl}" type="audio/mpeg">`;
     audio.volume = cfg.musiqueVolume;
   }
+}
+
+function setTxt(id, val) {
+  const el = document.getElementById(id);
+  if (el && el.textContent !== val) el.textContent = val;
 }
 
 /* ============================================================
@@ -1069,6 +879,7 @@ window.addEventListener('load', () => {
   setupNewsletter();
   setupEditor();
   setupStylePanel();
+  setupImageEditor();
   if (CONFIG.musiqueUrl) setupMusic();
 });
 
@@ -1113,7 +924,7 @@ function setupCounters() {
 }
 
 /* ============================================================
-   NAVIGATION
+   NAV
    ============================================================ */
 function setupNav() {
   const hb = document.querySelector('nav#main-nav .hamburger');
@@ -1144,7 +955,7 @@ function setupNav() {
 }
 
 /* ============================================================
-   AGENDA JSON
+   AGENDA
    ============================================================ */
 function setupAgenda() {
   const grid = document.getElementById('agenda-grid');
@@ -1186,7 +997,7 @@ function setupAgenda() {
         if (io) io.observe(card);
       });
     })
-    .catch(err => { console.warn('activite.json :', err); grid.setAttribute('aria-busy','false'); renderEmpty(); });
+    .catch(() => { grid.setAttribute('aria-busy','false'); renderEmpty(); });
   function renderEmpty() {
     grid.innerHTML = '';
     const e = document.createElement('div'); e.className = 'agenda-empty';
@@ -1219,7 +1030,7 @@ function setupNewsletter() {
 }
 
 /* ============================================================
-   MUSIQUE
+   MUSIC
    ============================================================ */
 function setupMusic() {
   const audio = document.getElementById('ambient-audio');
@@ -1233,7 +1044,69 @@ function setupMusic() {
 }
 
 /* ============================================================
-   ÉDITEUR VISUEL
+   IMAGE EDITOR
+   ============================================================ */
+function setupImageEditor() {
+  const fileInput = document.getElementById('img-file-input');
+
+  // Délégation de clic sur tous les wrappers images
+  document.body.addEventListener('click', e => {
+    if (!editModeActive) return;
+    const wrap = e.target.closest('.img-editable-wrap');
+    if (!wrap) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const key = wrap.dataset.imgKey;
+    const label = wrap.dataset.imgLabel || 'image';
+    pendingImgCallback = (dataUrl) => applyImageToKey(key, dataUrl, label);
+    fileInput.click();
+  });
+
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files[0];
+    if (!file || !pendingImgCallback) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      pendingImgCallback(ev.target.result);
+      pendingImgCallback = null;
+      fileInput.value = '';
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function applyImageToKey(key, dataUrl, label) {
+  // Marquer comme change (sans stocker le data URL dans le JSON export)
+  CHANGES[key] = '(image locale — remplacez par URL dans CONFIG)';
+  updateChangeCount();
+  showToast(`🖼 ${label} mise à jour (preview)`);
+
+  // Hero image
+  if (key === 'heroImageUrl') {
+    const img = document.getElementById('hero-img');
+    img.src = dataUrl; img.style.display = 'block';
+    return;
+  }
+  // Projet image
+  if (key === 'projetImageUrl') {
+    document.getElementById('projet-img').src = dataUrl;
+    document.getElementById('projet-img').style.display = 'block';
+    document.getElementById('projet-img-placeholder').style.display = 'none';
+    return;
+  }
+  // Activités images
+  const actMatch = key.match(/^act_(\d+)_img$/);
+  if (actMatch) {
+    const i = actMatch[1];
+    const img = document.getElementById(`act-img-${i}`);
+    const ph = document.getElementById(`act-img-ph-${i}`);
+    if (img) { img.src = dataUrl; img.style.display = 'block'; }
+    if (ph) ph.style.display = 'none';
+  }
+}
+
+/* ============================================================
+   ÉDITEUR TEXTE
    ============================================================ */
 function setupEditor() {
   const toolbar = document.getElementById('editor-toolbar');
@@ -1241,10 +1114,7 @@ function setupEditor() {
   const btnToggle = document.getElementById('btn-toggle-edit');
   const btnExport = document.getElementById('btn-export-json');
   const btnStyle = document.getElementById('btn-open-style');
-  const toast = document.getElementById('et-toast');
-  const countEl = document.getElementById('et-change-count');
 
-  // Ouvrir éditeur
   fab.addEventListener('click', () => {
     toolbar.classList.add('visible');
     document.body.classList.add('edit-mode');
@@ -1252,7 +1122,6 @@ function setupEditor() {
     activateEditables();
   });
 
-  // Toggle mode édition
   btnToggle.addEventListener('click', () => {
     editModeActive = !editModeActive;
     document.body.classList.toggle('edit-mode', editModeActive);
@@ -1260,85 +1129,85 @@ function setupEditor() {
     btnToggle.classList.toggle('active', editModeActive);
   });
 
-  // Export JSON
   btnExport.addEventListener('click', exportJSON);
 
-  // Ouvrir panneau style
   btnStyle.addEventListener('click', () => {
     document.getElementById('style-panel').classList.add('open');
     document.body.classList.add('panel-open');
   });
+}
 
-  function showToast(msg, duration = 2500) {
-    toast.textContent = msg;
-    toast.classList.add('show');
-    clearTimeout(toast._t);
-    toast._t = setTimeout(() => toast.classList.remove('show'), duration);
-  }
-
-  function updateCount() {
-    const n = Object.keys(CHANGES).length;
-    countEl.textContent = n + (n > 1 ? ' modifs.' : ' modif.');
-    countEl.style.background = n > 0 ? 'rgba(216,0,0,.25)' : 'rgba(216,0,0,.1)';
-    countEl.style.color = n > 0 ? '#ff6666' : '#888';
-  }
-
-  function activateEditables() {
-    document.querySelectorAll('[data-editable]').forEach(el => {
-      if (el._editSetup) return;
-      el._editSetup = true;
-      el.setAttribute('contenteditable', 'true');
-      el.setAttribute('spellcheck', 'false');
-      el.addEventListener('blur', () => {
-        const key = el.dataset.key;
-        if (!key) return;
-        const newVal = el.innerText.trim();
-        const origVal = CONFIG[key];
-        if (newVal !== origVal) {
-          CHANGES[key] = newVal;
-          CONFIG[key] = newVal;
-          el.classList.add('changed');
-          updateCount();
-          showToast('✓ "' + (el.dataset.label || key) + '" mis à jour');
-        }
-      });
-      el.addEventListener('keydown', e => {
-        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); el.blur(); }
-        if (e.key === 'Escape') { el.blur(); }
-      });
-      // Prevent link navigation in edit mode
-      el.addEventListener('click', e => {
-        if (editModeActive && el.tagName === 'A') e.preventDefault();
-      });
+function activateEditables() {
+  document.querySelectorAll('[data-editable]').forEach(el => {
+    if (el._editSetup) return;
+    el._editSetup = true;
+    el.setAttribute('contenteditable', 'true');
+    el.setAttribute('spellcheck', 'false');
+    el.addEventListener('blur', () => {
+      const key = el.dataset.key;
+      if (!key) return;
+      const newVal = el.innerText.trim();
+      const origVal = CONFIG[key] !== undefined ? String(CONFIG[key]) : '';
+      if (newVal !== origVal) {
+        CHANGES[key] = newVal;
+        CONFIG[key] = newVal;
+        el.classList.add('changed');
+        updateChangeCount();
+        showToast('✓ "' + (el.dataset.label || key) + '" mis à jour');
+      }
     });
-  }
-
-  function exportJSON() {
-    // Merge CONFIG with CHANGES for a full snapshot
-    const fullConfig = Object.assign({}, CONFIG, CHANGES);
-    // Also pick up style panel changes
-    ['couleurPrimaire','couleurSecondaire','couleurFond','couleurFondSombre','couleurTexte','couleurBleu'].forEach(k => {
-      if (CHANGES[k]) fullConfig[k] = CHANGES[k];
+    el.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); el.blur(); }
+      if (e.key === 'Escape') { el.blur(); }
     });
-    fullConfig.policetitre = CONFIG.policetitre;
-    fullConfig.policeCorps = CONFIG.policeCorps;
+    el.addEventListener('click', e => {
+      if (editModeActive && el.tagName === 'A') e.preventDefault();
+    });
+  });
+}
 
-    const json = JSON.stringify(fullConfig, null, 2);
-    const blob = new Blob([json], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'config-site.json';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    showToast('📥 config-site.json téléchargé !', 3000);
+function updateChangeCount() {
+  const n = Object.keys(CHANGES).length;
+  const el = document.getElementById('et-change-count');
+  el.textContent = n + (n > 1 ? ' modifs.' : ' modif.');
+  el.style.background = n > 0 ? 'rgba(216,0,0,.25)' : 'rgba(216,0,0,.1)';
+  el.style.color = n > 0 ? '#ff6666' : '#888';
+}
+
+let toastTimer;
+function showToast(msg, duration = 2500) {
+  const toast = document.getElementById('et-toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), duration);
+}
+
+function exportJSON() {
+  const fullConfig = Object.assign({}, CONFIG, CHANGES);
+  // Retirer les data URLs (trop lourdes, inutiles dans le JSON)
+  for (const k in fullConfig) {
+    if (String(fullConfig[k]).startsWith('data:')) {
+      fullConfig[k] = '(image locale — remplacez par URL)';
+    }
   }
+  // Reconstruire les tableaux stats depuis CONFIG
+  fullConfig.stats = CONFIG.stats;
+  fullConfig.activites = CONFIG.activites;
+
+  const json = JSON.stringify(fullConfig, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'config-site.json';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('📥 config-site.json téléchargé !', 3000);
 }
 
 /* ============================================================
-   PANNEAU STYLE
+   STYLE PANEL
    ============================================================ */
 function setupStylePanel() {
   document.getElementById('sp-close-btn').addEventListener('click', () => {
@@ -1346,17 +1215,16 @@ function setupStylePanel() {
     document.body.classList.remove('panel-open');
   });
 
-  // Synchroniser color pickers avec CONFIG
   const colorMap = [
-    { varKey: 'couleurPrimaire',   colorId: 'sp-primaire',  hexId: 'sp-primaire-hex' },
-    { varKey: 'couleurSecondaire', colorId: 'sp-secondaire',hexId: 'sp-secondaire-hex' },
-    { varKey: 'couleurFond',       colorId: 'sp-fond',      hexId: 'sp-fond-hex' },
-    { varKey: 'couleurFondSombre', colorId: 'sp-sombre',    hexId: 'sp-sombre-hex' },
-    { varKey: 'couleurTexte',      colorId: 'sp-texte',     hexId: 'sp-texte-hex' },
-    { varKey: 'couleurBleu',       colorId: 'sp-bleu',      hexId: 'sp-bleu-hex' },
+    { varKey: 'couleurPrimaire',   colorId: 'sp-primaire',  hexId: 'sp-primaire-hex',  cssVar: '--primaire' },
+    { varKey: 'couleurSecondaire', colorId: 'sp-secondaire',hexId: 'sp-secondaire-hex',cssVar: '--secondaire' },
+    { varKey: 'couleurFond',       colorId: 'sp-fond',      hexId: 'sp-fond-hex',      cssVar: '--fond' },
+    { varKey: 'couleurFondSombre', colorId: 'sp-sombre',    hexId: 'sp-sombre-hex',    cssVar: '--fond-sombre' },
+    { varKey: 'couleurTexte',      colorId: 'sp-texte',     hexId: 'sp-texte-hex',     cssVar: '--texte' },
+    { varKey: 'couleurBleu',       colorId: 'sp-bleu',      hexId: 'sp-bleu-hex',      cssVar: '--bleu' },
   ];
 
-  colorMap.forEach(({ varKey, colorId, hexId }) => {
+  colorMap.forEach(({ varKey, colorId, hexId, cssVar }) => {
     const picker = document.getElementById(colorId);
     const hexInput = document.getElementById(hexId);
     picker.value = CONFIG[varKey];
@@ -1368,14 +1236,9 @@ function setupStylePanel() {
       CHANGES[varKey] = val;
       picker.value = val;
       hexInput.value = val;
-      // Update CSS var directly
-      document.documentElement.style.setProperty(
-        '--' + cssVarName(varKey), val
-      );
-      document.getElementById('et-change-count').textContent =
-        Object.keys(CHANGES).length + ' modifs.';
+      document.documentElement.style.setProperty(cssVar, val);
+      updateChangeCount();
     }
-
     picker.addEventListener('input', () => applyColor(picker.value));
     hexInput.addEventListener('input', () => {
       let v = hexInput.value.trim();
@@ -1384,15 +1247,8 @@ function setupStylePanel() {
     });
   });
 
-  function cssVarName(k) {
-    const map = { couleurPrimaire:'primaire', couleurSecondaire:'secondaire', couleurFond:'fond', couleurFondSombre:'fond-sombre', couleurTexte:'texte', couleurBleu:'bleu' };
-    return map[k] || k;
-  }
-
-  // Polices
   const titreSelect = document.getElementById('sp-police-titre');
   const corpsSelect = document.getElementById('sp-police-corps');
-
   titreSelect.value = CONFIG.policetitre;
   corpsSelect.value = CONFIG.policeCorps;
 
@@ -1402,15 +1258,13 @@ function setupStylePanel() {
     CONFIG[key] = fontName;
     CHANGES[key] = fontName;
     document.documentElement.style.setProperty(cssVar, `'${fontName}'`);
-    // Load font dynamically
     const f = fontName.replace(/ /g, '+');
     const linkId = 'dyn-font-' + type;
     let link = document.getElementById(linkId);
     if (!link) { link = document.createElement('link'); link.id = linkId; link.rel = 'stylesheet'; document.head.appendChild(link); }
     link.href = `https://fonts.googleapis.com/css2?family=${f}:ital,wght@0,400;0,700;0,900;1,400&display=swap`;
-    document.getElementById('et-change-count').textContent = Object.keys(CHANGES).length + ' modifs.';
+    updateChangeCount();
   }
-
   titreSelect.addEventListener('change', () => applyFont('titre', titreSelect.value));
   corpsSelect.addEventListener('change', () => applyFont('corps', corpsSelect.value));
 }
