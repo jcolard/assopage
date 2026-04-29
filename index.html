@@ -1,41 +1,28 @@
 <!DOCTYPE html>
 <html lang="fr-FR">
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BZKNXTXZNQ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-BZKNXTXZNQ');
-</script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assopage – Mon App, Mon Asso</title>
-    <meta name="description" content="Assopage : l'application web et mobile pour gérer votre association. CRM, Agenda, Inscription, Trésorerie. Dès 50€/an." />
-    <!-- Google tag (gtag.js) -->
+    <title>Assopage – Application gratuite pour votre association</title>
+    <meta name="description" content="Une application mobile pro à votre nom, gratuite. CRM, Agenda, Trésorerie. Installée en 15 minutes, pour 0€." />
 
-    <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-P2SV9T84');</script>
-<!-- End Google Tag Manager -->
     <link rel="icon" type="image/png" href="favicon.png">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Roboto+Condensed:wght@300;400;700&family=Montserrat:wght@800;900&family=Rubik:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
+    <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
+
     <style>
         :root {
             --yellow: #fdf987;
+            --yellow-dim: rgba(253,249,135,0.12);
             --black: #0a0a0a;
             --white: #ffffff;
             --grey-light: #f5f5f5;
+            --grey-mid: #e8e8e8;
             --text-grey: #4a4a4a;
+            --green: #22c55e;
             --font-title: 'Oswald', sans-serif;
             --font-body: 'Roboto Condensed', sans-serif;
         }
@@ -55,16 +42,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         h1, h2, h3, h4 { font-family: var(--font-title); text-transform: uppercase; font-weight: 500; color: var(--black); }
         h2 { font-size: 2.5rem; letter-spacing: 2px; margin-bottom: 20px; text-align: center; }
         p { margin-bottom: 20px; color: var(--text-grey); }
-        
+
         .separator-small { width: 80px; height: 4px; background-color: var(--yellow); margin: 0 auto 40px auto; }
         .separator-dark { background-color: var(--black); }
 
         /* ─── BOUTONS ─── */
         .qbutton {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
             font-family: var(--font-title); text-transform: uppercase;
             font-size: 18px; letter-spacing: 1px; font-weight: 500; text-decoration: none;
-            padding: 15px 35px; transition: all 0.3s ease; text-align: center; border: 2px solid transparent; cursor: pointer;
+            padding: 16px 36px; transition: all 0.3s ease; text-align: center;
+            border: 2px solid transparent; cursor: pointer;
         }
         .qbutton.yellow { background-color: var(--yellow); color: var(--black); }
         .qbutton.yellow:hover { background-color: var(--black); color: var(--white); }
@@ -72,502 +60,298 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .qbutton.dark:hover { background-color: var(--yellow); color: var(--black); border-color: var(--yellow); }
         .qbutton.outline { background-color: transparent; color: var(--black); border-color: var(--black); }
         .qbutton.outline:hover { background-color: var(--black); color: var(--white); }
+        .qbutton.outline-white { background-color: transparent; color: var(--white); border-color: rgba(255,255,255,0.4); }
+        .qbutton.outline-white:hover { background-color: rgba(255,255,255,0.1); border-color: var(--white); }
 
         @keyframes pulse-anim {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(253, 249, 135, 0.8); }
-            50% { transform: scale(1.04); box-shadow: 0 0 18px 6px rgba(253, 249, 135, 0.5); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(253, 249, 135, 0); }
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(253,249,135,0.8); }
+            50% { transform: scale(1.04); box-shadow: 0 0 18px 6px rgba(253,249,135,0.5); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(253,249,135,0); }
         }
-        .pulse { animation: pulse-anim 2s infinite; font-weight: 700; }
+        .pulse { animation: pulse-anim 2s infinite; }
 
         /* ─── NAV ─── */
         nav {
-            position: fixed;
-            top: 0; width: 100%; z-index: 1000;
-            background: rgba(10,10,10,0.92);
-            backdrop-filter: blur(8px);
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(10,10,10,0.95); backdrop-filter: blur(8px);
             padding: 16px 40px;
             display: flex; justify-content: space-between; align-items: center;
             border-bottom: 2px solid var(--yellow);
         }
-        .logo { 
-             font-family: 'Montserrat', sans-serif; 
-             font-size: 2rem; font-weight: 900; 
-             text-decoration: none; text-transform: uppercase; 
-             letter-spacing: -2px; line-height: 1;
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem; font-weight: 900;
+            text-decoration: none; text-transform: uppercase;
+            letter-spacing: -2px; line-height: 1;
         }
         .logo .asso { color: var(--white); }
         .logo .page { color: var(--yellow); }
+
+        /* Badge gratuit dans la nav */
+        .nav-free-badge {
+            background: var(--green);
+            color: var(--white);
+            font-family: var(--font-title);
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            font-weight: 700;
+        }
+
         .nav-links a {
             font-family: var(--font-title); text-transform: uppercase; text-decoration: none;
             color: var(--white); margin-left: 28px; font-size: 1rem; transition: color 0.2s;
         }
         .nav-links a:hover { color: var(--yellow); }
-        .nav-Inscription-btn {
+        .nav-cta-btn {
             background: var(--yellow); color: var(--black) !important;
-            padding: 8px 20px; font-weight: 700;
+            padding: 8px 20px; font-weight: 700; margin-left: 20px !important;
         }
-        .nav-Inscription-btn:hover { background: var(--white) !important; color: var(--black) !important; }
+        .nav-cta-btn:hover { background: var(--white) !important; }
 
-        /* ─── NAV MOBILE : afficher le bouton Inscription ─── */
-        .nav-Inscription-mobile {
-            display: none;
-        }
+        .nav-mobile-cta { display: none; }
 
-        @media (max-width: 900px) { 
-             .nav-links { display: none; }
-             .nav-Inscription-mobile { display: flex; }
-             nav { padding: 14px 20px; }
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .nav-mobile-cta { display: flex; align-items: center; gap: 8px; }
+            nav { padding: 14px 20px; }
         }
 
         /* ─── LAYOUT ─── */
         .section { padding: 80px 20px; }
         .container { max-width: 1100px; margin: 0 auto; }
 
-        /* ─── HERO ─── */
+        /* ═══ HERO ═══ */
         .hero {
             min-height: 100vh;
             background: url('fond.png') center/cover no-repeat;
             display: flex; align-items: center;
-            padding: 0 8%;
+            padding: 0 8%; padding-top: 80px;
             position: relative; overflow: hidden;
-            padding-top: 80px;
         }
-        
+        .hero::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.4) 100%);
+            z-index: 1;
+        }
+
+        /* Bandeau GRATUIT flottant */
+        .hero-free-banner {
+            position: absolute;
+            top: 100px;
+            right: 0;
+            background: var(--green);
+            color: var(--white);
+            font-family: var(--font-title);
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 10px 28px 10px 20px;
+            z-index: 3;
+            box-shadow: -4px 4px 0 rgba(0,0,0,0.3);
+        }
+        @media (max-width: 600px) { .hero-free-banner { font-size: 0.78rem; padding: 8px 18px 8px 14px; top: 90px; } }
+
         .hero-layout {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 40px;
-            width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 40px; width: 100%; max-width: 1100px; margin: 0 auto;
             position: relative; z-index: 2;
         }
-        .hero-content { flex: 1; max-width: 580px; }
+        .hero-content { flex: 1; max-width: 620px; }
+
+        .hero-eyebrow {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-family: var(--font-title); font-size: 0.82rem;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: var(--yellow); margin-bottom: 16px;
+        }
+        .hero-eyebrow-dot { width: 8px; height: 8px; background: var(--yellow); border-radius: 50%; animation: pulse-anim 2s infinite; }
+
         .hero h1 {
-            color: var(--white); font-size: clamp(2.8rem, 5vw, 4.8rem);
-            letter-spacing: 3px; line-height: 1.1; margin-bottom: 16px;
+            color: var(--white);
+            font-size: clamp(2.8rem, 5.5vw, 5rem);
+            letter-spacing: 2px; line-height: 1.05; margin-bottom: 10px;
         }
-        .hero h1 .accent { color: var(--yellow); }
+        .hero h1 .accent { color: var(--yellow); display: block; }
+        .hero h1 .accent-green { color: var(--green); }
+
+        .hero .separator-small { margin: 24px 0; }
+
         .hero-subtitle {
-            font-family: var(--font-title); font-size: clamp(1.1rem, 2vw, 1.5rem);
-            color: rgba(255,255,255,0.9); font-weight: 300; margin-bottom: 12px;
+            font-family: var(--font-title); font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: rgba(255,255,255,0.85); font-weight: 300; margin-bottom: 8px;
         }
-        .hero-sub2 {
-            font-size: 1rem; color: rgba(255,255,255,0.8); margin-bottom: 40px;
-        }
-        .hero .separator-small { margin: 0 0 28px 0; }
+        .hero-sub2 { font-size: 1rem; color: rgba(255,255,255,0.65); margin-bottom: 40px; }
+
         .hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
+
+        /* Proof strip */
+        .hero-proof {
+            margin-top: 36px;
+            display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+        }
+        .hero-proof-item {
+            display: flex; align-items: center; gap: 7px;
+            font-family: var(--font-title); font-size: 0.85rem;
+            letter-spacing: 1px; text-transform: uppercase;
+            color: rgba(255,255,255,0.7);
+        }
+        .hero-proof-item .pi-icon { color: var(--green); font-size: 1rem; }
 
         @media (max-width: 900px) {
             .hero { background-position: 53% center; }
-            .hero-layout { flex-direction: column; text-align: left; padding: 40px 0 60px; }
+            .hero-layout { flex-direction: column; text-align: left; padding: 40px 0 80px; }
             .hero-content { max-width: 100%; }
-            .hero .separator-small { margin: 0 0 28px 0; }
-            .hero-buttons { justify-content: flex-start; }
         }
 
         /* ─── LOGOS BANDEAU ─── */
-        .logos-section { background-color: var(--yellow); padding: 30px 0; overflow: hidden; border-top: 3px solid var(--black); border-bottom: 3px solid var(--black);}
-        .logos-section h3 { text-align: center; font-size: 0.9rem; margin-bottom: 18px; letter-spacing: 3px; font-family: var(--font-title); }
+        .logos-section { background-color: var(--yellow); padding: 28px 0; overflow: hidden; border-top: 3px solid var(--black); border-bottom: 3px solid var(--black); }
+        .logos-section h3 { text-align: center; font-size: 0.85rem; margin-bottom: 16px; letter-spacing: 3px; font-family: var(--font-title); color: var(--black); }
         .marquee { display: flex; gap: 50px; width: max-content; animation: marquee 35s linear infinite; align-items: center; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .marquee img { height: 40px; width: auto; filter: grayscale(100%) contrast(120%); opacity: 0.8; transition: all 0.3s; }
+        .marquee img { height: 38px; width: auto; filter: grayscale(100%) contrast(120%); opacity: 0.7; transition: all 0.3s; }
         .marquee img:hover { filter: grayscale(0%); opacity: 1; }
 
-        /* ═══════════════════════════════════════════════
-           ─── MOCKUP SECTION
-        ═══════════════════════════════════════════════ */
-        .mockup-section { background: var(--grey-light); padding: 50px 16px; }
-
+        /* ═══ SECTION MOCKUP / MODULES ═══ */
+        .mockup-section { background: var(--grey-light); padding: 60px 16px; }
         .mockup-wrapper {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: start;
+            max-width: 1100px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start;
         }
-        @media (max-width: 900px) {
-            .mockup-wrapper { grid-template-columns: 1fr; gap: 28px; }
-        }
+        @media (max-width: 900px) { .mockup-wrapper { grid-template-columns: 1fr; gap: 28px; } }
 
-        /* ── Vidéo intégrée ── */
         .mockup-video-wrap {
-            width: 100%;
-            margin-bottom: 14px;
-            position: relative;
-            border: 3px solid var(--black);
-            box-shadow: 6px 6px 0 var(--black);
-            background: var(--black);
-            overflow: hidden;
+            width: 100%; margin-bottom: 14px; position: relative;
+            border: 3px solid var(--black); box-shadow: 6px 6px 0 var(--black);
+            background: var(--black); overflow: hidden;
         }
-        .mockup-video-wrap video {
-            width: 100%;
-            display: block;
-            max-height: 260px;
-            object-fit: cover;
-        }
+        .mockup-video-wrap video { width: 100%; display: block; max-height: 260px; object-fit: cover; }
 
-        /* Nudge click-to-play */
         .video-nudge {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 16px 18px;
-            cursor: pointer;
-            background: var(--black);
-            transition: background 0.2s;
+            display: flex; align-items: center; gap: 14px;
+            padding: 16px 18px; cursor: pointer; background: var(--black); transition: background 0.2s;
         }
         .video-nudge:hover { background: #1a1a1a; }
 
-        /* ─── HALO animé autour du bouton play ─── */
         @keyframes halo-pulse {
             0%   { box-shadow: 0 0 0 0 rgba(253,249,135,0.9), 0 0 0 0 rgba(253,249,135,0.5); }
             50%  { box-shadow: 0 0 0 10px rgba(253,249,135,0.3), 0 0 0 22px rgba(253,249,135,0.12); }
             100% { box-shadow: 0 0 0 0 rgba(253,249,135,0), 0 0 0 0 rgba(253,249,135,0); }
         }
-
         .nudge-play-btn {
-            width: 46px; height: 46px;
-            border-radius: 50%;
-            background: var(--yellow);
-            color: var(--black);
+            width: 46px; height: 46px; border-radius: 50%;
+            background: var(--yellow); color: var(--black);
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-            transition: transform 0.2s;
+            font-size: 1.1rem; flex-shrink: 0; transition: transform 0.2s;
             animation: halo-pulse 2s ease-out infinite;
         }
         .video-nudge:hover .nudge-play-btn { transform: scale(1.1); }
         .nudge-text { display: flex; flex-direction: column; gap: 2px; }
-        .nudge-eyebrow {
-            font-family: var(--font-title);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.88rem;
-            color: var(--yellow);
-        }
-        .nudge-sub {
-            font-family: var(--font-body);
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.6);
-        }
+        .nudge-eyebrow { font-family: var(--font-title); text-transform: uppercase; letter-spacing: 1px; font-size: 0.88rem; color: var(--yellow); }
+        .nudge-sub { font-family: var(--font-body); font-size: 0.8rem; color: rgba(255,255,255,0.6); }
 
-        /* ── Colonne gauche ── */
-        .mockup-settings {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            width: 100%;
-            min-width: 0;
-        }
+        .mockup-settings { display: flex; flex-direction: column; gap: 0; width: 100%; min-width: 0; }
+        .mockup-title { font-family: var(--font-title); font-size: clamp(1.3rem, 4vw, 2rem); font-weight: 500; text-transform: uppercase; letter-spacing: 2px; color: var(--black); margin-bottom: 6px; }
+        .mockup-title-bar { width: 60px; height: 4px; background: var(--yellow); margin-bottom: 16px; }
 
-        .mockup-title {
-            font-family: var(--font-title);
-            font-size: clamp(1.3rem, 4vw, 2rem);
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--black);
-            margin-bottom: 6px;
-        }
-        .mockup-title-bar {
-            width: 60px; height: 4px;
-            background: var(--yellow);
-            margin-bottom: 16px;
-        }
-
-        .ctrl {
-            width: 100%;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.08);
-        }
+        .ctrl { width: 100%; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.08); }
         .ctrl:last-of-type { border-bottom: none; }
-
-        .ctrl-input {
-            width: 100%;
-            padding: 9px 12px;
-            font-family: var(--font-body);
-            font-size: 0.95rem;
-            border: 2px solid #ddd;
-            background: var(--white);
-            transition: border-color 0.3s;
-            color: var(--black);
-            box-sizing: border-box;
-        }
+        .ctrl-input { width: 100%; padding: 9px 12px; font-family: var(--font-body); font-size: 0.95rem; border: 2px solid #ddd; background: var(--white); transition: border-color 0.3s; color: var(--black); box-sizing: border-box; }
         .ctrl-input:focus { border-color: var(--black); outline: none; }
         .ctrl-input::placeholder { color: #aaa; }
 
         .ctrl-upload {
-            position: relative;
-            width: 100%;
-            border: 2px dashed #ccc;
-            background: var(--white);
-            padding: 9px 12px;
-            cursor: pointer;
-            transition: border-color 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-sizing: border-box;
+            position: relative; width: 100%; border: 2px dashed #ccc; background: var(--white);
+            padding: 9px 12px; cursor: pointer; transition: border-color 0.2s;
+            display: flex; align-items: center; gap: 8px; box-sizing: border-box;
         }
         .ctrl-upload:hover { border-color: var(--black); }
         .ctrl-upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
         .ctrl-upload .up-icon { font-size: 1rem; flex-shrink: 0; }
         .ctrl-upload span { font-size: 0.85rem; color: var(--text-grey); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 
-        .color-theme-row {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 6px;
-            width: 100%;
-        }
-
-        .color-swatch {
-            width: 26px; height: 26px;
-            cursor: pointer;
-            border: 3px solid transparent;
-            transition: transform 0.2s, border-color 0.2s;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.15);
-            flex-shrink: 0;
-        }
+        .color-theme-row { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; width: 100%; }
+        .color-swatch { width: 26px; height: 26px; cursor: pointer; border: 3px solid transparent; transition: transform 0.2s, border-color 0.2s; box-shadow: 0 1px 4px rgba(0,0,0,0.15); flex-shrink: 0; }
         .color-swatch.active { border-color: var(--black); transform: scale(1.2); }
-
-        .ctrl-divider {
-            width: 1px; height: 26px;
-            background: #ccc;
-            flex-shrink: 0;
-        }
-
-        .theme-icon-btn {
-            width: 26px; height: 26px;
-            border: 2px solid #ddd;
-            background: var(--white);
-            cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.85rem;
-            transition: all 0.2s;
-            flex-shrink: 0;
-        }
+        .ctrl-divider { width: 1px; height: 26px; background: #ccc; flex-shrink: 0; }
+        .theme-icon-btn { width: 26px; height: 26px; border: 2px solid #ddd; background: var(--white); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; transition: all 0.2s; flex-shrink: 0; }
         .theme-icon-btn.active.light { border-color: var(--black); box-shadow: 0 0 0 2px var(--black); }
         .theme-icon-btn.active.dark { background: var(--black); border-color: var(--black); color: var(--yellow); }
 
-        .module-tabs {
-            display: flex;
-            width: 100%;
-            gap: 0;
-        }
-
+        .module-tabs { display: flex; width: 100%; gap: 0; }
         .module-tab {
-            flex: 1;
-            min-width: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 3px;
-            padding: 8px 2px;
-            background: var(--white);
-            border: 2px solid #ddd;
-            border-right-width: 0;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: var(--font-title);
-            font-size: clamp(0.6rem, 1.8vw, 0.82rem);
-            text-transform: uppercase;
-            letter-spacing: 0;
-            color: var(--black);
-            white-space: nowrap;
-            overflow: hidden;
+            flex: 1; min-width: 0; display: flex; align-items: center; justify-content: center;
+            gap: 3px; padding: 8px 2px; background: var(--white); border: 2px solid #ddd;
+            border-right-width: 0; cursor: pointer; transition: all 0.2s;
+            font-family: var(--font-title); font-size: clamp(0.6rem, 1.8vw, 0.82rem);
+            text-transform: uppercase; letter-spacing: 0; color: var(--black);
+            white-space: nowrap; overflow: hidden;
         }
         .module-tab:last-child { border-right-width: 2px; }
         .module-tab.active { background: var(--black); color: var(--yellow); border-color: var(--black); z-index: 1; }
         .module-tab .tab-icon { font-size: clamp(0.85rem, 2.5vw, 1rem); flex-shrink: 0; }
-        @media (max-width: 520px) {
-            .module-tab .tab-text { display: none; }
-            .module-tab { padding: 9px 0; }
-        }
+        @media (max-width: 520px) { .module-tab .tab-text { display: none; } .module-tab { padding: 9px 0; } }
 
-        .module-desc-box {
-            background: var(--black);
-            padding: 12px 14px;
-            border-left: 4px solid var(--yellow);
-            margin-top: 6px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .module-desc-box h4 {
-            font-family: var(--font-title);
-            text-transform: uppercase;
-            font-size: 0.82rem;
-            letter-spacing: 2px;
-            color: var(--yellow);
-            margin-bottom: 8px;
-        }
-        .module-desc-box ul {
-            list-style: none; padding: 0; margin: 0;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            column-gap: 12px; row-gap: 4px;
-        }
-        .module-desc-box ul li {
-            font-size: 0.78rem;
-            color: rgba(255,255,255,0.8);
-            padding-left: 14px;
-            position: relative; margin-bottom: 0;
-        }
+        .module-desc-box { background: var(--black); padding: 12px 14px; border-left: 4px solid var(--yellow); margin-top: 6px; width: 100%; box-sizing: border-box; }
+        .module-desc-box h4 { font-family: var(--font-title); text-transform: uppercase; font-size: 0.82rem; letter-spacing: 2px; color: var(--yellow); margin-bottom: 8px; }
+        .module-desc-box ul { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 12px; row-gap: 4px; }
+        .module-desc-box ul li { font-size: 0.78rem; color: rgba(255,255,255,0.8); padding-left: 14px; position: relative; margin-bottom: 0; }
         .module-desc-box ul li::before { content: '→'; position: absolute; left: 0; color: var(--yellow); }
         @media (max-width: 480px) { .module-desc-box ul { grid-template-columns: 1fr; } }
 
-        /* ── Colonne droite ── */
-        .mockup-display {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-        @media (min-width: 901px) {
-            .mockup-display { position: sticky; top: 90px; }
-        }
-
-        .mockup-preview {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .canvas-frame { width: 100%; max-width: 300px; }
-
-        #myCanvas {
-            width: 100%; height: auto; display: block;
-            box-shadow: 8px 8px 0 var(--black);
-            border: 3px solid var(--black);
-        }
-
-        .download-btn { width: 100%; max-width: 300px; font-size: 0.85rem; padding: 10px 16px; }
-        .create-app-btn { width: 100%; max-width: 300px; font-size: 0.9rem; padding: 12px 16px; text-align: center; }
-
-        /* ─── FORMULAIRE DE CRÉATION ─── */
-        .form-section { background: var(--white); padding: 80px 20px; }
-        .form-section h2 { color: var(--black); }
-        .form-box {
-            max-width: 700px;
-            margin: 0 auto;
-            background: var(--grey-light);
-            border: 2px solid var(--black);
-            box-shadow: 8px 8px 0 var(--black);
-            padding: 40px;
-        }
-        .form-intro {
-            font-size: 0.95rem;
-            color: var(--text-grey);
-            margin-bottom: 28px;
-            text-align: center;
-        }
-        .form-group {
-            margin-bottom: 18px;
-        }
-        .form-label {
-            display: block;
-            font-family: var(--font-title);
-            text-transform: uppercase;
-            font-size: 0.82rem;
-            letter-spacing: 2px;
-            color: var(--black);
-            margin-bottom: 6px;
-        }
-        .form-label small {
-            display: block;
-            font-family: var(--font-body);
-            text-transform: none;
-            letter-spacing: 0;
-            font-size: 0.78rem;
-            color: var(--text-grey);
-            margin-top: 2px;
-        }
-        .form-input {
-            width: 100%;
-            padding: 10px 14px;
-            font-family: var(--font-body);
-            font-size: 0.95rem;
-            border: 2px solid #ddd;
-            background: var(--white);
-            color: var(--black);
-            transition: border-color 0.3s;
-            box-sizing: border-box;
-        }
-        .form-input:focus { border-color: var(--black); outline: none; }
-        .form-input::placeholder { color: #aaa; }
-
-        .form-modules-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        @media (max-width: 520px) { .form-modules-grid { grid-template-columns: 1fr; } }
-
-        .module-check-label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 14px;
-            border: 2px solid #ddd;
-            background: var(--white);
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: var(--font-title);
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-        }
-        .module-check-label:hover { border-color: var(--black); }
-        .module-check-label input[type="checkbox"] { display: none; }
-        .module-check-label .check-box {
-            width: 20px; height: 20px;
-            border: 2px solid #ccc;
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0;
-            transition: all 0.2s;
-            font-size: 0.75rem;
-        }
-        .module-check-label input[type="checkbox"]:checked ~ .check-box {
-            background: var(--black);
-            border-color: var(--black);
-            color: var(--yellow);
-        }
-        .module-check-label input[type="checkbox"]:checked ~ .check-box::after { content: '✓'; }
-        .module-check-label.checked { border-color: var(--black); background: var(--grey-light); }
-
-        .form-note {
-            font-size: 0.78rem;
-            color: var(--text-grey);
-            margin-top: 8px;
-            margin-bottom: 0;
-        }
-
-        .form-submit-btn {
-            width: 100%;
+        /* Note inscription */
+        .inscription-note {
             margin-top: 10px;
-            font-size: 1rem;
-            padding: 16px;
-            border: none;
+            padding: 10px 14px;
+            background: rgba(253,249,135,0.08);
+            border: 1px solid rgba(253,249,135,0.25);
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.55);
+            font-style: italic;
         }
 
-        .form-status {
-            margin-top: 16px;
-            padding: 12px 16px;
-            font-family: var(--font-title);
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            display: none;
-        }
-        .form-status.success { background: var(--yellow); color: var(--black); border: 2px solid var(--black); }
-        .form-status.error { background: #fee; color: #900; border: 2px solid #900; }
+        .mockup-display { display: flex; flex-direction: column; gap: 14px; }
+        @media (min-width: 901px) { .mockup-display { position: sticky; top: 90px; } }
+        .mockup-preview { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .canvas-frame { width: 100%; max-width: 300px; }
+        #myCanvas { width: 100%; height: auto; display: block; box-shadow: 8px 8px 0 var(--black); border: 3px solid var(--black); }
+        .download-btn { width: 100%; max-width: 300px; font-size: 0.85rem; padding: 10px 16px; }
+        .cta-app-btn { width: 100%; max-width: 300px; font-size: 0.9rem; padding: 14px 16px; text-align: center; }
 
-        /* ─── TEMOIGNAGES ─── */
+        /* ═══ FAQ "Le deal" ═══ */
+        .faq-section { background: var(--black); }
+        .faq-section h2 { color: var(--white); }
+        .faq-section .separator-small { background: var(--yellow); }
+        .faq-intro-text {
+            max-width: 600px; margin: 0 auto 50px; text-align: center;
+            font-family: var(--font-title); font-size: 1.1rem;
+            color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        .faq-list { max-width: 750px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .faq-question {
+            width: 100%; background: none; border: none; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 22px 0; text-align: left;
+            font-family: var(--font-title); font-size: 1.1rem;
+            color: var(--white); text-transform: uppercase; letter-spacing: 1px;
+        }
+        .faq-question .faq-icon {
+            flex-shrink: 0; width: 28px; height: 28px; background: var(--yellow);
+            color: var(--black); display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; font-weight: 700; transition: transform 0.3s;
+        }
+        .faq-question.open .faq-icon { transform: rotate(45deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; color: rgba(255,255,255,0.7); font-size: 1rem; line-height: 1.7; }
+        .faq-answer.open { max-height: 500px; padding-bottom: 22px; }
+        .faq-answer p { color: rgba(255,255,255,0.7); margin-bottom: 8px; }
+        .faq-answer p:last-child { margin-bottom: 0; }
+
+        /* ═══ TEMOIGNAGES ═══ */
         .testimonials-section { background-color: var(--yellow); }
         .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 35px; margin-top: 50px; }
         .testi-card { background: var(--white); padding: 35px; border: 2px solid var(--black); box-shadow: 6px 6px 0px var(--black); display: flex; flex-direction: column; justify-content: space-between; }
@@ -578,33 +362,96 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .testi-author { font-family: var(--font-title); text-transform: uppercase; font-weight: 700; color: var(--black); line-height: 1.2; }
         .testi-role { font-size: 0.85rem; color: #666; }
 
-        /* ─── FAQ ─── */
-        .faq-section { background: var(--black); }
-        .faq-section h2 { color: var(--white); }
-        .faq-section .separator-small { background: var(--yellow); }
-        .faq-list { max-width: 750px; margin: 0 auto; }
-        .faq-item { border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .faq-question {
-            width: 100%; background: none; border: none; cursor: pointer;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 22px 0; text-align: left;
-            font-family: var(--font-title); font-size: 1.15rem; 
-            color: var(--white); text-transform: uppercase; letter-spacing: 1px;
+        /* ═══ SECTION SERVICES PAYANTS ═══ */
+        .services-section { background: var(--white); padding: 80px 20px; }
+        .services-section h2 { color: var(--black); }
+
+        .services-intro {
+            max-width: 650px; margin: 0 auto 50px; text-align: center;
+            font-size: 1rem; color: var(--text-grey); line-height: 1.7;
         }
-        .faq-question .faq-icon { 
-             flex-shrink: 0; width: 28px; height: 28px; background: var(--yellow); 
-             color: var(--black); display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; font-weight: 700; transition: transform 0.3s;
+
+        /* Divider avec texte */
+        .paid-divider {
+            display: flex; align-items: center; gap: 20px;
+            max-width: 800px; margin: 0 auto 50px;
         }
-        .faq-question.open .faq-icon { transform: rotate(45deg); }
-        .faq-answer { 
-             max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s;
-            color: rgba(255,255,255,0.7); font-size: 1rem; line-height: 1.6;
+        .paid-divider-line { flex: 1; height: 2px; background: var(--grey-mid); }
+        .paid-divider-label {
+            font-family: var(--font-title); font-size: 0.78rem;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: #aaa; white-space: nowrap;
         }
-        .faq-answer.open { max-height: 500px; padding-bottom: 22px; }
-        .faq-answer p { color: rgba(255,255,255,0.7); margin-bottom: 8px; }
-        .faq-answer p:last-child { margin-bottom: 0; }
-        .faq-answer em { color: rgba(255,255,255,0.5); font-size: 0.88rem; display: block; margin-top: 6px; }
+
+        .services-grid {
+            max-width: 1000px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        .service-card {
+            border: 2px solid var(--black); padding: 32px;
+            display: flex; flex-direction: column;
+            transition: box-shadow 0.25s, transform 0.25s;
+        }
+        .service-card:hover { box-shadow: 6px 6px 0 var(--black); transform: translate(-2px, -2px); }
+        .service-card.featured { background: var(--black); }
+
+        .service-price {
+            font-family: 'Montserrat', sans-serif; font-size: 2.6rem; font-weight: 900;
+            color: var(--black); line-height: 1; margin-bottom: 4px;
+        }
+        .service-card.featured .service-price { color: var(--yellow); }
+        .service-price-note { font-size: 0.8rem; color: #888; margin-bottom: 16px; }
+        .service-card.featured .service-price-note { color: rgba(255,255,255,0.5); }
+
+        .service-title {
+            font-family: var(--font-title); text-transform: uppercase; font-size: 1.1rem;
+            letter-spacing: 2px; color: var(--black); margin-bottom: 14px; font-weight: 600;
+        }
+        .service-card.featured .service-title { color: var(--white); }
+
+        .service-features {
+            list-style: none; padding: 0; margin: 0 0 24px 0; flex: 1;
+        }
+        .service-features li {
+            font-size: 0.9rem; color: var(--text-grey); padding: 6px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.07);
+            display: flex; align-items: flex-start; gap: 8px;
+        }
+        .service-card.featured .service-features li { color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.1); }
+        .service-features li::before { content: '→'; color: var(--yellow); flex-shrink: 0; margin-top: 2px; font-weight: 700; }
+        .service-card.featured .service-features li::before { color: var(--yellow); }
+
+        .service-btn { margin-top: auto; font-size: 0.9rem; padding: 12px 20px; width: 100%; }
+
+        /* Disclaimer */
+        .services-disclaimer {
+            max-width: 700px; margin: 36px auto 0; text-align: center;
+            font-size: 0.82rem; color: #aaa; line-height: 1.6;
+        }
+
+        /* ═══ SECTION AGENDA BOOKING ═══ */
+        .booking-section {
+            background: var(--black); padding: 80px 20px;
+            text-align: center; scroll-margin-top: 80px;
+        }
+        .booking-section h2 { color: var(--white); }
+        .booking-section .separator-small { background: var(--yellow); }
+        .booking-intro {
+            max-width: 600px; margin: 0 auto 40px;
+            color: rgba(255,255,255,0.65); font-size: 1rem;
+        }
+
+        /* Container du bouton Google Calendar */
+        .gcal-btn-wrap {
+            display: flex; justify-content: center; align-items: center;
+            flex-direction: column; gap: 16px; margin-bottom: 24px;
+        }
+        .gcal-context-label {
+            font-family: var(--font-title); font-size: 0.8rem;
+            letter-spacing: 2px; text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+        }
 
         /* ─── CONTACT ─── */
         .contact-section { background: var(--grey-light); text-align: center; }
@@ -622,107 +469,106 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
         /* ─── COOKIES BANNER ─── */
         #cookie-banner {
-            position: fixed;
-            bottom: 0; left: 0; right: 0;
-            background: rgba(10,10,10,0.96);
-            border-top: 2px solid var(--yellow);
-            padding: 14px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-            z-index: 9998;
-            backdrop-filter: blur(6px);
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: rgba(10,10,10,0.96); border-top: 2px solid var(--yellow);
+            padding: 14px 24px; display: flex; align-items: center;
+            justify-content: space-between; flex-wrap: wrap; gap: 12px;
+            z-index: 9998; backdrop-filter: blur(6px);
         }
-        #cookie-banner p {
-            color: rgba(255,255,255,0.8);
-            font-size: 0.82rem;
-            margin: 0;
-            flex: 1;
-            min-width: 200px;
-        }
+        #cookie-banner p { color: rgba(255,255,255,0.8); font-size: 0.82rem; margin: 0; flex: 1; min-width: 200px; }
         #cookie-banner a { color: var(--yellow); text-decoration: underline; }
         .cookie-btns { display: flex; gap: 10px; flex-shrink: 0; }
-        .cookie-btn {
-            font-family: var(--font-title);
-            text-transform: uppercase;
-            font-size: 0.78rem;
-            letter-spacing: 1px;
-            padding: 7px 18px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
+        .cookie-btn { font-family: var(--font-title); text-transform: uppercase; font-size: 0.78rem; letter-spacing: 1px; padding: 7px 18px; border: none; cursor: pointer; transition: all 0.2s; }
         .cookie-btn.accept { background: var(--yellow); color: var(--black); }
         .cookie-btn.accept:hover { background: var(--white); }
         .cookie-btn.decline { background: transparent; color: #aaa; border: 1px solid #444; }
         .cookie-btn.decline:hover { color: var(--white); border-color: #888; }
 
         /* ─── VIDEO MODAL ─── */
-        .modal-overlay {
-            display: none; position: fixed; inset: 0;
-            background: rgba(0,0,0,0.85); z-index: 9999;
-            align-items: center; justify-content: center;
-        }
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; }
         .modal-overlay.open { display: flex; }
-        .modal-box {
-            position: relative; width: 90%; max-width: 800px;
-            background: var(--black); border: 3px solid var(--yellow);
-        }
-        .modal-close {
-            position: absolute; top: -18px; right: -18px;
-            width: 36px; height: 36px; background: var(--yellow);
-            border: none; cursor: pointer; font-size: 1.2rem;
-            font-weight: 700; display: flex; align-items: center; justify-content: center;
-            z-index: 10;
-        }
+        .modal-box { position: relative; width: 90%; max-width: 800px; background: var(--black); border: 3px solid var(--yellow); }
+        .modal-close { position: absolute; top: -18px; right: -18px; width: 36px; height: 36px; background: var(--yellow); border: none; cursor: pointer; font-size: 1.2rem; font-weight: 700; display: flex; align-items: center; justify-content: center; z-index: 10; }
         .modal-box iframe { width: 100%; aspect-ratio: 16/9; display: block; border: none; }
     </style>
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P2SV9T84"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 
     <!-- ─── COOKIE BANNER ─── -->
     <div id="cookie-banner" style="display:none;">
-        <p>🍪 Ce site utilise des cookies fonctionnels pour assurer son bon fonctionnement. Aucune donnée n'est transmise à des tiers à des fins publicitaires. <a href="mailto:contact@assopage.fr">En savoir plus</a>.</p>
+        <p>🍪 Ce site utilise des cookies fonctionnels. Aucune donnée n'est transmise à des tiers à des fins publicitaires. <a href="mailto:contact@assopage.fr">En savoir plus</a>.</p>
         <div class="cookie-btns">
             <button class="cookie-btn decline" onclick="dismissCookies()">Refuser</button>
             <button class="cookie-btn accept" onclick="acceptCookies()">Accepter</button>
         </div>
     </div>
 
+    <!-- ─── NAV ─── -->
     <nav>
         <a href="#" class="logo"><span class="asso">ASSO</span><span class="page">PAGE</span></a>
-        <!-- Bouton Inscription visible sur mobile : emoji uniquement -->
-        <a href="https://assopage.fr/Inscription" target="_blank" class="nav-Inscription-mobile qbutton" style="font-size:1.3rem; padding:6px 12px; background:var(--yellow); color:var(--black); font-weight:700; line-height:1;">🎟️</a>
+
+        <!-- Mobile : juste un bouton tester -->
+        <div class="nav-mobile-cta">
+            <span class="nav-free-badge">Gratuit</span>
+            <a href="https://www.appsheet.com/portfolio/636350017" target="_blank" class="qbutton yellow" style="font-size:0.9rem; padding:8px 14px;">Tester l'app</a>
+        </div>
+
         <div class="nav-links">
-            <a href="#modules">Modules</a>
-            <a href="#faq">FAQ</a>
-            <a href="#contact">Contact</a>
-            <a href="https://assopage.fr/Inscription" target="_blank" class="nav-Inscription-btn">🎟️ Inscription</a>
+            <a href="#modules">L'application</a>
+            <a href="#deal">Le deal</a>
+            <a href="#services">Assistance</a>
+            <span class="nav-free-badge">Gratuit</span>
+            <a href="https://www.appsheet.com/portfolio/636350017" target="_blank" class="nav-cta-btn">🚀 Tester l'app</a>
         </div>
     </nav>
 
+    <!-- ─── HERO ─── -->
     <header class="hero">
+        <div class="hero-free-banner">✓ 100% gratuit — 0€/an</div>
         <div class="hero-layout">
             <div class="hero-content">
-                <h1>Mon App,<br><span class="accent">Mon Asso</span></h1>
+                <div class="hero-eyebrow">
+                    <div class="hero-eyebrow-dot"></div>
+                    Je suis bénévole. L'app est gratuite.
+                </div>
+                <h1>
+                    Je propulse<br>votre association.
+                    <span class="accent-green">Gratuitement.</span>
+                </h1>
                 <div class="separator-small"></div>
-                <p class="hero-subtitle">L'application web & mobile pour gérer votre association</p>
-                <p class="hero-sub2">Avec votre logo et vos couleurs. Dès 50€/an, jusqu'à 9 utilisateurs.</p>
+                <p class="hero-subtitle">Une application mobile professionnelle à votre nom pour automatiser vos corvées.</p>
+                <p class="hero-sub2">Installée en 15 minutes. Pour 0€.</p>
+
                 <div class="hero-buttons">
-                    <a href="#modules" class="qbutton yellow">🚀 Tester l'appli gratuitement</a>
+                    <a href="https://www.appsheet.com/portfolio/636350017" target="_blank" class="qbutton yellow pulse">
+                        <i class="fa-solid fa-rocket"></i> Tester l'application
+                    </a>
+                    <a href="#services" class="qbutton outline-white">
+                        <i class="fa-solid fa-calendar-check"></i> Besoin d'aide ?
+                    </a>
+                </div>
+
+                <div class="hero-proof">
+                    <div class="hero-proof-item">
+                        <i class="fa-solid fa-check pi-icon"></i>
+                        <span>0€ pour toujours</span>
+                    </div>
+                    <div class="hero-proof-item">
+                        <i class="fa-solid fa-check pi-icon"></i>
+                        <span>Vos données, votre compte</span>
+                    </div>
+                    <div class="hero-proof-item">
+                        <i class="fa-solid fa-check pi-icon"></i>
+                        <span>Prête en 15 minutes</span>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
 
+    <!-- ─── LOGOS BANDEAU ─── -->
     <div class="logos-section">
-        <h3>ILS ONT CHOISI ASSOPAGE</h3>
+        <h3>ILS UTILISENT DÉJÀ ASSOPAGE</h3>
         <div class="marquee">
             <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/zenith2_huztz0.png" alt="Zénith" />
             <img src="https://res.cloudinary.com/dojmfeltf/image/upload/v1775682525/efsf2_pkzklq.png" alt="EFSF" />
@@ -745,17 +591,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </div>
 
-    <!-- ═══ SECTION MOCKUP ═══ -->
+    <!-- ═══ SECTION MOCKUP / MODULES ═══ -->
     <section class="mockup-section" id="modules">
         <div class="mockup-wrapper">
 
             <!-- ── Colonne gauche : contrôles ── -->
             <div class="mockup-settings">
-
                 <div class="mockup-title">Personnalisez votre application</div>
                 <div class="mockup-title-bar"></div>
 
-                <!-- Vidéo avec nudge -->
+                <!-- Vidéo -->
                 <div class="mockup-video-wrap" id="videoNudgeWrap">
                     <div class="video-nudge" id="videoNudge" onclick="launchInlineVideo()">
                         <div class="nudge-play-btn">▶</div>
@@ -770,9 +615,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
 
                 <div class="ctrl">
-                    <input type="text" id="assoName" class="ctrl-input" maxlength="25" placeholder="Nom de votre association *" required>
+                    <input type="text" id="assoName" class="ctrl-input" maxlength="25" placeholder="Nom de votre association">
                 </div>
-
                 <div class="ctrl">
                     <label class="ctrl-upload">
                         <input type="file" id="logoUpload" accept="image/png,image/jpeg,image/webp">
@@ -780,7 +624,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <span id="uploadLabel">Votre logo (PNG, JPG…)</span>
                     </label>
                 </div>
-
                 <div class="ctrl">
                     <div class="color-theme-row">
                         <div id="colorPalette" style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;"></div>
@@ -789,7 +632,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <button class="theme-icon-btn dark" data-mode="dark" title="Thème sombre">🌙</button>
                     </div>
                 </div>
-
                 <div class="ctrl" style="padding-bottom:0; border-bottom:none;">
                     <div class="module-tabs">
                         <button class="module-tab active" data-section="evenement">
@@ -802,183 +644,101 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <span class="tab-icon">💶</span><span class="tab-text">&nbsp;Tréso</span>
                         </button>
                         <button class="module-tab" data-section="billeterie">
-                            <span class="tab-icon">🎟️</span><span class="tab-text">&nbsp;Billets</span>
+                            <span class="tab-icon">🎟️</span><span class="tab-text">&nbsp;Inscription</span>
                         </button>
                     </div>
                 </div>
-
                 <div class="module-desc-box" id="moduleDesc">
                     <h4 id="descTitle">Module Agenda & Événements</h4>
                     <ul id="descList"></ul>
+                    <div class="inscription-note" id="inscriptionNote" style="display:none;">
+                        ⚡ Ce module nécessite un déploiement spécifique — disponible via un créneau d'accompagnement.
+                    </div>
                 </div>
-
             </div>
 
-            <!-- ── Colonne droite : canvas + boutons ── -->
+            <!-- ── Colonne droite : canvas ── -->
             <div class="mockup-display">
                 <div class="mockup-preview">
                     <div class="canvas-frame">
                         <canvas id="myCanvas" width="1080" height="1920"></canvas>
                         <p style="font-size:0.72rem; color:#888; text-align:center; margin-top:6px; font-family:var(--font-body);">
-    👆 Cliquez sur l'aperçu pour changer de module
-</p>
+                            👆 Cliquez pour changer de module
+                        </p>
                     </div>
-                    <button class="qbutton yellow download-btn" onclick="shareCanvas()">
+                    <button class="qbutton outline download-btn" onclick="shareCanvas()">
                         <i class="fa-solid fa-share-nodes"></i> Partager le mockup
                     </button>
-                    <a href="#creer-mon-app" class="qbutton dark create-app-btn">
-                        <i class="fa-solid fa-rocket"></i> Tester votre application
+                    <a href="https://www.appsheet.com/portfolio/636350017" target="_blank" class="qbutton yellow cta-app-btn pulse">
+                        <i class="fa-solid fa-rocket"></i> Tester l'application — 0€
                     </a>
                 </div>
             </div>
-
         </div>
     </section>
 
-    <!-- ═══ FORMULAIRE DE CRÉATION ═══ -->
-    <section class="form-section" id="creer-mon-app">
+    <!-- ═══ FAQ "LE DEAL" ═══ -->
+    <section class="section faq-section" id="deal">
         <div class="container">
-            <h2>Tester votre application</h2>
-            <div class="separator-small separator-dark"></div>
-            <div class="form-box">
-                <p class="form-intro">Vos préférences (nom, logo, couleur, thème) sont automatiquement récupérées depuis la personnalisation ci-dessus. Complétez les informations ci-dessous pour recevoir votre app de test pendant 14 jours sous 48h.</p>
-
-                <div class="form-group">
-                    <label class="form-label">Modules souhaités 50€/module/an
-                        <small>Le module Agenda est obligatoire si vous prenez Inscription</small>
-                    </label>
-                    <div class="form-modules-grid" id="formModulesGrid">
-                        <label class="module-check-label" id="flabel-evenement">
-                            <input type="checkbox" name="form_module" value="évenement" id="fmod-evenement" onchange="syncModuleLabel(this)">
-                            <span class="check-box"></span>
-                            📅 Agenda
-                        </label>
-                        <label class="module-check-label" id="flabel-crm">
-                            <input type="checkbox" name="form_module" value="crm" id="fmod-crm" onchange="syncModuleLabel(this)">
-                            <span class="check-box"></span>
-                            👥 CRM
-                        </label>
-                        <label class="module-check-label" id="flabel-tresorerie">
-                            <input type="checkbox" name="form_module" value="trésorerie" id="fmod-tresorerie" onchange="syncModuleLabel(this)">
-                            <span class="check-box"></span>
-                            💶 Trésorerie
-                        </label>
-                        <label class="module-check-label" id="flabel-Inscription">
-                            <input type="checkbox" name="form_module" value="Inscription" id="fmod-Inscription" onchange="syncModuleLabel(this)">
-                            <span class="check-box"></span>
-                            🎟️ Inscription
-                        </label>
-                    </div>
-                    <p class="form-note">Jusqu'à 4 modules. Vous pourrez modifier votre sélection ultérieurement.</p>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="f-statut">Votre statut au sein de l'association</label>
-                    <input type="text" id="f-statut" class="form-input" placeholder="Ex : Président, Trésorier, Bénévole…" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="f-nom">Votre nom</label>
-                    <input type="text" id="f-nom" class="form-input" placeholder="Prénom Nom" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="f-email-asso">Email officiel de l'association</label>
-                    <input type="email" id="f-email-asso" class="form-input" placeholder="contact@votreasso.fr" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="f-email-access">Email du premier utilisateur (Gmail ou Outlook)
-                        <small>Doit être lié à un compte Google ou Microsoft — c'est l'accès à votre application.</small>
-                    </label>
-                    <input type="email" id="f-email-access" class="form-input" placeholder="prenom.nom@gmail.com" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="f-tel">Téléphone</label>
-                    <input type="tel" id="f-tel" class="form-input" placeholder="+33 6 00 00 00 00" required>
-                </div>
-
-                <button class="qbutton dark form-submit-btn" onclick="submitAssopageForm()">
-                    <i class="fa-solid fa-envelope"></i> Recevoir mon app par mail
-                </button>
-
-                <div class="form-status" id="form-status"></div>
-            </div>
-        </div>
-    </section>
-
-    <div class="modal-overlay" id="videoModal" onclick="closeVideo(event)">
-        <div class="modal-box">
-            <button class="modal-close" onclick="closeVideoBtn()">✕</button>
-            <iframe id="videoFrame" src="" allowfullscreen></iframe>
-        </div>
-    </div>
-
-    <section class="section faq-section" id="faq">
-        <div class="container">
-            <h2>Questions fréquentes</h2>
+            <h2>Le deal est simple.</h2>
             <div class="separator-small"></div>
+            <p class="faq-intro-text">Voici pourquoi c'est gratuit.</p>
+
             <div class="faq-list">
-
-                <!-- 🎟️ Inscription EN PREMIER -->
                 <div class="faq-item">
                     <button class="faq-question" onclick="toggleFaq(this)">
-                        🎟️ Comment fonctionne la Inscription ?
+                        💰 Qui paie ?
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p>Vous obtenez votre propre page d'inscription accessible via une url unique. Vous pouvez choisir de la rendre accessible via notre espace Inscription ou non. Redirigez votre audience vers votre page pour leur permettre de s'inscrire/se désinscrire via une simple adresse email. Ils recevront un mail de confirmation.</p>
-                        <p>Gérez vos évènements et inscrits via le module "Agenda & Évènement" de l'application Assopage.</p>
-                        <p>Assopage ne gère pas les paiements.</p>
+                        <p>Personne. Je suis salarié à côté, mon job paie mes factures. Ce projet est mon engagement bénévole.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <button class="faq-question" onclick="toggleFaq(this)">
-                        Pouvons-nous vous contacter en cas de difficulté ?
+                        🤔 Pourquoi faire ça ?
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p>Bien sûr. Un bouton "Contacter Assopage" est intégré directement dans l'application, et nous répondons en règle générale dans la journée. Pendant toute la durée de votre abonnement, nous garantissons la disponibilité de l'app ainsi que la sécurisation de vos données.</p>
+                        <p>Ce qui vous prend 10h me prend 10 minutes grâce à mes outils d'automatisation. Je préfère que votre temps serve à votre cause, en vous donnant accès aux mêmes outils.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <button class="faq-question" onclick="toggleFaq(this)">
-                        Comment s'organise l'équipe Assopage ?
+                        🔒 Et vos données ?
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p>Nous sommes actuellement une équipe de trois personnes : Jérémy, le fondateur, qui gère le développement et la sécurité ; Nicolas, qui s'occupe des tests et de la partie commerciale ; et Mani, dédié à l'accompagnement des associations ainsi qu'au frontend et frontoffice.</p>
+                        <p>Elles restent chez vous. L'application tourne sur votre compte Google. Je n'ai aucun accès à vos fichiers, je ne vends rien, je ne tracke rien.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <button class="faq-question" onclick="toggleFaq(this)">
-                        Assopage est-il sécurisé ?
+                        🪤 Le piège ?
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p>Vos données sont hébergées sur Google Cloud Platform (GCP), dont nous sommes certifiés. Nous respectons le RGPD et mettons en place toutes les mesures nécessaires pour garantir l'intégrité de vos données et assurer la continuité du service. Vos données ne seront jamais utilisées à des fins commerciales.</p>
+                        <p>Il n'y en a pas. Mon seul objectif est d'équiper un maximum d'associations pour prouver qu'on peut révolutionner le secteur avec la bonne stack technique. Ma récompense, c'est ma notoriété d'expert.</p>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <button class="faq-question" onclick="toggleFaq(this)">
-                        Comment fonctionne le test des 14 jours ?
+                        🔌 Et si vous arrêtez le projet ?
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p>Après soumission du formulaire, vous recevez un lien pour accéder à votre application sur navigateur, ainsi qu'un lien pour l'installer en tant que web app sur votre téléphone. Un lien de paiement reste disponible pendant 14 jours dans l'espace "Mon compte" de l'app. Sans paiement de votre part à l'issue de cette période, vos données et accès seront supprimés. L'engagement est annuel.</p>
-                        <em>* Nous nous réservons le droit de ne pas envoyer l'application si votre nom et votre adresse email ne correspondent pas aux informations publiques de votre association.<br>* Pour accéder à l'application, vous devez impérativement nous communiquer une adresse email Gmail ou Outlook.</em>
+                        <p>L'application est sur votre compte Google. Si je disparais demain, votre outil continue de fonctionner car vous en êtes le seul propriétaire. C'est ça, la vraie souveraineté numérique.</p>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
+    <!-- ═══ TEMOIGNAGES ═══ -->
     <section class="section testimonials-section">
         <div class="container">
             <h2 style="color: var(--black);">Le Terrain Parle</h2>
@@ -1018,18 +778,130 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </section>
 
+    <!-- ═══ SERVICES PAYANTS ═══ -->
+    <section class="services-section" id="services">
+        <div class="container">
+            <h2>Vous avez besoin d'aide ?</h2>
+            <div class="separator-small separator-dark"></div>
+            <p class="services-intro">
+                L'application est gratuite et autonome. Mais si vous souhaitez aller plus loin — personnalisation avancée, déploiement assisté, nouvelle app, landing page — je valorise mon temps sur des créneaux dédiés.
+            </p>
+
+            <div class="paid-divider">
+                <div class="paid-divider-line"></div>
+                <div class="paid-divider-label">Options d'accompagnement · 90€/créneau</div>
+                <div class="paid-divider-line"></div>
+            </div>
+
+            <div class="services-grid">
+
+                <div class="service-card">
+                    <div class="service-price">90€</div>
+                    <div class="service-price-note">créneau 1h · paiement Stripe intégré</div>
+                    <div class="service-title">Déploiement & Personnalisation</div>
+                    <ul class="service-features">
+                        <li>Installation complète sur votre compte Google</li>
+                        <li>Paramétrage à vos couleurs et logo</li>
+                        <li>Formation à la prise en main</li>
+                        <li>Intégration du module Inscription (page d'événement)</li>
+                    </ul>
+                    <a href="#booking" class="qbutton dark service-btn">
+                        <i class="fa-solid fa-calendar-check"></i> Réserver un créneau
+                    </a>
+                </div>
+
+                <div class="service-card featured">
+                    <div class="service-price">90€</div>
+                    <div class="service-price-note">créneau 1h · paiement Stripe intégré</div>
+                    <div class="service-title">Landing Page Moderne</div>
+                    <ul class="service-features">
+                        <li>Création d'une page web professionnelle pour votre asso</li>
+                        <li>Design responsive mobile & desktop</li>
+                        <li>Mise en ligne et configuration</li>
+                        <li>+ Page actualité pilotable depuis l'app (2ème créneau)</li>
+                    </ul>
+                    <a href="#booking" class="qbutton yellow service-btn">
+                        <i class="fa-solid fa-calendar-check"></i> Réserver un créneau
+                    </a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-price">90€</div>
+                    <div class="service-price-note">créneau 1h · paiement Stripe intégré</div>
+                    <div class="service-title">Consulting & Sur-mesure</div>
+                    <ul class="service-features">
+                        <li>Audit de vos outils et processus actuels</li>
+                        <li>Création d'une application sur-mesure</li>
+                        <li>Automatisation de workflows spécifiques</li>
+                        <li>Accompagnement stratégie numérique</li>
+                    </ul>
+                    <a href="#booking" class="qbutton dark service-btn">
+                        <i class="fa-solid fa-calendar-check"></i> Réserver un créneau
+                    </a>
+                </div>
+
+            </div>
+
+            <p class="services-disclaimer">
+                Chaque créneau inclut le paiement Stripe (90€). L'application reste gratuite — vous ne payez que le temps de travail si vous en avez besoin.
+            </p>
+        </div>
+    </section>
+
+    <!-- ═══ BOOKING AGENDA ═══ -->
+    <section class="booking-section" id="booking">
+        <div class="container">
+            <h2 style="color:var(--white);">Réservez un créneau</h2>
+            <div class="separator-small"></div>
+            <p class="booking-intro">
+                Choisissez un créneau disponible. Le paiement (90€) est intégré à la réservation via Stripe. Je vous confirme par email sous 24h.
+            </p>
+            <div class="gcal-btn-wrap">
+                <span class="gcal-context-label">Agenda Google Calendar · 90€ · Paiement Stripe intégré</span>
+                <!-- Google Calendar Appointment Scheduling begin -->
+                <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
+                <script>
+                (function() {
+                  var target = document.currentScript;
+                  window.addEventListener('load', function() {
+                    calendar.schedulingButton.load({
+                      url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ23ML8oNMF9yMgonGrTdt0ya604nStCd-mwP5tOfIXPK3JUaqHOnMBFSZ6SKywaLZmemIzFCqpX?gv=true',
+                      color: '#039BE5',
+                      label: 'Réserver un créneau',
+                      target,
+                    });
+                  });
+                })();
+                </script>
+                <!-- end Google Calendar Appointment Scheduling -->
+            </div>
+            <p style="color:rgba(255,255,255,0.4); font-size:0.85rem; margin-top:20px;">
+                Pas prêt ? <a href="mailto:contact@assopage.fr" style="color:var(--yellow); text-decoration:underline;">Contactez-moi par email</a> pour discuter de votre projet.
+            </p>
+        </div>
+    </section>
+
+    <!-- ─── CONTACT ─── -->
     <section class="section contact-section" id="contact">
         <div class="container contact-wrapper">
-            <h2>Vous avez un besoin spécifique, créer votre app sur devis</h2>
+            <h2>Une question ? Un projet spécifique ?</h2>
             <div class="separator-small separator-dark"></div>
-            <p>Pour en savoir plus et pour toutes les applications personnalisées sur devis.</p>
+            <p>Pour tout ce qui ne rentre pas dans une case — n'hésitez pas.</p>
             <div class="direct-contact-btns">
-                <a href="mailto:contact@assopage.fr" class="qbutton dark"><i class="fa-solid fa-envelope"></i> Nous contacter par mail</a>
+                <a href="mailto:contact@assopage.fr" class="qbutton dark"><i class="fa-solid fa-envelope"></i> contact@assopage.fr</a>
                 <a href="https://www.je-co.fr" target="_blank" class="qbutton outline"><i class="fa-solid fa-globe"></i> Mon portfolio</a>
             </div>
         </div>
     </section>
 
+    <div class="modal-overlay" id="videoModal" onclick="closeVideo(event)">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeVideoBtn()">✕</button>
+            <iframe id="videoFrame" src="" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- ─── FOOTER ─── -->
     <footer>
         <a href="#" class="logo"><span class="asso" style="color:var(--white);">ASSO</span><span class="page">PAGE</span></a>
         <div class="separator-small" style="margin: 20px auto;"></div>
@@ -1038,15 +910,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <a href="https://www.je-co.fr" target="_blank" aria-label="Portfolio Je-co"><i class="fa-solid fa-globe"></i></a>
         </div>
         <div class="footer-links" style="margin-top: 25px;">
-            <a href="https://billing.stripe.com/p/login/28E28q4Th9lS5Rf11PdAk00" target="_blank">Gérer mon abonnement</a> |
-            <a href="https://assopage.fr/Inscription" target="_blank">Inscription</a> |
-            <a href="https://www.je-co.fr" target="_blank">Portfolio Sur-mesure</a>
+            <a href="https://www.je-co.fr" target="_blank">Portfolio sur-mesure</a> |
+            <a href="mailto:contact@assopage.fr">Contact</a>
         </div>
         <p style="margin-top: 30px; font-size: 0.9rem; color: #666;">© 2026 Assopage par Jérémy Colard. Tous droits réservés.</p>
     </footer>
 
     <script>
-        /* ─── VIDEO INLINE NUDGE ─── */
+        /* ─── VIDEO INLINE ─── */
         function launchInlineVideo() {
             document.getElementById('videoNudge').style.display = 'none';
             const vid = document.getElementById('inlineVideo');
@@ -1056,34 +927,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         /* ─── COOKIES ─── */
         function showCookieBanner() {
-            const consent = localStorage.getItem('assopage_cookie_consent');
-            if (!consent) document.getElementById('cookie-banner').style.display = 'flex';
+            if (!localStorage.getItem('assopage_cookie_consent')) document.getElementById('cookie-banner').style.display = 'flex';
         }
-        function acceptCookies() {
-            localStorage.setItem('assopage_cookie_consent', 'accepted');
-            document.getElementById('cookie-banner').style.display = 'none';
-        }
-        function dismissCookies() {
-            localStorage.setItem('assopage_cookie_consent', 'declined');
-            document.getElementById('cookie-banner').style.display = 'none';
-        }
+        function acceptCookies() { localStorage.setItem('assopage_cookie_consent','accepted'); document.getElementById('cookie-banner').style.display='none'; }
+        function dismissCookies() { localStorage.setItem('assopage_cookie_consent','declined'); document.getElementById('cookie-banner').style.display='none'; }
         setTimeout(showCookieBanner, 1500);
 
         /* ─── VIDEO MODAL ─── */
-        const VIDEO_URL = "https://www.youtube.com/embed/6lkeJijGcRQ?autoplay=1";
-        function openVideo(e) {
-            e.stopPropagation();
-            document.getElementById('videoFrame').src = VIDEO_URL;
-            document.getElementById('videoModal').classList.add('open');
-        }
-        function closeVideo(e) {
-            if (e.target === document.getElementById('videoModal')) closeVideoBtn();
-        }
-        function closeVideoBtn() {
-            document.getElementById('videoModal').classList.remove('open');
-            document.getElementById('videoFrame').src = '';
-        }
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVideoBtn(); });
+        function closeVideo(e) { if (e.target===document.getElementById('videoModal')) closeVideoBtn(); }
+        function closeVideoBtn() { document.getElementById('videoModal').classList.remove('open'); document.getElementById('videoFrame').src=''; }
+        document.addEventListener('keydown', e => { if (e.key==='Escape') closeVideoBtn(); });
 
         /* ─── FAQ ─── */
         function toggleFaq(btn) {
@@ -1098,14 +951,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         const canvas = document.getElementById('myCanvas');
         const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
-        let currentMode = 'light';
-        let currentSection = 'evenement';
-        let currentColor = '#fdf987';
-        let logoImage = null;
+        let currentMode = 'light', currentSection = 'evenement', currentColor = '#fdf987', logoImage = null;
         let imagesLoaded = 0;
         const TOTAL_IMAGES = 8;
 
-        const colorList = ['#fdf987', '#1E88E5', '#E53935', '#FFA000', '#43A047', '#E8710A', '#D81B60', '#8E24AA'];
+        const colorList = ['#fdf987','#1E88E5','#E53935','#FFA000','#43A047','#E8710A','#D81B60','#8E24AA'];
 
         const imageUrls = {
             light: {
@@ -1121,300 +971,135 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 billeterie: 'https://res.cloudinary.com/dxt4ferj4/image/upload/v1776958498/billet_dptwyk.png'
             }
         };
+        const appImages = { light:{}, dark:{} };
 
-        const appImages = { light: {}, dark: {} };
-
-        const APP_LOGO = { x: 220, y: 75, w: 104, h: 96 };
-        const BILL_LOGO = { x: 150, y: 288, w: 133, h: 154 };
-        const BILL_TEXT = { x: 321, y: 333, w: 614, h: 111 };
-
-        const TARGET_R = 67, TARGET_G = 160, TARGET_B = 77, TOLERANCE = 41;
+        const APP_LOGO = { x:220, y:75, w:104, h:96 };
+        const BILL_LOGO = { x:150, y:288, w:133, h:154 };
+        const BILL_TEXT = { x:321, y:333, w:614, h:111 };
+        const TARGET_R=67, TARGET_G=160, TARGET_B=77, TOLERANCE=41;
 
         const moduleTextData = {
             evenement: {
-                title: "Module Agenda & Événements",
-                points: ["Gestion complète de vos événements","Ajout et suivi des participants","Rapports et photos pour vos réseaux sociaux","Suivi de l'émargement et des paiements"]
+                title:"Module Agenda & Événements",
+                points:["Gestion complète de vos événements","Ajout et suivi des participants","Rapports et photos pour vos réseaux sociaux","Suivi de l'émargement et des paiements"]
             },
             crm: {
-                title: "Module CRM",
-                points: ["Gestion des adhérents, donateurs, bénévoles","Suivi des interactions et documents par contact","Emailing : contacter un groupe en un clic","Carte interactive pour situer vos contacts"]
+                title:"Module CRM",
+                points:["Gestion des adhérents, donateurs, bénévoles","Suivi des interactions et documents","Emailing : contacter un groupe en un clic","Carte interactive pour situer vos contacts"]
             },
             tresorerie: {
-                title: "Module Trésorerie",
-                points: ["Saisie guidée des dépenses et recettes","Ajout de justificatif avec l'appareil photo","Suivi comptable : gérer articles et projets","Suivi et relance des cotisations*"]
+                title:"Module Trésorerie",
+                points:["Saisie guidée des dépenses et recettes","Ajout de justificatif avec l'appareil photo","Suivi comptable : articles et projets","Suivi et relance des cotisations"]
             },
             billeterie: {
-                title: "Module Inscription",
-                points: ["Page internet événementielle personnalisée","Formulaire d'inscription sur-mesure","Confirmations par email automatiques","Statistiques d'événement en temps réel"]
+                title:"Module Inscription (sur créneau)",
+                points:["Page d'inscription événementielle","Formulaire sur-mesure","Confirmations email automatiques","Statistiques en temps réel"]
             }
         };
 
         function hexToRgb(hex) {
-            const r = parseInt(hex.slice(1,3), 16), g = parseInt(hex.slice(3,5), 16), b = parseInt(hex.slice(5,7), 16);
-            return { r, g, b };
+            return { r:parseInt(hex.slice(1,3),16), g:parseInt(hex.slice(3,5),16), b:parseInt(hex.slice(5,7),16) };
         }
 
         function updateDescription() {
             const data = moduleTextData[currentSection];
             document.getElementById('descTitle').textContent = data.title;
-            const list = document.getElementById('descList');
-            list.innerHTML = data.points.map(p => `<li>${p}</li>`).join('');
+            document.getElementById('descList').innerHTML = data.points.map(p=>`<li>${p}</li>`).join('');
+            document.getElementById('inscriptionNote').style.display = (currentSection === 'billeterie') ? 'block' : 'none';
         }
 
         function renderCanvas() {
             const baseImg = appImages[currentMode][currentSection];
             if (!baseImg || !baseImg.complete || !baseImg.naturalWidth) return;
-
             ctx.drawImage(baseImg, 0, 0);
-
             if (currentSection !== 'billeterie') {
                 const rgb = hexToRgb(currentColor);
-                const idata = ctx.getImageData(0, 0, 1080, 1920);
+                const idata = ctx.getImageData(0,0,1080,1920);
                 const d = idata.data;
-                for (let i = 0; i < d.length; i += 4) {
+                for (let i=0; i<d.length; i+=4) {
                     const dist = Math.sqrt(Math.pow(d[i]-TARGET_R,2)+Math.pow(d[i+1]-TARGET_G,2)+Math.pow(d[i+2]-TARGET_B,2));
-                    if (dist <= TOLERANCE) { d[i]=rgb.r; d[i+1]=rgb.g; d[i+2]=rgb.b; }
+                    if (dist<=TOLERANCE) { d[i]=rgb.r; d[i+1]=rgb.g; d[i+2]=rgb.b; }
                 }
-                ctx.putImageData(idata, 0, 0);
+                ctx.putImageData(idata,0,0);
             }
-
             const txt = document.getElementById('assoName').value.trim();
-
-            if (currentSection === 'billeterie') {
-                if (logoImage) ctx.drawImage(logoImage, BILL_LOGO.x, BILL_LOGO.y, BILL_LOGO.w, BILL_LOGO.h);
-                const txtUpper = txt.toUpperCase();
-                if (txtUpper) {
-                    ctx.fillStyle = "#0a0a0a";
-                    ctx.font = "400 70px 'Oswald', sans-serif";
-                    ctx.letterSpacing = "2px";
-                    ctx.textBaseline = "middle";
-                    ctx.textAlign = "left";
-                    ctx.fillText(txtUpper, BILL_TEXT.x, BILL_TEXT.y + (BILL_TEXT.h / 2));
-                    ctx.letterSpacing = "0px";
+            if (currentSection==='billeterie') {
+                if (logoImage) ctx.drawImage(logoImage,BILL_LOGO.x,BILL_LOGO.y,BILL_LOGO.w,BILL_LOGO.h);
+                if (txt) {
+                    ctx.fillStyle="#0a0a0a"; ctx.font="400 70px 'Oswald', sans-serif";
+                    ctx.letterSpacing="2px"; ctx.textBaseline="middle"; ctx.textAlign="left";
+                    ctx.fillText(txt.toUpperCase(), BILL_TEXT.x, BILL_TEXT.y+(BILL_TEXT.h/2));
+                    ctx.letterSpacing="0px";
                 }
             } else {
-                if (logoImage) ctx.drawImage(logoImage, APP_LOGO.x, APP_LOGO.y, APP_LOGO.w, APP_LOGO.h);
+                if (logoImage) ctx.drawImage(logoImage,APP_LOGO.x,APP_LOGO.y,APP_LOGO.w,APP_LOGO.h);
                 if (txt) {
-                    ctx.fillStyle = (currentMode === 'light') ? "#ffffff" : "#000000";
-                    ctx.font = "400 45px 'Rubik', sans-serif";
-                    ctx.textBaseline = "middle";
-                    ctx.textAlign = "left";
-                    ctx.fillText(txt, APP_LOGO.x + APP_LOGO.w + 20, APP_LOGO.y + (APP_LOGO.h / 2));
+                    ctx.fillStyle=(currentMode==='light')?"#ffffff":"#000000";
+                    ctx.font="400 45px 'Rubik', sans-serif";
+                    ctx.textBaseline="middle"; ctx.textAlign="left";
+                    ctx.fillText(txt, APP_LOGO.x+APP_LOGO.w+20, APP_LOGO.y+(APP_LOGO.h/2));
                 }
             }
         }
 
         async function shareCanvas() {
-            const nomAsso = document.getElementById('assoName').value.trim();
-            const titre = nomAsso ? `L'appli de ${nomAsso} sur Assopage` : 'Mon appli association sur Assopage';
-
+            const nom = document.getElementById('assoName').value.trim();
+            const titre = nom ? `L'appli de ${nom} sur Assopage` : 'Mon appli association sur Assopage';
             canvas.toBlob(async (blob) => {
-                const file = new File([blob], 'mockup-assopage.png', { type: 'image/png' });
-                const shareData = {
-                    title: titre,
-                    text: `Découvrez l'application de gestion associative personnalisée avec Assopage — CRM, Agenda, Inscription, Trésorerie. Dès 50€/an.`,
-                    url: 'https://assopage.fr',
-                    files: [file]
-                };
-
+                const file = new File([blob],'mockup-assopage.png',{type:'image/png'});
+                const shareData = { title:titre, text:`Découvrez Assopage — CRM, Agenda, Trésorerie pour votre asso. Gratuit.`, url:'https://assopage.fr', files:[file] };
                 try {
-                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                        await navigator.share(shareData);
-                    } else if (navigator.share) {
-                        // Fallback sans fichier si les fichiers ne sont pas supportés
-                        await navigator.share({ title: shareData.title, text: shareData.text, url: shareData.url });
-                    } else {
-                        // Dernier recours : téléchargement classique
-                        const link = document.createElement('a');
-                        link.download = 'mockup-assopage.png';
-                        link.href = canvas.toDataURL('image/png');
-                        link.click();
-                    }
-                } catch (err) {
-                    if (err.name !== 'AbortError') console.error('Partage échoué :', err);
-                }
-            }, 'image/png');
+                    if (navigator.canShare && navigator.canShare({files:[file]})) await navigator.share(shareData);
+                    else if (navigator.share) await navigator.share({title:shareData.title,text:shareData.text,url:shareData.url});
+                    else { const l=document.createElement('a'); l.download='mockup-assopage.png'; l.href=canvas.toDataURL('image/png'); l.click(); }
+                } catch(err) { if (err.name!=='AbortError') console.error('Partage échoué :',err); }
+            },'image/png');
         }
 
-        /* ─── MODULE CHECKBOX SYNC ─── */
-        function syncModuleLabel(cb) {
-            const label = cb.closest('.module-check-label');
-            if (cb.checked) label.classList.add('checked');
-            else label.classList.remove('checked');
-        }
-
-        /* ─── FORMULAIRE SOUMISSION ─── */
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzIdO7ZxXJ7gMbM4dEZ52UaC6NUoDgC656XEzyC5iDiHJoj-ljPRVBIPFjIkUk3RPAL/exec";
-
-        async function submitAssopageForm() {
-            const statusEl = document.getElementById('form-status');
-
-            // Collect selected modules
-            const modulesChecked = [];
-            document.querySelectorAll('input[name="form_module"]:checked').forEach(cb => modulesChecked.push(cb.value));
-
-            const nom = document.getElementById('f-nom').value.trim();
-            const statut = document.getElementById('f-statut').value.trim();
-            const emailAsso = document.getElementById('f-email-asso').value.trim();
-            const emailAccess = document.getElementById('f-email-access').value.trim();
-            const tel = document.getElementById('f-tel').value.trim();
-
-            // Validate required fields
-            if (!nom || !statut || !emailAsso || !emailAccess || !tel || modulesChecked.length === 0) {
-                statusEl.style.display = 'block';
-                statusEl.className = 'form-status error';
-                statusEl.textContent = 'Merci de remplir tous les champs obligatoires et de sélectionner au moins un module.';
-                return;
-            }
-
-            // Grab data from mockup section
-            const nomAsso = document.getElementById('assoName').value.trim();
-
-            if (!nomAsso) {
-                statusEl.style.display = 'block';
-                statusEl.className = 'form-status error';
-                statusEl.textContent = 'Merci de renseigner le nom de votre association dans la section "Personnalisez votre application" ci-dessus.';
-                document.getElementById('assoName').focus();
-                return;
-            }
-            const couleur = currentColor;
-            const theme = currentMode === 'dark' ? 'sombre' : 'clair';
-
-            // Convert logo to base64 if uploaded
-            let logoBase64 = '';
-            let logoName = '';
-            let logoMimeType = '';
-
-            if (logoImage && logoImage.src && logoImage.src.startsWith('data:')) {
-                logoBase64 = logoImage.src;
-                logoName = document.getElementById('uploadLabel').textContent;
-                logoMimeType = logoImage.src.split(';')[0].replace('data:', '');
-            }
-
-            const payload = {
-                nom_asso: nomAsso || '(non renseigné)',
-                nom: nom,
-                statut: statut,
-                email_asso: emailAsso,
-                gmail_outlook: emailAccess,
-                telephone: tel,
-                couleur: couleur,
-                theme: theme,
-                modules: modulesChecked.join(', '),
-                logoBase64: logoBase64,
-                logoName: logoName,
-                logoMimeType: logoMimeType
-            };
-
-            statusEl.style.display = 'block';
-            statusEl.className = 'form-status';
-            statusEl.textContent = 'Envoi en cours…';
-
-            try {
-                const response = await fetch(WEB_APP_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify(payload)
-                });
-                const data = await response.json();
-                if (data.status === 'success') {
-                    statusEl.className = 'form-status success';
-                    statusEl.textContent = '✅ Demande envoyée ! Vous recevrez votre application sous 48h.';
-                    // Reset form fields only (not mockup)
-                    document.getElementById('f-nom').value = '';
-                    document.getElementById('f-statut').value = '';
-                    document.getElementById('f-email-asso').value = '';
-                    document.getElementById('f-email-access').value = '';
-                    document.getElementById('f-tel').value = '';
-                    document.querySelectorAll('input[name="form_module"]').forEach(cb => {
-                        cb.checked = false;
-                        cb.closest('.module-check-label').classList.remove('checked');
-                    });
-                } else {
-                    statusEl.className = 'form-status error';
-                    statusEl.textContent = 'Erreur : ' + (data.message || 'Une erreur est survenue.');
-                }
-            } catch (err) {
-                statusEl.className = 'form-status error';
-                statusEl.textContent = 'Erreur réseau : ' + err.message;
-            }
-        }
-
-        /* ─── INIT ─── */
         function init() {
             for (let m in imageUrls) {
                 for (let s in imageUrls[m]) {
-                    const img = new Image();
-                    img.crossOrigin = "Anonymous";
-                    img.src = imageUrls[m][s];
-                    img.onload = () => {
-                        imagesLoaded++;
-                        if (imagesLoaded >= TOTAL_IMAGES) renderCanvas();
-                    };
-                    appImages[m][s] = img;
+                    const img = new Image(); img.crossOrigin="Anonymous"; img.src=imageUrls[m][s];
+                    img.onload=()=>{ imagesLoaded++; if(imagesLoaded>=TOTAL_IMAGES) renderCanvas(); };
+                    appImages[m][s]=img;
                 }
             }
-
-            const paletteContainer = document.getElementById('colorPalette');
+            const pc = document.getElementById('colorPalette');
             colorList.forEach(color => {
-                const swatch = document.createElement('div');
-                swatch.className = 'color-swatch' + (color === currentColor ? ' active' : '');
-                swatch.style.backgroundColor = color;
-                if (color === '#fdf987') swatch.style.border = '3px solid #ccc';
-                swatch.onclick = () => {
-                    document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
-                    swatch.classList.add('active');
-                    currentColor = color;
-                    renderCanvas();
-                };
-                paletteContainer.appendChild(swatch);
+                const sw = document.createElement('div');
+                sw.className='color-swatch'+(color===currentColor?' active':'');
+                sw.style.backgroundColor=color;
+                if(color==='#fdf987') sw.style.border='3px solid #ccc';
+                sw.onclick=()=>{ document.querySelectorAll('.color-swatch').forEach(s=>s.classList.remove('active')); sw.classList.add('active'); currentColor=color; renderCanvas(); };
+                pc.appendChild(sw);
             });
-
-            document.querySelectorAll('.module-tab').forEach(btn => {
-                btn.onclick = () => {
-                    document.querySelectorAll('.module-tab').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    currentSection = btn.dataset.section;
-                    renderCanvas();
-                    updateDescription();
+            document.querySelectorAll('.module-tab').forEach(btn=>{
+                btn.onclick=()=>{
+                    document.querySelectorAll('.module-tab').forEach(b=>b.classList.remove('active'));
+                    btn.classList.add('active'); currentSection=btn.dataset.section; renderCanvas(); updateDescription();
                 };
             });
-
-            document.querySelectorAll('.theme-icon-btn').forEach(btn => {
-                btn.onclick = () => {
-                    document.querySelectorAll('.theme-icon-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    currentMode = btn.dataset.mode;
-                    renderCanvas();
+            document.querySelectorAll('.theme-icon-btn').forEach(btn=>{
+                btn.onclick=()=>{
+                    document.querySelectorAll('.theme-icon-btn').forEach(b=>b.classList.remove('active'));
+                    btn.classList.add('active'); currentMode=btn.dataset.mode; renderCanvas();
                 };
             });
-
-            document.getElementById('logoUpload').onchange = (e) => {
-                const file = e.target.files[0];
-                if (!file) return;
-                document.getElementById('uploadLabel').textContent = file.name;
-                const reader = new FileReader();
-                reader.onload = (ev) => {
-                    logoImage = new Image();
-                    logoImage.onload = renderCanvas;
-                    logoImage.src = ev.target.result;
-                };
+            document.getElementById('logoUpload').onchange=(e)=>{
+                const file=e.target.files[0]; if(!file) return;
+                document.getElementById('uploadLabel').textContent=file.name;
+                const reader=new FileReader();
+                reader.onload=(ev)=>{ logoImage=new Image(); logoImage.onload=renderCanvas; logoImage.src=ev.target.result; };
                 reader.readAsDataURL(file);
             };
-
-            document.getElementById('assoName').oninput = renderCanvas;
-            // Click sur le canvas → switch module suivant
-            const sectionOrder = ['evenement', 'crm', 'tresorerie', 'billeterie'];
-            canvas.style.cursor = 'pointer';
-            canvas.onclick = () => {
-                const idx = sectionOrder.indexOf(currentSection);
-                currentSection = sectionOrder[(idx + 1) % sectionOrder.length];
-                // Mettre à jour les tabs
-                document.querySelectorAll('.module-tab').forEach(b => {
-                    b.classList.toggle('active', b.dataset.section === currentSection);
-                });
-                renderCanvas();
-                updateDescription();
+            document.getElementById('assoName').oninput=renderCanvas;
+            const sectionOrder=['evenement','crm','tresorerie','billeterie'];
+            canvas.style.cursor='pointer';
+            canvas.onclick=()=>{
+                const idx=sectionOrder.indexOf(currentSection);
+                currentSection=sectionOrder[(idx+1)%sectionOrder.length];
+                document.querySelectorAll('.module-tab').forEach(b=>b.classList.toggle('active',b.dataset.section===currentSection));
+                renderCanvas(); updateDescription();
             };
             updateDescription();
         }
