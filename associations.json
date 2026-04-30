@@ -159,17 +159,6 @@
         "image_url": "https://drive.google.com/thumbnail?id=1wRNcfKIVxbYX7HSmDDx8j7tU16MBO-5I&sz=w1000"
       },
       {
-        "id": "7d4fddeb",
-        "titre": "D AMOUR",
-        "description": "places en galerie seulement.",
-        "date": "30/04/2026",
-        "heure_debut": "20:00",
-        "heure_fin": "21:30",
-        "adresse": "Grand Théâtre de Provence 380 avenue Max Juvenal - Aix",
-        "prix": 15,
-        "image_url": "https://drive.google.com/thumbnail?id=17CnKu4jwQPaUGJ1SEy-IqHt6Id5vM51v&sz=w1000"
-      },
-      {
         "id": "7e0cd346",
         "titre": "Atelier expression corporelle au Pavillon noir.",
         "description": "Cet atelier fait partie du parcours musique et danse que nous avons créé avec notre partenaire le Pavillon noir. Il s’agit d’un atelier dirigé par Natalia, d’une heure et trente minutes qui se déroulera dans un studio du Pavillon noir. Merci d’arriver 15 mn avant la séance. Le prix est de 15€ pour 1 seul atelier, 25€ pour 2 ateliers et  30 euros pour les 3 ateliers. Payer à l'inscription.",
@@ -243,17 +232,6 @@
         "heure_debut": "19:30",
         "heure_fin": "21:30",
         "adresse": "Inconnu",
-        "prix": "",
-        "image_url": "https://drive.google.com/thumbnail?id=1_UoKjlIB_ZMye5684Nh8gugMM1U27mfX&sz=w1000"
-      },
-      {
-        "id": "a34cd4b5",
-        "titre": "Atelier jeux",
-        "description": "",
-        "date": "30/04/2026",
-        "heure_debut": "14:00",
-        "heure_fin": "16:00",
-        "adresse": "Mairie Annexe Pont de l’Arc 75 route des Milles, place Sextius Conca – Aix en Provence",
         "prix": "",
         "image_url": "https://drive.google.com/thumbnail?id=1_UoKjlIB_ZMye5684Nh8gugMM1U27mfX&sz=w1000"
       },
