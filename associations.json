@@ -71,17 +71,6 @@
         "image_url": "https://drive.google.com/thumbnail?id=1gZWyRzhxt9kdkGRhm1omb806HbfKp9b3&sz=w1000"
       },
       {
-        "id": "43086bc6",
-        "titre": "Café bla-bla",
-        "description": "",
-        "date": "04/05/2026",
-        "heure_debut": "14:30",
-        "heure_fin": "15:30",
-        "adresse": "Mairie Annexe Pont de l’Arc 75 route des Milles, place Sextius Conca – Aix en Provence",
-        "prix": "",
-        "image_url": "https://drive.google.com/thumbnail?id=1gZWyRzhxt9kdkGRhm1omb806HbfKp9b3&sz=w1000"
-      },
-      {
         "id": "4a9eec04",
         "titre": "Goûter littéraire",
         "description": "",
@@ -91,17 +80,6 @@
         "adresse": "",
         "prix": "",
         "image_url": "https://drive.google.com/thumbnail?id=1CCdRVWMls9fEhy-mI6SvRAqycGHKEoY1&sz=w1000"
-      },
-      {
-        "id": "4acbce62",
-        "titre": "Alex Kosta",
-        "description": "",
-        "date": "04/05/2026",
-        "heure_debut": "09:00",
-        "heure_fin": "12:00",
-        "adresse": "Devant Harmonie Mutuelle - 11 Avenue des Belges",
-        "prix": "",
-        "image_url": "https://drive.google.com/thumbnail?id=1GppbarglGVZpeZuiz0bhzZJ1tTla-HJS&sz=w1000"
       },
       {
         "id": "57766bec",
@@ -124,17 +102,6 @@
         "adresse": "Piscine Plein Ciel Avenue Marcel Pagnol – Jas de Bouffan En bus : Aixpress A Arrêt Saint John Perse",
         "prix": "",
         "image_url": "https://drive.google.com/thumbnail?id=1n55bdkgRfErxDQwzIkLbzcLCx0PuH14g&sz=w1000"
-      },
-      {
-        "id": "5fcc1e1b",
-        "titre": "Permanence aide au quotidien",
-        "description": "Natation",
-        "date": "04/05/2026",
-        "heure_debut": "14:00",
-        "heure_fin": "15:00",
-        "adresse": "Piscine Plein Ciel Avenue Marcel Pagnol – Jas de Bouffan En bus : Aixpress A Arrêt Saint John Perse",
-        "prix": "",
-        "image_url": "https://drive.google.com/thumbnail?id=1x2JMg0Rn0hU4aLyLsVOuNpxJ3AY38tHN&sz=w1000"
       },
       {
         "id": "6a44b9c9",
