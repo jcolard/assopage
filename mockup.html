@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assopage – Éditeur de mockup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Roboto+Condensed:wght@300;400;700&family=Montserrat:wght@800;900&family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --yellow: #fdf987;
+            --black: #0a0a0a;
+            --white: #ffffff;
+            --grey-light: #f5f5f5;
+            --grey-mid: #e8e8e8;
+            --text-grey: #4a4a4a;
+            --font-title: 'Oswald', sans-serif;
+            --font-body: 'Roboto Condensed', sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--black);
+            background: var(--grey-light);
+            line-height: 1.6;
+            font-size: 16px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3, h4 { font-family: var(--font-title); text-transform: uppercase; font-weight: 500; }
+        p { color: var(--text-grey); }
+
+        /* ─── HEADER ─── */
+        header {
+            background: var(--black);
+            border-bottom: 3px solid var(--yellow);
+            padding: 14px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-shrink: 0;
+        }
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 900;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            line-height: 1;
+        }
+        .logo .asso { color: var(--white); }
+        .logo .page { color: var(--yellow); }
+        .header-tagline {
+            font-family: var(--font-title);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* ─── MAIN LAYOUT ─── */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 32px 20px 48px;
+        }
+
+        .editor-wrapper {
+            width: 100%;
+            max-width: 1060px;
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 28px;
+            align-items: start;
+        }
+
+        @media (max-width: 820px) {
+            .editor-wrapper { grid-template-columns: 1fr; }
+        }
+
+        /* ─── PANEL (colonne gauche) ─── */
+        .panel {
+            background: var(--white);
+            border: 2px solid var(--black);
+            box-shadow: 6px 6px 0 var(--black);
+        }
+
+        .panel-header {
+            background: var(--black);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .panel-header h2 {
+            font-size: 1rem;
+            letter-spacing: 3px;
+            color: var(--yellow);
+            margin: 0;
+        }
+        .panel-header-icon {
+            width: 28px; height: 28px;
+            background: var(--yellow);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.9rem;
+            color: var(--black);
+            flex-shrink: 0;
+        }
+
+        .panel-body { padding: 20px; display: flex; flex-direction: column; gap: 0; }
+
+        /* ─── CONTRÔLES ─── */
+        .ctrl {
+            width: 100%;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--grey-mid);
+        }
+        .ctrl:last-child { border-bottom: none; padding-bottom: 0; }
+        .ctrl:first-child { padding-top: 0; }
+
+        .ctrl-label {
+            font-family: var(--font-title);
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            color: #999;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .ctrl-input {
+            width: 100%;
+            padding: 10px 12px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            border: 2px solid var(--grey-mid);
+            background: var(--grey-light);
+            transition: border-color 0.2s;
+            color: var(--black);
+        }
+        .ctrl-input:focus { border-color: var(--black); outline: none; background: var(--white); }
+        .ctrl-input::placeholder { color: #bbb; }
+
+        /* ─── UPLOAD ─── */
+        .ctrl-upload {
+            position: relative;
+            width: 100%;
+            border: 2px dashed var(--grey-mid);
+            background: var(--grey-light);
+            padding: 10px 12px;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .ctrl-upload:hover { border-color: var(--black); background: var(--white); }
+        .ctrl-upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+        .ctrl-upload .up-icon { font-size: 1rem; color: var(--text-grey); flex-shrink: 0; }
+        .ctrl-upload span { font-size: 0.85rem; color: var(--text-grey); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+        /* ─── COULEUR ROW ─── */
+        .color-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .color-swatch {
+            width: 26px; height: 26px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: transform 0.2s, border-color 0.2s;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+            flex-shrink: 0;
+        }
+        .color-swatch.active { border-color: var(--black); transform: scale(1.25); }
+
+        .ctrl-divider {
+            width: 1px; height: 26px;
+            background: var(--grey-mid);
+            flex-shrink: 0;
+        }
+
+        /* ─── HEX INPUT ─── */
+        .hex-wrap {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .hex-preview {
+            width: 26px; height: 26px;
+            border: 2px solid var(--grey-mid);
+            flex-shrink: 0;
+            transition: background 0.2s;
+        }
+        .hex-input {
+            width: 88px;
+            padding: 4px 7px;
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            border: 2px solid var(--grey-mid);
+            background: var(--grey-light);
+            color: var(--black);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .hex-input:focus { border-color: var(--black); background: var(--white); }
+
+        /* ─── THEME BTNS ─── */
+        .theme-icon-btn {
+            width: 26px; height: 26px;
+            border: 2px solid var(--grey-mid);
+            background: var(--white);
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .theme-icon-btn.active.light { border-color: var(--black); box-shadow: 0 0 0 2px var(--black); }
+        .theme-icon-btn.active.dark { background: var(--black); border-color: var(--black); color: var(--yellow); }
+
+        /* ─── MODULE TABS ─── */
+        .module-tabs {
+            display: flex;
+            width: 100%;
+        }
+        .module-tab {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 9px 4px;
+            background: var(--grey-light);
+            border: 2px solid var(--grey-mid);
+            border-right-width: 0;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--font-title);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--black);
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .module-tab:last-child { border-right-width: 2px; }
+        .module-tab.active { background: var(--black); color: var(--yellow); border-color: var(--black); z-index: 1; }
+        .module-tab .tab-icon { font-size: 1rem; flex-shrink: 0; }
+        @media (max-width: 480px) {
+            .module-tab .tab-text { display: none; }
+        }
+
+        /* ─── MODULE DESC ─── */
+        .module-desc {
+            background: var(--black);
+            padding: 14px 16px;
+            border-left: 4px solid var(--yellow);
+            margin-top: 8px;
+        }
+        .module-desc h4 {
+            font-family: var(--font-title);
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            letter-spacing: 2px;
+            color: var(--yellow);
+            margin-bottom: 8px;
+        }
+        .module-desc ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px 12px;
+        }
+        .module-desc ul li {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.75);
+            padding-left: 14px;
+            position: relative;
+        }
+        .module-desc ul li::before { content: '→'; position: absolute; left: 0; color: var(--yellow); }
+        @media (max-width: 480px) { .module-desc ul { grid-template-columns: 1fr; } }
+
+        /* ─── PREVIEW (colonne droite) ─── */
+        .preview-col {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            position: sticky;
+            top: 24px;
+        }
+
+        .preview-card {
+            background: var(--white);
+            border: 2px solid var(--black);
+            box-shadow: 6px 6px 0 var(--black);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .preview-label {
+            font-family: var(--font-title);
+            font-size: 0.72rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #999;
+            text-align: center;
+        }
+
+        #myCanvas {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            display: block;
+            border: 2px solid var(--black);
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: box-shadow 0.2s;
+        }
+        #myCanvas:hover { box-shadow: 6px 6px 0 var(--black); }
+
+        .canvas-hint {
+            font-size: 0.72rem;
+            color: #aaa;
+            text-align: center;
+            font-family: var(--font-body);
+        }
+
+        /* ─── BOUTONS ─── */
+        .qbutton {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            font-family: var(--font-title); text-transform: uppercase;
+            font-size: 0.9rem; letter-spacing: 1px; font-weight: 500; text-decoration: none;
+            padding: 12px 20px; transition: all 0.25s ease; text-align: center;
+            border: 2px solid transparent; cursor: pointer; width: 100%;
+        }
+        .qbutton.yellow { background-color: var(--yellow); color: var(--black); border-color: var(--yellow); }
+        .qbutton.yellow:hover { background-color: var(--black); color: var(--white); border-color: var(--black); }
+        .qbutton.dark { background-color: var(--black); color: var(--white); border-color: var(--black); }
+        .qbutton.dark:hover { background-color: var(--yellow); color: var(--black); border-color: var(--yellow); }
+
+        @keyframes pulse-anim {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(253,249,135,0.8); }
+            50% { transform: scale(1.03); box-shadow: 0 0 14px 5px rgba(253,249,135,0.4); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(253,249,135,0); }
+        }
+        .pulse { animation: pulse-anim 2s infinite; }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: var(--black);
+            border-top: 2px solid rgba(255,255,255,0.08);
+            padding: 14px 32px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        footer p { font-size: 0.78rem; color: rgba(255,255,255,0.35); margin: 0; }
+        footer a { color: var(--yellow); text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="https://assopage.fr" class="logo"><span class="asso">ASSO</span><span class="page">PAGE</span></a>
+        <span class="header-tagline">Éditeur de mockup</span>
+    </header>
+
+    <main>
+        <div class="editor-wrapper">
+
+            <!-- ── Colonne gauche : contrôles ── -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-header-icon">✏️</div>
+                    <h2>Personnalisez votre application</h2>
+                </div>
+                <div class="panel-body">
+
+                    <!-- Nom -->
+                    <div class="ctrl">
+                        <span class="ctrl-label">Nom de l'association</span>
+                        <input type="text" id="assoName" class="ctrl-input" maxlength="25" placeholder="Ex : Les Amis du Quartier">
+                    </div>
+
+                    <!-- Logo -->
+                    <div class="ctrl">
+                        <span class="ctrl-label">Logo</span>
+                        <label class="ctrl-upload">
+                            <input type="file" id="logoUpload" accept="image/png,image/jpeg,image/webp">
+                            <span class="up-icon">⬆️</span>
+                            <span id="uploadLabel">Importer votre logo (PNG, JPG…)</span>
+                        </label>
+                    </div>
+
+                    <!-- Couleur + Thème -->
+                    <div class="ctrl">
+                        <span class="ctrl-label">Couleur principale & thème</span>
+                        <div class="color-row">
+                            <div id="colorPalette" style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;"></div>
+                            <div class="ctrl-divider"></div>
+                            <div class="hex-wrap">
+                                <div class="hex-preview" id="hexPreview" style="background:#fdf987;"></div>
+                                <input type="text" class="hex-input" id="hexInput" maxlength="7" placeholder="#fdf987">
+                            </div>
+                            <div class="ctrl-divider"></div>
+                            <button class="theme-icon-btn light active" data-mode="light" title="Thème clair">☀️</button>
+                            <button class="theme-icon-btn dark" data-mode="dark" title="Thème sombre">🌙</button>
+                        </div>
+                    </div>
+
+                    <!-- Modules -->
+                    <div class="ctrl">
+                        <span class="ctrl-label">Module affiché</span>
+                        <div class="module-tabs">
+                            <button class="module-tab active" data-section="evenement">
+                                <span class="tab-icon">📅</span><span class="tab-text">&nbsp;Agenda</span>
+                            </button>
+                            <button class="module-tab" data-section="crm">
+                                <span class="tab-icon">👥</span><span class="tab-text">&nbsp;CRM</span>
+                            </button>
+                            <button class="module-tab" data-section="tresorerie">
+                                <span class="tab-icon">💶</span><span class="tab-text">&nbsp;Tréso</span>
+                            </button>
+                            <button class="module-tab" data-section="billeterie">
+                                <span class="tab-icon">🎟️</span><span class="tab-text">&nbsp;Billets</span>
+                            </button>
+                        </div>
+                        <div class="module-desc" id="moduleDesc">
+                            <h4 id="descTitle"></h4>
+                            <ul id="descList"></ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ── Colonne droite : aperçu ── -->
+            <div class="preview-col">
+                <div class="preview-card">
+                    <span class="preview-label">Aperçu de votre application</span>
+                    <canvas id="myCanvas" width="1080" height="1920" title="Cliquez pour changer de module"></canvas>
+                    <span class="canvas-hint">👆 Cliquer sur l'aperçu change le module</span>
+                    <button class="qbutton yellow pulse" onclick="shareCanvas()">
+                        <i class="fa-solid fa-share-nodes"></i> Partager le mockup
+                    </button>
+                    <a href="https://assopage.fr/#creer-mon-app" target="_blank" class="qbutton dark">
+                        <i class="fa-solid fa-rocket"></i> Tester votre application
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026 <a href="https://assopage.fr">Assopage</a> par Jérémy Colard — <a href="https://assopage.fr/#creer-mon-app">Créer mon application</a></p>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+        let currentMode = 'light';
+        let currentSection = 'evenement';
+        let currentColor = '#fdf987';
+        let logoImage = null;
+        let imagesLoaded = 0;
+        const TOTAL_IMAGES = 8;
+
+        const colorList = ['#fdf987','#1E88E5','#E53935','#FFA000','#43A047','#E8710A','#D81B60','#8E24AA'];
+
+        const imageUrls = {
+            light: {
+                crm: 'https://res.cloudinary.com/dxt4ferj4/image/upload/v1776957125/CRM_blanc_ali7f0.png',
+                tresorerie: 'https://res.cloudinary.com/dxt4ferj4/image/upload/v1776957122/tresorerie_blanc_bnjkwu.png',
+                evenement: 'https://res.cloudinary.com/dxt4ferj4/image/upload/v1776957122/evenement_blanc_uph5he.png',
+                billeterie: 'https://res.cloudinary.com/dxt4ferj4/image/upload/v1776958498/billet_dptwyk.png'
+            },
+            dark: {
+                crm: 'https://res.cloudinary.com/dxt4ferj4/image/upload/v1776957123/CRM_noir_biojmv.png',
+                tresorerie: 'https://res.cloudinary.com/dxt4ferj4/image/upload/v1776957124/Tresorerie_noir_xakac6.png',
+                evenement: 'https://res.cloudinary.com/dxt4ferj4/image/upload/v1776957123/evenement_noir_nzmonh.png',
+                billeterie: 'https://res.cloudinary.com/dxt4ferj4/image/upload/v1776958498/billet_dptwyk.png'
+            }
+        };
+
+        const appImages = { light: {}, dark: {} };
+
+        const APP_LOGO  = { x: 220, y: 75,  w: 104, h: 96  };
+        const BILL_LOGO = { x: 150, y: 288, w: 133, h: 154 };
+        const BILL_TEXT = { x: 321, y: 333, w: 614, h: 111 };
+
+        const TARGET_R = 67, TARGET_G = 160, TARGET_B = 77, TOLERANCE = 41;
+
+        const moduleTextData = {
+            evenement: {
+                title: "Module Agenda & Événements",
+                points: ["Gestion complète de vos événements","Ajout et suivi des participants","Rapports et photos pour vos réseaux","Suivi de l'émargement et des paiements"]
+            },
+            crm: {
+                title: "Module CRM",
+                points: ["Adhérents, donateurs, bénévoles","Suivi des interactions par contact","Emailing : contacter un groupe","Carte interactive de vos contacts"]
+            },
+            tresorerie: {
+                title: "Module Trésorerie",
+                points: ["Saisie guidée dépenses et recettes","Justificatif via l'appareil photo","Gérer articles et projets","Suivi et relance des cotisations"]
+            },
+            billeterie: {
+                title: "Module Billetterie",
+                points: ["Page internet événementielle","Formulaire d'inscription sur-mesure","Confirmations par email automatiques","Statistiques en temps réel"]
+            }
+        };
+
+        function hexToRgb(hex) {
+            return {
+                r: parseInt(hex.slice(1,3), 16),
+                g: parseInt(hex.slice(3,5), 16),
+                b: parseInt(hex.slice(5,7), 16)
+            };
+        }
+
+        function isValidHex(h) {
+            return /^#[0-9A-Fa-f]{6}$/.test(h);
+        }
+
+        function updateDescription() {
+            const data = moduleTextData[currentSection];
+            document.getElementById('descTitle').textContent = data.title;
+            document.getElementById('descList').innerHTML = data.points.map(p => `<li>${p}</li>`).join('');
+        }
+
+        function renderCanvas() {
+            const baseImg = appImages[currentMode][currentSection];
+            if (!baseImg || !baseImg.complete || !baseImg.naturalWidth) return;
+
+            ctx.drawImage(baseImg, 0, 0);
+
+            if (currentSection !== 'billeterie') {
+                const rgb = hexToRgb(currentColor);
+                const idata = ctx.getImageData(0, 0, 1080, 1920);
+                const d = idata.data;
+                for (let i = 0; i < d.length; i += 4) {
+                    const dist = Math.sqrt(
+                        Math.pow(d[i]-TARGET_R,2) +
+                        Math.pow(d[i+1]-TARGET_G,2) +
+                        Math.pow(d[i+2]-TARGET_B,2)
+                    );
+                    if (dist <= TOLERANCE) { d[i]=rgb.r; d[i+1]=rgb.g; d[i+2]=rgb.b; }
+                }
+                ctx.putImageData(idata, 0, 0);
+            }
+
+            const txt = document.getElementById('assoName').value.trim();
+
+            if (currentSection === 'billeterie') {
+                if (logoImage) ctx.drawImage(logoImage, BILL_LOGO.x, BILL_LOGO.y, BILL_LOGO.w, BILL_LOGO.h);
+                if (txt) {
+                    ctx.fillStyle = "#0a0a0a";
+                    ctx.font = "400 70px 'Oswald', sans-serif";
+                    ctx.letterSpacing = "2px";
+                    ctx.textBaseline = "middle";
+                    ctx.textAlign = "left";
+                    ctx.fillText(txt.toUpperCase(), BILL_TEXT.x, BILL_TEXT.y + (BILL_TEXT.h / 2));
+                    ctx.letterSpacing = "0px";
+                }
+            } else {
+                if (logoImage) ctx.drawImage(logoImage, APP_LOGO.x, APP_LOGO.y, APP_LOGO.w, APP_LOGO.h);
+                if (txt) {
+                    ctx.fillStyle = (currentMode === 'light') ? "#ffffff" : "#000000";
+                    ctx.font = "400 45px 'Rubik', sans-serif";
+                    ctx.textBaseline = "middle";
+                    ctx.textAlign = "left";
+                    ctx.fillText(txt, APP_LOGO.x + APP_LOGO.w + 20, APP_LOGO.y + (APP_LOGO.h / 2));
+                }
+            }
+        }
+
+        async function shareCanvas() {
+            const nomAsso = document.getElementById('assoName').value.trim();
+            const titre = nomAsso ? `L'appli de ${nomAsso} sur Assopage` : 'Mon appli association sur Assopage';
+            canvas.toBlob(async (blob) => {
+                const file = new File([blob], 'mockup-assopage.png', { type: 'image/png' });
+                const shareData = {
+                    title: titre,
+                    text: `Découvrez l'application de gestion associative personnalisée avec Assopage. Dès 50€/an.`,
+                    url: 'https://assopage.fr',
+                    files: [file]
+                };
+                try {
+                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                        await navigator.share(shareData);
+                    } else if (navigator.share) {
+                        await navigator.share({ title: shareData.title, text: shareData.text, url: shareData.url });
+                    } else {
+                        const link = document.createElement('a');
+                        link.download = 'mockup-assopage.png';
+                        link.href = canvas.toDataURL('image/png');
+                        link.click();
+                    }
+                } catch(err) {
+                    if (err.name !== 'AbortError') console.error('Partage échoué :', err);
+                }
+            }, 'image/png');
+        }
+
+        function applyColor(hex, fromSwatch = false) {
+            currentColor = hex;
+            document.getElementById('hexPreview').style.background = hex;
+            if (!fromSwatch) document.getElementById('hexInput').value = hex;
+            renderCanvas();
+        }
+
+        function init() {
+            for (let m in imageUrls) {
+                for (let s in imageUrls[m]) {
+                    const img = new Image();
+                    img.crossOrigin = "Anonymous";
+                    img.src = imageUrls[m][s];
+                    img.onload = () => { imagesLoaded++; if (imagesLoaded >= TOTAL_IMAGES) renderCanvas(); };
+                    appImages[m][s] = img;
+                }
+            }
+
+            // Swatches
+            const palette = document.getElementById('colorPalette');
+            colorList.forEach(color => {
+                const swatch = document.createElement('div');
+                swatch.className = 'color-swatch' + (color === currentColor ? ' active' : '');
+                swatch.style.backgroundColor = color;
+                if (color === '#fdf987') swatch.style.border = '3px solid #ccc';
+                swatch.onclick = () => {
+                    document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+                    swatch.classList.add('active');
+                    document.getElementById('hexInput').value = color;
+                    applyColor(color, true);
+                };
+                palette.appendChild(swatch);
+            });
+
+            // Hex input
+            const hexInput = document.getElementById('hexInput');
+            hexInput.value = currentColor;
+
+            hexInput.addEventListener('input', () => {
+                let val = hexInput.value.trim();
+                if (!val.startsWith('#')) val = '#' + val;
+                document.getElementById('hexPreview').style.background = isValidHex(val) ? val : '#ddd';
+                if (isValidHex(val)) {
+                    document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+                    applyColor(val, true);
+                }
+            });
+
+            hexInput.addEventListener('blur', () => {
+                let val = hexInput.value.trim();
+                if (!val.startsWith('#')) val = '#' + val;
+                if (!isValidHex(val)) {
+                    hexInput.value = currentColor;
+                    document.getElementById('hexPreview').style.background = currentColor;
+                }
+            });
+
+            // Thème
+            document.querySelectorAll('.theme-icon-btn').forEach(btn => {
+                btn.onclick = () => {
+                    document.querySelectorAll('.theme-icon-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentMode = btn.dataset.mode;
+                    renderCanvas();
+                };
+            });
+
+            // Modules tabs
+            const sectionOrder = ['evenement', 'crm', 'tresorerie', 'billeterie'];
+            document.querySelectorAll('.module-tab').forEach(btn => {
+                btn.onclick = () => {
+                    document.querySelectorAll('.module-tab').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentSection = btn.dataset.section;
+                    renderCanvas();
+                    updateDescription();
+                };
+            });
+
+            // Click canvas = module suivant
+            canvas.onclick = () => {
+                const idx = sectionOrder.indexOf(currentSection);
+                currentSection = sectionOrder[(idx + 1) % sectionOrder.length];
+                document.querySelectorAll('.module-tab').forEach(b => {
+                    b.classList.toggle('active', b.dataset.section === currentSection);
+                });
+                renderCanvas();
+                updateDescription();
+            };
+
+            // Logo upload
+            document.getElementById('logoUpload').onchange = (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                document.getElementById('uploadLabel').textContent = file.name;
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    logoImage = new Image();
+                    logoImage.onload = renderCanvas;
+                    logoImage.src = ev.target.result;
+                };
+                reader.readAsDataURL(file);
+            };
+
+            // Nom input
+            document.getElementById('assoName').oninput = renderCanvas;
+
+            updateDescription();
+        }
+
+        document.fonts.ready.then(init);
+    </script>
+</body>
+</html>
