@@ -5,17 +5,6 @@
     "logo_url": "https://drive.google.com/thumbnail?id=12buyPN7MUJUL3Pgs4FtgL0xH0uqMuxem&sz=w500",
     "evenements": [
       {
-        "id": "0c64f464",
-        "titre": "Piscine",
-        "description": "Natation",
-        "date": "11/05/2026",
-        "heure_debut": "14:00",
-        "heure_fin": "15:00",
-        "adresse": "Piscine Plein Ciel Avenue Marcel Pagnol – Jas de Bouffan En bus : Aixpress A Arrêt Saint John Perse",
-        "prix": "",
-        "image_url": "https://drive.google.com/thumbnail?id=1QF36s-0L-x7fj5MEETsdfKdchA6Meknq&sz=w1000"
-      },
-      {
         "id": "189adee7",
         "titre": "Tandem",
         "description": "",
@@ -201,17 +190,6 @@
         "adresse": "29 Rue Pavillon, 13100 Aix-en-Provence, France",
         "prix": "",
         "image_url": "https://drive.google.com/thumbnail?id=1SmlIH2bobgsV8dXiL913-9RZOxQIed3-&sz=w1000"
-      },
-      {
-        "id": "b717e2a1",
-        "titre": "Cours espagnol",
-        "description": "",
-        "date": "11/05/2026",
-        "heure_debut": "14:30",
-        "heure_fin": "15:30",
-        "adresse": "Mairie Annexe Pont de l’Arc 75 route des Milles, place Sextius Conca – Aix en Provence",
-        "prix": "",
-        "image_url": "https://drive.google.com/thumbnail?id=1ct0yTyylijbbKCRnX-CUEya31I5AGwP-&sz=w1000"
       },
       {
         "id": "bc23b200",
