@@ -60,17 +60,6 @@
         "image_url": "https://drive.google.com/thumbnail?id=11GeiYgRLtcq2rL_jLvubMOORmoCk4ivo&sz=w1000"
       },
       {
-        "id": "5e6aa12b",
-        "titre": "Atelier jeux",
-        "description": "Natation",
-        "date": "18/05/2026",
-        "heure_debut": "14:00",
-        "heure_fin": "15:00",
-        "adresse": "Piscine Plein Ciel Avenue Marcel Pagnol – Jas de Bouffan En bus : Aixpress A Arrêt Saint John Perse",
-        "prix": "",
-        "image_url": "https://drive.google.com/thumbnail?id=1n55bdkgRfErxDQwzIkLbzcLCx0PuH14g&sz=w1000"
-      },
-      {
         "id": "6a44b9c9",
         "titre": "Café blabla",
         "description": "",
@@ -135,17 +124,6 @@
         "adresse": "Mairie Annexe Pont de l’Arc 75 route des Milles, place Sextius Conca – Aix en Provence",
         "prix": "",
         "image_url": "https://drive.google.com/thumbnail?id=1n55bdkgRfErxDQwzIkLbzcLCx0PuH14g&sz=w1000"
-      },
-      {
-        "id": "960bde8c",
-        "titre": "Cours espagnol",
-        "description": "",
-        "date": "18/05/2026",
-        "heure_debut": "14:30",
-        "heure_fin": "15:30",
-        "adresse": "Mairie Annexe Pont de l’Arc 75 route des Milles, place Sextius Conca – Aix en Provence",
-        "prix": "",
-        "image_url": "https://drive.google.com/thumbnail?id=1ct0yTyylijbbKCRnX-CUEya31I5AGwP-&sz=w1000"
       },
       {
         "id": "984118b0",
