@@ -137,17 +137,6 @@
         "image_url": "https://drive.google.com/thumbnail?id=1SmlIH2bobgsV8dXiL913-9RZOxQIed3-&sz=w1000"
       },
       {
-        "id": "bd687e72",
-        "titre": "Permanence aide au quotidien",
-        "description": "Permanence qui vous aide pour vos démarches administratives ou autre sujet, afin de regagner de l’autonomie dans votre vie",
-        "date": "21/05/2026",
-        "heure_debut": "14:00",
-        "heure_fin": "16:00",
-        "adresse": "",
-        "prix": "",
-        "image_url": "https://drive.google.com/thumbnail?id=1x2JMg0Rn0hU4aLyLsVOuNpxJ3AY38tHN&sz=w1000"
-      },
-      {
         "id": "c7aa85fd",
         "titre": "Atelier peinture",
         "description": "",
@@ -201,17 +190,6 @@
         "adresse": "Théâtre Ainsi de Suite",
         "prix": 10,
         "image_url": "https://drive.google.com/thumbnail?id=1_TaMNI5-4CBEihOggHwqaMxnzlLbM9U-&sz=w1000"
-      },
-      {
-        "id": "fc8bf101",
-        "titre": "Jardinage",
-        "description": "",
-        "date": "21/05/2026",
-        "heure_debut": "14:00",
-        "heure_fin": "16:00",
-        "adresse": "",
-        "prix": "",
-        "image_url": "https://drive.google.com/thumbnail?id=1_UoKjlIB_ZMye5684Nh8gugMM1U27mfX&sz=w1000"
       }
     ]
   },
